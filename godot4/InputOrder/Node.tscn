@@ -27,6 +27,9 @@ render_target_update_mode = 4
 script = ExtResource("1")
 _handleKeys = 1
 
+[node name="ReferenceRect" type="ReferenceRect" parent="SubViewportContainer"]
+layout_mode = 2
+
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = 246.0
 offset_top = 144.0

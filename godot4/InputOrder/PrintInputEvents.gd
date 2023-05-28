@@ -47,11 +47,13 @@ func _unhandled_input(event):
 func _gui_input(event):
 	if event is InputEventKey and _detectKeys:
 		var doHandle = _handleKeys == Handling.gui
-		doHandle && call("accept_event")
+		if doHandle:
+			call("accept_event")
 		printEvent( event, '_gui_input', doHandle )
 	elif event is InputEventMouseButton and _detectMouseClick:
 		var doHandle = _handleMouseClick == Handling.gui
-		doHandle && call("accept_event")
+		if doHandle:
+			call("accept_event")
 		printEvent( event, '_gui_input', doHandle )
 
 
@@ -63,12 +65,12 @@ func printEvent( event : InputEvent, function : String, handled : bool ):
 		% [get_path(), function, "[HANDLED]" if handled else "", event.as_text()] )
 
 
-func _setDetectInput( set ):
-	_detectInput = set
-	set_process_input( set )
+func _setDetectInput( state ):
+	_detectInput = state
+	set_process_input( state )
 
 
-func _setDetectUnhandledInput( set ):
-	_detectUnhandledInput = set
-	set_process_unhandled_input( set )
-	set_process_unhandled_key_input( set )
+func _setDetectUnhandledInput( state ):
+	_detectUnhandledInput = state
+	set_process_unhandled_input( state )
+	set_process_unhandled_key_input( state )
