@@ -1,0 +1,124 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Obstacle2D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Player2D.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Level2D.gd" type="Script" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=4]
+[ext_resource path="res://MovingObstacle2D.gd" type="Script" id=5]
+[ext_resource path="res://NPC.tscn" type="PackedScene" id=6]
+
+[sub_resource type="NavigationPolygon" id=1]
+vertices = PoolVector2Array( 431, -103, 439, 41, 231, 35, -72, -103, -72, 348, 234, 118, 439, 345, 439, 125 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 3, 2, 5 ), PoolIntArray( 6, 4, 5, 7 ) ]
+outlines = [ PoolVector2Array( 431, -103, 439, 41, 231, 35, 234, 118, 439, 125, 439, 345, -72, 348, -72, -103 ) ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+[node name="Level" type="Node"]
+script = ExtResource( 3 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+position = Vector2( 121, 111 )
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+position = Vector2( -6, -8 )
+navpoly = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Player" parent="Navigation2D" instance=ExtResource( 2 )]
+position = Vector2( 148, 78 )
+
+[node name="Obstacle" parent="Navigation2D" instance=ExtResource( 1 )]
+position = Vector2( 52, 90 )
+script = ExtResource( 5 )
+
+[node name="Obstacle2" parent="Navigation2D" instance=ExtResource( 1 )]
+position = Vector2( 117, 218 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Navigation2D"]
+modulate = Color( 0.945098, 0.360784, 0.360784, 1 )
+position = Vector2( 114, -31 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/StaticBody2D"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="Navigation2D/StaticBody2D"]
+modulate = Color( 0.815686, 0.54902, 0.54902, 1 )
+position = Vector2( 0, -1.90735e-06 )
+scale = Vector2( 0.453125, 0.46875 )
+texture = ExtResource( 4 )
+
+[node name="Node2D" parent="Navigation2D" instance=ExtResource( 6 )]
+position = Vector2( 279, 214 )
+
+[node name="LabelPath" type="Label" parent="."]
+margin_left = 593.0
+margin_top = 34.0
+margin_right = 868.0
+margin_bottom = 92.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ReferenceRect" type="ReferenceRect" parent="LabelPath"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="LabelFinished" type="Label" parent="."]
+margin_left = 594.0
+margin_top = 211.0
+margin_right = 791.0
+margin_bottom = 228.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ReferenceRect" type="ReferenceRect" parent="LabelFinished"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="LabelNextTarget" type="Label" parent="."]
+margin_left = 595.0
+margin_top = 130.0
+margin_right = 773.0
+margin_bottom = 147.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ReferenceRect" type="ReferenceRect" parent="LabelNextTarget"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="LabelTargetLoc" type="Label" parent="."]
+margin_left = 597.0
+margin_top = 155.0
+margin_right = 775.0
+margin_bottom = 172.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ReferenceRect" type="ReferenceRect" parent="LabelTargetLoc"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="LabelFinalLoc" type="Label" parent="."]
+margin_left = 598.0
+margin_top = 182.0
+margin_right = 776.0
+margin_bottom = 199.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ReferenceRect" type="ReferenceRect" parent="LabelFinalLoc"]
+anchor_right = 1.0
+anchor_bottom = 1.0

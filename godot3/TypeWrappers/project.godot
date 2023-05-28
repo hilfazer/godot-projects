@@ -1,0 +1,38 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "MapWrapper",
+"language": "GDScript",
+"path": "res://MapWrapper.gd"
+}, {
+"base": "Reference",
+"class": "SetWrapper",
+"language": "GDScript",
+"path": "res://SetWrapper.gd"
+} ]
+_global_script_class_icons={
+"MapWrapper": "",
+"SetWrapper": ""
+}
+
+[application]
+
+config/name="TypeWrappers"
+run/main_scene="res://tests/Gut.tscn"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/gut/plugin.cfg" )
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

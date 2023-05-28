@@ -1,0 +1,177 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://MemoryConsumption.gd" type="Script" id=1]
+[ext_resource path="res://TypeLine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://MemoryUsage.gd" type="Script" id=3]
+[ext_resource path="res://PoolIntLine.gd" type="Script" id=4]
+[ext_resource path="res://ObjectLine.gd" type="Script" id=5]
+[ext_resource path="res://IntegerLine.gd" type="Script" id=6]
+[ext_resource path="res://ReferenceLine.gd" type="Script" id=7]
+[ext_resource path="res://ResourceLine.gd" type="Script" id=8]
+[ext_resource path="res://NodeLine.gd" type="Script" id=9]
+[ext_resource path="res://ArrayLine.gd" type="Script" id=10]
+[ext_resource path="res://DictionaryLine.gd" type="Script" id=11]
+[ext_resource path="res://FloatsInDictLine.gd" type="Script" id=12]
+[ext_resource path="res://FloatsInArrayLine.gd" type="Script" id=13]
+
+[node name="MemoryConsumption" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ObjectAmount" type="HBoxContainer" parent="."]
+margin_right = 900.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="ObjectAmount"]
+margin_top = 5.0
+margin_right = 176.0
+margin_bottom = 19.0
+text = "Amount of objets to create:"
+
+[node name="Amount" type="SpinBox" parent="ObjectAmount"]
+margin_left = 180.0
+margin_right = 280.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 100, 0 )
+min_value = 1000.0
+max_value = 1e+08
+step = 1000.0
+value = 100000.0
+rounded = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lines" type="VBoxContainer" parent="."]
+margin_top = 28.0
+margin_right = 900.0
+margin_bottom = 304.0
+
+[node name="Integer" parent="Lines" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 900.0
+margin_bottom = 24.0
+script = ExtResource( 6 )
+
+[node name="Pool Int" parent="Lines" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 28.0
+margin_right = 900.0
+margin_bottom = 52.0
+script = ExtResource( 4 )
+
+[node name="Object" parent="Lines" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 56.0
+margin_right = 900.0
+margin_bottom = 80.0
+script = ExtResource( 5 )
+
+[node name="Rerefence" parent="Lines" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 84.0
+margin_right = 900.0
+margin_bottom = 108.0
+script = ExtResource( 7 )
+
+[node name="Resource" parent="Lines" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 112.0
+margin_right = 900.0
+margin_bottom = 136.0
+script = ExtResource( 8 )
+
+[node name="Node" parent="Lines" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 140.0
+margin_right = 900.0
+margin_bottom = 164.0
+script = ExtResource( 9 )
+
+[node name="Array" parent="Lines" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 168.0
+margin_right = 900.0
+margin_bottom = 192.0
+script = ExtResource( 10 )
+
+[node name="Dictionary" parent="Lines" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 196.0
+margin_right = 900.0
+margin_bottom = 220.0
+script = ExtResource( 11 )
+
+[node name="Floats In Array" parent="Lines" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 224.0
+margin_right = 900.0
+margin_bottom = 248.0
+script = ExtResource( 13 )
+
+[node name="Floats In Dict" parent="Lines" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 252.0
+margin_right = 900.0
+margin_bottom = 276.0
+script = ExtResource( 12 )
+
+[node name="MemoryUsage" type="HBoxContainer" parent="."]
+margin_top = 308.0
+margin_right = 900.0
+margin_bottom = 332.0
+script = ExtResource( 3 )
+
+[node name="LabelStatic" type="Label" parent="MemoryUsage"]
+margin_top = 5.0
+margin_right = 222.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Static Memory:"
+align = 2
+
+[node name="LineStatic" type="LineEdit" parent="MemoryUsage"]
+margin_left = 226.0
+margin_right = 448.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+editable = false
+
+[node name="LabelDynamic" type="Label" parent="MemoryUsage"]
+margin_left = 452.0
+margin_top = 5.0
+margin_right = 674.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+text = "Dynamic Memory:"
+align = 2
+
+[node name="LineDynamic" type="LineEdit" parent="MemoryUsage"]
+margin_left = 678.0
+margin_right = 900.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+editable = false
+
+[node name="FooterLabel" type="Label" parent="."]
+margin_top = 336.0
+margin_right = 900.0
+margin_bottom = 384.0
+text = "Last column is bytes/variable.
+
+All Object classes are derived from their respective classes with no variables or functions added."

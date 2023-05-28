@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://PrintInputEvents.gd" type="Script" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+var onTop = OS.set_window_always_on_top(true)
+"
+
+[node name="Node" type="Node"]
+script = SubResource( 1 )
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+margin_left = 152.158
+margin_top = 98.0
+margin_right = 450.158
+margin_bottom = 246.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+handle_input_locally = false
+render_target_update_mode = 3
+script = ExtResource( 1 )
+_handleKeys = 1
+
+[node name="ReferenceRect" type="ReferenceRect" parent="ViewportContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+editor_only = false
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Control"]
+margin_left = 2.0
+margin_top = 106.0
+margin_right = 234.0
+margin_bottom = 243.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+_handleMouseClick = 2
+
+[node name="HowTo" type="Label" parent="."]
+margin_left = 13.4211
+margin_top = 3.78949
+margin_right = 577.421
+margin_bottom = 102.789
+text = "Run this project from Godot Editor
+
+Read console output to see what events are processed in what order
+
+Nodes have exported settings so you can change them in the inspector (also at runtime)
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
