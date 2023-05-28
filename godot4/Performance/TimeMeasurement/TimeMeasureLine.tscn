@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://b6fyn468j07ls"]
+
+[node name="Base" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -723.0
+offset_bottom = -577.0
+
+[node name="Run" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Base"
+
+[node name="TimeTaken" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+
+[node name="ReferenceRect" type="ReferenceRect" parent="TimeTaken"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+border_color = Color(0.580392, 0.580392, 0.580392, 1)
+editor_only = false
+
+[connection signal="pressed" from="Run" to="." method="run" flags=3]
