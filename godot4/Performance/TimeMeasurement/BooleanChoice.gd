@@ -18,7 +18,7 @@ class ArrayHack extends MeasureBase:
 
 	func _execute():
 		for b in booleans:
-# warning-ignore:unused_variable
+			@warning_ignore("unused_variable")
 			var x = ["true", "false"][int(b)]
 
 
@@ -36,7 +36,7 @@ class IfElseTernary extends MeasureBase:
 
 	func _execute():
 		for b in booleans:
-# warning-ignore:unused_variable
+			@warning_ignore("unused_variable")
 			var x = "true" if b else "false"
 
 

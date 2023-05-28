@@ -12,6 +12,7 @@ func measureTime() -> int:
 
 
 func _execute():
+	@warning_ignore("assert_always_false")
 	assert(false)
 
 

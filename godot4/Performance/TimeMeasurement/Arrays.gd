@@ -16,8 +16,8 @@ class BaseWith2DArray extends MeasureBase:
 		super.setLoopCount(count)
 
 		var inner = []
-		inner.resize(sqrt(loopCount))
-		array.resize(sqrt(loopCount))
+		inner.resize(int(sqrt(loopCount)))
+		array.resize(int(sqrt(loopCount)))
 
 		for i in array.size():
 			array[i] = inner.duplicate()
@@ -62,7 +62,7 @@ class ArrayWithEnumKeys extends MeasureBase:
 
 	func _execute():
 		for key in keysToCheck:
-# warning-ignore:standalone_expression
+			@warning_ignore("standalone_expression")
 			array[key]
 
 
@@ -86,5 +86,5 @@ class DictionaryWithStringKeys extends MeasureBase:
 
 	func _execute():
 		for key in keysToCheck:
-# warning-ignore:standalone_expression
+			@warning_ignore("standalone_expression")
 			dict[key]

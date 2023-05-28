@@ -11,7 +11,7 @@ func _ready():
 
 class Branchless1 extends MeasureBase:
 	func _execute():
-# warning-ignore:unused_variable
+		@warning_ignore("unused_variable")
 		var x = 0
 		for i in loopCount:
 			x += int(i % 4)
@@ -19,7 +19,7 @@ class Branchless1 extends MeasureBase:
 
 class Branchful1 extends MeasureBase:
 	func _execute():
-# warning-ignore:unused_variable
+		@warning_ignore("unused_variable")
 		var x = 0
 		for i in loopCount:
 			if i % 4:

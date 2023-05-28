@@ -31,7 +31,7 @@ func addMeasure(measureNode : MeasureBase, nodeName : String) -> void:
 	return
 
 
-# warning-ignore:shadowed_variable
+@warning_ignore("shadowed_variable")
 static func run(measureNode : MeasureBase, lineScene, repeat : int):
 	measureNode.setup()
 
