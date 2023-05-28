@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm7p5elqlfbp7"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_i6vgs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c8j11"]
+size = Vector2(60, 60)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_i6vgs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_c8j11")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+radius = 30.0
