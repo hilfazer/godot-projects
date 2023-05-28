@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://ikisomg7koue"]
+
+[ext_resource type="Script" path="res://PrintInputEvents.gd" id="1"]
+
+[sub_resource type="GDScript" id="1"]
+script/source = "extends Node
+
+func _enter_tree():
+	get_window().always_on_top = true
+"
+
+[node name="Node" type="Node"]
+script = SubResource("1")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("1")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_left = 243.0
+offset_top = 143.0
+offset_right = 755.0
+offset_bottom = 655.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+render_target_update_mode = 4
+script = ExtResource("1")
+_handleKeys = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 246.0
+offset_top = 144.0
+offset_right = 704.0
+offset_bottom = 415.0
+color = Color(0.513726, 0.513726, 0.513726, 1)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1")
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 152.0
+offset_right = 304.0
+offset_bottom = 289.0
+script = ExtResource("1")
+_handleMouseClick = 2
+
+[node name="HowTo" type="Label" parent="."]
+offset_left = 13.0
+offset_top = 4.0
+offset_right = 692.0
+offset_bottom = 134.0
+text = "Run this project from Godot Editor
+
+Read console output to see what events are processed in what order
+
+Nodes have exported settings so you can change them in the inspector (also at runtime)
+"
