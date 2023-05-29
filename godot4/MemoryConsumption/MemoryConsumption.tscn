@@ -1,0 +1,102 @@
+[gd_scene load_steps=14 format=3 uid="uid://vjiefigc4slo"]
+
+[ext_resource type="Script" path="res://MemoryConsumption.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://b2x7dqcgn3enj" path="res://TypeLine.tscn" id="2"]
+[ext_resource type="Script" path="res://MemoryUsage.gd" id="3"]
+[ext_resource type="Script" path="res://PoolIntLine.gd" id="4"]
+[ext_resource type="Script" path="res://ObjectLine.gd" id="5"]
+[ext_resource type="Script" path="res://IntegerLine.gd" id="6"]
+[ext_resource type="Script" path="res://ReferenceLine.gd" id="7"]
+[ext_resource type="Script" path="res://ResourceLine.gd" id="8"]
+[ext_resource type="Script" path="res://NodeLine.gd" id="9"]
+[ext_resource type="Script" path="res://ArrayLine.gd" id="10"]
+[ext_resource type="Script" path="res://DictionaryLine.gd" id="11"]
+[ext_resource type="Script" path="res://FloatsInDictLine.gd" id="12"]
+[ext_resource type="Script" path="res://FloatsInArrayLine.gd" id="13"]
+
+[node name="MemoryConsumption" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="ObjectAmount" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ObjectAmount"]
+layout_mode = 2
+text = "Amount of objets to create:"
+
+[node name="Amount" type="SpinBox" parent="ObjectAmount"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+min_value = 1000.0
+max_value = 1e+08
+step = 1000.0
+value = 100000.0
+rounded = true
+
+[node name="Lines" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Integer" parent="Lines" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("6")
+
+[node name="Pool Int" parent="Lines" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("4")
+
+[node name="Object" parent="Lines" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("5")
+
+[node name="Rerefence" parent="Lines" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("7")
+
+[node name="Resource" parent="Lines" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("8")
+
+[node name="Node" parent="Lines" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("9")
+
+[node name="Array" parent="Lines" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("10")
+
+[node name="Dictionary" parent="Lines" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("11")
+
+[node name="Floats In Array" parent="Lines" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("13")
+
+[node name="Floats In Dict" parent="Lines" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("12")
+
+[node name="MemoryUsage" type="HBoxContainer" parent="."]
+layout_mode = 2
+script = ExtResource("3")
+
+[node name="LabelStatic" type="Label" parent="MemoryUsage"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Static Memory:"
+
+[node name="LineStatic" type="LineEdit" parent="MemoryUsage"]
+layout_mode = 2
+size_flags_horizontal = 3
+editable = false
+
+[node name="FooterLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Last column is bytes/variable.
+
+All Object classes are derived from their respective classes with no variables or functions added."

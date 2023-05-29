@@ -1,0 +1,31 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="MemoryConsumption"
+run/main_scene="res://MemoryConsumption.tscn"
+config/features=PackedStringArray("4.0")
+config/icon="res://icon.png"
+
+[debug]
+
+gdscript/warnings/unsafe_call_argument=true
+gdscript/warnings/unused_class_variable=true
+
+[display]
+
+window/size/viewport_width=900
+window/size/viewport_height=500
+window/size/always_on_top=true
+
+[rendering]
+
+environment/defaults/default_environment="res://default_env.tres"
