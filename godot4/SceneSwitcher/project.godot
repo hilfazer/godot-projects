@@ -1,0 +1,33 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="SceneSwitcher"
+run/main_scene="res://examples/Scene1.tscn"
+config/features=PackedStringArray("4.0")
+config/icon="res://icon.png"
+
+[autoload]
+
+SceneSwitcher="*res://examples/SceneSwitcherWithTransition.tscn"
+Printer="*res://examples/Printer.tscn"
+
+[editor]
+
+exclude_addons_quick_open=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")
+
+[rendering]
+
+environment/defaults/default_environment="res://default_env.tres"

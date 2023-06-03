@@ -1,0 +1,116 @@
+[gd_scene load_steps=3 format=3 uid="uid://7pali86cbuuh"]
+
+[ext_resource type="Script" path="res://examples/Scene.gd" id="1"]
+[ext_resource type="Script" path="res://examples/SwitchingIssues.gd" id="2"]
+
+[node name="Scene1" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 398.0
+offset_top = 158.0
+offset_right = 398.0
+offset_bottom = 158.0
+script = ExtResource("1")
+nextScene = "res://examples/Scene2.tscn"
+defaultParamText = "..."
+interactive_scene = "res://examples/MultipleResources.tscn"
+
+[node name="VBoxButtons" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = -254.0
+offset_top = -28.0
+offset_right = 42.0
+offset_bottom = 112.0
+
+[node name="Switch" type="Button" parent="VBoxButtons"]
+layout_mode = 2
+text = "Switch"
+
+[node name="SwitchInteractive" type="Button" parent="VBoxButtons"]
+layout_mode = 2
+text = "SwitchInteractive"
+
+[node name="SwitchTo" type="Button" parent="VBoxButtons"]
+layout_mode = 2
+text = "SwitchTo"
+
+[node name="SwitchToInstance" type="Button" parent="VBoxButtons"]
+layout_mode = 2
+text = "SwitchToInstance"
+
+[node name="Reload" type="Button" parent="VBoxButtons"]
+layout_mode = 2
+text = "reload_current_scene"
+
+[node name="ClearScene" type="Button" parent="VBoxButtons"]
+layout_mode = 2
+text = "clear_scene"
+
+[node name="VBoxIssues" type="VBoxContainer" parent="."]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 30.5013
+offset_top = 257.572
+offset_right = 158.501
+offset_bottom = 349.572
+script = ExtResource("2")
+
+[node name="InvalidScenePath" type="Button" parent="VBoxIssues"]
+layout_mode = 2
+text = "InvalidScenePath"
+
+[node name="WrongMetaType" type="Button" parent="VBoxIssues"]
+layout_mode = 2
+text = "WrongMetaType"
+
+[node name="NullSceneSource" type="Button" parent="VBoxIssues"]
+layout_mode = 2
+text = "NullSceneSource"
+
+[node name="NodeIsNotAScene" type="Button" parent="VBoxIssues"]
+layout_mode = 2
+text = "NodeIsNotAScene"
+
+[node name="VBoxParam" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 312.0
+offset_top = -16.0
+offset_right = 576.0
+offset_bottom = 118.0
+
+[node name="LabelInput" type="Label" parent="VBoxParam"]
+layout_mode = 2
+text = "scene param:"
+
+[node name="LineEditInput" type="LineEdit" parent="VBoxParam"]
+layout_mode = 2
+
+[node name="LabelReceived" type="Label" parent="VBoxParam"]
+layout_mode = 2
+text = "received param"
+
+[node name="LineEditReceived" type="LineEdit" parent="VBoxParam"]
+layout_mode = 2
+editable = false
+
+[node name="LabelReceivedMeta" type="Label" parent="VBoxParam"]
+layout_mode = 2
+text = "param received via meta"
+
+[node name="LineEditReceivedMeta" type="LineEdit" parent="VBoxParam"]
+layout_mode = 2
+editable = false
+
+[connection signal="pressed" from="VBoxButtons/Switch" to="." method="switchPath"]
+[connection signal="pressed" from="VBoxButtons/SwitchInteractive" to="." method="switch_interactive"]
+[connection signal="pressed" from="VBoxButtons/SwitchTo" to="." method="switchPackedScene"]
+[connection signal="pressed" from="VBoxButtons/SwitchToInstance" to="." method="switchInstancedScene"]
+[connection signal="pressed" from="VBoxButtons/Reload" to="." method="reloadScene"]
+[connection signal="pressed" from="VBoxButtons/ClearScene" to="." method="clear_scene"]
+[connection signal="pressed" from="VBoxIssues/InvalidScenePath" to="VBoxIssues" method="_on_InvalidScenePath_pressed"]
+[connection signal="pressed" from="VBoxIssues/WrongMetaType" to="VBoxIssues" method="_on_WrongMetaType_pressed"]
+[connection signal="pressed" from="VBoxIssues/NullSceneSource" to="VBoxIssues" method="_on_NullSceneSource_pressed"]
+[connection signal="pressed" from="VBoxIssues/NodeIsNotAScene" to="VBoxIssues" method="_on_NodeIsNotAScene_pressed"]
