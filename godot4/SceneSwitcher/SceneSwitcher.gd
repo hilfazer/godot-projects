@@ -122,7 +122,7 @@ func reload_current_scene() -> int:
 	if not _state == State.READY:
 		return ERR_BUSY
 
-	var scene_filename = get_tree().current_scene.filename
+	var scene_filename = get_tree().current_scene.scene_file_path
 	if scene_filename.is_empty():
 		return ERR_CANT_CREATE
 
@@ -185,7 +185,7 @@ func _deferred_switch_scene( scene_source, node_extraction_func: String, params,
 	assert(_scene_loader == null)
 
 	if scene_source is Node:
-		assert(not scene_source.filename.is_empty()) #,MSG_NODE_NOT_A_SCENE % [scene_source.name])
+		assert(not scene_source.scene_file_path.is_empty()) #,MSG_NODE_NOT_A_SCENE % [scene_source.name])
 
 	var new_scene: Node = call( node_extraction_func, scene_source )
 	if not is_instance_valid(new_scene):
@@ -329,7 +329,7 @@ class SceneLoader extends RefCounted:
 
 
 	func is_busy() -> bool:
-		return _loader_thread and _loader_thread.is_active()
+		return _loader_thread and _loader_thread.is_started()
 
 
 	func has_valid_data() -> bool:
@@ -346,7 +346,7 @@ class SceneLoader extends RefCounted:
 
 
 	func set_source_node(node: Node):
-		assert(node.filename != "") #,MSG_NODE_NOT_A_SCENE % [node.name])
+		assert(node.scene_file_path != "") #,MSG_NODE_NOT_A_SCENE % [node.name])
 		assert(_scene__ == null and _packed_scene == null)
 		_scene__ = node
 
@@ -364,30 +364,29 @@ class SceneLoader extends RefCounted:
 	func _packed_scene_from_path_interactive( path: String ) -> void:
 		var error : Error = ResourceLoader.load_threaded_request( path )
 		assert(error == OK)
-		var total = ril.get_stage_count()
-
+		
+		var progress := []
+		
 		var res: PackedScene = null
 
 		while true: #iterate until we have a resource
 			# Update progress bar, use call deferred, which routes to main thread.
-			emit_signal("progress_changed", 100.0 * ril.get_stage() / total)
-			#progress.call_deferred("set_value", ril.get_stage())
+			var status = ResourceLoader.load_threaded_get_status(path, progress)
+			emit_signal("progress_changed", progress)
 
-			# Simulate a delay.
-			OS.delay_msec(300)
-
-			# Poll (does a load step).
-			var err = ril.poll()
 
 			# If OK, then load another one. If EOF, it' s done. Otherwise there was an error.
-			if err == ERR_FILE_EOF:
+			if status == ResourceLoader.THREAD_LOAD_LOADED:
 				# Loading done, fetch resource.
-				res = ril.get_resource()
+				res = ResourceLoader.load_threaded_get(path)
 				emit_signal("progress_changed", 100.0)
 				break
-			elif err != OK:
+			elif status == ResourceLoader.THREAD_LOAD_FAILED:
 				# Not OK, there was an error.
 				print("There was an error loading")
+				break
+			elif status == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
+				print("Invalid resource")
 				break
 
 		call_deferred("_finalize_load", res)

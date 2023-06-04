@@ -26,7 +26,7 @@ exclude_addons_quick_open=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")
+enabled=PackedStringArray()
 
 [rendering]
 

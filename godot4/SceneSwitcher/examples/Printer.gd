@@ -17,11 +17,11 @@ func _ready():
 # warning-ignore:return_value_discarded
 	SceneSwitcher.connect("faded_out", Callable(self, "on_faded_out"))
 
-	SceneSwitcher.play_animations = _play_animations_button.pressed
+	SceneSwitcher.play_animations = _play_animations_button.button_pressed
 
 
 func onInstanced( scene ):
-	var sceneFilename = scene.filename if scene.filename else "no filename"
+	var sceneFilename = scene.scene_file_path if scene.scene_file_path else "no filename"
 	print( "Scene %s [%s] instanced" % [scene, sceneFilename] )
 	scene.connect("tree_entered", Callable(self, "onEntered").bind(scene), CONNECT_ONE_SHOT)
 # warning-ignore:return_value_discarded
@@ -29,18 +29,18 @@ func onInstanced( scene ):
 
 
 func onEntered( scene ):
-	var sceneFilename = scene.filename if scene.filename else "no filename"
+	var sceneFilename = scene.scene_file_path if scene.scene_file_path else "no filename"
 	print( "Scene %s [%s] has entered the tree" % [scene, sceneFilename] )
 
 
 func onCurrentChanged():
-	var sceneFilename = get_tree().current_scene.filename \
-		if get_tree().current_scene.filename else "no filename"
+	var sceneFilename = get_tree().current_scene.scene_file_path \
+		if get_tree().current_scene.scene_file_path else "no filename"
 	print( "Scene %s [%s] is a current scene" % [get_tree().current_scene, sceneFilename] )
 
 
 func onReady( scene ):
-	var sceneFilename = scene.filename if scene.filename else "no filename"
+	var sceneFilename = scene.scene_file_path if scene.scene_file_path else "no filename"
 	print( "Scene %s [%s] is ready" % [scene, sceneFilename] )
 
 
@@ -50,11 +50,11 @@ func on_faded_in():
 
 func on_faded_out():
 	print("Faded out")
-	print_orphan_nodes()
+	Node.print_orphan_nodes()
 
 
 func _on_ButtonPrintStray_pressed():
-	print_orphan_nodes()
+	Node.print_orphan_nodes()
 
 
 func _on_CheckButtonPlay_toggled(button_pressed):
