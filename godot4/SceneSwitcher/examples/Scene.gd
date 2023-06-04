@@ -52,12 +52,8 @@ func switchInstancedScene():
 	assert( sceneNode.paramFromSwitcher == null )
 
 	SceneSwitcher.scene_set_as_current.connect(sceneNode._grabSceneParams, CONNECT_ONE_SHOT)
-#	SceneSwitcher.connect( "scene_set_as_current", sceneNode, "_grabSceneParams" \
-#		, [], CONNECT_ONE_SHOT )
-
-#	SceneSwitcher.connect("scene_set_as_current", sceneNode, "_retrieveMeta" \
-#		, [metaName], CONNECT_ONE_SHOT )
-	SceneSwitcher.scene_set_as_current.connect(sceneNode._retrieveMeta(metaName), CONNECT_ONE_SHOT)
+	SceneSwitcher.scene_set_as_current.connect( \
+		sceneNode._retrieveMeta.bind(metaName), CONNECT_ONE_SHOT)
 
 	var error = SceneSwitcher.switch_scene_to_instance( sceneNode, $"VBoxParam/LineEditInput".text, metaName )
 	assert(error == OK)

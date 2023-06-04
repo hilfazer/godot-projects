@@ -110,7 +110,7 @@ func clear_scene() -> int:
 	assert( _scene_loader == null )
 
 	_state = State.SWITCHING
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	_param_handler = NullHandler.new()
 	get_tree().current_scene.free()
 	get_tree().current_scene = null
@@ -205,8 +205,8 @@ func _deferred_switch_scene( scene_source, node_extraction_func: String, params,
 	assert( get_tree().current_scene == null )
 
 	# Make it a current scene between its "_enter_tree()" and "_ready()" calls
-# warning-ignore:return_value_discarded
-	new_scene.connect("tree_entered", Callable(self, "_set_as_current").bind(new_scene), CONNECT_ONE_SHOT)
+	new_scene.connect("tree_entered", \
+		Callable(self, "_set_as_current").bind(new_scene), CONNECT_ONE_SHOT)
 
 	# Add it to the active scene, as child of root
 	$"/root".add_child( new_scene )
@@ -300,9 +300,7 @@ class SceneLoader extends RefCounted:
 		params = params_
 		meta = meta_
 		scene_extraction_func = scene_extraction_func_
-# warning-ignore:return_value_discarded
 		connect("loading_done", Callable(switcher, "_on_preperation_done").bind(), CONNECT_ONE_SHOT)
-# warning-ignore:return_value_discarded
 		connect("progress_changed", Callable(switcher, "_on_progress_changed"))
 
 
@@ -372,7 +370,7 @@ class SceneLoader extends RefCounted:
 		while true: #iterate until we have a resource
 			# Update progress bar, use call deferred, which routes to main thread.
 			var status = ResourceLoader.load_threaded_get_status(path, progress)
-			emit_signal("progress_changed", progress)
+			emit_signal("progress_changed", progress[0])
 
 
 			# If OK, then load another one. If EOF, it' s done. Otherwise there was an error.

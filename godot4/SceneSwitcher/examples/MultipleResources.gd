@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var nextScene: String := ""
+@export var nextScene: String = ""
 
 func _ready():
 	var param = SceneSwitcher.get_params(self)
