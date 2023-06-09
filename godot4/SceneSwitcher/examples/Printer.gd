@@ -6,15 +6,15 @@ extends Node
 
 
 func _ready():
-# warning-ignore:return_value_discarded
+	@warning_ignore("return_value_discarded")
 	SceneSwitcher.connect("scene_instanced", Callable(self, "onInstanced"))
-# warning-ignore:return_value_discarded
+	@warning_ignore("return_value_discarded")
 	SceneSwitcher.connect("scene_set_as_current", Callable(self, "onCurrentChanged"))
-# warning-ignore:return_value_discarded
+	@warning_ignore("return_value_discarded")
 	SceneSwitcher.connect("progress_changed", Callable(_progress_bar, "set_value"))
-# warning-ignore:return_value_discarded
+	@warning_ignore("return_value_discarded")
 	SceneSwitcher.connect("faded_in", Callable(self, "on_faded_in"))
-# warning-ignore:return_value_discarded
+	@warning_ignore("return_value_discarded")
 	SceneSwitcher.connect("faded_out", Callable(self, "on_faded_out"))
 
 	SceneSwitcher.play_animations = _play_animations_button.button_pressed
@@ -24,7 +24,6 @@ func onInstanced( scene ):
 	var sceneFilename = scene.scene_file_path if scene.scene_file_path else "no filename"
 	print( "Scene %s [%s] instanced" % [scene, sceneFilename] )
 	scene.connect("tree_entered", Callable(self, "onEntered").bind(scene), CONNECT_ONE_SHOT)
-# warning-ignore:return_value_discarded
 	scene.connect("ready", Callable(self, "onReady").bind(scene), CONNECT_ONE_SHOT)
 
 

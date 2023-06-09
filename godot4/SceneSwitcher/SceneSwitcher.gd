@@ -198,6 +198,7 @@ func _deferred_switch_scene( scene_source, node_extraction_func: String, params,
 	_param_handler = ParamsHandler.new( params, new_scene, meta )
 
 	if not scene_source is Node:
+		@warning_ignore("return_value_discarded")
 		emit_signal( "scene_instanced", new_scene )
 
 	if get_tree().current_scene:
@@ -205,6 +206,7 @@ func _deferred_switch_scene( scene_source, node_extraction_func: String, params,
 	assert( get_tree().current_scene == null )
 
 	# Make it a current scene between its "_enter_tree()" and "_ready()" calls
+	@warning_ignore("return_value_discarded")
 	new_scene.connect("tree_entered", \
 		Callable(self, "_set_as_current").bind(new_scene), CONNECT_ONE_SHOT)
 
@@ -228,21 +230,25 @@ func _abort_switch( message: String ) -> void:
 
 
 func _on_progress_changed(progress) -> void:
+	@warning_ignore("return_value_discarded")
 	emit_signal("progress_changed", progress)
 
 
 func _set_as_current( scene: Node ):
 	get_tree().set_current_scene( scene )
 	assert( get_tree().current_scene == scene )
+	@warning_ignore("return_value_discarded")
 	emit_signal("scene_set_as_current")
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == FADE_IN:
+		@warning_ignore("return_value_discarded")
 		emit_signal("faded_in")
 		if _state == State.PREPARING:
 			_try_switching()
 	elif anim_name == FADE_OUT:
+		@warning_ignore("return_value_discarded")
 		emit_signal("faded_out")
 
 
@@ -300,7 +306,9 @@ class SceneLoader extends RefCounted:
 		params = params_
 		meta = meta_
 		scene_extraction_func = scene_extraction_func_
+		@warning_ignore("return_value_discarded")
 		connect("loading_done", Callable(switcher, "_on_preperation_done").bind(), CONNECT_ONE_SHOT)
+		@warning_ignore("return_value_discarded")
 		connect("progress_changed", Callable(switcher, "_on_progress_changed"))
 
 
@@ -370,6 +378,7 @@ class SceneLoader extends RefCounted:
 		while true: #iterate until we have a resource
 			# Update progress bar, use call deferred, which routes to main thread.
 			var status = ResourceLoader.load_threaded_get_status(path, progress)
+			@warning_ignore("return_value_discarded")
 			emit_signal("progress_changed", progress[0])
 
 
@@ -377,6 +386,7 @@ class SceneLoader extends RefCounted:
 			if status == ResourceLoader.THREAD_LOAD_LOADED:
 				# Loading done, fetch resource.
 				res = ResourceLoader.load_threaded_get(path)
+				@warning_ignore("return_value_discarded")
 				emit_signal("progress_changed", 100.0)
 				break
 			elif status == ResourceLoader.THREAD_LOAD_FAILED:
@@ -393,4 +403,5 @@ class SceneLoader extends RefCounted:
 	func _finalize_load( packed_scene_: PackedScene ):
 		_loader_thread.wait_to_finish()
 		_packed_scene = packed_scene_
+		@warning_ignore("return_value_discarded")
 		emit_signal("loading_done")
