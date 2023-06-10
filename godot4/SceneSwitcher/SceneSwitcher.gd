@@ -28,7 +28,7 @@ var _state: int = State.READY
 var _scene_loader: SceneLoader
 
 
-func switch_scene( scene_path: String, params = null, meta = null ) -> int:
+func switch_scene( scene_path: String, params = null, meta = null ) -> Error:
 	if not _state == State.READY:
 		return ERR_BUSY
 
@@ -48,7 +48,7 @@ func switch_scene( scene_path: String, params = null, meta = null ) -> int:
 	return OK
 
 
-func switch_scene_interactive( scene_path: String, params = null, meta = null ) -> int:
+func switch_scene_interactive( scene_path: String, params = null, meta = null ) -> Error:
 	if not _state == State.READY:
 		return ERR_BUSY
 
@@ -68,7 +68,7 @@ func switch_scene_interactive( scene_path: String, params = null, meta = null ) 
 	return OK
 
 
-func switch_scene_to( packed_scene: PackedScene, params = null, meta = null ) -> int:
+func switch_scene_to( packed_scene: PackedScene, params = null, meta = null ) -> Error:
 	if not _state == State.READY:
 		return ERR_BUSY
 
@@ -85,7 +85,7 @@ func switch_scene_to( packed_scene: PackedScene, params = null, meta = null ) ->
 	return OK
 
 
-func switch_scene_to_instance( node: Node, params = null, meta = null ) -> int:
+func switch_scene_to_instance( node: Node, params = null, meta = null ) -> Error:
 	if not _state == State.READY:
 		return ERR_BUSY
 
@@ -103,7 +103,7 @@ func switch_scene_to_instance( node: Node, params = null, meta = null ) -> int:
 	return OK
 
 
-func clear_scene() -> int:
+func clear_scene() -> Error:
 	if not _state == State.READY:
 		return ERR_BUSY
 
@@ -118,7 +118,7 @@ func clear_scene() -> int:
 	return OK
 
 
-func reload_current_scene() -> int:
+func reload_current_scene() -> Error:
 	if not _state == State.READY:
 		return ERR_BUSY
 
@@ -330,7 +330,7 @@ class SceneLoader extends RefCounted:
 		return error
 
 
-	func start_load_from_path_interactive(scene_path: String) -> int:
+	func start_load_from_path_interactive(scene_path: String) -> Error:
 		_loader_thread = Thread.new()
 		var error : Error = _loader_thread.start( \
 			Callable(self, "_packed_scene_from_path_interactive").bind(scene_path) )
