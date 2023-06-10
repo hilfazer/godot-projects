@@ -37,12 +37,12 @@ func setDetector( path ):
 
 	m_detector.connect("sequenceDetected", Callable(self, "onSequenceDetected"))
 
-	m_detector.setConsumingInput( $"DetectorButtons/CheckBoxConsume".pressed )
+	m_detector.setConsumingInput( $"DetectorButtons/CheckBoxConsume".button_pressed )
 	$"DetectorButtons/CheckBoxConsume".toggled.connect( \
 		Callable(m_detector, "setConsumingInput") )
 
-	if $"DetectorButtons/CheckEnabled".pressed:
-		m_detector.enable( $"DetectorButtons/CheckBoxInputType".pressed )
+	if $"DetectorButtons/CheckEnabled".button_pressed:
+		m_detector.enable( $"DetectorButtons/CheckBoxInputType".button_pressed )
 	else:
 		m_detector.disable()
 
@@ -70,7 +70,7 @@ func onDetectingToggled( pressed ):
 		return
 
 	if pressed:
-		m_detector.enable( $"DetectorButtons/CheckBoxInputType".pressed )
+		m_detector.enable( $"DetectorButtons/CheckBoxInputType".button_pressed )
 	else:
 		m_detector.disable()
 
