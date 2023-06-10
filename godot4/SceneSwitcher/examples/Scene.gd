@@ -32,7 +32,7 @@ func _ready():
 
 
 func switchPath():
-# warning-ignore:return_value_discarded
+	@warning_ignore("return_value_discarded")
 	SceneSwitcher.switch_scene(nextScene, $"VBoxParam/LineEditInput".text, PARAM_META_KEY )
 
 
@@ -40,6 +40,7 @@ func switchPackedScene():
 	var sceneNode = load(nextScene).instantiate()
 	assert( sceneNode.paramFromSwitcher == null )
 	var packedScene = PackedScene.new()
+	@warning_ignore("return_value_discarded")
 	packedScene.pack( sceneNode )
 	sceneNode.free()
 	var error = SceneSwitcher.switch_scene_to( packedScene, $"VBoxParam/LineEditInput".text, PARAM_META_KEY )
@@ -51,7 +52,9 @@ func switchInstancedScene():
 	var sceneNode = load(nextScene).instantiate()
 	assert( sceneNode.paramFromSwitcher == null )
 
+	@warning_ignore("return_value_discarded")
 	SceneSwitcher.scene_set_as_current.connect(sceneNode._grabSceneParams, CONNECT_ONE_SHOT)
+	@warning_ignore("return_value_discarded")
 	SceneSwitcher.scene_set_as_current.connect( \
 		sceneNode._retrieveMeta.bind(metaName), CONNECT_ONE_SHOT)
 
@@ -70,7 +73,8 @@ func switch_interactive():
 
 
 func clear_scene():
-	SceneSwitcher.clear_scene()
+	var error = await SceneSwitcher.clear_scene()
+	assert( error == OK )
 
 
 func _grabSceneParams():

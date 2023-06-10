@@ -133,9 +133,11 @@ func reload_current_scene() -> int:
 
 	_scene_loader = SceneLoader.new(
 			self, _param_handler.params, _param_handler.meta_key, "_node_from_packed_scene")
-	_scene_loader.start_load_from_path(scene_filename)
-	_state = State.PREPARING
-	return OK
+	var error : Error = _scene_loader.start_load_from_path(scene_filename)
+	
+	if error == OK:
+		_state = State.PREPARING
+	return error
 
 
 # pass 'self' as the argument
@@ -318,9 +320,11 @@ class SceneLoader extends RefCounted:
 			_scene__.free()
 
 
-	func start_load_from_path(scene_path: String) -> int:
+	func start_load_from_path(scene_path: String) -> Error:
 		_loader_thread = Thread.new()
-		var error = _loader_thread.start(Callable(self, "_packed_scene_from_path").bind(scene_path))
+		var error : Error = _loader_thread.start( \
+			Callable(self, "_packed_scene_from_path").bind(scene_path) )
+			
 		if error != OK:
 			_loader_thread = null
 		return error
@@ -328,7 +332,9 @@ class SceneLoader extends RefCounted:
 
 	func start_load_from_path_interactive(scene_path: String) -> int:
 		_loader_thread = Thread.new()
-		var error = _loader_thread.start(Callable(self, "_packed_scene_from_path_interactive").bind(scene_path))
+		var error : Error = _loader_thread.start( \
+			Callable(self, "_packed_scene_from_path_interactive").bind(scene_path) )
+			
 		if error != OK:
 			_loader_thread = null
 		return error
