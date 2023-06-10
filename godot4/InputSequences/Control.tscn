@@ -1,0 +1,86 @@
+[gd_scene load_steps=3 format=3 uid="uid://d37giyn0xmp82"]
+
+[ext_resource type="Script" path="res://Control.gd" id="1"]
+[ext_resource type="Script" path="res://DetectorButtons.gd" id="2"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+script = ExtResource("1")
+
+[node name="PerformedSequences" type="ItemList" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 23.0
+offset_right = 429.0
+offset_bottom = 598.0
+
+[node name="AvailableSequences" type="ItemList" parent="."]
+layout_mode = 0
+offset_left = 571.0
+offset_top = 20.0
+offset_right = 1026.0
+offset_bottom = 598.0
+
+[node name="LabelPerformed" type="Label" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_right = 434.0
+offset_bottom = 24.0
+text = "Performed"
+
+[node name="LabelAvailable" type="Label" parent="."]
+layout_mode = 0
+offset_left = 572.0
+offset_top = 2.0
+offset_right = 1021.0
+offset_bottom = 25.0
+text = "Available"
+
+[node name="DetectorButtons" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 430.0
+offset_top = 132.0
+offset_right = 570.0
+offset_bottom = 276.0
+tooltip_text = "Allows sequences to be subsequences of other sequences. Both of these:"
+script = ExtResource("2")
+
+[node name="CheckBoxConsume" type="CheckBox" parent="DetectorButtons"]
+layout_mode = 2
+text = "consume input"
+
+[node name="CheckBoxInputType" type="CheckBox" parent="DetectorButtons"]
+layout_mode = 2
+tooltip_text = "If checked will use _input(event).
+Otherwise : _unhandled_input(event).
+"
+text = " use input"
+
+[node name="ButtonSubsequence" type="Button" parent="DetectorButtons"]
+layout_mode = 2
+tooltip_text = "Allows sequences to be others' subsequences. Both of these:
+[UP, DOWN, UP]
+[UP, DOWN]
+will be added."
+toggle_mode = true
+text = "subsequence"
+
+[node name="ButtonLongest" type="Button" parent="DetectorButtons"]
+layout_mode = 2
+tooltip_text = "Does not allow any sequence to be subsequence of another. If you try adding:
+[UP, DOWN, UP]
+[UP, DOWN]
+only the first sequence will be added. Same with:
+[UP, LEFT]
+[UP, LEFT, DOWN]"
+toggle_mode = true
+text = "longest sequence"
+
+[node name="CheckEnabled" type="CheckButton" parent="DetectorButtons"]
+layout_mode = 2
+text = "detecting"
