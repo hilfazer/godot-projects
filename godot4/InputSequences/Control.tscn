@@ -83,6 +83,7 @@ only the first sequence will be added. Same with:
 toggle_mode = true
 text = "longest sequence"
 
-[node name="CheckEnabled" type="CheckButton" parent="DetectorButtons"]
+[node name="CheckDetectorEnabled" type="CheckButton" parent="DetectorButtons"]
 layout_mode = 2
+button_pressed = true
 text = "detecting"

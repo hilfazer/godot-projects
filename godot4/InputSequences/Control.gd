@@ -18,7 +18,7 @@ var m_detector = null
 
 func _enter_tree():
 	$"DetectorButtons".detectorSelected.connect( Callable(self, "setDetector") )
-	$"DetectorButtons/CheckEnabled".connect("toggled", Callable(self, "onDetectingToggled"))
+	$"DetectorButtons/CheckDetectorEnabled".connect("toggled", Callable(self, "onDetectingToggled"))
 
 
 func _input(event):
@@ -26,7 +26,7 @@ func _input(event):
 		print( "pressed key keycode ", event.keycode )
 
 
-func setDetector( path ):
+func setDetector( path ) -> void:
 	await get_tree().process_frame
 	if m_detector:
 		m_detector.free()
@@ -41,7 +41,7 @@ func setDetector( path ):
 	$"DetectorButtons/CheckBoxConsume".toggled.connect( \
 		Callable(m_detector, "setConsumingInput") )
 
-	if $"DetectorButtons/CheckEnabled".button_pressed:
+	if $"DetectorButtons/CheckDetectorEnabled".button_pressed:
 		m_detector.enable( $"DetectorButtons/CheckBoxInputType".button_pressed )
 	else:
 		m_detector.disable()
@@ -62,11 +62,11 @@ func setDetector( path ):
 	m_detector.removeActions( ui_select )
 
 
-func onSequenceDetected( id : int ):
+func onSequenceDetected( id : int ) -> void:
 	$"PerformedSequences".add_item( str( m_sequences[id] ) )
 
 
-func onDetectingToggled( pressed ):
+func onDetectingToggled( pressed ) -> void:
 	if not is_instance_valid( m_detector ):
 		return
 
