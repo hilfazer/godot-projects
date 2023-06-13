@@ -11,7 +11,7 @@ const m_sequences = {
 	9 : [],
 }
 
-const m_actions = ["ui_up", "ui_up", "ui_down", "ui_select", "ui_right", "ui_left"]
+const m_actions : Array[String] = ["ui_up", "ui_up", "ui_down", "ui_select", "ui_right", "ui_left"]
 
 var m_detector = null
 
@@ -58,7 +58,8 @@ func setDetector( path ):
 			$"AvailableSequences".add_item( str(m_sequences[id]) )
 
 	m_detector.addActions( m_actions )
-	m_detector.removeActions( ["ui_select"] )
+	var ui_select : Array[String] = ["ui_select"]
+	m_detector.removeActions( ui_select )
 
 
 func onSequenceDetected( id : int ):
@@ -73,4 +74,3 @@ func onDetectingToggled( pressed ):
 		m_detector.enable( $"DetectorButtons/CheckBoxInputType".button_pressed )
 	else:
 		m_detector.disable()
-

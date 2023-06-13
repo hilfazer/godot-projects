@@ -39,12 +39,12 @@ func removeSequences( ids : Array ):
 	reset()
 
 
-func addActions( actions : Array ):
+func addActions( actions : Array[String] ):
 	super.addActions( actions )
 	_updateAllActions()
 
 
-func removeActions( actions : Array ):
+func removeActions( actions : Array[String] ):
 	super.removeActions( actions )
 	_updateAllActions()
 

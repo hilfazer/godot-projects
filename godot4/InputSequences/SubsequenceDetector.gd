@@ -52,14 +52,14 @@ func removeSequences( ids : Array ):
 
 # adds action that is not neccesarily part of any sequence
 # those actions will be able to fail a sequence
-func addActions( actions : Array ):
+func addActions( actions : Array[String] ):
 	for action in actions:
 		if not m_actions.has( action ):
 			m_actions.push_back( action )
 	_updateAllActions()
 
 
-func removeActions( actions : Array ):
+func removeActions( actions : Array[String] ):
 	for action in actions:
 		m_actions.erase( action )
 	_updateAllActions()
