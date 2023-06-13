@@ -1,16 +1,12 @@
 extends "./SequenceDetectorBase.gd"
 
-var m_sequences := {}: set = deleted
-var m_allActions := []: set = deleted
+var m_sequences := {}
+var m_allActions := []
 
-var m_possibleSequences := []: set = deleted
-var m_positionInSequence := 0: set = deleted
+var m_possibleSequences := []
+var m_positionInSequence := 0
 
 @onready var m_timer : Timer = $"Timer"
-
-
-func deleted(_a):
-	assert(false)
 
 
 func reset():

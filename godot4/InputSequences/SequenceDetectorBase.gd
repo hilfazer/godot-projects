@@ -1,14 +1,10 @@
 extends Node
 
-var m_consumeInput := true: set = deleted
-var m_actions : = []: set = deleted
+var m_consumeInput := true
+var m_actions : = []
 
 #warning-ignore:unused_signal
 signal sequenceDetected( id )
-
-
-func deleted(_a):
-	assert(false)
 
 
 func _ready():
@@ -43,7 +39,8 @@ func addSequences( idToSequence : Dictionary ) -> Dictionary:
 	assert( false )
 	return idToSequence
 
-#warning-ignore:unused_argument
+
+@warning_ignore("unused_parameter")
 func removeSequences( ids : Array ):
 	assert( false )
 
@@ -61,7 +58,7 @@ func removeActions( actions : Array ):
 		m_actions.erase( action )
 
 
-#warning-ignore:unused_argument
+@warning_ignore("unused_parameter")
 func _handleEvent( event ):
 	assert( false )
 

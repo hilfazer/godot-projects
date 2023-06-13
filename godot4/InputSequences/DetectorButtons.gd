@@ -13,7 +13,7 @@ func _ready():
 	$"ButtonSubsequence".button_down.connect( \
 		Callable(self, "emit_signal").bind("detectorSelected", SubsequenceDetectorPath) )
 
-
+	emit_signal("detectorSelected", SubsequenceDetectorPath)
 #	var evmb := InputEventMouseButton.new()
 #	evmb.button_index = MOUSE_BUTTON_LEFT
 #	evmb.pressed = true
