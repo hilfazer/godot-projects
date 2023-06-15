@@ -1,0 +1,5 @@
+[gd_resource type="Theme" format=3 uid="uid://bwoktf4beq2j8"]
+
+[resource]
+Editor/constants/top_bar_separation = 0
+Editor/constants/window_border_margin = 2
