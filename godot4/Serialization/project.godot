@@ -20,11 +20,12 @@ config/version="0.1.0"
 gdscript/warnings/unsafe_property_access=true
 gdscript/warnings/unsafe_cast=true
 gdscript/warnings/unsafe_call_argument=true
+gdscript/warnings/static_called_on_instance=0
 gdscript/warnings/unused_class_variable=true
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
 [input]
 

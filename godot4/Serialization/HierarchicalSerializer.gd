@@ -110,7 +110,7 @@ func saveToFile( filepath : String ) -> int:
 	if not filepath.get_extension() in ResourceSaver.get_recognized_extensions(stateToSave):
 		pathToSave += _resourceExtension
 
-	var error := ResourceSaver.save( pathToSave, stateToSave )
+	var error := ResourceSaver.save( stateToSave, pathToSave )
 	if error != OK:
 		print( "could not save a Resource" )
 		return error
@@ -139,7 +139,7 @@ func serialize( node : Node ) -> Array:
 	assert( is_instance_valid( node ) )
 	var data := [
 		node.name,
-		node.filename,
+		node.scene_file_path,
 		node.serialize() if _isSerializableFn.call( node ) else null
 	]
 
@@ -167,7 +167,7 @@ func deserialize( data : Array, parent : Node ) -> NodeGuardGd:
 			node = load( sceneFile ).instantiate()
 			node.name = nodeName
 	else:
-		node = parent.get_node_or_null( nodeName )
+		node = parent.get_node_or_null( NodePath(nodeName) )
 		if not node:
 			if !sceneFile.is_empty():
 				node = load( sceneFile ).instantiate()

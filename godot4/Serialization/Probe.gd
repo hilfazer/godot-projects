@@ -12,9 +12,8 @@ class Probe extends RefCounted:
 	# creation of other nodes needs to be taken care of outside of
 	# deserialize( node ) (i.e. _init(), _ready())
 	# or deserialize( node ) won't deserialize them nor their branch
-	var nodesNotInstantiable := [] # Array of Nodes
-
-	var nodesNoMatchingDeserialize := [] # Array of Nodes
+	var nodesNotInstantiable : Array[Node]
+	var nodesNoMatchingDeserialize : Array[Node]
 
 
 	func _init( node : Node ):
