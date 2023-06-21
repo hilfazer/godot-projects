@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://d2gh8bqc0sics"]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id="1"]
 script/source = "extends Node
 
 
@@ -18,4 +18,4 @@ func deserialize( data ):
 "
 
 [node name="Node" type="Node"]
-script = SubResource( 1 )
+script = SubResource("1")
