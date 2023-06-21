@@ -1,6 +1,6 @@
 extends "res://tests/gut_test_base.gd"
 
-const SerializerGd           = preload("res://HierarchicalSerializer.gd")
+const SerializerGd           = preload("res://hierarchical_serializer.gd")
 const Scene1Scn              = preload("res://tests/files/Scene1.tscn")
 
 
@@ -22,13 +22,13 @@ func test_saveAndLoadChildrenOrder():
 		topChild.add_child( node, true )
 
 	var serializer := SerializerGd.new()
-	assert_true( serializer.addAndSerialize( "topKey", topChild ) )
-	assert_eq( OK, serializer.saveToFile( saveFile ) )
+	assert_true( serializer.add_and_serialize( "topKey", topChild ) )
+	assert_eq( OK, serializer.save_to_file( saveFile ) )
 
 	topChild.name = "oldChild"
-	assert_eq( OK, serializer.loadFromFile( saveFile ) )
+	assert_eq( OK, serializer.load_from_file( saveFile ) )
 # warning-ignore:return_value_discarded
-	serializer.getAndDeserialize( "topKey", self )
+	serializer.get_and_deserialize( "topKey", self )
 
 	var oldNamesArray := PackedStringArray()
 	for child in topChild.get_children():

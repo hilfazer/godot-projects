@@ -1,6 +1,6 @@
 extends "res://tests/gut_test_base.gd"
 
-const SerializerGd           = preload("res://HierarchicalSerializer.gd")
+const SerializerGd           = preload("res://hierarchical_serializer.gd")
 const NodeGuardGd            = preload("res://NodeGuard.gd")
 const FiveNodeBranchScn      = preload("res://tests/files/FiveNodeBranch.tscn")
 const PostDeserializeScn     = preload("res://tests/files/PostDeserialize.tscn")
@@ -30,20 +30,20 @@ func test_saveAndLoadWithoutParent():
 	branch.get_node("Camera2D/Label").i = 6
 
 	var serializedBranch = serializer.serialize( branch )
-	serializer.addSerialized( branchKey, serializedBranch )
-	var err = serializer.saveToFile( saveFile )
+	serializer.add_serialized( branchKey, serializedBranch )
+	var err = serializer.save_to_file( saveFile )
 	assert_eq( err, OK )
 	assert_file_exists( saveFile )
 
 	serializer = SerializerGd.new()
-	err = serializer.loadFromFile( saveFile.get_basename() )
+	err = serializer.load_from_file( saveFile.get_basename() )
 	assert_eq( err, OK )
-	assert_true( serializer.hasKey(branchKey) )
+	assert_true( serializer.has_key(branchKey) )
 
-	var serialized : Array = serializer.getSerialized( branchKey )
+	var serialized : Array = serializer.get_serialized( branchKey )
 	assert_gt( serialized.size(), 0 )
 
-	var guard : NodeGuardGd = serializer.getAndDeserialize( branchKey, null )
+	var guard : NodeGuardGd = serializer.get_and_deserialize( branchKey, null )
 	assert_almost_eq( guard.node.get('f'), 4.4, EPSILON )
 	assert_eq( guard.node.get('s'), "um" )
 	assert_almost_eq( guard.node.get_node("Timer").get('f'), 0.0, EPSILON )
@@ -68,22 +68,22 @@ func test_saveAndLoadToExistingBranch():
 	@warning_ignore("unsafe_property_access")
 	branch.get_node("Timer/ColorRect").s = "7"
 
-	serializer.addAndSerialize( branchKey, branch )
-	var err = serializer.saveToFile( saveFile )
+	serializer.add_and_serialize( branchKey, branch )
+	var err = serializer.save_to_file( saveFile )
 	assert_eq( err, OK )
 	assert_file_exists( saveFile )
 
 	serializer = SerializerGd.new()
-	err = serializer.loadFromFile( saveFile.get_basename() )
+	err = serializer.load_from_file( saveFile.get_basename() )
 	assert_eq( err, OK )
-	assert_true( serializer.hasKey(branchKey) )
+	assert_true( serializer.has_key(branchKey) )
 
 	@warning_ignore("unsafe_property_access")
 	branch.get_node("Timer").f = 99.99
 	@warning_ignore("unsafe_property_access")
 	branch.get_node("Timer/ColorRect").s = "7655"
 
-	var serialized : Array = serializer.getSerialized( branchKey )
+	var serialized : Array = serializer.get_serialized( branchKey )
 	assert_gt( serialized.size(), 0 )
 	var node : Node = serializer.deserialize( serialized, self ).node
 	assert_eq( node, branch )
@@ -108,8 +108,8 @@ func test_saveAndLoadToNonexistingBranch():
 	branch.get_node("Timer/ColorRect").s = "88"
 
 	var serializedBranch = serializer.serialize( branch )
-	serializer.addSerialized( branchKey, serializedBranch )
-	var err = serializer.saveToFile( saveFile )
+	serializer.add_serialized( branchKey, serializedBranch )
+	var err = serializer.save_to_file( saveFile )
 	assert_eq( err, OK )
 	assert_file_exists( saveFile )
 
@@ -117,11 +117,11 @@ func test_saveAndLoadToNonexistingBranch():
 	remove_child( branch )
 	assert( not is_ancestor_of( branch ) )
 
-	err = serializer.loadFromFile( saveFile.get_basename() )
+	err = serializer.load_from_file( saveFile.get_basename() )
 	assert_eq( err, OK )
-	assert_true( serializer.hasKey(branchKey) )
+	assert_true( serializer.has_key(branchKey) )
 
-	var serialized : Array = serializer.getSerialized( branchKey )
+	var serialized : Array = serializer.get_serialized( branchKey )
 	assert_gt( serialized.size(), 0 )
 
 	var childrenNumber := get_child_count()
@@ -168,12 +168,12 @@ func test_godotBuiltinTypes():
 	await get_tree().process_frame
 	add_child( typesNode )
 
-	serializer.addAndSerialize( key, typesNode )
-	serializer.saveToFile( saveFile )
+	serializer.add_and_serialize( key, typesNode )
+	serializer.save_to_file( saveFile )
 	serializer = SerializerGd.new()
-	serializer.loadFromFile( saveFile )
+	serializer.load_from_file( saveFile )
 
-	var guard = serializer.getAndDeserialize( key, null )
+	var guard = serializer.get_and_deserialize( key, null )
 	var node : BuiltInTypesGd = guard.node
 	assert_eq( node.b , typesNode.b )
 	assert_true( node.v2.is_equal_approx( typesNode.v2 ) )
@@ -200,8 +200,8 @@ func test_serializeNonserializableNode():
 	var key = "n"
 	var node = autofree( Node2D.new() )
 
-	assert_false( serializer.addAndSerialize( key, node ) )
-	assert_false( serializer.hasKey( key) )
+	assert_false( serializer.add_and_serialize( key, node ) )
+	assert_false( serializer.has_key( key) )
 
 
 func test_deserializeNoninstantiable():
@@ -216,10 +216,10 @@ func test_removeSerialized():
 	var serializer = SerializerGd.new()
 	var node = Scene1Scn.instantiate()
 
-	assert_true( serializer.addAndSerialize("a", node ) )
-	assert_true( serializer.removeSerialized("a") )
-	assert_false( serializer.removeSerialized("a") )
-	assert_false( serializer.removeSerialized("b") )
+	assert_true( serializer.add_and_serialize("a", node ) )
+	assert_true( serializer.remove_serialized("a") )
+	assert_false( serializer.remove_serialized("a") )
+	assert_false( serializer.remove_serialized("b") )
 
 	node.free()
 

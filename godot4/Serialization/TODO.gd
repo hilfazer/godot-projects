@@ -8,7 +8,7 @@
 
 * custom isSerializable detection for Probe
 
-* improve prints in HierarchicalSerializer.gd
+* improve prints in hierarchical_serializer.gd
 
 
 """

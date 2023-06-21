@@ -1,6 +1,6 @@
 extends "res://tests/gut_test_base.gd"
 
-const SerializerGd           = preload("res://HierarchicalSerializer.gd")
+const SerializerGd           = preload("res://hierarchical_serializer.gd")
 const NodeGuardGd            = preload("res://NodeGuard.gd")
 const FiveNodeBranchScn      = preload("res://tests/files/FiveNodeBranch.tscn")
 
@@ -9,7 +9,7 @@ const PERSISTENT_GROUP = "persistent"
 
 func test_setCustomIsSerializable():
 	var serializer = SerializerGd.new()
-	serializer.setCustomIsNodeSerializable( DetectSerializeMethodFunctor.new() )
+	serializer.set_custom_is_node_serializable( DetectSerializeMethodFunctor.new() )
 
 	var branch = FiveNodeBranchScn.instantiate()
 	var saveFile = _createDefaultTestFilePath("tres")
@@ -26,17 +26,17 @@ func test_setCustomIsSerializable():
 	branch.get_node("Bone2D/Label").i = 6
 
 	var serializedBranch = serializer.serialize( branch )
-	serializer.addSerialized( branchKey, serializedBranch )
-	var err = serializer.saveToFile( saveFile )
+	serializer.add_serialized( branchKey, serializedBranch )
+	var err = serializer.save_to_file( saveFile )
 	assert_eq( err, OK )
 	assert_file_exists( saveFile )
 
 	serializer = SerializerGd.new()
-	err = serializer.loadFromFile( saveFile.get_basename() )
+	err = serializer.load_from_file( saveFile.get_basename() )
 	assert_eq( err, OK )
-	assert_true( serializer.hasKey(branchKey) )
+	assert_true( serializer.has_key(branchKey) )
 
-	var serialized : Array = serializer.getSerialized( branchKey )
+	var serialized : Array = serializer.get_serialized( branchKey )
 	assert_gt( serialized.size(), 0 )
 	var guard : NodeGuardGd = serializer.deserialize( serialized, null )
 
@@ -66,16 +66,16 @@ func test_setCustomIsSerializableWithGroup():
 	innerBranch.get_node("Timer/ColorRect").add_to_group( PERSISTENT_GROUP )
 
 	var serializer = SerializerGd.new()
-	serializer.setCustomIsNodeSerializable( DetectPersistentGroupFunctor.new() )
-	serializer.addSerialized( branchKey, serializer.serialize( outerBranch ) )
-	serializer.saveToFile( saveFile )
+	serializer.set_custom_is_node_serializable( DetectPersistentGroupFunctor.new() )
+	serializer.add_serialized( branchKey, serializer.serialize( outerBranch ) )
+	serializer.save_to_file( saveFile )
 
 	outerBranch.free()
 	assert_freed( outerBranch, "outerBranch freed" )
 
-	serializer.loadFromFile( saveFile )
-	serializer.getSerialized( branchKey )
-	var deserialized = serializer.getSerialized( branchKey )
+	serializer.load_from_file( saveFile )
+	serializer.get_serialized( branchKey )
+	var deserialized = serializer.get_serialized( branchKey )
 	serializer.deserialize( deserialized, self )
 
 	assert_eq( $"Spatial/Bone2D/Label/Spatial/Timer/ColorRect".get('s'), "do_serialize")

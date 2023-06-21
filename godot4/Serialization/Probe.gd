@@ -1,6 +1,6 @@
 extends RefCounted
 
-const SerializerGd           = preload("./HierarchicalSerializer.gd")
+const SerializerGd           = preload("./hierarchical_serializer.gd")
 
 static func scan( node : Node ) -> Probe:
 	return Probe.new( node )
