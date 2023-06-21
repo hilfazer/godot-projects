@@ -25,9 +25,9 @@ func test_saveAndLoadWithoutParent():
 	@warning_ignore("unsafe_property_access")
 	branch.get_node("Timer/ColorRect").s = "7"
 	@warning_ignore("unsafe_property_access")
-	branch.get_node("Bone2D/Label").f = 3.3
+	branch.get_node("Camera2D/Label").f = 3.3
 	@warning_ignore("unsafe_property_access")
-	branch.get_node("Bone2D/Label").i = 6
+	branch.get_node("Camera2D/Label").i = 6
 
 	var serializedBranch = serializer.serialize( branch )
 	serializer.addSerialized( branchKey, serializedBranch )
@@ -48,8 +48,8 @@ func test_saveAndLoadWithoutParent():
 	assert_eq( guard.node.get('s'), "um" )
 	assert_almost_eq( guard.node.get_node("Timer").get('f'), 0.0, EPSILON )
 	assert_eq( guard.node.get_node("Timer/ColorRect").get('s'), "7" )
-	assert_almost_eq( guard.node.get_node("Bone2D/Label").get('f'), 3.3, EPSILON )
-	assert_eq( guard.node.get_node("Bone2D/Label").get('i'), 6 )
+	assert_almost_eq( guard.node.get_node("Camera2D/Label").get('f'), 3.3, EPSILON )
+	assert_eq( guard.node.get_node("Camera2D/Label").get('i'), 6 )
 	guard.setNode(null)
 
 
