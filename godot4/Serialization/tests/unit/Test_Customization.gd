@@ -1,7 +1,7 @@
 extends "res://tests/gut_test_base.gd"
 
 const SerializerGd           = preload("res://hierarchical_serializer.gd")
-const NodeGuardGd            = preload("res://NodeGuard.gd")
+const NodeGuardGd            = preload("res://node_guard.gd")
 const FiveNodeBranchScn      = preload("res://tests/files/FiveNodeBranch.tscn")
 
 const PERSISTENT_GROUP = "persistent"
@@ -46,7 +46,7 @@ func test_setCustomIsSerializable():
 	assert_eq( guard.node.get_node("Timer/ColorRect").get('s'), "7d" )
 	assert_almost_eq( guard.node.get_node("Bone2D/Label").get('f'), 3.3, EPSILON )
 	assert_eq( guard.node.get_node("Bone2D/Label").get('i'), 6 )
-	guard.setNode(null)
+	guard.set_node(null)
 
 
 func test_setCustomIsSerializableWithGroup():

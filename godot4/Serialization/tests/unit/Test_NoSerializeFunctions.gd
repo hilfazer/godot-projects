@@ -1,7 +1,7 @@
 extends "res://tests/gut_test_base.gd"
 
 const SerializerGd           = preload("res://hierarchical_serializer.gd")
-const NodeGuardGd            = preload("res://NodeGuard.gd")
+const NodeGuardGd            = preload("res://node_guard.gd")
 const FiveNodeBranchScn      = preload("res://tests/files/FiveNodeBranch.tscn")
 const PostDeserializeScn     = preload("res://tests/files/PostDeserialize.tscn")
 

@@ -1,7 +1,7 @@
 extends "res://tests/gut_test_base.gd"
 
 const SerializerGd           = preload("res://hierarchical_serializer.gd")
-const NodeGuardGd            = preload("res://NodeGuard.gd")
+const NodeGuardGd            = preload("res://node_guard.gd")
 const FiveNodeBranchScn      = preload("res://tests/files/FiveNodeBranch.tscn")
 const PostDeserializeScn     = preload("res://tests/files/PostDeserialize.tscn")
 const BuiltInTypesScn        = preload("res://tests/files/BuiltInTypes.tscn")
@@ -50,7 +50,7 @@ func test_saveAndLoadWithoutParent():
 	assert_eq( guard.node.get_node("Timer/ColorRect").get('s'), "7" )
 	assert_almost_eq( guard.node.get_node("Camera2D/Label").get('f'), 3.3, EPSILON )
 	assert_eq( guard.node.get_node("Camera2D/Label").get('i'), 6 )
-	guard.setNode(null)
+	guard.set_node(null)
 
 
 func test_saveAndLoadToExistingBranch():
@@ -131,7 +131,7 @@ func test_saveAndLoadToNonexistingBranch():
 	assert_eq( node.get('s'), "v" )
 	assert_almost_eq( node.get_node("Timer").get('f'), 0.06, EPSILON )
 	assert_eq( node.get_node("Timer/ColorRect").get('s'), "88" )
-	guard.setNode(null)
+	guard.set_node(null)
 
 
 func test_postDeserialize():
@@ -192,7 +192,7 @@ func test_godotBuiltinTypes():
 	assert_true( node.co.is_equal_approx( typesNode.co ) )
 	assert_eq( node.np, ^"path/to/the node" )
 
-	guard.setNode( null )
+	guard.set_node( null )
 
 
 func test_serializeNonserializableNode():

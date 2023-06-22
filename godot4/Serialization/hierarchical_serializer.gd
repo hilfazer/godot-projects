@@ -1,7 +1,7 @@
 extends RefCounted
 
-const NodeGuardGd            = preload("./NodeGuard.gd")
-const SaveGameFileGd         = preload("./SaveGameFile.gd")
+const NodeGuardGd            = preload("./node_guard.gd")
+const SaveGameFileGd         = preload("./save_game_file.gd")
 
 const SERIALIZE              = "serialize"
 const DESERIALIZE            = "deserialize"

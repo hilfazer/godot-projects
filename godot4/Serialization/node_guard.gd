@@ -4,7 +4,7 @@
 extends RefCounted
 
 
-var node : Node: set = setNode
+var node : Node: set = set_node
 
 
 func _init( node_ : Node = null ):
@@ -12,9 +12,9 @@ func _init( node_ : Node = null ):
 
 
 func release() -> Node:
-	var toReturn = node
+	var to_return = node
 	node = null
-	return toReturn
+	return to_return
 
 
 func _notification(what):
@@ -25,10 +25,10 @@ func _notification(what):
 			node.free()
 
 
-func setNode( newNode : Node ):
-	if newNode != node:
+func set_node( new_node : Node ):
+	if new_node != node:
 		if is_instance_valid( node ) \
 			and not node.is_inside_tree() \
 			and not node.get_parent():
 			node.free()
-		node = newNode
+		node = new_node
