@@ -17,7 +17,7 @@
 
 ### Files You need
 
-HierarchicalSerializer.gd, NodeGuard.gd, SaveGameFile.gd, Probe.gd
+hierarchical_serializer.gd, node_guard.gd, save_game_file.gd, probe.gd
 
 Put those files into YourGameFolder/addons/HierarchicalSerializer/ folder. If You want You can name that last folder something else.
 
@@ -36,25 +36,25 @@ It gives you good control in how you want to save and load your objects.
 HierarchicalSerializer.gd object stores serialized nodes' data in a Dictionary where all keys are Strings. Values can be anything that can be serialized to/from a Resource.
 To serialize your nodes use following function:
 
-* func **addAndSerialize**( key : String, node : Node )   - serializes and saves a tree starting with *node*
+* func **add_and_serialize**( key : String, node : Node )   - serializes and saves a tree starting with *node*
 
 To deserialize previously saved node tree use:
 
-* func **getAndDeserialize**( key : String, parent : Node )   - deserializes node tree as a child of *parent*
+* func **get_and_deserialize**( key : String, parent : Node )   - deserializes node tree as a child of *parent*
 
-That function will fail if key doesn't exist so make sure it does with **hasKey**() function.
+That function will fail if key doesn't exist so make sure it does with **has_key**() function.
 Other functions for operating on serialized nodes are:
-**addSerialized**(), **removeSerialized**(), **getSerialized**(), **getKeys**().
+**add_serialized**(), **remove_serialized**(), **get_serialized**(), **get_keys**().
 
 Serializer will try to read game's version with this code:
 `ProjectSettings.get_setting("application/config/version")`
-To retrieve version from previously saved file use **getVersion**().
+To retrieve version from previously saved file use **get_version**().
 
-There's also a Dictionary for any other data the user may want to save. It is accessed with **userData** property.
+There's also a Dictionary for any other data the user may want to save. It is accessed with **user_data** property.
 
-**addAndSerialize**(key, node) and **serialize**(node) will serialize *node* node and will call themselves recursively on its children.
+**add_and_serialize**(key, node) and **serialize**(node) will serialize *node* node and will call themselves recursively on its children.
 
-**getAndDeserialize**(key, parent) and **deserialize**(data, parent) will deserialize node tree as a child of *parent* argument if it's not `null`. If it is `null` deserialized tree will not have a parent.
+**get_and_deserialize**(key, parent) and **deserialize**(data, parent) will deserialize node tree as a child of *parent* argument if it's not `null`. If it is `null` deserialized tree will not have a parent.
 In any case deserialized node is accessible via function's return value. It is NodeGuard.gd object that prevents memory leak (Nodes leak if they're outside of SceneTree). You can access its node with *node* property.
 
 You can deserialize to a parent who already has nodes you want to load. In that case Serializer will call **deserialize**() on them.
@@ -63,8 +63,8 @@ You can deserialize to a parent who already has nodes you want to load. In that 
 
 Data you put into HierarchicalSerializer.gd object doesn't automatically go to a file. Saving to and loading from a file is done with following functions:
 
-* func **saveToFile**( filename : String )
-* func **loadFromFile**( filename : String )
+* func **save_to_file**( filename : String )
+* func **load_from_file**( filename : String )
 
 HierarchicalSerializer object doesn't store file's name anywhere, you need to store it somewhere else. On the upside one object can be used to handle multiple files.
 
@@ -76,8 +76,8 @@ static func **scan**( node : Node )
 
 Return value is an object with following properties:
 
-* **nodesNotInstantiable**   - a list of Nodes serializer will not be able to create
-* **nodesNoMatchingDeserialize**   - a list of Nodes that have a *serialize*() but not *deserialize*() function
+* **nodes_not_instantiable**   - a list of Nodes serializer will not be able to create
+* **nodes_no_matching_deserialize**   - a list of Nodes that have a *serialize*() but not *deserialize*() function
 
 ### Customization
 
@@ -88,7 +88,7 @@ class DetectPersistentGroupFunctor extends Reference:
 	func is_serializable( node : Node ) -> bool:
 		return node.is_in_group( "persistent" )
 ```
-It needs to extend Reference as well. Now you need to call **setCustomIsNodeSerializable**( functor : Reference ) of your serializer object to set it. You can revert to defaul behaviour with **setDefaultIsNodeSerializable**().
+It needs to extend Reference as well. Now you need to call **set_custom_is_node_serializable**( functor : Reference ) of your serializer object to set it. You can revert to defaul behaviour with **set_default_is_node_serializable**().
 
 #### Credits
 
