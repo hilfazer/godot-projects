@@ -3,32 +3,36 @@
 # call release() if you want to handle memory yourself
 extends RefCounted
 
-
-var node : Node: set = set_node
+var _node : Node
+var node : Node:
+	set(n):
+		set_node(n)
+	get:
+		return _node
 
 
 func _init( node_ : Node = null ):
-	node = node_
+	_node = node_
 
 
 func release() -> Node:
-	var to_return = node
-	node = null
+	var to_return = _node
+	_node = null
 	return to_return
 
 
 func _notification(what):
 	if what == NOTIFICATION_PREDELETE:
-		if is_instance_valid( node ) \
-			and not node.is_inside_tree() \
-			and not node.get_parent():
-			node.free()
+		if is_instance_valid( _node ) \
+			and not _node.is_inside_tree() \
+			and not _node.get_parent():
+			_node.free()
 
 
 func set_node( new_node : Node ):
-	if new_node != node:
-		if is_instance_valid( node ) \
-			and not node.is_inside_tree() \
-			and not node.get_parent():
-			node.free()
-		node = new_node
+	if new_node != _node:
+		if is_instance_valid( _node ) \
+			and not _node.is_inside_tree() \
+			and not _node.get_parent():
+			_node.free()
+		_node = new_node

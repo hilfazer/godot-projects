@@ -48,7 +48,7 @@ func test_freeOnDestruction():
 func test_dontFreeNodesInTree():
 	await get_tree().process_frame
 
-	var node1 = add_child_autoqfree(Tween.new())
+	var node1 = add_child_autoqfree(Node3D.new())
 	node1.add_child( Node2D.new() )
 	_guardNode( node1 )
 	assert_not_freed( node1, "node1" )
