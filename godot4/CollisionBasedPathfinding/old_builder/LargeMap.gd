@@ -9,7 +9,8 @@ const CellSize = Vector2(32, 32)
 
 
 func _ready():
-	var tileRect = calculateLevelRect(CellSize, [$'Sector'])
+	var sector_map : TileMap = $'Sector'
+	var tileRect = calculateLevelRect(CellSize, [sector_map])
 
 	var boundingRect = Rect2(
 		tileRect.position.x * CellSize.x +1,
@@ -18,26 +19,26 @@ func _ready():
 		tileRect.size.y * CellSize.y -1
 		)
 
-	var startTime := OS.get_system_time_msecs()
+	var startTime := Time.get_ticks_msec()
 
 	_graphBuilder.initialize( \
 		CellSize, boundingRect, Vector2(), true, _body.get_node('CollisionShape2D'), _body.rotation)
 	_graphBuilder.createGraph([])
 
-	print('elapsed : %s msec' % (OS.get_system_time_msecs() - startTime))
+	print('elapsed : %s msec' % (Time.get_ticks_msec() - startTime))
 
 
-static func calculateLevelRect( targetSize : Vector2, tilemapList : Array ) -> Rect2:
+static func calculateLevelRect( targetSize : Vector2, tilemapList : Array[TileMap] ) -> Rect2:
 	var levelRect : Rect2
 
 	for tilemap in tilemapList:
 		assert(tilemap is TileMap)
 		var usedRect = tilemap.get_used_rect()
-		var tilemapTargetRatio = tilemap.cell_size / targetSize * tilemap.scale
-		usedRect.position *= tilemapTargetRatio
-		usedRect.size *= tilemapTargetRatio
+		var tilemapTargetRatio = Vector2(tilemap.tile_set.tile_size) / targetSize * tilemap.scale
+		usedRect.position = Vector2i( Vector2(usedRect.position) * tilemapTargetRatio )
+		usedRect.size = Vector2i( Vector2(usedRect.size) * tilemapTargetRatio )
 
-		if not levelRect:
+		if levelRect == Rect2():
 			levelRect = usedRect
 		else:
 			levelRect = levelRect.merge(usedRect)

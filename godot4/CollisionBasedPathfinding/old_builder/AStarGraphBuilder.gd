@@ -41,6 +41,7 @@ func initialize(
 		return
 
 	_boundingRect = boundingRect
+	@warning_ignore("static_called_on_instance")
 	_pointsData = makePointsData( step, boundingRect, pointsOffset )
 	_setStep(step, diagonalConnections)
 
@@ -48,8 +49,8 @@ func initialize(
 		print("Top left point %s is outside of bounding rectangle." % _pointsData.topLeftPoint)
 		return
 
-	_tester.setNode( _createAndSetupTester(shape2d.duplicate(), shapeRotation) )
-
+	_tester.node = _createAndSetupTester(shape2d.duplicate(), shapeRotation)
+	@warning_ignore("static_called_on_instance")
 	_pointsToIds = calculateIdsForPoints(_pointsData, _boundingRect)
 
 
@@ -99,6 +100,7 @@ func createGraph(bodiesToIgnore):
 
 
 func updateGraph(rectangles : Array, bodiesToIgnore):
+	@warning_ignore("static_called_on_instance")
 	var points = _getPointsFromRectangles(rectangles, _pointsData, _boundingRect)
 
 	add_child(_tester.node)
@@ -159,7 +161,7 @@ func getAStarEdges2D() -> Array:
 			continue
 
 		var point : Vector2 = _astar.get_point_position(id)
-		var connections : PackedInt32Array = _astar.get_point_connections(id)
+		var connections : PackedInt64Array = _astar.get_point_connections(id)
 		for id_to in connections:
 			var pointTo : Vector2 = _astar.get_point_position(id_to)
 			edges.append( [point, pointTo] )
@@ -174,7 +176,7 @@ func _createAndSetupTester(shape__ : CollisionShape2D, rotation : float) -> Char
 
 	_shapeParams = PhysicsShapeQueryParameters2D.new()
 	_shapeParams.collide_with_bodies = true
-	_shapeParams.collision_layer = tester.collision_layer
+	_shapeParams.collision_mask = tester.collision_mask
 	_shapeParams.transform = tester.transform
 	_shapeParams.exclude = [tester] + tester.get_collision_exceptions()
 	_shapeParams.shape_rid = shape__.shape.get_rid()
@@ -271,11 +273,11 @@ static func _getPointsFromRectangles(
 		assert(rect is Rect2)
 		rect = rect.clip( boundingRect )
 
-		var rectTopLeftX := snapped(rect.position.x + step.x/2, step.x) + offset.x
+		var rectTopLeftX = snapped(rect.position.x + step.x/2, step.x) + offset.x
 		var xFirstToRectEnd = (rect.position.x + rect.size.x -1) - rectTopLeftX
 		var xCount = int(xFirstToRectEnd / step.x) + 1
 
-		var rectTopLeftY := snapped(rect.position.y + step.y/2, step.y) + offset.y
+		var rectTopLeftY = snapped(rect.position.y + step.y/2, step.y) + offset.y
 		var yFirstToRectEnd = (rect.position.y + rect.size.y -1) - rectTopLeftY
 		var yCount = int(yFirstToRectEnd / step.y) + 1
 
