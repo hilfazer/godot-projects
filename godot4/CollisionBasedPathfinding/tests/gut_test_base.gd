@@ -1,15 +1,15 @@
-extends "res://addons/gut/test.gd"
+extends GutTest
 
 const EPSILON = 0.00001
 const FILES_DIR = "user://"
 
-# warning-ignore:unused_class_variable
+@warning_ignore("unused_private_class_variable")
 var _resourceExtension := ".tres" if OS.has_feature("debug") else ".res"
 var _filesAtStart := PackedStringArray()
 
 
 func _init():
-	assert( DirAccess.new().dir_exists( FILES_DIR ) )
+	assert( DirAccess.open( FILES_DIR ) != null )
 
 	var script = get_script().resource_path.get_file()
 	if script:
@@ -17,10 +17,9 @@ func _init():
 
 
 func before_each():
-	assert( _filesAtStart.is_empty() )
+	assert( _filesAtStart.size() == 0 )
 
 	_filesAtStart = _findFilesInDirectory( FILES_DIR )
-	print("before_each()")
 
 
 func after_each():
@@ -36,7 +35,7 @@ func after_each():
 
 
 func _createDefaultTestFilePath( extension : String ) -> String:
-	return FILES_DIR.plus_file( gut.get_current_test_object().name ) \
+	return FILES_DIR.path_join( gut.get_current_test_object().name ) \
 		+ ("." + extension if extension else "")
 
 
@@ -45,20 +44,19 @@ static func _findFilesInDirectory( directoryPath : String ) -> PackedStringArray
 
 	var filePaths := PackedStringArray()
 
-	var dir = DirAccess.new()
-	dir.open( directoryPath )
-	dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var dir = DirAccess.open( directoryPath )
+	dir.list_dir_begin()
 
 	var file : String = dir.get_next()
 	while file != "":
 		if dir.current_is_dir():
 			var subdirFilePaths := _findFilesInDirectory( \
-					dir.get_current_dir().plus_file( file) )
+					dir.get_current_dir().path_join( file) )
 			filePaths.append_array( subdirFilePaths )
 
 		else:
 			assert( dir.file_exists( file ) )
-			filePaths.append( dir.get_current_dir().plus_file( file ) )
+			filePaths.append( dir.get_current_dir().path_join( file ) )
 
 		file = dir.get_next()
 
