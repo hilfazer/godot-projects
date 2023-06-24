@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://new_builder/PerformanceTest.gd" type="Script" id=1]
+
+[node name="PerformanceTest" type="Node"]
+script = ExtResource( 1 )
+runAddPoint = true
+runConnectionsAfterPoints = true
+runPointsWithConnections = true
+runCreateConnections = true
