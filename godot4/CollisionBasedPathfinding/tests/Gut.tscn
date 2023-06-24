@@ -1,8 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://cf02gmbspnfjv"]
 
-[ext_resource path="res://addons/gut/plugin_control.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://addons/gut/plugin_control.gd" id="1"]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id="1"]
 script/source = "extends Node
 
 
@@ -18,15 +18,17 @@ func _input(event):
 [node name="ut" type="Node" parent="."]
 
 [node name="StrayNodePrinter" type="Node" parent="."]
-script = SubResource( 1 )
+script = SubResource("1")
 
 [node name="Gut" type="Control" parent="."]
+custom_minimum_size = Vector2(740, 250)
+layout_mode = 3
+anchors_preset = 0
 offset_right = 740.0
 offset_bottom = 250.0
-custom_minimum_size = Vector2( 740, 250 )
-script = ExtResource( 1 )
-_font_color = Color( 1, 1, 1, 1 )
-_background_color = Color( 0, 0, 0, 1 )
+script = ExtResource("1")
+_font_color = Color(1, 1, 1, 1)
+_background_color = Color(0, 0, 0, 1)
 _run_on_load = true
 _should_maximize = true
 _should_print_to_console = false

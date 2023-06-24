@@ -32,14 +32,14 @@ func initialize(
 		) -> int:
 
 	if _pointsData:
-		_printMessage("%s already initialized", [get_path() if is_inside_tree() else @""])
+		_printMessage("%s already initialized", [get_path() if is_inside_tree() else ^""])
 		return ERR_ALREADY_EXISTS
 
 	if cellSize.x < 1 or cellSize.y < 1:
 		_printMessage("cellSize needs to be at least %s", [MINIMUM_CELL_SIZE])
 		return ERR_CANT_CREATE
 
-	if boundingRect.has_no_area():
+	if not boundingRect.has_area():
 		_printMessage("bounding rectangle needs to have an area")
 		return ERR_CANT_CREATE
 
@@ -126,7 +126,7 @@ static func calculateRectFromTilemaps(tilemaps :Array, step :Vector2 = Vector2()
 		usedRect.position *= tilemapTargetRatio
 		usedRect.size *= tilemapTargetRatio
 
-		if not tileRect:
+		if tileRect == Rect2():
 			tileRect = usedRect
 		else:
 			tileRect = tileRect.merge(usedRect)
