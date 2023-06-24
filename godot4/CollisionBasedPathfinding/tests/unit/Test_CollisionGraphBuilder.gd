@@ -1,6 +1,6 @@
 extends "res://tests/gut_test_base.gd"
 
-const AStarBuilderGd = preload("res://new_builder/CollisionGraphBuilder.gd")
+const AStarBuilderGd = preload("res://new_builder/collision_graph_builder.gd")
 
 
 func test_initializeIncorrectData():

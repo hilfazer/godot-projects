@@ -1,9 +1,9 @@
 extends "res://tests/gut_test_base.gd"
 
-const GraphGd =              preload("res://new_builder/CollisionGraph.gd")
+const GraphGd =              preload("res://new_builder/collision_graph.gd")
 const FunctionsGd =          preload("res://new_builder/static_functions.gd")
 const PointsDataGd =         preload("res://new_builder/points_data.gd")
-const TestingFunctionsGd =   preload("./files/TestingFunctions.gd")
+const TestingFunctionsGd =   preload("../files/TestingFunctions.gd")
 
 
 var pointsData := PointsDataGd.PointsData.create(
@@ -73,7 +73,7 @@ func test_updateGraph():
 	graph.updateGraph(points)
 
 	var hasAnyDisabled = false
-	for pointID in graph.astar2d.get_points():
+	for pointID in graph.astar2d.get_point_ids():
 		if graph.astar2d.is_point_disabled(pointID):
 			hasAnyDisabled = true
 			break

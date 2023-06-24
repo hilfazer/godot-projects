@@ -20,7 +20,7 @@ static func _calculateSectorRect( tilemapList : Array ) -> Rect2:
 		usedRect.position *= tilemapTargetRatio
 		usedRect.size *= tilemapTargetRatio
 
-		if not levelRect:
+		if levelRect == Rect2():
 			levelRect = usedRect
 		else:
 			levelRect = levelRect.merge(usedRect)

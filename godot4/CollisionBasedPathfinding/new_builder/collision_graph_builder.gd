@@ -2,7 +2,7 @@ extends Node
 
 const FunctionsGd =          preload("./static_functions.gd")
 const PointsDataGd =         preload("./points_data.gd")
-const GraphGd =              preload("./CollisionGraph.gd")
+const GraphGd =              preload("./collision_graph.gd")
 
 const MINIMUM_CELL_SIZE := Vector2(2, 2)
 const ERR_UNINITIALIZED := -1

@@ -1,6 +1,6 @@
 extends CanvasItem
 
-const GraphBuilderGd         = preload("./CollisionGraphBuilder.gd")
+const GraphBuilderGd         = preload("./collision_graph_builder.gd")
 const UnitGd                 = preload("res://old_builder/Unit.gd")
 const SectorGd               = preload("res://old_builder/Sector.gd")
 
