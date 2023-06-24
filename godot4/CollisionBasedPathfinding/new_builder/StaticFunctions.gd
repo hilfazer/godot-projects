@@ -8,6 +8,7 @@ const X_COORD_MULT := 46000
 
 
 func _init():
+	@warning_ignore("assert_always_false")
 	assert(false)
 
 
@@ -21,7 +22,7 @@ static func calculateIdsForPoints(
 	var ycnt : int = pointsData.yCount
 	var tlx := pointsData.topLeftPoint.x
 	var tly := pointsData.topLeftPoint.y
-# warning-ignore:integer_division
+	@warning_ignore("integer_division")
 	var offset := X_COORD_MULT / 2
 
 	for x in range( tlx, tlx + xcnt * stepx, stepx ):
@@ -82,7 +83,7 @@ static func createConnections(pointsData :PointsData, isDiagonal :bool) -> Array
 
 
 static func pointsFromRect( rectangle :Rect2, pointsData :PointsData ) -> Array:
-	var rect := rectangle.clip(pointsData.boundingRect)
+	var rect := rectangle.intersection(pointsData.boundingRect)
 	var step = pointsData.step
 	var topLeft = (rect.position).snapped(step)
 	topLeft += pointsData.offset
