@@ -2,7 +2,7 @@ extends Node
 
 const CollisionAStarBuilderGd =        preload("./CollisionGraphBuilder.gd")
 const FunctionsGd =                    preload("./static_functions.gd")
-const PointsDataGd =                   preload("./PointsData.gd")
+const PointsDataGd =                   preload("./points_data.gd")
 
 @export var runAddPoint: bool
 @export var runConnectionsAfterPoints: bool
@@ -43,12 +43,12 @@ static func _addPoint( size : Vector2, astar : AStar3D ) -> int:
 			var pointId = int(xx * size.x + yy)
 			idsToPoints2d[pointId] = Vector2(xx, yy)
 
-	var startTime := OS.get_system_time_msecs()
+	var startTime := Time.get_ticks_msec()
 
 	for id in idsToPoints2d:
 			astar.add_point( id , Vector3(idsToPoints2d[id].x, idsToPoints2d[id].y, 0.0) )
 
-	return OS.get_system_time_msecs() - startTime
+	return Time.get_ticks_msec() - startTime
 
 
 func testConnectionsAfterPoints():
@@ -89,7 +89,7 @@ static func _addConnectionsAfterPoints( size : Vector2, astar : AStar3D ) -> int
 			if idsToCoords.has( idD ):
 				connections.append(Vector2( (x * size.x + y), idD) )
 
-	var startTime := OS.get_system_time_msecs()
+	var startTime := Time.get_ticks_msec()
 
 	for id in idsToCoords:
 			astar.add_point( id , idsToCoords[id] )
@@ -97,7 +97,7 @@ static func _addConnectionsAfterPoints( size : Vector2, astar : AStar3D ) -> int
 	for idPair in connections:
 		astar.connect_points(idPair[0], idPair[1])
 
-	return OS.get_system_time_msecs() - startTime
+	return Time.get_ticks_msec() - startTime
 
 
 func testPointsWithConnections():
@@ -144,7 +144,7 @@ static func _addPointsWithConnections( size : Vector2, astar : AStar3D ) -> int:
 
 			pointIdsWithConnections[(x * size.x + y)] = pointConnections
 
-	var startTime := OS.get_system_time_msecs()
+	var startTime := Time.get_ticks_msec()
 
 	for id in pointIdsWithConnections:
 		astar.add_point(id, idsToCoords[id])
@@ -153,7 +153,7 @@ static func _addPointsWithConnections( size : Vector2, astar : AStar3D ) -> int:
 			astar.add_point(connectId, idsToCoords[connectId])
 			astar.connect_points(id, connectId)
 
-	return OS.get_system_time_msecs() - startTime
+	return Time.get_ticks_msec() - startTime
 
 
 func testCreateConnections():
@@ -176,45 +176,45 @@ func testCreateConnections():
 
 	print("createConnections")
 	retVal.clear()
-	startTime = OS.get_system_time_msecs()
+	startTime = Time.get_ticks_msec()
 	retVal = createConnections(pointsData, neighbourOffsets)
-	print( str(OS.get_system_time_msecs() - startTime) + "ms" )
+	print( str(Time.get_ticks_msec() - startTime) + "ms" )
 	retVal.clear()
-	startTime = OS.get_system_time_msecs()
+	startTime = Time.get_ticks_msec()
 	retVal = createConnections(pointsData, neighbourOffsets)
-	print( str(OS.get_system_time_msecs() - startTime) + "ms" )
+	print( str(Time.get_ticks_msec() - startTime) + "ms" )
 	retVal.clear()
-	startTime = OS.get_system_time_msecs()
+	startTime = Time.get_ticks_msec()
 	retVal = createConnections(pointsData, neighbourOffsets)
-	print( str(OS.get_system_time_msecs() - startTime) + "ms" )
+	print( str(Time.get_ticks_msec() - startTime) + "ms" )
 
 	print("createConnectionsNoIfs")
 	retVal.clear()
-	startTime = OS.get_system_time_msecs()
+	startTime = Time.get_ticks_msec()
 	retVal = createConnectionsNoIfs(pointsData, neighbourOffsets)
-	print( str(OS.get_system_time_msecs() - startTime) + "ms" )
+	print( str(Time.get_ticks_msec() - startTime) + "ms" )
 	retVal.clear()
-	startTime = OS.get_system_time_msecs()
+	startTime = Time.get_ticks_msec()
 	retVal = createConnectionsNoIfs(pointsData, neighbourOffsets)
-	print( str(OS.get_system_time_msecs() - startTime) + "ms" )
+	print( str(Time.get_ticks_msec() - startTime) + "ms" )
 	retVal.clear()
-	startTime = OS.get_system_time_msecs()
+	startTime = Time.get_ticks_msec()
 	retVal = createConnectionsNoIfs(pointsData, neighbourOffsets)
-	print( str(OS.get_system_time_msecs() - startTime) + "ms" )
+	print( str(Time.get_ticks_msec() - startTime) + "ms" )
 
 	print("CollisionAStarBuilderGd.createConnections")
 	retVal.clear()
-	startTime = OS.get_system_time_msecs()
+	startTime = Time.get_ticks_msec()
 	retVal = FunctionsGd.createConnections(pointsData, true)
-	print( str(OS.get_system_time_msecs() - startTime) + "ms" )
+	print( str(Time.get_ticks_msec() - startTime) + "ms" )
 	retVal.clear()
-	startTime = OS.get_system_time_msecs()
+	startTime = Time.get_ticks_msec()
 	retVal = FunctionsGd.createConnections(pointsData, true)
-	print( str(OS.get_system_time_msecs() - startTime) + "ms" )
+	print( str(Time.get_ticks_msec() - startTime) + "ms" )
 	retVal.clear()
-	startTime = OS.get_system_time_msecs()
+	startTime = Time.get_ticks_msec()
 	retVal = FunctionsGd.createConnections(pointsData, true)
-	print( str(OS.get_system_time_msecs() - startTime) + "ms" )
+	print( str(Time.get_ticks_msec() - startTime) + "ms" )
 
 
 static func createConnections( \
@@ -284,7 +284,7 @@ func testCreateAStar():
 
 
 static func _createAStar(pointsData, pointsToIds):
-	var startTime := OS.get_system_time_msecs()
+	var startTime := Time.get_ticks_msec()
 	var astar = FunctionsGd.createFullyConnectedAStar(pointsData, pointsToIds, true)
-	return OS.get_system_time_msecs() - startTime
+	return Time.get_ticks_msec() - startTime
 

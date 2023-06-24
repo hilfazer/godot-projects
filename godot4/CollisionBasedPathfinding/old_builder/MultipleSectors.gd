@@ -54,7 +54,7 @@ func _ready():
 # warning-ignore:return_value_discarded
 		unit.connect('selected', Callable(self, "_selectUnit").bind(unit))
 
-		var startTime := OS.get_system_time_msecs()
+		var startTime := Time.get_ticks_msec()
 
 		graphBuilder.initialize(
 			step
@@ -66,7 +66,7 @@ func _ready():
 			)
 		graphBuilder.createGraph([unit])
 
-		print('initialize & createGraph : %s msec' % (OS.get_system_time_msecs() - startTime))
+		print('initialize & createGraph : %s msec' % (Time.get_ticks_msec() - startTime))
 
 
 func _unhandled_input(event):
@@ -211,12 +211,12 @@ func _onAlterTile():
 		await get_tree().idle_frame	# to update physics
 		var unit : CharacterBody2D = _currentSector.get_node("Unit")
 
-		var startTime := OS.get_system_time_msecs()
+		var startTime := Time.get_ticks_msec()
 		_lastUpdateRect = _getUpdateRectFromTile(_currentSector, mousePos)
 		_currentSector.get_node("GraphBuilder").updateGraph( \
 				[ _lastUpdateRect ], [unit])
 				#[ _currentSector.boundingRect ], [unit])
-		print('updateGraph : %s msec' % (OS.get_system_time_msecs() - startTime))
+		print('updateGraph : %s msec' % (Time.get_ticks_msec() - startTime))
 
 	else:
 		print("Failed to change a tile. Cursor outside of current sector.")

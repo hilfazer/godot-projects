@@ -1,6 +1,6 @@
 extends RefCounted
 
-const PointsDataGd =         preload("./PointsData.gd")
+const PointsDataGd =         preload("./points_data.gd")
 
 const PointsData =           PointsDataGd.PointsData
 const RESERVE_SPACE_MULT := 1.25

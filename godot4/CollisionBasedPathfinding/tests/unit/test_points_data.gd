@@ -1,6 +1,6 @@
 extends "res://tests/gut_test_base.gd"
 
-const PointsDataGd =         preload("res://new_builder/PointsData.gd")
+const PointsDataGd =         preload("res://new_builder/points_data.gd")
 
 
 enum CreateIdx { Step, Rect, Offset, Properties }

@@ -8,3 +8,4 @@ runAddPoint = true
 runConnectionsAfterPoints = true
 runPointsWithConnections = true
 runCreateConnections = true
+runCreateAStar = null
