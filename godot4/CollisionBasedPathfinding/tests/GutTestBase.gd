@@ -5,11 +5,11 @@ const FILES_DIR = "user://"
 
 # warning-ignore:unused_class_variable
 var _resourceExtension := ".tres" if OS.has_feature("debug") else ".res"
-var _filesAtStart := PoolStringArray()
+var _filesAtStart := PackedStringArray()
 
 
 func _init():
-	assert( Directory.new().dir_exists( FILES_DIR ) )
+	assert( DirAccess.new().dir_exists( FILES_DIR ) )
 
 	var script = get_script().resource_path.get_file()
 	if script:
@@ -17,7 +17,7 @@ func _init():
 
 
 func before_each():
-	assert( _filesAtStart.empty() )
+	assert( _filesAtStart.is_empty() )
 
 	_filesAtStart = _findFilesInDirectory( FILES_DIR )
 	print("before_each()")
@@ -28,7 +28,7 @@ func after_each():
 		child.free()
 	assert( get_child_count() == 0 )
 
-	var filesNow : PoolStringArray = _findFilesInDirectory( FILES_DIR )
+	var filesNow : PackedStringArray = _findFilesInDirectory( FILES_DIR )
 	for filePath in filesNow:
 		if not filePath in _filesAtStart:
 			gut.file_delete( filePath )
@@ -40,14 +40,14 @@ func _createDefaultTestFilePath( extension : String ) -> String:
 		+ ("." + extension if extension else "")
 
 
-static func _findFilesInDirectory( directoryPath : String ) -> PoolStringArray:
+static func _findFilesInDirectory( directoryPath : String ) -> PackedStringArray:
 	assert( directoryPath )
 
-	var filePaths := PoolStringArray()
+	var filePaths := PackedStringArray()
 
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	dir.open( directoryPath )
-	dir.list_dir_begin( true )
+	dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 
 	var file : String = dir.get_next()
 	while file != "":

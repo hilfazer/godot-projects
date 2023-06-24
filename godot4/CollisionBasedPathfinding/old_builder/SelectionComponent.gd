@@ -1,13 +1,13 @@
-tool
+@tool
 extends Area2D
 
-onready var _rectShape = $"CollisionShape2D".shape
-onready var _perimeter = $"Perimeter"
+@onready var _rectShape = $"CollisionShape2D".shape
+@onready var _perimeter = $"Perimeter"
 
 
 func _process(_delta):
-	var x = _rectShape.extents.x
-	var y = _rectShape.extents.y
+	var x = _rectShape.size.x
+	var y = _rectShape.size.y
 	var points = _perimeter.points
 
 	assert(points.size() == 5)

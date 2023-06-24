@@ -4,20 +4,20 @@ const GraphBuilderGd         = preload("./CollisionGraphBuilder.gd")
 const UnitGd                 = preload("res://old_builder/Unit.gd")
 const SectorGd               = preload("res://old_builder/Sector.gd")
 
-export var _drawEdges := false
-export var _drawPoints := false
+@export var _drawEdges := false
+@export var _drawPoints := false
 
 var _astarDataDict := {}
-onready var _sector = $"Sector1"
+@onready var _sector = $"Sector1"
 var _graphId : int = -1
 
 
 func _ready():
 	assert(_sector.has_node("GraphBuilder"))
 	assert(_sector.has_node("Unit"))
-	assert(_sector.has_node("Position2D"))
+	assert(_sector.has_node("Marker2D"))
 
-	var unit : KinematicBody2D = _sector.get_node("Unit")
+	var unit : CharacterBody2D = _sector.get_node("Unit")
 	var graphBuilder : GraphBuilderGd = _sector.get_node("GraphBuilder")
 	var step : Vector2 = _sector.step
 	var boundingRect = GraphBuilderGd.calculateRectFromTilemaps([_sector], step)
@@ -34,7 +34,7 @@ func _draw():
 
 	if _drawPoints:
 		for id in astar.get_points():
-			draw_circle(astar.get_point_position(id), 1, Color.cyan)
+			draw_circle(astar.get_point_position(id), 1, Color.CYAN)
 
 # TODO draw edges
 #	if _drawEdges:

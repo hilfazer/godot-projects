@@ -1,13 +1,13 @@
 extends TileMap
 
 # warning-ignore:unused_class_variable
-export var step := Vector2(32, 32)
+@export var step := Vector2(32, 32)
 # warning-ignore:unused_class_variable
-export var pointsOffset := Vector2(0,0)
+@export var pointsOffset := Vector2(0,0)
 # warning-ignore:unused_class_variable
-export var diagonal : bool
+@export var diagonal : bool
 # warning-ignore:unused_class_variable
-onready var boundingRect := _calculateSectorRect([self])
+@onready var boundingRect := _calculateSectorRect([self])
 
 
 static func _calculateSectorRect( tilemapList : Array ) -> Rect2:

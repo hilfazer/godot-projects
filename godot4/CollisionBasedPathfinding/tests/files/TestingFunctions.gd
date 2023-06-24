@@ -1,8 +1,8 @@
 extends Node
 
 
-static func getEnabledPoints(astar : AStar2D) -> PoolIntArray:
-	var enabledPoints := PoolIntArray()
+static func getEnabledPoints(astar : AStar2D) -> PackedInt32Array:
+	var enabledPoints := PackedInt32Array()
 	for point in astar.get_points():
 		if not astar.is_point_disabled(point):
 			enabledPoints.append(point)

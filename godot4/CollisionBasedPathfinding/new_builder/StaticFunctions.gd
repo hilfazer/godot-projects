@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 
 const PointsDataGd =         preload("./PointsData.gd")
 

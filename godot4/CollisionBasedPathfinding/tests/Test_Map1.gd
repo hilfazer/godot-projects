@@ -9,7 +9,7 @@ const TestMap1Scn =          preload("res://tests/files/TestMap1.tscn")
 
 
 func test_calculateRectFromTilemapsOnMap1():
-	var map = autofree(TestMap1Scn.instance())
+	var map = autofree(TestMap1Scn.instantiate())
 	var step := Vector2(0, 0)
 	assert(map is TileMap)
 	var boundingRect = AStarBuilderGd.calculateRectFromTilemaps([map], step)
@@ -18,7 +18,7 @@ func test_calculateRectFromTilemapsOnMap1():
 
 
 func test_map1noOffsetNoDiagonal():
-	var map :TileMap = add_child_autofree(TestMap1Scn.instance())
+	var map :TileMap = add_child_autofree(TestMap1Scn.instantiate())
 	var step := map.cell_size
 	assert(map is TileMap)
 	var boundingRect = AStarBuilderGd.calculateRectFromTilemaps([map], step)
@@ -39,7 +39,7 @@ func test_map1noOffsetNoDiagonal():
 
 
 func test_map1offsetNoDiagonal():
-	var map :TileMap = add_child_autofree(TestMap1Scn.instance())
+	var map :TileMap = add_child_autofree(TestMap1Scn.instantiate())
 	var step := map.cell_size
 	assert(map is TileMap)
 	var boundingRect = AStarBuilderGd.calculateRectFromTilemaps([map], step)
@@ -61,11 +61,11 @@ func test_map1offsetNoDiagonal():
 
 
 func test_findEnabledAndDisabledPointsMap1():
-	var viewport :Viewport = autofree( Viewport.new() )
+	var viewport :SubViewport = autofree( SubViewport.new() )
 	call_deferred('add_child', viewport)
-	yield(viewport, 'ready')
+	await viewport.ready
 
-	var map = TestMap1Scn.instance()
+	var map = TestMap1Scn.instantiate()
 	var step := Vector2(32, 32)
 	assert(map is TileMap)
 	var boundingRect = AStarBuilderGd.calculateRectFromTilemaps([map], step)

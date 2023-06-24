@@ -86,7 +86,7 @@ func createGraph(unitShape :RectangleShape2D, collisionMask :int) -> int:
 	_previousGraphId += 1
 	_graphs[id] = graph
 # warning-ignore:return_value_discarded
-	graph.connect("predelete", self, "_onGraphPredelete", [id], CONNECT_ONESHOT)
+	graph.connect("predelete", Callable(self, "_onGraphPredelete").bind(id), CONNECT_ONE_SHOT)
 	return id
 
 

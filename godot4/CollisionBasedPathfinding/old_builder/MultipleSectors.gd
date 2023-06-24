@@ -8,18 +8,18 @@ const SelectionComponentScn  = preload("./SelectionComponent.tscn")
 
 const WallTileId := 0
 
-var _path : PoolVector2Array
+var _path : PackedVector2Array
 var _currentSector : SectorGd = null
 var _astarDataDict := {}
 var _drawCalls := 0
 var _lastUpdateRect : Rect2
-onready var _drawCallsLabel : Label          = $'Panel/LabelDrawCalls'
-onready var _drawEdgesCheckBox : CheckBox    = $'Panel/HBoxDrawing/CheckBoxEdges'
-onready var _drawPointsCheckBox : CheckBox   = $'Panel/HBoxDrawing/CheckBoxPoints'
-onready var _mousePosition                   = $'Panel/LabelMousePosition'
-onready var _selection                       = $'SelectionComponent'
+@onready var _drawCallsLabel : Label          = $'Panel/LabelDrawCalls'
+@onready var _drawEdgesCheckBox : CheckBox    = $'Panel/HBoxDrawing/CheckBoxEdges'
+@onready var _drawPointsCheckBox : CheckBox   = $'Panel/HBoxDrawing/CheckBoxPoints'
+@onready var _mousePosition                   = $'Panel/LabelMousePosition'
+@onready var _selection                       = $'SelectionComponent'
 
-onready var _sectors = [
+@onready var _sectors = [
 	$'Sector1',
 	$'Sector2',
 	$'Sector3',
@@ -30,9 +30,9 @@ func _ready():
 	for sector in _sectors:
 		assert(sector.has_node("GraphBuilder"))
 		assert(sector.has_node("Unit"))
-		assert(sector.has_node("Position2D"))
+		assert(sector.has_node("Marker2D"))
 
-		var unit : KinematicBody2D = sector.get_node("Unit")
+		var unit : CharacterBody2D = sector.get_node("Unit")
 		var graphBuilder : GraphBuilderGd = sector.get_node("GraphBuilder")
 		var step : Vector2 = sector.step
 
@@ -46,13 +46,13 @@ func _ready():
 			)
 
 # warning-ignore:return_value_discarded
-		graphBuilder.connect('graphCreated', self, '_positionUnit', [sector], CONNECT_ONESHOT)
+		graphBuilder.connect('graphCreated', Callable(self, '_positionUnit').bind(sector), CONNECT_ONE_SHOT)
 # warning-ignore:return_value_discarded
-		graphBuilder.connect('graphCreated', self, '_updateAStarPoints', [graphBuilder], CONNECT_ONESHOT)
+		graphBuilder.connect('graphCreated', Callable(self, '_updateAStarPoints').bind(graphBuilder), CONNECT_ONE_SHOT)
 # warning-ignore:return_value_discarded
-		graphBuilder.connect('astarUpdated', self, 'call_deferred', ["_updateAStarPoints", graphBuilder])
+		graphBuilder.connect('astarUpdated', Callable(self, 'call_deferred').bind("_updateAStarPoints", graphBuilder))
 # warning-ignore:return_value_discarded
-		unit.connect('selected', self, "_selectUnit", [unit])
+		unit.connect('selected', Callable(self, "_selectUnit").bind(unit))
 
 		var startTime := OS.get_system_time_msecs()
 
@@ -94,21 +94,21 @@ func _draw():
 	for sectorAstarData in _astarDataDict.values():
 		if _drawEdgesCheckBox.pressed:
 			for edge in sectorAstarData['edges']:
-				draw_line(edge[0], edge[1], Color.dimgray, 1.0)
+				draw_line(edge[0], edge[1], Color.DIM_GRAY, 1.0)
 
 		if _drawPointsCheckBox.pressed:
 			for point in sectorAstarData['points']:
-				draw_circle(point, 1, Color.cyan)
+				draw_circle(point, 1, Color.CYAN)
 
 	for graphBuilder in _astarDataDict.keys():
-		draw_rect( graphBuilder.getBoundingRect(), Color.blue, false )
+		draw_rect( graphBuilder.getBoundingRect(), Color.BLUE, false )
 
 	for i in range(0, _path.size() - 1):
 		draw_line(Vector2(_path[i].x, _path[i].y), Vector2(_path[i+1].x, _path[i+1].y) \
-			, Color.yellow, 1.5)
+			, Color.YELLOW, 1.5)
 
 	if not _lastUpdateRect.has_no_area():
-		draw_rect( _lastUpdateRect, Color.red, false )
+		draw_rect( _lastUpdateRect, Color.RED, false )
 
 
 static func calculateLevelRect( targetSize : Vector2, tilemapList : Array ) -> Rect2:
@@ -130,9 +130,9 @@ static func calculateLevelRect( targetSize : Vector2, tilemapList : Array ) -> R
 
 
 func _positionUnit(sector : SectorGd):
-	var unit : KinematicBody2D = sector.get_node("Unit")
+	var unit : CharacterBody2D = sector.get_node("Unit")
 	var graphBuilder : GraphBuilderGd = sector.get_node("GraphBuilder")
-	var pos2d = sector.get_node("Position2D")
+	var pos2d = sector.get_node("Marker2D")
 
 	var pointId = graphBuilder.getAStar().get_closest_point(
 		Vector2(pos2d.position.x, pos2d.position.y) )
@@ -141,7 +141,7 @@ func _positionUnit(sector : SectorGd):
 	unit.position = pointPos
 
 
-func _selectUnit(unit : KinematicBody2D):
+func _selectUnit(unit : CharacterBody2D):
 	_selection.get_parent().remove_child(_selection)
 	unit.add_child(_selection)
 	_selection.position = Vector2(0, 0)
@@ -153,8 +153,8 @@ func _setCurrentSector(sector : SectorGd):
 	_currentSector = sector
 
 
-func _findPath(sector : SectorGd) -> PoolVector2Array:
-	var path := PoolVector2Array()
+func _findPath(sector : SectorGd) -> PackedVector2Array:
+	var path := PackedVector2Array()
 	var unit = sector.get_node("Unit")
 	path.resize(0)
 	var astar : AStar2D = sector.get_node("GraphBuilder").getAStar()
@@ -174,7 +174,7 @@ func _updateAStarPoints(graphBuilder : GraphBuilderGd):
 
 
 func _spawnObstacle():
-	var obstacle = ObstacleScn.instance()
+	var obstacle = ObstacleScn.instantiate()
 	add_child(obstacle)
 	obstacle.position = get_viewport().get_mouse_position()
 
@@ -183,7 +183,7 @@ func _changeTileInSector(sector : SectorGd, worldPosition : Vector2) -> int:
 	if not sector.boundingRect.has_point(worldPosition):
 		return FAILED
 
-	var cellPos := sector.world_to_map(worldPosition)
+	var cellPos := sector.local_to_map(worldPosition)
 	if sector.get_cellv(cellPos) == -1:
 		sector.set_cellv(cellPos, WallTileId)
 	else:
@@ -194,7 +194,7 @@ func _changeTileInSector(sector : SectorGd, worldPosition : Vector2) -> int:
 func _getUpdateRectFromTile( sector : SectorGd, worldPos : Vector2 ) -> Rect2:
 	assert( sector.boundingRect.has_point(worldPos) )
 
-	var tileWorldOrigin = sector.map_to_world( sector.world_to_map(worldPos) )
+	var tileWorldOrigin = sector.map_to_local(sector.local_to_map(worldPos))
 	var csize = sector.cell_size
 	var x = tileWorldOrigin.x - csize.x / 2 - 1
 	var y = tileWorldOrigin.y - csize.y / 2 - 1
@@ -208,8 +208,8 @@ func _onAlterTile():
 
 	var mousePos = get_viewport().get_mouse_position()
 	if _changeTileInSector(_currentSector, mousePos) == OK:
-		yield(get_tree(), "idle_frame")	# to update physics
-		var unit : KinematicBody2D = _currentSector.get_node("Unit")
+		await get_tree().idle_frame	# to update physics
+		var unit : CharacterBody2D = _currentSector.get_node("Unit")
 
 		var startTime := OS.get_system_time_msecs()
 		_lastUpdateRect = _getUpdateRectFromTile(_currentSector, mousePos)

@@ -4,8 +4,8 @@ const GraphBuilderGd         = preload("./AStarGraphBuilder.gd")
 
 const CellSize = Vector2(32, 32)
 
-onready var _body = $'Sector/Body'
-onready var _graphBuilder : GraphBuilderGd = $'Sector/GraphBuilder'
+@onready var _body = $'Sector/Body'
+@onready var _graphBuilder : GraphBuilderGd = $'Sector/GraphBuilder'
 
 
 func _ready():

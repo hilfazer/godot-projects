@@ -4,11 +4,11 @@ const FunctionsGd =          preload("./StaticFunctions.gd")
 const PointsDataGd =         preload("./PointsData.gd")
 
 var astar2d : AStar2D
-var _probe :KinematicBody2D
+var _probe :CharacterBody2D
 var _neighbourOffsets :Array
 var _points2ids :Dictionary
 var _pointsData :PointsDataGd.PointsData
-var _shapeParams :Physics2DShapeQueryParameters
+var _shapeParams :PhysicsShapeQueryParameters2D
 
 
 signal predelete()
@@ -72,7 +72,7 @@ static func makeNeighbourOffsets(step :Vector2, diagonal :bool) -> Array:
 
 
 static func findEnabledAndDisabledPoints(
-		points :Array, probe :KinematicBody2D, params :Physics2DShapeQueryParameters) -> Array:
+		points :Array, probe :CharacterBody2D, params :PhysicsShapeQueryParameters2D) -> Array:
 
 	var enabledAndDisabled := [[], []]
 	var spaceState := probe.get_world_2d().direct_space_state
@@ -81,7 +81,7 @@ static func findEnabledAndDisabledPoints(
 	for pt in points:
 		transform.origin = pt
 		params.transform = transform
-		var isValidPlace = spaceState.intersect_shape(params, 1).empty()
+		var isValidPlace = spaceState.intersect_shape(params, 1).is_empty()
 		enabledAndDisabled[ int(!isValidPlace) ].append(pt)
 
 	return enabledAndDisabled
@@ -89,8 +89,8 @@ static func findEnabledAndDisabledPoints(
 
 #ignores connections involving disabled points
 static func findEnabledAndDisabledConnections(
-		points :Array, disabledPoints :Array, probe :KinematicBody2D
-		, params :Physics2DShapeQueryParameters, neighbourOffsets :Array, boundingRect :Rect2
+		points :Array, disabledPoints :Array, probe :CharacterBody2D
+		, params :PhysicsShapeQueryParameters2D, neighbourOffsets :Array, boundingRect :Rect2
 		) -> Array:
 
 	var disabledDict := {}  # for fast lookup
@@ -115,18 +115,18 @@ static func findEnabledAndDisabledConnections(
 	return enabledAndDisabled
 
 
-static func _createShapeQueryParameters(probe) -> Physics2DShapeQueryParameters:
-	var params := Physics2DShapeQueryParameters.new()
+static func _createShapeQueryParameters(probe) -> PhysicsShapeQueryParameters2D:
+	var params := PhysicsShapeQueryParameters2D.new()
 	params.collide_with_bodies = true
-	params.collision_layer = probe.collision_mask # Physics2DShapeQueryParameters seem to need this to work
+	params.collision_layer = probe.collision_mask # PhysicsShapeQueryParameters2D seem to need this to work
 	params.transform = probe.transform
 	params.exclude = [probe] + probe.get_collision_exceptions()
 	params.shape_rid = probe.get_node("CollisionShape2D").shape.get_rid()
 	return params
 
 
-static func _createAndSetupProbe__(shape :RectangleShape2D, mask :int) -> KinematicBody2D:
-	var probe := KinematicBody2D.new()
+static func _createAndSetupProbe__(shape :RectangleShape2D, mask :int) -> CharacterBody2D:
+	var probe := CharacterBody2D.new()
 	probe.name = "Probe"
 	var collisionShape = CollisionShape2D.new()
 	probe.add_child(collisionShape)

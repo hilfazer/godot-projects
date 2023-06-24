@@ -17,7 +17,7 @@ var _pointsToIds : Dictionary = {}
 var _astar := AStar2D.new()
 var _tester := NodeGuard.new()
 
-var _shapeParams : Physics2DShapeQueryParameters
+var _shapeParams : PhysicsShapeQueryParameters2D
 
 
 signal graphCreated()
@@ -37,7 +37,7 @@ func initialize(
 		return
 
 	if not shape2d:
-		print("Shape is null.")
+		print("Shape3D is null.")
 		return
 
 	_boundingRect = boundingRect
@@ -56,7 +56,7 @@ func initialize(
 func createGraph(bodiesToIgnore):
 	assert(_tester.node != null)
 	assert(is_inside_tree())
-	assert(is_a_parent_of(_tester.node))
+	assert(is_ancestor_of(_tester.node))
 	assert(_pointsToIds.size() != 0)
 
 	var points := []
@@ -159,20 +159,20 @@ func getAStarEdges2D() -> Array:
 			continue
 
 		var point : Vector2 = _astar.get_point_position(id)
-		var connections : PoolIntArray = _astar.get_point_connections(id)
+		var connections : PackedInt32Array = _astar.get_point_connections(id)
 		for id_to in connections:
 			var pointTo : Vector2 = _astar.get_point_position(id_to)
 			edges.append( [point, pointTo] )
 	return edges
 
 
-func _createAndSetupTester(shape__ : CollisionShape2D, rotation : float) -> KinematicBody2D:
-	var tester := KinematicBody2D.new()
+func _createAndSetupTester(shape__ : CollisionShape2D, rotation : float) -> CharacterBody2D:
+	var tester := CharacterBody2D.new()
 	tester.add_child(shape__)
 	tester.rotation = rotation
 	add_child(tester)
 
-	_shapeParams = Physics2DShapeQueryParameters.new()
+	_shapeParams = PhysicsShapeQueryParameters2D.new()
 	_shapeParams.collide_with_bodies = true
 	_shapeParams.collision_layer = tester.collision_layer
 	_shapeParams.transform = tester.transform
@@ -195,7 +195,7 @@ func _setTesterCollisionExceptions(exceptions : Array):
 
 
 func _findEnabledAndDisabledPoints( \
-		points : Array, tester : KinematicBody2D) -> Array:
+		points : Array, tester : CharacterBody2D) -> Array:
 
 	var enabledAndDisabled := [[], []]
 	var spaceState := tester.get_world_2d().direct_space_state
@@ -204,7 +204,7 @@ func _findEnabledAndDisabledPoints( \
 	for pt in points:
 		transform.origin = pt
 		_shapeParams.transform = transform
-		var isValidPlace = spaceState.intersect_shape(_shapeParams, 1).empty()
+		var isValidPlace = spaceState.intersect_shape(_shapeParams, 1).is_empty()
 		enabledAndDisabled[ int(!isValidPlace) ].append(pt)
 
 	return enabledAndDisabled
@@ -212,7 +212,7 @@ func _findEnabledAndDisabledPoints( \
 
 #ignores connections involving disabled points
 func _findEnabledConnections( \
-		points : Array, disabledPoints : Array, tester : KinematicBody2D) -> Array:
+		points : Array, disabledPoints : Array, tester : CharacterBody2D) -> Array:
 
 	var disabledDict := {}	# for fast lookup
 	for pt in disabledPoints:
@@ -236,7 +236,7 @@ func _findEnabledConnections( \
 
 #ignores connections involving disabled points
 func _findEnabledAndDisabledConnections( \
-		points : Array, disabledPoints : Array, tester : KinematicBody2D) -> Array:
+		points : Array, disabledPoints : Array, tester : CharacterBody2D) -> Array:
 
 	var disabledDict := {}  # for fast lookup
 	for pt in disabledPoints:
@@ -271,11 +271,11 @@ static func _getPointsFromRectangles(
 		assert(rect is Rect2)
 		rect = rect.clip( boundingRect )
 
-		var rectTopLeftX := stepify(rect.position.x + step.x/2, step.x) + offset.x
+		var rectTopLeftX := snapped(rect.position.x + step.x/2, step.x) + offset.x
 		var xFirstToRectEnd = (rect.position.x + rect.size.x -1) - rectTopLeftX
 		var xCount = int(xFirstToRectEnd / step.x) + 1
 
-		var rectTopLeftY := stepify(rect.position.y + step.y/2, step.y) + offset.y
+		var rectTopLeftY := snapped(rect.position.y + step.y/2, step.y) + offset.y
 		var yFirstToRectEnd = (rect.position.y + rect.size.y -1) - rectTopLeftY
 		var yCount = int(yFirstToRectEnd / step.y) + 1
 
@@ -290,11 +290,11 @@ static func _getPointsFromRectangles(
 static func makePointsData( step : Vector2, rect : Rect2, offset : Vector2 ) -> PointsData:
 	var data = PointsData.new()
 
-	data.topLeftPoint.x = stepify(rect.position.x + step.x/2, step.x) + offset.x
+	data.topLeftPoint.x = snapped(rect.position.x + step.x/2, step.x) + offset.x
 	var xFirstToRectEnd = (rect.position.x + rect.size.x -1) - data.topLeftPoint.x
 	data.xCount = int(xFirstToRectEnd / step.x) + 1
 
-	data.topLeftPoint.y = stepify(rect.position.y + step.y/2, step.y) + offset.y
+	data.topLeftPoint.y = snapped(rect.position.y + step.y/2, step.y) + offset.y
 	var yFirstToRectEnd = (rect.position.y + rect.size.y -1) - data.topLeftPoint.y
 	data.yCount = int(yFirstToRectEnd / step.y) + 1
 

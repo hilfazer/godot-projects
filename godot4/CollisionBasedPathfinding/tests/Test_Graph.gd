@@ -46,26 +46,26 @@ func test_createGraph():
 
 func test_initializeProbe():
 	var shape := RectangleShape2D.new()
-	shape.extents = Vector2(20, 20)
+	shape.size = Vector2(20, 20)
 	var mask = 1
 	var neighbourOffsets := GraphGd.makeNeighbourOffsets(pointsData.step, true)
 	var graph : GraphGd = autofree( GraphGd.new(pointsData, pts2ids, neighbourOffsets) )
 	graph.initializeProbe(shape, mask)
 
 	assert_eq(graph._probe.collision_mask, mask)
-	assert_eq(graph._probe.get_node("CollisionShape2D").shape.extents, Vector2(20, 20))
+	assert_eq(graph._probe.get_node("CollisionShape2D").shape.size, Vector2(20, 20))
 	assert_not_null(graph._shapeParams)
 
 
 func test_updateGraph():
-	var viewport :Viewport = add_child_autofree( Viewport.new() )
+	var viewport :SubViewport = add_child_autofree( SubViewport.new() )
 
 	var neighbourOffsets := GraphGd.makeNeighbourOffsets(pointsData.step, true)
 	var graph :GraphGd = GraphGd.new(pointsData, pts2ids, neighbourOffsets)
 	viewport.add_child(graph)
 
 	var shape := RectangleShape2D.new()
-	shape.extents = Vector2(16, 32)
+	shape.size = Vector2(16, 32)
 	var mask = 1
 	graph.initializeProbe(shape, mask)
 
@@ -85,14 +85,14 @@ func test_findEnabledAndDisabledConnections():
 			Vector2(20, 20), Rect2(0, 0, 80, 80))
 	var pts2ids2 := FunctionsGd.calculateIdsForPoints( pointsData2 )
 
-	var viewport :Viewport = add_child_autofree( Viewport.new() )
+	var viewport :SubViewport = add_child_autofree( SubViewport.new() )
 
 	var neighbourOffsets := GraphGd.makeNeighbourOffsets(pointsData2.step, true)
 	var graph :GraphGd = GraphGd.new(pointsData2, pts2ids2, neighbourOffsets)
 	viewport.add_child(graph)
 
 	var shape := RectangleShape2D.new()
-	shape.extents = Vector2(9, 9)
+	shape.size = Vector2(9, 9)
 	var mask = 1
 	graph.initializeProbe(shape, mask)
 

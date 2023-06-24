@@ -4,11 +4,11 @@ const CollisionAStarBuilderGd =        preload("./CollisionGraphBuilder.gd")
 const FunctionsGd =                    preload("./StaticFunctions.gd")
 const PointsDataGd =                   preload("./PointsData.gd")
 
-export(bool) var runAddPoint
-export(bool) var runConnectionsAfterPoints
-export(bool) var runPointsWithConnections
-export(bool) var runCreateConnections
-export(bool) var runCreateAStar
+@export var runAddPoint: bool
+@export var runConnectionsAfterPoints: bool
+@export var runPointsWithConnections: bool
+@export var runCreateConnections: bool
+@export var runCreateAStar: bool
 
 
 func _ready():
@@ -30,11 +30,11 @@ func _ready():
 
 func testAddPoint():
 	print('testAddPoint')
-	var astar = AStar.new()
+	var astar = AStar3D.new()
 	print( str(_addPoint( Vector2(151, 113), astar ) ) + "ms" )
 
 
-static func _addPoint( size : Vector2, astar : AStar ) -> int:
+static func _addPoint( size : Vector2, astar : AStar3D ) -> int:
 	var idsToPoints2d := {}
 	for x in range(size.x):
 		for y in range(size.y):
@@ -54,15 +54,15 @@ static func _addPoint( size : Vector2, astar : AStar ) -> int:
 func testConnectionsAfterPoints():
 	var astar
 	print('testConnectionsAfterPoints')
-	astar = AStar.new()
+	astar = AStar3D.new()
 	print( str(_addConnectionsAfterPoints( Vector2(200, 200), astar ) ) + "ms" )
-	astar = AStar.new()
+	astar = AStar3D.new()
 	print( str(_addConnectionsAfterPoints( Vector2(200, 200), astar ) ) + "ms" )
-	astar = AStar.new()
+	astar = AStar3D.new()
 	print( str(_addConnectionsAfterPoints( Vector2(200, 200), astar ) ) + "ms" )
 
 
-static func _addConnectionsAfterPoints( size : Vector2, astar : AStar ) -> int:
+static func _addConnectionsAfterPoints( size : Vector2, astar : AStar3D ) -> int:
 	var idsToCoords := {}
 	var connections := []
 
@@ -103,15 +103,15 @@ static func _addConnectionsAfterPoints( size : Vector2, astar : AStar ) -> int:
 func testPointsWithConnections():
 	var astar
 	print('testPointsWithConnections')
-	astar = AStar.new()
+	astar = AStar3D.new()
 	print( str(_addPointsWithConnections( Vector2(200, 200), astar ) ) + "ms" )
-	astar = AStar.new()
+	astar = AStar3D.new()
 	print( str(_addPointsWithConnections( Vector2(200, 200), astar ) ) + "ms" )
-	astar = AStar.new()
+	astar = AStar3D.new()
 	print( str(_addPointsWithConnections( Vector2(200, 200), astar ) ) + "ms" )
 
 
-static func _addPointsWithConnections( size : Vector2, astar : AStar ) -> int:
+static func _addPointsWithConnections( size : Vector2, astar : AStar3D ) -> int:
 	var pointIdsWithConnections = {}
 	var idsToCoords = {}
 
@@ -277,7 +277,7 @@ func testCreateAStar():
 	var pointsToIds = FunctionsGd.calculateIdsForPoints( \
 		pointsData, pointsData.boundingRect )
 
-	print("create AStar")
+	print("create AStar3D")
 	print( str( _createAStar( pointsData, pointsToIds ) ) + "ms" )
 	print( str( _createAStar( pointsData, pointsToIds ) ) + "ms" )
 	print( str( _createAStar( pointsData, pointsToIds ) ) + "ms" )
