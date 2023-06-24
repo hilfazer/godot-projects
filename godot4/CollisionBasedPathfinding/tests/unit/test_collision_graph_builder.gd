@@ -120,8 +120,8 @@ func test_destroyGraph():
 	astar = builder.getAStar2D(graphId)
 	assert_null(astar)
 
-#	yield(yield_to(builder, "graphDestroyed", .1), YIELD)
-	await builder.graphDestroyed # TODO use yield_to once it stops producing an error
+	await yield_to(builder, "graphDestroyed", .5)
+
 	assert_has_signal(builder, "graphDestroyed")
 	assert_signal_emitted_with_parameters(builder, "graphDestroyed", [graphId])
 	assert_signal_emit_count(builder, "graphDestroyed", 1)
