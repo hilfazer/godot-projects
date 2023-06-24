@@ -1,7 +1,7 @@
-extends "res://tests/GutTestBase.gd"
+extends "res://tests/gut_test_base.gd"
 
 const GraphGd =              preload("res://new_builder/CollisionGraph.gd")
-const FunctionsGd =          preload("res://new_builder/StaticFunctions.gd")
+const FunctionsGd =          preload("res://new_builder/static_functions.gd")
 const PointsDataGd =         preload("res://new_builder/PointsData.gd")
 const TestingFunctionsGd =   preload("./files/TestingFunctions.gd")
 
@@ -11,7 +11,7 @@ var pointsData := PointsDataGd.PointsData.create(
 var pts2ids := FunctionsGd.calculateIdsForPoints(pointsData)
 
 
-class Test_makeNeighbourOffsets extends "res://tests/GutTestBase.gd":
+class Test_makeNeighbourOffsets extends "res://tests/gut_test_base.gd":
 	enum Idx {Step, Diagonal, Points}
 	const Params = [
 		[

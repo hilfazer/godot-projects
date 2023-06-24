@@ -1,4 +1,4 @@
-extends "res://tests/GutTestBase.gd"
+extends "res://tests/gut_test_base.gd"
 
 const PointsDataGd =         preload("res://new_builder/PointsData.gd")
 
