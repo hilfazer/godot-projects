@@ -5,10 +5,21 @@ export var MaxLength := 2.0 # speed
 var _path := PoolVector2Array()
 var _targetPointIdx := -1
 
+export (int) var speed = 200
+export (bool) var move_with_keyboard = false
+
+var velocity = Vector2()
+
+
 signal selected()
 
 
 func _physics_process(_delta):
+	if move_with_keyboard:
+		get_input()
+		velocity = move_and_slide(velocity)
+		return
+
 	assert(_targetPointIdx < _path.size())
 
 	if _targetPointIdx == -1:
@@ -42,3 +53,16 @@ func setPath( path : PoolVector2Array ):
 		_path = path
 		_targetPointIdx = 1
 		position = path[0]
+
+
+func get_input():
+	velocity = Vector2()
+	if Input.is_action_pressed("ui_right"):
+		velocity.x += 1
+	if Input.is_action_pressed("ui_left"):
+		velocity.x -= 1
+	if Input.is_action_pressed("ui_down"):
+		velocity.y += 1
+	if Input.is_action_pressed("ui_up"):
+		velocity.y -= 1
+	velocity = velocity.normalized() * speed
