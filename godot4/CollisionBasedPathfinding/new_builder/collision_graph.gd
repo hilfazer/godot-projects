@@ -118,10 +118,10 @@ static func findEnabledAndDisabledConnections(
 static func _createShapeQueryParameters(probe) -> PhysicsShapeQueryParameters2D:
 	var params := PhysicsShapeQueryParameters2D.new()
 	params.collide_with_bodies = true
-	params.collision_mask = probe.collision_mask # PhysicsShapeQueryParameters2D seem to need this to work
+	params.collision_mask = probe.collision_mask
 	params.transform = probe.transform
 	params.exclude = [probe] + probe.get_collision_exceptions()
-	params.shape_rid = probe.get_node("CollisionShape2D").shape.get_rid()
+	params.shape = probe.get_node("CollisionShape2D").shape
 	return params
 
 

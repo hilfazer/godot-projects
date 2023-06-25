@@ -61,9 +61,7 @@ func test_map1offsetNoDiagonal():
 
 
 func test_findEnabledAndDisabledPointsMap1():
-	var viewport :SubViewport = autoqfree( SubViewport.new() )
-	call_deferred('add_child', viewport)
-	await viewport.ready
+	var viewport :SubViewport = add_child_autoqfree( SubViewport.new() )
 
 	var map = TestMap1Scn.instantiate()
 	var step := Vector2(32, 32)
