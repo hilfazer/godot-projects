@@ -1,7 +1,7 @@
 extends GutTest
 
 const EPSILON = 0.00001
-const FILES_DIR = "user://"
+const FILES_DIR = "user://gut_tests"
 
 @warning_ignore("unused_private_class_variable")
 var _resourceExtension := ".tres" if OS.has_feature("debug") else ".res"
@@ -9,7 +9,10 @@ var _filesAtStart := PackedStringArray()
 
 
 func _init():
-	assert( DirAccess.open( FILES_DIR ) != null )
+	if not DirAccess.dir_exists_absolute( FILES_DIR ):
+		DirAccess.make_dir_absolute( FILES_DIR )
+
+	assert( DirAccess.dir_exists_absolute( FILES_DIR ) )
 
 	var script = get_script().resource_path.get_file()
 	if script:
@@ -23,10 +26,6 @@ func before_each():
 
 
 func after_each():
-	for child in get_children():
-		child.free()
-	assert( get_child_count() == 0 )
-
 	var filesNow : PackedStringArray = _findFilesInDirectory( FILES_DIR )
 	for filePath in filesNow:
 		if not filePath in _filesAtStart:

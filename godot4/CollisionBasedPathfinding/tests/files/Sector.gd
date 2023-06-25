@@ -16,7 +16,7 @@ static func _calculateSectorRect( tilemapList : Array ) -> Rect2:
 	for tilemap in tilemapList:
 		assert(tilemap is TileMap)
 		var usedRect = tilemap.get_used_rect()
-		var tilemapTargetRatio = tilemap.cell_size * tilemap.scale
+		var tilemapTargetRatio = tilemap.tile_set.tile_size * tilemap.scale
 		usedRect.position *= tilemapTargetRatio
 		usedRect.size *= tilemapTargetRatio
 

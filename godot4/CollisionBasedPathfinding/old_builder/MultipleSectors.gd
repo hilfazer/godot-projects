@@ -117,7 +117,7 @@ static func calculateLevelRect( targetSize : Vector2, tilemapList : Array ) -> R
 	for tilemap in tilemapList:
 		assert(tilemap is TileMap)
 		var usedRect = tilemap.get_used_rect()
-		var tilemapTargetRatio = tilemap.cell_size / targetSize * tilemap.scale
+		var tilemapTargetRatio = tilemap.tile_set.tile_size / targetSize * tilemap.scale
 		usedRect.position *= tilemapTargetRatio
 		usedRect.size *= tilemapTargetRatio
 
@@ -195,7 +195,7 @@ func _getUpdateRectFromTile( sector : SectorGd, worldPos : Vector2 ) -> Rect2:
 	assert( sector.boundingRect.has_point(worldPos) )
 
 	var tileWorldOrigin = sector.map_to_local(sector.local_to_map(worldPos))
-	var csize = sector.cell_size
+	var csize = sector.tile_set.tile_size
 	var x = tileWorldOrigin.x - csize.x / 2 - 1
 	var y = tileWorldOrigin.y - csize.y / 2 - 1
 

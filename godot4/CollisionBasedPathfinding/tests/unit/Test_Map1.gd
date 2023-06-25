@@ -4,7 +4,7 @@ const GraphGd =              preload("res://new_builder/collision_graph.gd")
 const AStarBuilderGd =       preload("res://new_builder/collision_graph_builder.gd")
 const PointsDataGd =         preload("res://new_builder/points_data.gd")
 const FunctionsGd =          preload("res://new_builder/static_functions.gd")
-const TestingFunctionsGd =   preload("./files/TestingFunctions.gd")
+const TestingFunctionsGd =   preload("../files/TestingFunctions.gd")
 const TestMap1Scn =          preload("res://tests/files/TestMap1.tscn")
 
 
@@ -19,7 +19,7 @@ func test_calculateRectFromTilemapsOnMap1():
 
 func test_map1noOffsetNoDiagonal():
 	var map :TileMap = add_child_autofree(TestMap1Scn.instantiate())
-	var step := map.cell_size
+	var step := map.tile_set.tile_size
 	assert(map is TileMap)
 	var boundingRect = AStarBuilderGd.calculateRectFromTilemaps([map], step)
 	var rectShape :RectangleShape2D = map.get_node("Unit/CollisionShape2D").shape
@@ -40,7 +40,7 @@ func test_map1noOffsetNoDiagonal():
 
 func test_map1offsetNoDiagonal():
 	var map :TileMap = add_child_autofree(TestMap1Scn.instantiate())
-	var step := map.cell_size
+	var step := map.tile_set.tile_size
 	assert(map is TileMap)
 	var boundingRect = AStarBuilderGd.calculateRectFromTilemaps([map], step)
 	var rectShape :RectangleShape2D = map.get_node("Unit/CollisionShape2D").shape
@@ -48,7 +48,7 @@ func test_map1offsetNoDiagonal():
 
 	var builder := AStarBuilderGd.new()
 	map.add_child(builder)
-	var ret = builder.initialize(step, boundingRect, map.cell_size / 2, false)
+	var ret = builder.initialize(step, boundingRect, map.tile_set.tile_size / 2, false)
 	assert_eq(ret, OK)
 
 	var graphId = builder.createGraph(rectShape, mask)
@@ -61,7 +61,7 @@ func test_map1offsetNoDiagonal():
 
 
 func test_findEnabledAndDisabledPointsMap1():
-	var viewport :SubViewport = autofree( SubViewport.new() )
+	var viewport :SubViewport = autoqfree( SubViewport.new() )
 	call_deferred('add_child', viewport)
 	await viewport.ready
 

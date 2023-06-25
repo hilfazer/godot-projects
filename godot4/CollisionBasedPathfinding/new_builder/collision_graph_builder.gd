@@ -115,16 +115,17 @@ static func calculateRectFromTilemaps(tilemaps :Array, step :Vector2 = Vector2()
 		return Rect2()
 
 	if step == Vector2():
-		step = tilemaps[0].cell_size
+		step = tilemaps[0].tile_set.tile_size
 
 	var tileRect : Rect2
 
 	for tilemap in tilemaps:
 		assert(tilemap is TileMap)
 		var usedRect = tilemap.get_used_rect()
-		var tilemapTargetRatio = tilemap.cell_size / step * tilemap.scale
-		usedRect.position *= tilemapTargetRatio
-		usedRect.size *= tilemapTargetRatio
+
+		var tilemapTargetRatio = Vector2(tilemap.tile_set.tile_size) / step * tilemap.scale
+		usedRect.position = Vector2i( Vector2(usedRect.position) * tilemapTargetRatio )
+		usedRect.size = Vector2i( Vector2(usedRect.size) * tilemapTargetRatio )
 
 		if tileRect == Rect2():
 			tileRect = usedRect
