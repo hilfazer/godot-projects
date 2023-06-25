@@ -5,10 +5,18 @@ extends CharacterBody2D
 var _path := PackedVector2Array()
 var _targetPointIdx := -1
 
+@export var speed : int = 200
+@export var move_with_keyboard : bool = false
+
 signal selected()
 
 
 func _physics_process(_delta):
+	if move_with_keyboard:
+		get_input()
+		move_and_slide()
+		return
+
 	assert(_targetPointIdx < _path.size())
 
 	if _targetPointIdx == -1:
@@ -42,3 +50,8 @@ func setPath( path : PackedVector2Array ):
 		_path = path
 		_targetPointIdx = 1
 		position = path[0]
+
+
+func get_input():
+	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	velocity = input_direction * speed

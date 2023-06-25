@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://evn2bl6pm245"]
 
 [ext_resource type="Texture2D" uid="uid://b4j3av5846ew8" path="res://icon.png" id="1"]
-[ext_resource type="PackedScene" path="res://tests/files/Unit.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://b3qi8803dmo7a" path="res://tests/files/Unit.tscn" id="2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wr1le"]
 texture = ExtResource("1")
@@ -65,6 +65,7 @@ layer_0/tile_data = PackedInt32Array(196611, 0, 0, 196614, 0, 0, 393219, 0, 0, 3
 
 [node name="Unit" parent="." instance=ExtResource("2")]
 position = Vector2(32, 32)
+move_with_keyboard = true
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(192, 64)
