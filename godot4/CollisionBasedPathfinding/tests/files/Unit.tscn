@@ -5,15 +5,15 @@
 
 [sub_resource type="RectangleShape2D" id="1"]
 resource_local_to_scene = true
-size = Vector2(15, 15)
+size = Vector2(30, 30)
 
 [node name="Unit" type="CharacterBody2D"]
 input_pickable = true
 script = ExtResource("1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("1")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1")
