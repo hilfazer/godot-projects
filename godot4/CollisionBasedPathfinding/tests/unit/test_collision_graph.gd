@@ -32,7 +32,7 @@ class Test_makeNeighbourOffsets extends "res://tests/gut_test_base.gd":
 		offsets.sort()
 		var toCompare = prm[Idx.Points]
 		toCompare.sort()
-		assert_eq_shallow(toCompare, offsets)
+		assert_eq_deep(toCompare, offsets)
 
 
 func test_createGraph():

@@ -90,7 +90,7 @@ func test_findEnabledAndDisabledPointsMap1():
 			Vector2(224,192),Vector2(224,224)]
 	enabled.sort()
 	enabledToCompare.sort()
-	assert_eq_shallow(enabled, enabledToCompare)
+	assert_eq_deep(enabled, enabledToCompare)
 
 	var disabled = EDpoints[1]
 	var disabledToCompare = [
@@ -101,5 +101,5 @@ func test_findEnabledAndDisabledPointsMap1():
 			]
 	disabled.sort()
 	disabledToCompare.sort()
-	assert_eq_shallow(disabled, disabledToCompare)
+	assert_eq_deep(disabled, disabledToCompare)
 
