@@ -1,7 +1,7 @@
 extends Node
 
 
-onready var kinematic : KinematicBody2D = $'KinematicBody2D'
+@onready var kinematic : CharacterBody2D = $'CharacterBody2D'
 
 
 func _ready() -> void:
@@ -27,11 +27,11 @@ func check_intersections():
 	print(result3)
 
 
-static func _createShapeQueryParameters(body) -> Physics2DShapeQueryParameters:
-	var params := Physics2DShapeQueryParameters.new()
+static func _createShapeQueryParameters(body) -> PhysicsShapeQueryParameters2D:
+	var params := PhysicsShapeQueryParameters2D.new()
 	params.collide_with_bodies = true
-	params.collision_layer = body.collision_mask
+	params.collision_mask = body.collision_mask
 	params.transform = body.transform
 	params.exclude = [body] + body.get_collision_exceptions()
-	params.shape_rid = body.get_node("CollisionShape2D").shape.get_rid()
+	params.shape = body.get_node("CollisionShape2D").shape
 	return params
