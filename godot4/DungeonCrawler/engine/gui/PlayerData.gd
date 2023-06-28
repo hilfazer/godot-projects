@@ -1,7 +1,7 @@
 extends Panel
 
 
-export var _defaultPlayerName = "Player"
+@export var _defaultPlayerName = "Player"
 
 
 func _ready():

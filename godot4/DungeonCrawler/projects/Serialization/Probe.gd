@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 
 const SerializerGd           = preload("./HierarchicalSerializer.gd")
 
@@ -7,7 +7,7 @@ static func scan( node : Node ) -> Probe:
 
 
 
-class Probe extends Reference:
+class Probe extends RefCounted:
 	# deserialize( node ) can only add nodes via scene instancing
 	# creation of other nodes needs to be taken care of outside of
 	# deserialize( node ) (i.e. _init(), _ready())
@@ -18,7 +18,7 @@ class Probe extends Reference:
 
 
 	func _init( node : Node ):
-		if node.owner == null and node.filename.empty():
+		if node.owner == null and node.filename.is_empty():
 			_addNotInstantiable( node )
 
 		if node.has_method(SerializerGd.SERIALIZE) \

@@ -24,21 +24,21 @@ func onQuitPressed():
 
 
 func onSavePressed():
-	var dialog = SaveGameDialogScn.instance()
+	var dialog = SaveGameDialogScn.instantiate()
 	assert( not has_node( dialog.get_name() ) )
-	dialog.connect("file_selected", self, "_onSaveFileSelected")
+	dialog.connect("file_selected", Callable(self, "_onSaveFileSelected"))
 	self.add_child(dialog)
 	dialog.popup()
-	dialog.connect("hide", dialog, "queue_free")
+	dialog.connect("hide", Callable(dialog, "queue_free"))
 
 
 func onLoadPressed():
-	var dialog = LoadGameDialogScn.instance()
+	var dialog = LoadGameDialogScn.instantiate()
 	assert( not has_node( dialog.get_name() ) )
-	dialog.connect("file_selected", self, "_onLoadFileSelected")
+	dialog.connect("file_selected", Callable(self, "_onLoadFileSelected"))
 	self.add_child(dialog)
 	dialog.popup()
-	dialog.connect("hide", dialog, "queue_free")
+	dialog.connect("hide", Callable(dialog, "queue_free"))
 
 
 func _onSaveFileSelected( filePath ):

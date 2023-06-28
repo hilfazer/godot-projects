@@ -12,7 +12,7 @@ const NameCurrentLevel       = "CurrentLevel"
 const NamePlayerData         = "PlayerData"
 
 
-var _serializer : SerializerGd = SerializerGd.new()   setget deleted
+var _serializer : SerializerGd = SerializerGd.new(): set = deleted
 
 
 func deleted(_a):

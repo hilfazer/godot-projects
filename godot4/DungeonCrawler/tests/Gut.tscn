@@ -8,7 +8,7 @@ script/source = "extends Node
 
 func _input(event):
 	if event.is_action_pressed(\"ui_home\"):
-		print_stray_nodes()
+		print_orphan_nodes()
 	elif event.is_action_pressed(\"ui_cancel\"):
 		get_tree().quit()
 "
@@ -21,9 +21,9 @@ func _input(event):
 script = SubResource( 1 )
 
 [node name="Gut" type="Control" parent="."]
-margin_right = 740.0
-margin_bottom = 250.0
-rect_min_size = Vector2( 740, 250 )
+offset_right = 740.0
+offset_bottom = 250.0
+custom_minimum_size = Vector2( 740, 250 )
 script = ExtResource( 1 )
 _font_color = Color( 1, 1, 1, 1 )
 _background_color = Color( 0, 0, 0, 1 )

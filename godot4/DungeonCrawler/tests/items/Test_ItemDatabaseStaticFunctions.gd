@@ -31,7 +31,7 @@ func test_itemDatabaseCheckForDuplicates(prm = use_parameters(params)):
 	var db2 = ItemDbFactoryGd.createItemDb(prm.path2)
 
 	var duplicateIds := ItemDbBase.checkForDuplictates(db1, db2)
-	assert_eq_shallow(PoolStringArray(prm.idsArray), duplicateIds)
+	assert_eq_shallow(PackedStringArray(prm.idsArray), duplicateIds)
 
 
 func test_findIdInItemFile(prm = use_parameters(findItemIdParams)):

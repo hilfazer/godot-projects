@@ -2,7 +2,8 @@
 extends 'res://addons/quentincaffeino/console/src/Type/BaseRegexCheckedType.gd'
 
 
-func _init().('Float', '^[+-]?([0-9]*[\\.\\,]?[0-9]+|[0-9]+[\\.\\,]?[0-9]*)([eE][+-]?[0-9]+)?$'):
+func _init():
+	super('Float', '^[+-]?([0-9]*[\\.\\,]?[0-9]+|[0-9]+[\\.\\,]?[0-9]*)([eE][+-]?[0-9]+)?$')
 	pass
 
 

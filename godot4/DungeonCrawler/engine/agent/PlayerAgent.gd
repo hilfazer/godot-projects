@@ -4,11 +4,11 @@ const LevelLoaderGd          = preload("res://engine/game/LevelLoader.gd")
 const FogVisionBaseGd        = preload("res://engine/level/FogVisionBase.gd")
 const SelectionComponentScn  = preload("res://engine/SelectionComponent.tscn")
 
-export(String, FILE, "*FogVision.gd") var fogVisionGd
+@export var fogVisionGd # (String, FILE, "*FogVision.gd")
 
-var _currentLevel : LevelBase          setget setCurrentLevel
-var _selectedUnits := {}               setget deleted
-var _pressedDirections :PoolByteArray = [0, 0, 0, 0]
+var _currentLevel : LevelBase: set = setCurrentLevel
+var _selectedUnits := {}: set = deleted
+var _pressedDirections :PackedByteArray = [0, 0, 0, 0]
 
 signal travelRequested(entrance)
 
@@ -19,8 +19,8 @@ func deleted(_a):
 
 func _ready():
 # warning-ignore:return_value_discarded
-	$"SelectionBox".connect("areaSelected", self, "_selectUnitsInRect")
-	Console.connect("toggled", self, "_onConsoleVisibilityChanged")
+	$"SelectionBox".connect("areaSelected", Callable(self, "_selectUnitsInRect"))
+	Console.connect("toggled", Callable(self, "_onConsoleVisibilityChanged"))
 
 
 func _physics_process( _delta ):
@@ -58,11 +58,11 @@ func _unhandled_input(event):
 	else:
 		return
 
-	get_tree().set_input_as_handled()
+	get_viewport().set_input_as_handled()
 
 
 func _notification(what):
-	if what == NOTIFICATION_WM_FOCUS_OUT:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
 		_pressedDirections = [0, 0, 0, 0]
 
 
@@ -71,11 +71,11 @@ func initialize( currentLevel : LevelBase ):
 
 
 func addUnit( unit : UnitBase ):
-	var addResult = .addUnit( unit )
+	var addResult = super.addUnit( unit )
 	_makeAPlayerUnit( unit )
 	assert(addResult == OK and unit.is_in_group(Globals.Groups.PCs))
 # warning-ignore:return_value_discarded
-	unit.connect("clicked", self, "selectUnit", [unit])
+	unit.connect("clicked", Callable(self, "selectUnit").bind(unit))
 	selectUnit( unit )
 	_currentLevel.update()
 
@@ -83,11 +83,11 @@ func addUnit( unit : UnitBase ):
 func removeUnit( unit : UnitBase ) -> bool:
 	if unit in _selectedUnits:
 		deselectUnit( unit )
-	var removed = .removeUnit( unit )
+	var removed = super.removeUnit( unit )
 	if removed:
 		_unmakeAPlayerUnit( unit )
 
-	unit.disconnect("clicked", self, "selectUnit")
+	unit.disconnect("clicked", Callable(self, "selectUnit"))
 	assert(unit.is_in_group(Globals.Groups.NPCs))
 	return removed
 
@@ -130,10 +130,10 @@ func _selectUnitsInRect( selectionRect : Rect2 ):
 
 		assert( unitRectShape != null )
 
-		if     unit.global_position.x + unitRectShape.extents.x > selectionRect.position.x \
-			&& unit.global_position.x - unitRectShape.extents.x < selectionRect.position.x + selectionRect.size.x \
-			&& unit.global_position.y + unitRectShape.extents.y > selectionRect.position.y \
-			&& unit.global_position.y - unitRectShape.extents.y < selectionRect.position.y + selectionRect.size.y:
+		if     unit.global_position.x + unitRectShape.size.x > selectionRect.position.x \
+			&& unit.global_position.x - unitRectShape.size.x < selectionRect.position.x + selectionRect.size.x \
+			&& unit.global_position.y + unitRectShape.size.y > selectionRect.position.y \
+			&& unit.global_position.y - unitRectShape.size.y < selectionRect.position.y + selectionRect.size.y:
 
 			unitsInRect.append( unit )
 
@@ -186,7 +186,7 @@ func _makeAPlayerUnit( unit : UnitBase ):
 		fogVision.setExcludedRID( unit.get_rid() )
 		unit.add_child( fogVision )
 
-	var selection = SelectionComponentScn.instance()
+	var selection = SelectionComponentScn.instantiate()
 	unit.add_child( selection )
 
 	assert(unit.is_in_group(Globals.Groups.NPCs))
@@ -210,7 +210,7 @@ func _unmakeAPlayerUnit( unit : UnitBase ):
 
 
 func _tryTravel():
-	yield( get_tree(), "idle_frame" )
+	await get_tree().idle_frame
 
 	var entrance : Area2D = _currentLevel.findEntranceWithAllUnits( _unitsInTree )
 	if entrance != null:

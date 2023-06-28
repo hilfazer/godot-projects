@@ -1,4 +1,4 @@
-tool
+@tool
 extends EditorPlugin
 
 const DefaultActions = preload("./DefaultActions.gd")

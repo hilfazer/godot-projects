@@ -7,7 +7,7 @@ const ModuleDataGd           = preload("res://engine/ModuleData.gd")
 const ModuleExtensions       = ["gd"]
 const NoModuleString    = "..."
 
-var _module : SavingModuleGd            setget setModule
+var _module : SavingModuleGd: set = setModule
 
 
 signal readyForGame( module, playerUnitCreationData )
@@ -21,7 +21,7 @@ func deleted(_a):
 func _ready():
 	moduleSelected( $"ModuleSelection/FileName".text )
 # warning-ignore:return_value_discarded
-	$"Lobby".connect("unitNumberChanged", self, "onUnitNumberChanged")
+	$"Lobby".connect("unitNumberChanged", Callable(self, "onUnitNumberChanged"))
 
 
 func _notification( what ):

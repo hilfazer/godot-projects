@@ -12,12 +12,12 @@ func newGame():
 
 
 func loadGame():
-	var dialog = LoadGameDialogScn.instance()
+	var dialog = LoadGameDialogScn.instantiate()
 	assert( not has_node( dialog.get_name() ) )
 	dialog.connect ("file_selected", self, "onSaveFileSelected" )
 	self.add_child (dialog )
 	dialog.popup()
-	dialog.connect( "hide", dialog, "queue_free" )
+	dialog.connect("hide", Callable(dialog, "queue_free"))
 
 
 func exitProgram():

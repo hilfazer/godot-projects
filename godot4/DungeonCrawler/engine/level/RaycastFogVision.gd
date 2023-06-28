@@ -1,8 +1,8 @@
 extends "res://engine/level/FogVisionBase.gd"
 
-export var _side := 20                 setget setSide
-var _excludedRID : RID                 setget setExcludedRID
-var _visibilityMap := PoolByteArray()  setget deleted
+@export var _side := 20: set = setSide
+var _excludedRID : RID: set = setExcludedRID
+var _visibilityMap := PackedByteArray(): set = deleted
 
 
 func deleted(_a):
@@ -20,7 +20,7 @@ func allowInstantiation():
 	pass
 
 
-func calculateVisibleTiles(fogOfWar : TileMap ) -> PoolByteArray:
+func calculateVisibleTiles(fogOfWar : TileMap ) -> PackedByteArray:
 	var center := global_position
 	var spaceState := get_world_2d().direct_space_state
 	var tileCoordsRect := boundingRect(fogOfWar)
@@ -31,7 +31,7 @@ func calculateVisibleTiles(fogOfWar : TileMap ) -> PoolByteArray:
 	var mapIdx := 0
 	for x in range( tileCoordsRect.position.x, tileCoordsRect.size.x + tileCoordsRect.position.x):
 		for y in range( tileCoordsRect.position.y, tileCoordsRect.size.y + tileCoordsRect.position.y):
-			var targetCorner : Vector2 = fogOfWar.map_to_world( Vector2(x,y) )
+			var targetCorner : Vector2 = fogOfWar.map_to_local(Vector2(x,y))
 			targetCorner.x += tileSize.x * float(targetCorner.x < center.x)
 			targetCorner.y += tileSize.y * float(targetCorner.y < center.y)
 
@@ -50,7 +50,7 @@ func calculateVisibleTiles(fogOfWar : TileMap ) -> PoolByteArray:
 
 func boundingRect( fogOfWar : TileMap ) -> Rect2:
 	var rect = Rect2( 0, 0, _side, _side )
-	var pos : Vector2 = fogOfWar.world_to_map( global_position )
+	var pos : Vector2 = fogOfWar.local_to_map( global_position )
 	pos -= _rectOffset()
 	rect.position = pos
 	return rect

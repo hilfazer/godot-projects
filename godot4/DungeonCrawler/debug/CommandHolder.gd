@@ -1,6 +1,6 @@
 extends Node
 
-var _commands : PoolStringArray
+var _commands : PackedStringArray
 
 
 func _ready():

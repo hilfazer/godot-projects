@@ -9,8 +9,8 @@ func setMessage( message : String ):
 	else:
 		var timer = Timer.new()
 		timer.name = "resetMessage"
-		timer.connect("timeout", self, "set_text", [""])
-		timer.connect("timeout", timer, "queue_free")
+		timer.connect("timeout", Callable(self, "set_text").bind(""))
+		timer.connect("timeout", Callable(timer, "queue_free"))
 		timer.wait_time = 3
 		add_child( timer )
 		timer.start()

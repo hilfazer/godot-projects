@@ -4,7 +4,7 @@ extends Node
 
 const PlayerAgentGd          = preload("res://engine/agent/PlayerAgent.gd")
 
-onready var playerAgent : PlayerAgentGd = $"PlayerAgent"
+@onready var playerAgent : PlayerAgentGd = $"PlayerAgent"
 
 
 func deleted(_a):

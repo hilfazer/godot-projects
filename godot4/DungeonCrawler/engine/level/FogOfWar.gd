@@ -5,12 +5,12 @@ const FogVisionBaseGd        = preload("./FogVisionBase.gd")
 enum TileType { Lit, Shaded, Fogged }
 
 # warning-ignore:unused_class_variable
-export(TileType) var fillTile
+@export var fillTile: TileType
 
-onready var litTileId    := tile_set.find_tile_by_name("transparent")
-onready var shadedTileId := tile_set.find_tile_by_name("grey")
-onready var foggedTileId := tile_set.find_tile_by_name("black")
-onready var _updateTimer   = $"UpdateTimer"
+@onready var litTileId    := tile_set.find_tile_by_name("transparent")
+@onready var shadedTileId := tile_set.find_tile_by_name("grey")
+@onready var foggedTileId := tile_set.find_tile_by_name("black")
+@onready var _updateTimer   = $"UpdateTimer"
 
 var _fogVisionsToUpdate := []
 var _visionsToResults := {}
@@ -18,7 +18,7 @@ var _visionsToResults := {}
 var doFogUpdate := false
 
 func _ready():
-	_updateTimer.connect( "timeout", self, "requestFogUpdate" )
+	_updateTimer.connect("timeout", Callable(self, "requestFogUpdate"))
 	_updateTimer.one_shot = true
 
 
@@ -37,9 +37,9 @@ func addFogVision( fogVision : FogVisionBaseGd ) -> int:
 	assert( not fogVision in _visionsToResults )
 
 # warning-ignore:return_value_discarded
-	fogVision.connect( "tree_exiting", self, "removeFogVision", [fogVision], CONNECT_ONESHOT )
+	fogVision.connect("tree_exiting", Callable(self, "removeFogVision").bind(fogVision), CONNECT_ONE_SHOT)
 # warning-ignore:return_value_discarded
-	fogVision.connect("changedPosition", self, "onVisionChangedPosition", [fogVision] )
+	fogVision.connect("changedPosition", Callable(self, "onVisionChangedPosition").bind(fogVision))
 	_insertFogVision( fogVision )
 	_updateFog()
 	return OK
@@ -51,7 +51,7 @@ func removeFogVision( fogVision : FogVisionBaseGd ) -> int:
 
 	_setTileInRect( shadedTileId, _visionsToResults[fogVision]["tileRect"], self )
 	_eraseFogVision( fogVision )
-	fogVision.disconnect("changedPosition", self, "onVisionChangedPosition" )
+	fogVision.disconnect("changedPosition", Callable(self, "onVisionChangedPosition"))
 	_updateFog()
 	return OK
 
@@ -89,11 +89,11 @@ func serialize():
 		uncoveredArray.append( int(tileCoords.x) )
 		uncoveredArray.append( int(tileCoords.y) )
 
-	return var2str( uncoveredArray )
+	return var_to_str( uncoveredArray )
 
 
 func deserialize( data ):
-	var uncoveredArray : PoolIntArray = str2var( data )
+	var uncoveredArray : PackedInt32Array = str_to_var( data )
 	for i in uncoveredArray.size() / 2.0:
 		set_cell( uncoveredArray[i*2], uncoveredArray[i*2+1], shadedTileId )
 
@@ -137,7 +137,7 @@ func _makeVisionResult( tileRect : Rect2, visibiltyMap ):
 
 
 func _setTilesWithVisibilityMap(
-		tileRect : Rect2, visibiltyMap : PoolByteArray, tileId : int
+		tileRect : Rect2, visibiltyMap : PackedByteArray, tileId : int
 		):
 	var mapIdx = 0
 	for x in range( tileRect.position.x, tileRect.size.x + tileRect.position.x):

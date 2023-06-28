@@ -5,7 +5,7 @@ const GameMenuGd             = preload("res://engine/game/GameMenu.gd")
 const GameSceneGd            = preload("res://engine/game/GameScene.gd")
 
 var _gameMenu : GameMenuGd
-onready var _game : GameSceneGd        = get_parent()
+@onready var _game : GameSceneGd        = get_parent()
 
 
 func _unhandled_input(event):
@@ -22,14 +22,14 @@ func toggleGameMenu():
 
 func createGameMenu():
 	assert( _gameMenu == null )
-	var gameMenu = GameMenuScn.instance()
+	var gameMenu = GameMenuScn.instantiate()
 	self.add_child( gameMenu )
-	gameMenu.connect( "visibility_changed", _game, "setPause", [gameMenu.visible] )
-	gameMenu.connect( "tree_exiting", _game, "setPause", [false] )
-	gameMenu.connect( "resumeSelected", self, "_resume" )
-	gameMenu.connect( "saveSelected", self, "_saveGame" )
-	gameMenu.connect( "loadSelected", self, "_loadGame" )
-	gameMenu.connect( "quitSelected", self, "_quit" )
+	gameMenu.connect("visibility_changed", Callable(_game, "setPause").bind(gameMenu.visible))
+	gameMenu.connect("tree_exiting", Callable(_game, "setPause").bind(false))
+	gameMenu.connect("resumeSelected", Callable(self, "_resume"))
+	gameMenu.connect("saveSelected", Callable(self, "_saveGame"))
+	gameMenu.connect("loadSelected", Callable(self, "_loadGame"))
+	gameMenu.connect("quitSelected", Callable(self, "_quit"))
 	_gameMenu = gameMenu
 
 
@@ -49,11 +49,11 @@ func _saveGame( filepath : String ):
 
 
 func _loadGame( filepath : String ):
-	_gameMenu.disconnect( "tree_exiting", _game, "setPause" )
+	_gameMenu.disconnect("tree_exiting", Callable(_game, "setPause"))
 	deleteGameMenu()
 	_game.loadGame( filepath )
 
 
 func _quit():
-	_gameMenu.disconnect( "tree_exiting", _game, "setPause" )
+	_gameMenu.disconnect("tree_exiting", Callable(_game, "setPause"))
 	_game.finish()

@@ -33,7 +33,7 @@ static func getChildrenRecursive( node : Node ) -> Array:
 	return nodeReferences
 
 
-static func toPaths( nodes : Array ) -> PoolStringArray:
+static func toPaths( nodes : Array ) -> PackedStringArray:
 	var paths = []
 	for n in nodes:
 		paths.append( n.get_path() )
@@ -52,7 +52,7 @@ static func scopeExit( object : Object, functionName : String, args : Array = []
 	return FunctionRAII.new( object, functionName, args )
 
 
-class FunctionRAII extends Reference:
+class FunctionRAII extends RefCounted:
 	func _init( object : Object, functionName : String, args : Array ):
 		_obj = object
 		_func = functionName

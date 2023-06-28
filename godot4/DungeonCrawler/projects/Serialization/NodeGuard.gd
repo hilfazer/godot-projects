@@ -1,10 +1,10 @@
 # this class will prevent memory leak by freeing Node if it's outside of SceneTree
 # and doesn't have a parent
 # call release() if you want to handle memory yourself
-extends Reference
+extends RefCounted
 
 
-var node : Node              setget setNode
+var node : Node: set = setNode
 
 
 func _init( node_ : Node = null ):

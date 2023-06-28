@@ -1,7 +1,7 @@
-extends Reference
+extends RefCounted
 class_name MapWrapper
 
-var _dict = {}       setget deleted
+var _dict = {}: set = deleted
 
 
 signal changed( dict )

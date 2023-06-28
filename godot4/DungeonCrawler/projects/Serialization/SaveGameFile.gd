@@ -1,10 +1,10 @@
 extends Resource
 
 # warning-ignore:unused_class_variable
-export var version : String = "0.0.0"
+@export var version : String = "0.0.0"
 
 # warning-ignore:unused_class_variable
-export var nodesDict := {}
+@export var nodesDict := {}
 
 # warning-ignore:unused_class_variable
-export var userDict := {}
+@export var userDict := {}

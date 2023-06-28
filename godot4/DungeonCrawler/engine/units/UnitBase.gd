@@ -1,16 +1,16 @@
-extends KinematicBody2D
+extends CharacterBody2D
 class_name UnitBase
 
 
 const _cellSize := Vector2(32, 32)
 
-export (float) var _speed              = 5.0 setget _setSpeed
+@export (float) var _speed              = 5.0: set = _setSpeed
 
-var requestedDirection                 := Vector2() setget setRequestedDirection
-var _currentDirection                  := Vector2() setget setCurrentDirection
-onready var _nameLabel                 :Label = $"Name"
-onready var _movementTween             :Tween = $"Pivot/Tween"
-onready var _pivot                     :Position2D
+var requestedDirection                 := Vector2(): set = setRequestedDirection
+var _currentDirection                  := Vector2(): set = setCurrentDirection
+@onready var _nameLabel                 :Label = $"Name"
+@onready var _movementTween             :Tween = $"Pivot/Tween"
+@onready var _pivot                     :Marker2D
 
 
 signal predelete()
@@ -26,7 +26,7 @@ func _init():
 func _ready():
 	_movementTween.playback_speed = _speed
 # warning-ignore:return_value_discarded
-	_movementTween.connect("tween_completed", self, "_onTweenFinished")
+	_movementTween.connect("tween_completed", Callable(self, "_onTweenFinished"))
 	setNameLabel(name)
 
 
@@ -71,7 +71,7 @@ func _onTweenFinished(object : Object, key : NodePath):
 
 
 func _notification(what):
-	if what == NOTIFICATION_INSTANCED:
+	if what == NOTIFICATION_SCENE_INSTANTIATED:
 		_pivot = $"Pivot"
 	elif what == NOTIFICATION_PREDELETE:
 		emit_signal("predelete")
@@ -91,8 +91,8 @@ func setNameLabel( newName ):
 	_nameLabel.text = newName
 
 
-func getIcon() -> Texture:
-	return $"Pivot/Sprite".texture
+func getIcon() -> Texture2D:
+	return $"Pivot/Sprite2D".texture
 
 
 func setRequestedDirection( direction : Vector2 ):

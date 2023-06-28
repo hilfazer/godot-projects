@@ -2,7 +2,7 @@ extends HBoxContainer
 
 const UnitCreationDataGd    = preload("res://engine/units/UnitCreationData.gd")
 
-var _lineIdx       setget deleted, getIdx
+var _lineIdx : get = getIdx, set = deleted
 
 signal deletePressed( lineIdx )
 

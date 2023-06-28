@@ -8,14 +8,14 @@ const PARAMS_META = "PARAMS"
 enum Params { Module, PlayerUnitsData, SaveFileName }
 enum State { Initial, Creating, Saving, Running, Finished }
 
-var currentLevel : LevelBase           setget setCurrentLevel
-var _module : SavingModuleGd           setget setCurrentModule
-var _state : int = State.Initial       setget deleted # _changeState
-var _pause := true                     setget setPause
+var currentLevel : LevelBase: set = setCurrentLevel
+var _module : SavingModuleGd: set = setCurrentModule
+var _state : int = State.Initial: set = deleted
+var _pause := true: set = setPause
 
-onready var _creator : GameCreatorGd  = $"GameCreator"
-onready var _playerManager            = $"PlayerManager"   setget deleted
-onready var _playerAgent              = $"PlayerManager/PlayerAgent" setget deleted
+@onready var _creator : GameCreatorGd  = $"GameCreator"
+@onready var _playerManager            = $"PlayerManager": set = deleted
+@onready var _playerAgent              = $"PlayerManager/PlayerAgent": set = deleted
 
 
 signal gameStarted()
@@ -32,7 +32,7 @@ func _ready():
 	_creator.initialize( self, self )
 
 	_playerAgent.initialize( currentLevel )
-	_playerAgent.connect("travelRequested", self, "_travel")
+	_playerAgent.connect("travelRequested", Callable(self, "_travel"))
 
 	var params = get_meta(PARAMS_META)
 	set_meta(PARAMS_META, null)
@@ -70,7 +70,7 @@ func createGame( module : SavingModuleGd, unitsCreationData : Array ):
 	assert(module)
 	_changeState( State.Creating )
 	_creator.call_deferred( "createFromModule", module, unitsCreationData )
-	var result = yield( _creator, "createFinished" )
+	var result = await _creator.createFinished
 
 	if result != OK:
 		Debug.error(self, "GameScene: could not create game")
@@ -82,7 +82,7 @@ func createGame( module : SavingModuleGd, unitsCreationData : Array ):
 func createGameFromFile( filePath : String ):
 	assert(!_module)
 	_changeState( State.Creating )
-	var result = yield(_creator.createFromFile(filePath), "completed")
+	var result = await _creator.createFromFile(filePath).completed
 
 	if result != OK:
 		Debug.error(self, "GameScene: could not create game from file %s" % filePath)
@@ -116,7 +116,7 @@ func loadGame( filepath : String ):
 	var previousState = _state
 	_changeState( State.Creating )
 
-	var result = yield( _creator.createFromFile( filepath ), "completed" )
+	var result = await _creator.createFromFile( filepath ).completed
 
 # warning-ignore:standalone_ternary
 	start() if result == OK else _changeState( previousState )
@@ -140,14 +140,14 @@ func loadLevel( levelName : String ) -> int:
 		_module.saveLevel( currentLevel, false )
 
 	_changeState( State.Creating )
-	var result = yield( _creator.loadLevel( levelName, true ), "completed" )
+	var result = await _creator.loadLevel( levelName, true ).completed
 	_changeState( State.Running )
 	return result
 
 
 func unloadCurrentLevel() -> int:
 	_changeState( State.Creating )
-	var result = yield( _creator.unloadCurrentLevel(), "completed" )
+	var result = await _creator.unloadCurrentLevel().completed
 	_changeState( State.Running )
 	return result
 
@@ -160,7 +160,7 @@ func setCurrentLevel( level : LevelBase ):
 	if level == currentLevel:
 		return
 
-	assert( level == null or self.is_a_parent_of( level ) )
+	assert( level == null or self.is_ancestor_of( level ) )
 	currentLevel = level
 	_playerAgent.setCurrentLevel(level)
 	emit_signal("currentLevelChanged", level)
@@ -181,17 +181,17 @@ func getPlayerUnits():
 
 
 func _travel( entrance : Area2D ):
-	var levelAndEntranceNames : PoolStringArray = _module.getTargetLevelFilenameAndEntrance(
+	var levelAndEntranceNames : PackedStringArray = _module.getTargetLevelFilenameAndEntrance(
 	currentLevel.name, entrance.name )
 
-	if levelAndEntranceNames.empty():
+	if levelAndEntranceNames.is_empty():
 		return
 
 	_changeState( State.Creating )
 
 	var levelName : String = levelAndEntranceNames[0].get_file().get_basename()
 	var entranceName : String = levelAndEntranceNames[1]
-	var result : int = yield( loadLevel( levelName ), "completed" )
+	var result : int = await loadLevel( levelName ).completed
 
 	if result != OK:
 		return
@@ -203,7 +203,7 @@ func _travel( entrance : Area2D ):
 
 	# TODO: replace it with _changeState( State.Running ) that unpauses the game
 	# but first remove that from GameScene.loadLevel()
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 	_playerAgent.set_physics_process(true)
 
 

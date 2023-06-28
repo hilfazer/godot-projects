@@ -1,10 +1,10 @@
-extends Reference
+extends RefCounted
 
 enum State { Ready, Loading, Unloading }
 
-var _game : Node                       setget deleted
-var _levelFilename : String            setget deleted
-var _state : int = State.Ready         setget deleted
+var _game : Node: set = deleted
+var _levelFilename : String: set = deleted
+var _state : int = State.Ready: set = deleted
 
 
 func deleted(_a):
@@ -17,29 +17,29 @@ func _init( game : Node ):
 
 func loadLevel( levelFilename : String, levelParent : Node ) -> int:
 	assert( _game._state == _game.State.Creating )
-	assert( _game.is_a_parent_of( levelParent ) or _game == levelParent )
+	assert( _game.is_ancestor_of( levelParent ) or _game == levelParent )
 
 	if _state != State.Ready:
 		Debug.warn(self, "LevelLoader not ready to load %s" % levelFilename)
 		return ERR_UNAVAILABLE
 
 	_changeState(State.Loading, levelFilename)
-	var retval = yield(_loadLevel(levelFilename, levelParent), "completed")
+	var retval = await _loadLevel(levelFilename, levelParent).completed
 	_changeState(State.Ready)
 	return retval
 
 
 func _loadLevel( levelFilename : String, levelParent : Node ) -> int:
-	yield( _game.get_tree(), "idle_frame" )
+	await _game.get_tree().idle_frame
 	var levelResource = load( levelFilename )
 	if not levelResource:
 		Debug.error( self, "Could not load level file: " + levelFilename )
 		return ERR_CANT_CREATE
 
-	var level : LevelBase = levelResource.instance()
+	var level : LevelBase = levelResource.instantiate()
 
 	if _game.currentLevel != null:
-		var result = yield( _unloadLevel(_game.currentLevel), "completed" )
+		var result = await _unloadLevel(_game.currentLevel).completed
 		assert( result == OK )
 
 	assert( not _game.has_node( level.name ) )
@@ -59,13 +59,13 @@ func unloadLevel() -> int:
 	var level : LevelBase = _game.currentLevel
 
 	_changeState( State.Unloading, level.name )
-	var retval : int = yield(_unloadLevel(level), "completed")
+	var retval : int = await _unloadLevel(level).completed
 	_changeState( State.Ready )
 	return retval
 
 
 func _unloadLevel( level : LevelBase ) -> int:
-	yield( _game.get_tree(), "idle_frame" )
+	await _game.get_tree().idle_frame
 	var levelUnits = level.getAllUnits()
 	for playerUnit in _game.getPlayerUnits():
 		if playerUnit in levelUnits:
@@ -73,8 +73,8 @@ func _unloadLevel( level : LevelBase ) -> int:
 				[ playerUnit.name, level.name ] )
 
 	level.queue_free()
-	yield( level, "predelete" )
-	yield( _game.get_tree(), "idle_frame" )
+	await level.predelete
+	await _game.get_tree().idle_frame
 	assert( not is_instance_valid( level ) )
 	_game.setCurrentLevel( null )
 	return OK
@@ -136,11 +136,11 @@ func _changeState( state : int, levelFilename : String = "" ):
 			Debug.warn(self, "changing to same state")
 			return
 		State.Ready:
-			assert( levelFilename.empty() )
+			assert( levelFilename.is_empty() )
 		State.Loading:
-			assert( not levelFilename.empty() )
+			assert( not levelFilename.is_empty() )
 		State.Unloading:
-			assert( not levelFilename.empty() )
+			assert( not levelFilename.is_empty() )
 
 	_levelFilename = levelFilename
 	_state = state

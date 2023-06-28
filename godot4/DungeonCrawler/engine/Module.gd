@@ -1,5 +1,5 @@
 # This script operates on module data that does not change
-extends Reference
+extends RefCounted
 
 const CommonItemsDatabasePath= "res://data/common/items/CommonItemDatabase.gd"
 const ItemDbFactoryGd        = preload("res://engine/items/ItemDbFactory.gd")
@@ -25,7 +25,7 @@ static func verify( moduleData: ModuleDataGd ):
 
 func _init( moduleData: ModuleDataGd, moduleFilename: String ):
 	_data = moduleData
-	assert( moduleFilename and not moduleFilename.empty() )
+	assert( moduleFilename and not moduleFilename.is_empty() )
 	_moduleFilename = moduleFilename
 
 #TODO rewrite
@@ -67,13 +67,13 @@ func getLevelEntrance( levelName : String ) -> String:
 
 
 func getLevelFilename( levelName : String ) -> String:
-	assert( not levelName.is_abs_path() and levelName.get_extension().empty() )
+	assert( not levelName.is_absolute_path() and levelName.get_extension().is_empty() )
 	if not _data.LevelNames.has(levelName):
 		Debug.info( self, "Module: no level named %s" % levelName )
 		return ""
 
 	var fileName = _getFilename( levelName, LevelsSubdir )
-	if fileName.empty():
+	if fileName.is_empty():
 		Debug.error( self, "Module: no file for level with name %s" % levelName )
 
 	return fileName
@@ -85,24 +85,24 @@ func getUnitFilename( unitName : String ) -> String:
 		return ""
 
 	var fileName = _getFilename( unitName, UnitsSubdir )
-	if fileName.empty():
+	if fileName.is_empty():
 		Debug.error( self, "Module: no file for unit with name %s" % unitName )
 
 	return fileName
 
 
-func getTargetLevelFilenameAndEntrance( sourceLevelName : String, entrance : String ) -> PoolStringArray:
+func getTargetLevelFilenameAndEntrance( sourceLevelName : String, entrance : String ) -> PackedStringArray:
 	assert( _data.LevelNames.has(sourceLevelName) )
 	if not _data.LevelConnections.has( [sourceLevelName, entrance] ):
-		return PoolStringArray()
+		return PackedStringArray()
 
-	var name_entrance : PoolStringArray = _data.LevelConnections[[sourceLevelName, entrance]]
+	var name_entrance : PackedStringArray = _data.LevelConnections[[sourceLevelName, entrance]]
 
-	return PoolStringArray([ getLevelFilename( name_entrance[0] ), name_entrance[1] ])
+	return PackedStringArray([ getLevelFilename( name_entrance[0] ), name_entrance[1] ])
 
 
 func _getFilename( name : String, subdirectory : String ):
-	assert( not name.is_abs_path() and name.get_extension().empty() )
+	assert( not name.is_absolute_path() and name.get_extension().is_empty() )
 
 	var fileName = name + Globals.SCENE_EXTENSION
 	var fullName = _moduleFilename.get_base_dir() + "/" + subdirectory + "/" + fileName

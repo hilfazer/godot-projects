@@ -1,6 +1,6 @@
-extends Reference
+extends RefCounted
 
-var _logLevel := 2                     setget setLogLevel
+var _logLevel := 2: set = setLogLevel
 
 
 func setLogLevel( level : int ):

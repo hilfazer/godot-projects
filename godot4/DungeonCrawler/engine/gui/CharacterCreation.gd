@@ -7,7 +7,7 @@ signal madeCharacter( creationDatum )
 
 
 var _module : ModuleGd
-onready var _unitChoice = $"UnitChoice"
+@onready var _unitChoice = $"UnitChoice"
 
 
 func initialize( module : ModuleGd ):
@@ -24,10 +24,10 @@ func makeCharacter() -> UnitCreationDataGd:
 	var unitName : String = _unitChoice.get_item_text( _unitChoice.get_selected() )
 	var unitFilename = _module.getUnitFilename( unitName )
 
-	if unitFilename.empty():
+	if unitFilename.is_empty():
 		return null
 
-	var unitNode__ = load( unitFilename ).instance()
+	var unitNode__ = load( unitFilename ).instantiate()
 	var unitTexture = unitNode__.getIcon()
 	unitNode__.free()
 

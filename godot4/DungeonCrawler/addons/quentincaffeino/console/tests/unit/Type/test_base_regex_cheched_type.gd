@@ -6,7 +6,8 @@ const BaseRegexCheckedType = preload("res://addons/quentincaffeino/console/src/T
 
 class SomeRegexCheckedType extends BaseRegexCheckedType:
 
-	func _init(_pattern).('SomeRegexCheckedType', _pattern):
+	func _init(_pattern):
+		super('SomeRegexCheckedType', _pattern)
 		pass
 
 

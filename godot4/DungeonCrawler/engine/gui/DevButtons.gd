@@ -7,14 +7,14 @@ var _mainMenu
 
 func _ready():
 	_mainMenu = get_parent()
-	_mainMenu.get_node("Buttons/NewGame").connect("pressed", self, "deleteCreator")
+	_mainMenu.get_node("Buttons/NewGame").connect("pressed", Callable(self, "deleteCreator"))
 
 
 func newCreator():
 	var unitCreator = UnitCreator.new()
 	unitCreator.name = UnitCreatorName
 # warning-ignore:return_value_discarded
-	$"/root/Connector".connect("newGameSceneConnected", unitCreator, "connectOnReady" )
+	$"/root/Connector".connect("newGameSceneConnected", Callable(unitCreator, "connectOnReady"))
 
 	deleteCreator()
 	$"/root".add_child( unitCreator )
@@ -37,13 +37,13 @@ class UnitCreator extends Node:
 	var CharacterCreationScn   = preload("res://engine/gui/CharacterCreation.tscn")
 
 	func connectOnReady( newGameScene ):
-		newGameScene.connect( "ready", self, "createUnit", [newGameScene] )
+		newGameScene.connect("ready", Callable(self, "createUnit").bind(newGameScene))
 
 	func createUnit( newGameScene ):
 		if is_queued_for_deletion():
 			return
 
-		var characterCreation = CharacterCreationScn.instance()
+		var characterCreation = CharacterCreationScn.instantiate()
 		add_child(characterCreation)
 		characterCreation.queue_free()
 		characterCreation.initialize( newGameScene._module )

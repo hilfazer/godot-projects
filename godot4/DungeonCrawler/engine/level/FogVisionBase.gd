@@ -2,7 +2,7 @@ extends Node2D
 
 const VisibilityLayer = 0x00000010
 
-onready var _lastPosition := global_position
+@onready var _lastPosition := global_position
 
 signal changedPosition()
 
@@ -24,9 +24,9 @@ func allowInstantiation():
 
 
 # warning-ignore:unused_argument
-func calculateVisibleTiles( fogOfWar : TileMap ) -> PoolByteArray:
+func calculateVisibleTiles( fogOfWar : TileMap ) -> PackedByteArray:
 	assert( false )
-	return PoolByteArray()
+	return PackedByteArray()
 
 
 # warning-ignore:unused_argument

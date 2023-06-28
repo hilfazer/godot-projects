@@ -4,13 +4,13 @@ const UnitLineScn            = preload("./UnitLine.tscn")
 const CharacterCreationScn   = preload("res://engine/gui/CharacterCreation.tscn")
 const UnitCreationDataGd    = preload("res://engine/units/UnitCreationData.gd")
 
-var _module                            setget setModule
+var _module : set = setModule
 
-var _unitsCreationData = []            setget deleted
-var _characterCreationWindow           setget deleted
-onready var _unitList = $"Players/Scroll/UnitList"
-onready var _unitLimit = $"UnitLimit"
-onready var _createCharacter = $"CreateCharacter"
+var _unitsCreationData = []: set = deleted
+var _characterCreationWindow : set = deleted
+@onready var _unitList = $"Players/Scroll/UnitList"
+@onready var _unitLimit = $"UnitLimit"
+@onready var _createCharacter = $"CreateCharacter"
 
 
 signal unitNumberChanged(newNumber)
@@ -21,11 +21,11 @@ func deleted(_a):
 
 
 func _ready():
-	connect("unitNumberChanged", self, "onUnitNumberChanged")
+	connect("unitNumberChanged", Callable(self, "onUnitNumberChanged"))
 
 
 func refreshLobby( clientList ):
-	.refreshLobby( clientList )
+	super.refreshLobby( clientList )
 
 
 func clearUnits():
@@ -46,12 +46,12 @@ func addUnit( creationDatum : UnitCreationDataGd ):
 
 
 func addUnitLine( unitIdx ):
-	var unitLine = UnitLineScn.instance()
+	var unitLine = UnitLineScn.instantiate()
 
 	_unitList.add_child( unitLine )
 	unitLine.initialize( unitIdx )
 	unitLine.setUnit( _unitsCreationData[unitIdx] )
-	unitLine.connect("deletePressed", self, "onDeleteUnit")
+	unitLine.connect("deletePressed", Callable(self, "onDeleteUnit"))
 	return true
 
 
@@ -73,10 +73,10 @@ func onCreateCharacterPressed():
 	if _characterCreationWindow != null:
 		return
 
-	_characterCreationWindow = CharacterCreationScn.instance()
+	_characterCreationWindow = CharacterCreationScn.instantiate()
 	add_child( _characterCreationWindow )
-	_characterCreationWindow.connect("tree_exited", self, "removeCharacterCreationWindow")
-	_characterCreationWindow.connect("madeCharacter", self, "createCharacter")
+	_characterCreationWindow.connect("tree_exited", Callable(self, "removeCharacterCreationWindow"))
+	_characterCreationWindow.connect("madeCharacter", Callable(self, "createCharacter"))
 	_characterCreationWindow.initialize(_module)
 
 
@@ -98,6 +98,6 @@ func setModule( module ):
 
 
 func setMaxUnits( maxUnits ):
-	.setMaxUnits( maxUnits )
+	super.setMaxUnits( maxUnits )
 	_createCharacter.disabled = _unitsCreationData.size() == _maxUnits
 

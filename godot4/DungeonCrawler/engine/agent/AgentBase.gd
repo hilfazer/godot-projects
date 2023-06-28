@@ -3,7 +3,7 @@ class_name AgentBase
 
 const AgentMetaName = "agentRef"
 
-var _units := SetWrapper.new()         setget deleted, getUnits
+var _units := SetWrapper.new(): get = getUnits, set = deleted
 var _unitsInTree := []
 
 
@@ -16,7 +16,7 @@ func deleted(_a):
 
 func _init():
 # warning-ignore:return_value_discarded
-	_units.connect( "changed", self, "_updateActiveUnits" )
+	_units.connect("changed", Callable(self, "_updateActiveUnits"))
 	add_to_group( Globals.Groups.Agents )
 
 
@@ -41,11 +41,11 @@ func addUnit( unit : UnitBase ) -> int:
 
 	_units.add( [unit] )
 # warning-ignore:return_value_discarded
-	unit.connect( "tree_entered", self, "_setActive",   [unit] )
+	unit.connect("tree_entered", Callable(self, "_setActive").bind(unit))
 # warning-ignore:return_value_discarded
-	unit.connect( "tree_exited",  self, "_setInactive", [unit] )
+	unit.connect("tree_exited", Callable(self, "_setInactive").bind(unit))
 # warning-ignore:return_value_discarded
-	unit.connect( "predelete",    self, "removeUnit",   [unit], CONNECT_ONESHOT )
+	unit.connect("predelete", Callable(self, "removeUnit").bind(unit), CONNECT_ONE_SHOT)
 	if unit.is_inside_tree():
 		_setActive( unit )
 
@@ -59,8 +59,8 @@ func removeUnit( unit : UnitBase ) -> bool:
 		return false
 
 	_units.remove( [unit] )
-	unit.disconnect( "tree_entered", self, "_setActive" )
-	unit.disconnect( "tree_exited" , self, "_setInactive" )
+	unit.disconnect("tree_entered", Callable(self, "_setActive"))
+	unit.disconnect("tree_exited", Callable(self, "_setInactive"))
 	unit.set_meta( AgentMetaName, null )
 	return true
 

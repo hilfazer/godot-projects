@@ -1,5 +1,5 @@
 
-extends Reference
+extends RefCounted
 
 const CallbackBuilder = preload('res://addons/quentincaffeino/callback/src/CallbackBuilder.gd')
 const Callback = preload('res://addons/quentincaffeino/callback/src/Callback.gd')

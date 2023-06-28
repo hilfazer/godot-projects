@@ -6,7 +6,7 @@ const GameSceneGd            = preload("./game/GameScene.gd")
 const NewGameSceneGd         = preload("res://engine/gui/NewGameScene.gd")
 const MainMenuSceneGd        = preload("res://engine/gui/MainMenuScene.gd")
 
-var _game : GameSceneGd                setget _setGame
+var _game : GameSceneGd: set = _setGame
 
 
 signal newGameSceneConnected( node )
@@ -17,34 +17,34 @@ func deleted(_a):
 
 
 func _init():
-	set_pause_mode( PAUSE_MODE_PROCESS )
+	set_process_mode( PROCESS_MODE_ALWAYS )
 	name = get_script().resource_path.get_basename().get_file()
 
 
 func _ready():
 # warning-ignore:return_value_discarded
-	SceneSwitcher.connect( "scene_set_as_current", self, "_connectNewCurrentScene" )
+	SceneSwitcher.connect("scene_set_as_current", Callable(self, "_connectNewCurrentScene"))
 
 
 func _connectNewCurrentScene():
 	var newCurrent = get_tree().current_scene
 
 	if newCurrent is NewGameSceneGd:
-		newCurrent.connect( "readyForGame",  self, "_createGame", [], CONNECT_ONESHOT )
-		newCurrent.connect( "finished",      self, "_toMainMenu", [], CONNECT_ONESHOT )
+		newCurrent.connect("readyForGame", Callable(self, "_createGame").bind(), CONNECT_ONE_SHOT)
+		newCurrent.connect("finished", Callable(self, "_toMainMenu").bind(), CONNECT_ONE_SHOT)
 
 		emit_signal( "newGameSceneConnected", newCurrent )
 
 	elif newCurrent is MainMenuSceneGd:
-		newCurrent.connect( "saveFileSelected", self, "_loadGame", [], CONNECT_ONESHOT )
+		newCurrent.connect("saveFileSelected", Callable(self, "_loadGame").bind(), CONNECT_ONE_SHOT)
 
 	elif newCurrent is GameSceneGd:
 		assert( _game == null )
 		_setGame( get_tree().current_scene )
 # warning-ignore:return_value_discarded
-		_game.connect( "gameFinished", self, "onGameEnded", [], CONNECT_ONESHOT )
+		_game.connect("gameFinished", Callable(self, "onGameEnded").bind(), CONNECT_ONE_SHOT)
 # warning-ignore:return_value_discarded
-		_game.connect( "nonmatchingSaveFileSelected", self, "_makeGameFromFile", [], CONNECT_ONESHOT )
+		_game.connect("nonmatchingSaveFileSelected", Callable(self, "_makeGameFromFile").bind(), CONNECT_ONE_SHOT)
 
 
 func _toMainMenu():

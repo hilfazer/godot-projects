@@ -3,7 +3,7 @@ class_name ItemBase
 
 const INVALID_ID := ""
 
-export var _itemID : String = INVALID_ID
+@export var _itemID : String = INVALID_ID
 
 
 func _init():

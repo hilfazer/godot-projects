@@ -1,7 +1,7 @@
 extends Control
 
-onready var _pause = visible
-onready var _sceneRoot = $"../.."
+@onready var _pause = visible
+@onready var _sceneRoot = $"../.."
 
 
 func _unhandled_input(event):

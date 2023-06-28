@@ -7,13 +7,13 @@ const FileLoggerGd           = preload("res://debug/FileLogger.gd")
 
 const LogFilename = "res://ignored/logfile.log"
 
-var _debugWindow : CanvasLayer         setget deleted
-var _variables := {}                   setget deleted
-var _loggers := []                     setget deleted
-var _consoleLogger : ConsoleLoggerGd   setget deleted
-var _fileLogger : FileLoggerGd         setget deleted
+var _debugWindow : CanvasLayer: set = deleted
+var _variables := {}: set = deleted
+var _loggers := []: set = deleted
+var _consoleLogger : ConsoleLoggerGd: set = deleted
+var _fileLogger : FileLoggerGd: set = deleted
 
-export var performPrints := false
+@export var performPrints := false
 
 
 signal variableUpdated( varName, value )
@@ -24,7 +24,7 @@ func deleted(_a):
 
 
 func _init():
-	set_pause_mode(PAUSE_MODE_PROCESS)
+	set_process_mode(PROCESS_MODE_ALWAYS)
 
 	if OS.has_feature("debug"):
 		_repositionWindow()
@@ -99,15 +99,15 @@ func updateVariable( varName : String, value, addValue := false ):
 
 func _createDebugWindow():
 	assert( _debugWindow == null )
-	var debugWindow = DebugWindowScn.instance()
+	var debugWindow = DebugWindowScn.instantiate()
 # warning-ignore:return_value_discarded
-	connect( "variableUpdated", debugWindow.get_node("Variables"), "updateVariable" )
+	connect("variableUpdated", Callable(debugWindow.get_node("Variables"), "updateVariable"))
 	debugWindow.get_node("Variables").setVariables( _variables )
 	$"/root".add_child( debugWindow )
 	_debugWindow = debugWindow
 
 
 func _repositionWindow():
-	var screen_size = OS.get_screen_size(0)
-	var window_size = OS.get_window_size()
-	OS.set_window_position( (screen_size*0.38 - window_size*0.4) )
+	var screen_size = DisplayServer.screen_get_size(0)
+	var window_size = get_window().get_size()
+	get_window().set_position( (screen_size*0.38 - window_size*0.4) )

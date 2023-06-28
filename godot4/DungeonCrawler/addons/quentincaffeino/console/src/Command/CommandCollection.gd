@@ -4,7 +4,8 @@ extends "res://addons/quentincaffeino/array-utils/src/Collection.gd"
 const CallbackBuilder = preload("res://addons/quentincaffeino/callback/src/CallbackBuilder.gd")
 
 
-func _init(collection = {}).(collection):
+func _init(collection = {}):
+	super(collection)
 	pass
 
 

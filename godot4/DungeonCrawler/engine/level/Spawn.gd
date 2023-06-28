@@ -1,6 +1,6 @@
-extends Position2D
+extends Marker2D
 
-var _bodiesInArea = 0                  setget deleted
+var _bodiesInArea = 0: set = deleted
 
 
 func deleted(_a):

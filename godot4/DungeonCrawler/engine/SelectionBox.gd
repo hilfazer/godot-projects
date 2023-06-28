@@ -6,7 +6,7 @@ var startv := Vector2()
 var endv := Vector2()
 var isDragging := false
 
-onready var rectd = $"ColorRect"
+@onready var rectd = $"ColorRect"
 
 
 signal areaSelected( rect2 )
@@ -42,8 +42,8 @@ func _unhandled_input(event):
 
 
 func _drawArea( rect : Rect2 ):
-	rectd.rect_size = rect.size
-	rectd.rect_position = rect.position
+	rectd.size = rect.size
+	rectd.position = rect.position
 
 
 static func _makeRect( start : Vector2, end : Vector2 ):

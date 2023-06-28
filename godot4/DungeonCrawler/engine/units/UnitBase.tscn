@@ -3,9 +3,9 @@
 [ext_resource path="res://engine/units/UnitBase.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 30, 30 )
+size = Vector2( 30, 30 )
 
-[node name="Unit" type="KinematicBody2D" groups=[
+[node name="Unit" type="CharacterBody2D" groups=[
 "NPCs",
 ]]
 z_index = 20
@@ -16,10 +16,10 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Name" type="Label" parent="."]
-margin_left = -27.1697
-margin_top = 34.2266
-margin_right = 27.8303
-margin_bottom = 48.2266
+offset_left = -27.1697
+offset_top = 34.2266
+offset_right = 27.8303
+offset_bottom = 48.2266
 __meta__ = {
 "_edit_group_": true
 }
@@ -29,9 +29,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 border_color = Color( 0, 1, 0, 1 )
 
-[node name="Pivot" type="Position2D" parent="."]
+[node name="Pivot" type="Marker2D" parent="."]
 
-[node name="Sprite" type="Sprite" parent="Pivot"]
+[node name="Sprite2D" type="Sprite2D" parent="Pivot"]
 scale = Vector2( 2, 2 )
 
 [node name="Tween" type="Tween" parent="Pivot"]

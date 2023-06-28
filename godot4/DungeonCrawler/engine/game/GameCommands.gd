@@ -8,7 +8,7 @@ var _playerAgent : PlayerAgentGd
 
 func _ready():
 	assert( get_parent() is GameSceneGd )
-	yield( get_tree(), "idle_frame" )
+	await get_tree().idle_frame
 	_playerAgent = $"../PlayerManager/PlayerAgent"
 	assert( _playerAgent )
 
@@ -16,19 +16,19 @@ func _ready():
 func _unhandled_input(event):
 	if event.is_action("select_unit_1"):
 		selectPlayerUnitByNumber( 1 )
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 	elif event.is_action("select_unit_2"):
 		selectPlayerUnitByNumber( 2 )
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 	elif event.is_action("select_unit_3"):
 		selectPlayerUnitByNumber( 3 )
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 	elif event.is_action("select_unit_4"):
 		selectPlayerUnitByNumber( 4 )
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 	elif event.is_action("select_unit_all"):
 		selectAllPlayerUnits()
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 
 
 func _registerCommands():
@@ -74,22 +74,22 @@ func unloadLevel():
 
 
 func loadLevel( levelName : String ):
-	if levelName.empty():
+	if levelName.is_empty():
 		Console.Log.warn( "Level name can't be empty" )
 		return
 
 	var game = get_parent()
 	if game._module == null:
-		yield( get_tree(), "idle_frame" )
+		await get_tree().idle_frame
 		return
 
-	var result = yield( game.loadLevel( levelName ), "completed" )
+	var result = await game.loadLevel( levelName ).completed
 	if result != OK:
 		Console.Log.warn( "Failed to load level [b]%s[/b]." % levelName )
 
 
 func addUnitToPlayer( unitName : String ):
-	if unitName.empty():
+	if unitName.is_empty():
 		Console.Log.warn( "Unit name can't be empty" )
 		return
 
@@ -108,7 +108,7 @@ func addUnitToPlayer( unitName : String ):
 
 
 func removeUnitFromPlayer( unitName : String ):
-	if unitName.empty():
+	if unitName.is_empty():
 		Console.Log.warn( "Unit name can't be empty" )
 		return
 

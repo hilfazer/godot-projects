@@ -7,7 +7,7 @@ func _ready():
 	var parent = get_parent()
 	if parent is UnitBase:
 		addUnit( parent )
-	parent.connect("moved", self, "_moveOpposite")
+	parent.connect("moved", Callable(self, "_moveOpposite"))
 	_moveOpposite( Vector2( 1, 0 ) )
 
 

@@ -9,7 +9,7 @@ const UnitCreationDataGd     = preload("res://engine/units/UnitCreationData.gd")
 const FogOfWarGd             = preload("res://engine/level/FogOfWar.gd")
 
 var _game : Node
-var _levelLoader : LevelLoaderGd       setget deleted
+var _levelLoader : LevelLoaderGd: set = deleted
 var _currentLevelParent : Node
 
 
@@ -30,13 +30,13 @@ func createFromModule( module : SavingModuleGd, unitsCreationData : Array ) -> i
 	assert( _game._module == null )
 	_game.setCurrentModule( module )
 
-	var result = yield( _create( unitsCreationData ), "completed" )
+	var result = await _create( unitsCreationData ).completed
 	emit_signal( "createFinished", result )
 	return result
 
 
 func createFromFile( filePath : String ):
-	yield( get_tree(), "idle_frame" )
+	await get_tree().idle_frame
 
 	var module : SavingModuleGd = _game._module
 	if not module:
@@ -48,7 +48,7 @@ func createFromFile( filePath : String ):
 		assert( module.moduleMatches( filePath ) )
 		module.loadFromFile( filePath )
 
-	var result = yield( _create( [] ), "completed" )
+	var result = await _create( [] ).completed
 	if result != OK:
 		return result
 
@@ -59,7 +59,7 @@ func createFromFile( filePath : String ):
 
 
 func unloadCurrentLevel():
-	yield(_levelLoader.unloadLevel(), "completed")
+	await _levelLoader.unloadLevel().completed
 
 
 func loadLevel( levelName : String, withState := true ) -> int:
@@ -67,12 +67,12 @@ func loadLevel( levelName : String, withState := true ) -> int:
 		if withState \
 		else null
 
-	yield(_loadLevel( levelName, levelState ), "completed")
+	await _loadLevel( levelName, levelState ).completed
 	return OK
 
 
 func _create( unitsCreationData : Array ) -> int:
-	yield( get_tree(), "idle_frame" )
+	await get_tree().idle_frame
 
 	assert( _game._module )
 	assert( get_tree().paused )
@@ -80,20 +80,20 @@ func _create( unitsCreationData : Array ) -> int:
 	var module : SavingModuleGd = _game._module
 	var levelName = module.getCurrentLevelName()
 	var levelState = module.loadLevelState( levelName, true )
-	yield( _loadLevel( levelName, levelState ), "completed" )
+	await _loadLevel( levelName, levelState ).completed
 
 	var entranceName = module.getLevelEntrance( levelName )
-	if not entranceName.empty() and not unitsCreationData.empty():
+	if not entranceName.is_empty() and not unitsCreationData.is_empty():
 		_createAndInsertUnits( unitsCreationData, entranceName )
 
 	return OK
 
 
 func _loadLevel( levelName : String, levelState = null ):
-	yield( get_tree(), "idle_frame" )
+	await get_tree().idle_frame
 
 	var filePath = _game._module.getLevelFilename( levelName )
-	if filePath.empty():
+	if filePath.is_empty():
 		return ERR_CANT_CREATE
 
 	var result = yield( _levelLoader.loadLevel(
@@ -140,10 +140,10 @@ func _createPlayerUnits__( unitsCreationData : Array ) -> Array:
 	for unitData in unitsCreationData:
 		assert( unitData is UnitCreationDataGd )
 		var fileName = _game._module.getUnitFilename( unitData.name )
-		if fileName.empty():
+		if fileName.is_empty():
 			continue
 
-		var unitNode__ : UnitBase = load( fileName ).instance()
+		var unitNode__ : UnitBase = load( fileName ).instantiate()
 		unitNode__.set_name( "player_%s" % [unitData.name] )
 
 		playerUnits__.append( unitNode__ )

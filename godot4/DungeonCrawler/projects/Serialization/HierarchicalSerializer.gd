@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 
 const NodeGuardGd            = preload("./NodeGuard.gd")
 const SaveGameFileGd         = preload("./SaveGameFile.gd")
@@ -17,7 +17,7 @@ var _nodesData := {}
 var _resourceExtension := ".tres" if OS.has_feature("debug") else ".res"
 
 var _isSerializableFn : FuncRef
-var _isSerializableObj : Reference
+var _isSerializableObj : RefCounted
 
 
 func _init():
@@ -56,8 +56,8 @@ func getSerialized( key : String ) -> Array:
 	return _nodesData[key]
 
 
-func getKeys() -> PoolStringArray:
-	return PoolStringArray( _nodesData.keys() )
+func getKeys() -> PackedStringArray:
+	return PackedStringArray( _nodesData.keys() )
 
 
 func getVersion() -> String:
@@ -69,7 +69,7 @@ func setDefaultIsNodeSerializable():
 	_isSerializableObj = null
 
 
-func setCustomIsNodeSerializable( functor : Reference ):
+func setCustomIsNodeSerializable( functor : RefCounted ):
 	setDefaultIsNodeSerializable()
 
 	if functor == null:
@@ -85,11 +85,11 @@ func setCustomIsNodeSerializable( functor : Reference ):
 func saveToFile( filepath : String ) -> int:
 	var baseDirectory = filepath.get_base_dir()
 
-	if not filepath.is_valid_filename() and baseDirectory.empty():
+	if not filepath.is_valid_filename() and baseDirectory.is_empty():
 		print("not a valid filepath")
 		return ERR_CANT_CREATE
 
-	var dir := Directory.new()
+	var dir := DirAccess.new()
 	if not dir.dir_exists( baseDirectory ):
 		var error = dir.make_dir_recursive( baseDirectory )
 		if error != OK:
@@ -107,7 +107,7 @@ func saveToFile( filepath : String ) -> int:
 	stateToSave.userDict = userData
 
 	var pathToSave = filepath
-	if not filepath.get_extension() in ResourceSaver.get_recognized_extensions(stateToSave):
+	if not filepath.get_extension() in ResourceSaver._get_recognized_extensions(stateToSave):
 		pathToSave += _resourceExtension
 
 	var error := ResourceSaver.save( pathToSave, stateToSave )
@@ -146,7 +146,7 @@ func serialize( node : Node ) -> Array:
 
 	for child in node.get_children():
 		var childData = serialize( child )
-		if not childData.empty():
+		if not childData.is_empty():
 			data.append( childData )
 
 	if data[ _Index.OwnData ] == null and data.size() <= _Index.FirstChild:
@@ -157,23 +157,23 @@ func serialize( node : Node ) -> Array:
 
 # parent can be null
 func deserialize( data : Array, parent : Node ) -> NodeGuardGd:
-	assert( not data.empty() )
+	assert( not data.is_empty() )
 	var nodeName  = data[_Index.Name]
 	var sceneFile = data[_Index.Scene]
 	var ownData   = data[_Index.OwnData]
 
 	var node : Node
 	if not parent:
-		if !sceneFile.empty():
-			node = load( sceneFile ).instance()
+		if !sceneFile.is_empty():
+			node = load( sceneFile ).instantiate()
 			node.name = nodeName
 	else:
 		node = parent.get_node_or_null( nodeName )
 		if not node:
-			if !sceneFile.empty():
-				node = load( sceneFile ).instance()
+			if !sceneFile.is_empty():
+				node = load( sceneFile ).instantiate()
 				parent.add_child( node )
-				assert( parent.is_a_parent_of( node ) )
+				assert( parent.is_ancestor_of( node ) )
 				node.name = nodeName
 
 	if not node:

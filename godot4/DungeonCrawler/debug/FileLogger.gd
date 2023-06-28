@@ -6,7 +6,7 @@ var _file : File
 
 func _init( filename : String ):
 	var logFile = File.new()
-	var directory = Directory.new()
+	var directory = DirAccess.new()
 	if not directory.dir_exists( filename.get_base_dir() ):
 		directory.make_dir_recursive( filename.get_base_dir() )
 

@@ -26,7 +26,7 @@ func _ready():
 	# Console keyboard control
 	self.set_process_input(true)
 
-	self.connect('text_entered', self, 'execute')
+	self.connect('text_submitted', Callable(self, 'execute'))
 
 
 # @param  InputEvent
@@ -91,7 +91,7 @@ func set_text(text, move_caret_to_end = true):
 	self.grab_focus()
 
 	if move_caret_to_end:
-		self.caret_position = text.length()
+		self.caret_column = text.length()
 
 
 # @param    String  input
@@ -107,7 +107,7 @@ func execute(input):
 
 	for parsedCommand in parsedCommands:
 		# @var  Command/Command|null
-		var command = Console.get_command(parsedCommand.name)
+		var command = Console.is_command_or_control_pressed(parsedCommand.name)
 
 		if command:
 			Console.Log.debug('Executing `' + parsedCommand.command + '`.')
@@ -137,7 +137,7 @@ func _parse_commands(rawCommands):
 # @returns  Dictionary
 func _parse_command(rawCommand):
 	var name = null
-	var arguments = PoolStringArray([])
+	var arguments = PackedStringArray([])
 
 	var beginning = 0  # int
 	var openQuote  # String|null
@@ -165,7 +165,7 @@ func _parse_command(rawCommand):
 			beginning = i + 1
 
 		# Save separated argument
-		if subString != null and typeof(subString) == TYPE_STRING and !subString.empty():
+		if subString != null and typeof(subString) == TYPE_STRING and !subString.is_empty():
 			if !name:
 				name = subString
 			else:

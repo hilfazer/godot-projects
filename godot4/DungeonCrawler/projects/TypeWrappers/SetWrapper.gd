@@ -1,7 +1,7 @@
-extends Reference
+extends RefCounted
 class_name SetWrapper
 
-var _array = []               setget deleted
+var _array = []: set = deleted
 
 
 signal changed( array )

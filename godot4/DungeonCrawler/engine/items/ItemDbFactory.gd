@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 
 
 static func createItemDb( ItemDbPath: String ) -> ItemDbBase:

@@ -2,7 +2,7 @@ extends Panel
 
 const PlayerString = "%s (%s) %s"
 
-var _maxUnits = 0                      setget setMaxUnits
+var _maxUnits = 0: set = setMaxUnits
 
 
 func deleted(_a):

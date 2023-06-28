@@ -1,5 +1,5 @@
 
-extends Reference
+extends RefCounted
 
 const Iterator = preload('res://addons/quentincaffeino/iterator/src/Iterator.gd')
 const CommandCollection = preload('CommandCollection.gd')

@@ -1,7 +1,7 @@
 extends "FogVisionBase.gd"
 
 
-export var _side := 8   setget setSide
+@export var _side := 8: set = setSide
 
 var _rectOffset = Vector2( _side / 2.0, _side / 2.0 )
 
@@ -10,10 +10,10 @@ func allowInstantiation():
 	pass
 
 
-func calculateVisibleTiles(fogOfWar : TileMap ) -> PoolByteArray:
+func calculateVisibleTiles(fogOfWar : TileMap ) -> PackedByteArray:
 	var rect = boundingRect( fogOfWar )
 
-	var uncoveredIndices := PoolByteArray()
+	var uncoveredIndices := PackedByteArray()
 	uncoveredIndices.resize(_side*_side)
 	for x in range(0, uncoveredIndices.size()):
 		uncoveredIndices[x] = 1
@@ -23,7 +23,7 @@ func calculateVisibleTiles(fogOfWar : TileMap ) -> PoolByteArray:
 
 func boundingRect( fogOfWar : TileMap ) -> Rect2:
 	var rect = Rect2( 0, 0, _side, _side )
-	var pos : Vector2 = fogOfWar.world_to_map( global_position )
+	var pos : Vector2 = fogOfWar.local_to_map( global_position )
 	pos -= _rectOffset
 	rect.position = pos
 	return rect

@@ -3,9 +3,9 @@
 [ext_resource path="res://engine/level/Spawn.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 16 )
+size = Vector2( 16, 16 )
 
-[node name="Spawn" type="Position2D" groups=[
+[node name="Spawn" type="Marker2D" groups=[
 "SpawnPoints",
 ]]
 script = ExtResource( 1 )

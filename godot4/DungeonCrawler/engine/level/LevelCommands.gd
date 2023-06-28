@@ -1,6 +1,6 @@
 extends "res://debug/CommandHolder.gd"
 
-onready var _level : LevelBase = get_parent()
+@onready var _level : LevelBase = get_parent()
 
 
 func _ready():

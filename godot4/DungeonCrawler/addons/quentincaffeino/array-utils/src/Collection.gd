@@ -11,7 +11,7 @@ var _collection
 var _iterationCurrent = 0
 
 # @var  int
-var length setget _set_readonly, length
+var length : get = length, set = _set_readonly
 
 
 # @param  Variant  collection

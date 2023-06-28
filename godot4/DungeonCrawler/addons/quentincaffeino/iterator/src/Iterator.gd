@@ -1,5 +1,5 @@
 
-extends Reference
+extends RefCounted
 
 const CallbackBuilder = preload("res://addons/quentincaffeino/callback/src/CallbackBuilder.gd")
 
@@ -14,7 +14,7 @@ var _object_get_length_cb
 var _iteration_current_index = 0
 
 # @var  int
-var length setget _set_readonly, length
+var length : get = length, set = _set_readonly
 
 
 # @param  Reference  target

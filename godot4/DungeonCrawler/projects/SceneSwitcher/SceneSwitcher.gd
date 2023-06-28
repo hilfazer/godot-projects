@@ -19,9 +19,9 @@ const MSG_CANT_CREATE_THREAD := "SceneSwitcher: Couldn't create a thread"
 
 enum State { READY, PREPARING, SWITCHING }
 
-export var play_animations := true
+@export var play_animations := true
 
-onready var _transition_player: AnimationPlayer = $"AnimationPlayer"
+@onready var _transition_player: AnimationPlayer = $"AnimationPlayer"
 var _param_handler: IParamsHandler = NullHandler.new()
 
 var _state: int = State.READY
@@ -110,7 +110,7 @@ func clear_scene() -> int:
 	assert( _scene_loader == null )
 
 	_state = State.SWITCHING
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 	_param_handler = NullHandler.new()
 	get_tree().current_scene.free()
 	get_tree().current_scene = null
@@ -123,7 +123,7 @@ func reload_current_scene() -> int:
 		return ERR_BUSY
 
 	var scene_filename = get_tree().current_scene.filename
-	if scene_filename.empty():
+	if scene_filename.is_empty():
 		return ERR_CANT_CREATE
 
 	assert( _scene_loader == null )
@@ -185,7 +185,7 @@ func _deferred_switch_scene( scene_source, node_extraction_func: String, params,
 	assert(_scene_loader == null)
 
 	if scene_source is Node:
-		assert(not scene_source.filename.empty(), MSG_NODE_NOT_A_SCENE % [scene_source.name])
+		assert(not scene_source.filename.is_empty(), MSG_NODE_NOT_A_SCENE % [scene_source.name])
 
 	var new_scene: Node = call( node_extraction_func, scene_source )
 	if not is_instance_valid(new_scene):
@@ -206,7 +206,7 @@ func _deferred_switch_scene( scene_source, node_extraction_func: String, params,
 
 	# Make it a current scene between its "_enter_tree()" and "_ready()" calls
 # warning-ignore:return_value_discarded
-	new_scene.connect("tree_entered", self, "_set_as_current", [new_scene], CONNECT_ONESHOT)
+	new_scene.connect("tree_entered", Callable(self, "_set_as_current").bind(new_scene), CONNECT_ONE_SHOT)
 
 	# Add it to the active scene, as child of root
 	$"/root".add_child( new_scene )
@@ -247,7 +247,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 
 static func _node_from_packed_scene( packed_scene: PackedScene ) -> Node:
-	return packed_scene.instance() if packed_scene.can_instance() else null
+	return packed_scene.instantiate() if packed_scene.can_instantiate() else null
 
 
 static func _return_argument( node: Node ) -> Node:
@@ -255,7 +255,7 @@ static func _return_argument( node: Node ) -> Node:
 
 #-------------------------------------------------------------------------------
 
-class IParamsHandler extends Reference:
+class IParamsHandler extends RefCounted:
 	pass
 
 
@@ -283,7 +283,7 @@ class ParamsHandler extends IParamsHandler:
 			meta_key = metadata_key
 
 
-class SceneLoader extends Reference:
+class SceneLoader extends RefCounted:
 	signal loading_done()
 	signal progress_changed(progress)
 
@@ -301,9 +301,9 @@ class SceneLoader extends Reference:
 		meta = meta_
 		scene_extraction_func = scene_extraction_func_
 # warning-ignore:return_value_discarded
-		connect("loading_done", switcher, "_on_preperation_done", [], CONNECT_ONESHOT)
+		connect("loading_done", Callable(switcher, "_on_preperation_done").bind(), CONNECT_ONE_SHOT)
 # warning-ignore:return_value_discarded
-		connect("progress_changed", switcher, "_on_progress_changed")
+		connect("progress_changed", Callable(switcher, "_on_progress_changed"))
 
 
 	func _notification(what):
@@ -314,7 +314,7 @@ class SceneLoader extends Reference:
 
 	func start_load_from_path(scene_path: String) -> int:
 		_loader_thread = Thread.new()
-		var error = _loader_thread.start(self, "_packed_scene_from_path", scene_path)
+		var error = _loader_thread.start(Callable(self, "_packed_scene_from_path").bind(scene_path))
 		if error != OK:
 			_loader_thread = null
 		return error
@@ -322,7 +322,7 @@ class SceneLoader extends Reference:
 
 	func start_load_from_path_interactive(scene_path: String) -> int:
 		_loader_thread = Thread.new()
-		var error = _loader_thread.start(self, "_packed_scene_from_path_interactive", scene_path)
+		var error = _loader_thread.start(Callable(self, "_packed_scene_from_path_interactive").bind(scene_path))
 		if error != OK:
 			_loader_thread = null
 		return error
@@ -362,7 +362,7 @@ class SceneLoader extends Reference:
 
 
 	func _packed_scene_from_path_interactive( path: String ) -> void:
-		var ril = ResourceLoader.load_interactive( path )
+		var ril = ResourceLoader.load_threaded_request( path )
 		assert(ril)
 		var total = ril.get_stage_count()
 
