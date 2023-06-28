@@ -28,11 +28,11 @@ var _state: int = State.READY
 var _scene_loader: SceneLoader
 
 
-func switch_scene( scene_path: String, params = null, meta = null ) -> int:
+func switch_scene( scene_path: String, params = null, meta = null ) -> Error:
 	if not _state == State.READY:
 		return ERR_BUSY
 
-	assert(meta == null or meta is String, MSG_WRONG_META_TYPE)
+	assert(meta == null or meta is String) #,MSG_WRONG_META_TYPE)
 	assert( _scene_loader == null )
 	_scene_loader = SceneLoader.new(self, params, meta, "_node_from_packed_scene")
 
@@ -48,11 +48,11 @@ func switch_scene( scene_path: String, params = null, meta = null ) -> int:
 	return OK
 
 
-func switch_scene_interactive( scene_path: String, params = null, meta = null ) -> int:
+func switch_scene_interactive( scene_path: String, params = null, meta = null ) -> Error:
 	if not _state == State.READY:
 		return ERR_BUSY
 
-	assert(meta == null or meta is String, MSG_WRONG_META_TYPE)
+	assert(meta == null or meta is String) #,MSG_WRONG_META_TYPE)
 	assert(_scene_loader == null)
 	_scene_loader = SceneLoader.new(self, params, meta, "_node_from_packed_scene")
 
@@ -68,11 +68,11 @@ func switch_scene_interactive( scene_path: String, params = null, meta = null ) 
 	return OK
 
 
-func switch_scene_to( packed_scene: PackedScene, params = null, meta = null ) -> int:
+func switch_scene_to( packed_scene: PackedScene, params = null, meta = null ) -> Error:
 	if not _state == State.READY:
 		return ERR_BUSY
 
-	assert(meta == null or meta is String, MSG_WRONG_META_TYPE)
+	assert(meta == null or meta is String) #,MSG_WRONG_META_TYPE)
 
 	if not play_animations:
 		_state = State.SWITCHING
@@ -85,11 +85,11 @@ func switch_scene_to( packed_scene: PackedScene, params = null, meta = null ) ->
 	return OK
 
 
-func switch_scene_to_instance( node: Node, params = null, meta = null ) -> int:
+func switch_scene_to_instance( node: Node, params = null, meta = null ) -> Error:
 	if not _state == State.READY:
 		return ERR_BUSY
 
-	assert(meta == null or meta is String, MSG_WRONG_META_TYPE)
+	assert(meta == null or meta is String) #,MSG_WRONG_META_TYPE)
 	assert(is_instance_valid(node))
 
 	if not play_animations:
@@ -103,14 +103,14 @@ func switch_scene_to_instance( node: Node, params = null, meta = null ) -> int:
 	return OK
 
 
-func clear_scene() -> int:
+func clear_scene() -> Error:
 	if not _state == State.READY:
 		return ERR_BUSY
 
 	assert( _scene_loader == null )
 
 	_state = State.SWITCHING
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	_param_handler = NullHandler.new()
 	get_tree().current_scene.free()
 	get_tree().current_scene = null
@@ -118,11 +118,11 @@ func clear_scene() -> int:
 	return OK
 
 
-func reload_current_scene() -> int:
+func reload_current_scene() -> Error:
 	if not _state == State.READY:
 		return ERR_BUSY
 
-	var scene_filename = get_tree().current_scene.filename
+	var scene_filename = get_tree().current_scene.scene_file_path
 	if scene_filename.is_empty():
 		return ERR_CANT_CREATE
 
@@ -133,9 +133,11 @@ func reload_current_scene() -> int:
 
 	_scene_loader = SceneLoader.new(
 			self, _param_handler.params, _param_handler.meta_key, "_node_from_packed_scene")
-	_scene_loader.start_load_from_path(scene_filename)
-	_state = State.PREPARING
-	return OK
+	var error : Error = _scene_loader.start_load_from_path(scene_filename)
+	
+	if error == OK:
+		_state = State.PREPARING
+	return error
 
 
 # pass 'self' as the argument
@@ -185,7 +187,7 @@ func _deferred_switch_scene( scene_source, node_extraction_func: String, params,
 	assert(_scene_loader == null)
 
 	if scene_source is Node:
-		assert(not scene_source.filename.is_empty(), MSG_NODE_NOT_A_SCENE % [scene_source.name])
+		assert(not scene_source.scene_file_path.is_empty()) #,MSG_NODE_NOT_A_SCENE % [scene_source.name])
 
 	var new_scene: Node = call( node_extraction_func, scene_source )
 	if not is_instance_valid(new_scene):
@@ -198,6 +200,7 @@ func _deferred_switch_scene( scene_source, node_extraction_func: String, params,
 	_param_handler = ParamsHandler.new( params, new_scene, meta )
 
 	if not scene_source is Node:
+		@warning_ignore("return_value_discarded")
 		emit_signal( "scene_instanced", new_scene )
 
 	if get_tree().current_scene:
@@ -205,8 +208,9 @@ func _deferred_switch_scene( scene_source, node_extraction_func: String, params,
 	assert( get_tree().current_scene == null )
 
 	# Make it a current scene between its "_enter_tree()" and "_ready()" calls
-# warning-ignore:return_value_discarded
-	new_scene.connect("tree_entered", Callable(self, "_set_as_current").bind(new_scene), CONNECT_ONE_SHOT)
+	@warning_ignore("return_value_discarded")
+	new_scene.connect("tree_entered", \
+		Callable(self, "_set_as_current").bind(new_scene), CONNECT_ONE_SHOT)
 
 	# Add it to the active scene, as child of root
 	$"/root".add_child( new_scene )
@@ -228,21 +232,25 @@ func _abort_switch( message: String ) -> void:
 
 
 func _on_progress_changed(progress) -> void:
+	@warning_ignore("return_value_discarded")
 	emit_signal("progress_changed", progress)
 
 
 func _set_as_current( scene: Node ):
 	get_tree().set_current_scene( scene )
 	assert( get_tree().current_scene == scene )
+	@warning_ignore("return_value_discarded")
 	emit_signal("scene_set_as_current")
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == FADE_IN:
+		@warning_ignore("return_value_discarded")
 		emit_signal("faded_in")
 		if _state == State.PREPARING:
 			_try_switching()
 	elif anim_name == FADE_OUT:
+		@warning_ignore("return_value_discarded")
 		emit_signal("faded_out")
 
 
@@ -278,7 +286,7 @@ class ParamsHandler extends IParamsHandler:
 		if metadata_key == null:
 			return
 		else:
-			assert( metadata_key is String, MSG_WRONG_META_TYPE )
+			assert(metadata_key is String) #,MSG_WRONG_META_TYPE)
 			assert( scene.has_meta( metadata_key ) )
 			meta_key = metadata_key
 
@@ -300,9 +308,9 @@ class SceneLoader extends RefCounted:
 		params = params_
 		meta = meta_
 		scene_extraction_func = scene_extraction_func_
-# warning-ignore:return_value_discarded
+		@warning_ignore("return_value_discarded")
 		connect("loading_done", Callable(switcher, "_on_preperation_done").bind(), CONNECT_ONE_SHOT)
-# warning-ignore:return_value_discarded
+		@warning_ignore("return_value_discarded")
 		connect("progress_changed", Callable(switcher, "_on_progress_changed"))
 
 
@@ -312,24 +320,28 @@ class SceneLoader extends RefCounted:
 			_scene__.free()
 
 
-	func start_load_from_path(scene_path: String) -> int:
+	func start_load_from_path(scene_path: String) -> Error:
 		_loader_thread = Thread.new()
-		var error = _loader_thread.start(Callable(self, "_packed_scene_from_path").bind(scene_path))
+		var error : Error = _loader_thread.start( \
+			Callable(self, "_packed_scene_from_path").bind(scene_path) )
+			
 		if error != OK:
 			_loader_thread = null
 		return error
 
 
-	func start_load_from_path_interactive(scene_path: String) -> int:
+	func start_load_from_path_interactive(scene_path: String) -> Error:
 		_loader_thread = Thread.new()
-		var error = _loader_thread.start(Callable(self, "_packed_scene_from_path_interactive").bind(scene_path))
+		var error : Error = _loader_thread.start( \
+			Callable(self, "_packed_scene_from_path_interactive").bind(scene_path) )
+			
 		if error != OK:
 			_loader_thread = null
 		return error
 
 
 	func is_busy() -> bool:
-		return _loader_thread and _loader_thread.is_active()
+		return _loader_thread and _loader_thread.is_started()
 
 
 	func has_valid_data() -> bool:
@@ -346,7 +358,7 @@ class SceneLoader extends RefCounted:
 
 
 	func set_source_node(node: Node):
-		assert(node.filename != "", MSG_NODE_NOT_A_SCENE % [node.name])
+		assert(node.scene_file_path != "") #,MSG_NODE_NOT_A_SCENE % [node.name])
 		assert(_scene__ == null and _packed_scene == null)
 		_scene__ = node
 
@@ -362,32 +374,33 @@ class SceneLoader extends RefCounted:
 
 
 	func _packed_scene_from_path_interactive( path: String ) -> void:
-		var ril = ResourceLoader.load_threaded_request( path )
-		assert(ril)
-		var total = ril.get_stage_count()
-
+		var error : Error = ResourceLoader.load_threaded_request( path )
+		assert(error == OK)
+		
+		var progress := []
+		
 		var res: PackedScene = null
 
 		while true: #iterate until we have a resource
 			# Update progress bar, use call deferred, which routes to main thread.
-			emit_signal("progress_changed", 100.0 * ril.get_stage() / total)
-			#progress.call_deferred("set_value", ril.get_stage())
+			var status = ResourceLoader.load_threaded_get_status(path, progress)
+			@warning_ignore("return_value_discarded")
+			emit_signal("progress_changed", progress[0])
 
-			# Simulate a delay.
-			#OS.delay_msec(300)
-
-			# Poll (does a load step).
-			var err = ril.poll()
 
 			# If OK, then load another one. If EOF, it' s done. Otherwise there was an error.
-			if err == ERR_FILE_EOF:
+			if status == ResourceLoader.THREAD_LOAD_LOADED:
 				# Loading done, fetch resource.
-				res = ril.get_resource()
+				res = ResourceLoader.load_threaded_get(path)
+				@warning_ignore("return_value_discarded")
 				emit_signal("progress_changed", 100.0)
 				break
-			elif err != OK:
+			elif status == ResourceLoader.THREAD_LOAD_FAILED:
 				# Not OK, there was an error.
 				print("There was an error loading")
+				break
+			elif status == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
+				print("Invalid resource")
 				break
 
 		call_deferred("_finalize_load", res)
@@ -396,4 +409,5 @@ class SceneLoader extends RefCounted:
 	func _finalize_load( packed_scene_: PackedScene ):
 		_loader_thread.wait_to_finish()
 		_packed_scene = packed_scene_
+		@warning_ignore("return_value_discarded")
 		emit_signal("loading_done")

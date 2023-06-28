@@ -18,7 +18,7 @@ config/version="0.1.0"
 
 [autoload]
 
-Connector="res://engine/Connector.gd"
+SceneSwitcher="*res://projects/SceneSwitcher/SceneSwitcher.tscn"
 
 [debug]
 
