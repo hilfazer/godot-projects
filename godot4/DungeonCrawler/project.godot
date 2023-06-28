@@ -18,7 +18,6 @@ config/version="0.1.0"
 
 [autoload]
 
-Console="*res://addons/quentincaffeino/console/src/Console.tscn"
 Debug="*res://debug/Debug.tscn"
 SceneSwitcher="*res://projects/SceneSwitcher/SceneSwitcher.tscn"
 Connector="res://engine/Connector.gd"
@@ -34,10 +33,6 @@ window/size/viewport_width=800
 [editor]
 
 exclude_addons_quick_open=true
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/quentincaffeino/console/plugin.cfg")
 
 [global]
 
