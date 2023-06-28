@@ -7,20 +7,16 @@ const FileLoggerGd           = preload("res://debug/FileLogger.gd")
 
 const LogFilename = "res://ignored/logfile.log"
 
-var _debugWindow : CanvasLayer: set = deleted
-var _variables := {}: set = deleted
-var _loggers := []: set = deleted
-var _consoleLogger : ConsoleLoggerGd: set = deleted
-var _fileLogger : FileLoggerGd: set = deleted
+var _debugWindow : CanvasLayer
+var _variables := {}
+var _loggers := []
+var _consoleLogger : ConsoleLoggerGd
+var _fileLogger : FileLoggerGd
 
 @export var performPrints := false
 
 
 signal variableUpdated( varName, value )
-
-
-func deleted(_a):
-	assert(false)
 
 
 func _init():
@@ -84,7 +80,7 @@ func addLogger( logger : LoggerBaseGd ):
 
 func removeLogger( logger : LoggerBaseGd ):
 	assert( logger in _loggers )
-	_loggers.remove( _loggers.find( logger) )
+	_loggers.erase( _loggers.find( logger) )
 
 
 func updateVariable( varName : String, value, addValue := false ):

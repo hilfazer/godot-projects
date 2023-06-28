@@ -18,8 +18,6 @@ config/version="0.1.0"
 
 [autoload]
 
-Debug="*res://debug/Debug.tscn"
-SceneSwitcher="*res://projects/SceneSwitcher/SceneSwitcher.tscn"
 Connector="res://engine/Connector.gd"
 
 [debug]

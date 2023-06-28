@@ -3,16 +3,12 @@ class_name LevelBase
 
 const NodeGuardGd            = preload("res://projects/TypeWrappers/NodeGuard.gd")
 
-@onready var _ground = $"Ground": set = deleted
-@onready var _walls = $"Walls": set = deleted
-@onready var _units = $"Units": set = deleted
-@onready var _items = $"Items": set = deleted
-@onready var _fog = $"FogOfWar": set = deleted
-@onready var _entrances = $"Entrances": set = deleted
-
-
-func deleted(_a):
-	assert(false)
+@onready var _ground = $"Ground"
+@onready var _walls = $"Walls"
+@onready var _units = $"Units"
+@onready var _items = $"Items"
+@onready var _fog = $"FogOfWar"
+@onready var _entrances = $"Entrances"
 
 
 signal predelete()

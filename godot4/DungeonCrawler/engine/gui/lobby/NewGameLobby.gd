@@ -6,18 +6,14 @@ const UnitCreationDataGd    = preload("res://engine/units/UnitCreationData.gd")
 
 var _module : set = setModule
 
-var _unitsCreationData = []: set = deleted
-var _characterCreationWindow : set = deleted
+var _unitsCreationData = []
+var _characterCreationWindow 
 @onready var _unitList = $"Players/Scroll/UnitList"
 @onready var _unitLimit = $"UnitLimit"
 @onready var _createCharacter = $"CreateCharacter"
 
 
 signal unitNumberChanged(newNumber)
-
-
-func deleted(_a):
-	assert(false)
 
 
 func _ready():

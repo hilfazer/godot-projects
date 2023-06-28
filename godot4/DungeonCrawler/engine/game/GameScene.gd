@@ -10,22 +10,18 @@ enum State { Initial, Creating, Saving, Running, Finished }
 
 var currentLevel : LevelBase: set = setCurrentLevel
 var _module : SavingModuleGd: set = setCurrentModule
-var _state : int = State.Initial: set = deleted
+var _state : int = State.Initial
 var _pause := true: set = setPause
 
 @onready var _creator : GameCreatorGd  = $"GameCreator"
-@onready var _playerManager            = $"PlayerManager": set = deleted
-@onready var _playerAgent              = $"PlayerManager/PlayerAgent": set = deleted
+@onready var _playerManager            = $"PlayerManager"
+@onready var _playerAgent              = $"PlayerManager/PlayerAgent"
 
 
 signal gameStarted()
 signal gameFinished()
 signal currentLevelChanged( level )
 signal nonmatchingSaveFileSelected( saveFile )
-
-
-func deleted(_a):
-	assert(false)
 
 
 func _ready():

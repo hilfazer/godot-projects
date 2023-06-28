@@ -12,15 +12,11 @@ const NameCurrentLevel       = "CurrentLevel"
 const NamePlayerData         = "PlayerData"
 
 
-var _serializer : SerializerGd = SerializerGd.new(): set = deleted
+var _serializer : SerializerGd = SerializerGd.new()
 
 
-func deleted(_a):
-	assert(false)
-
-
-func _init( moduleData, moduleFilename : String, serializer = null ) \
-		.( moduleData, moduleFilename ):
+func _init( moduleData, moduleFilename : String, serializer = null ):
+	super( moduleData, moduleFilename )
 
 	if serializer:
 		_serializer = serializer
@@ -99,8 +95,7 @@ func getPlayerData():
 
 
 static func extractModuleFilename( saveFilename : String ) -> String:
-	var saveFile = File.new()
-	if not OK == saveFile.open( saveFilename, File.READ ):
+	if not FileAccess.open( saveFilename, FileAccess.READ ):
 		return ""
 
 	var moduleFile := ""

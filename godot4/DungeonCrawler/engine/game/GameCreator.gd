@@ -9,15 +9,11 @@ const UnitCreationDataGd     = preload("res://engine/units/UnitCreationData.gd")
 const FogOfWarGd             = preload("res://engine/level/FogOfWar.gd")
 
 var _game : Node
-var _levelLoader : LevelLoaderGd: set = deleted
+var _levelLoader : LevelLoaderGd
 var _currentLevelParent : Node
 
 
 signal createFinished( error )
-
-
-func deleted(_a):
-	assert(false)
 
 
 func initialize( gameScene : Node, currentLevelParent : Node ):

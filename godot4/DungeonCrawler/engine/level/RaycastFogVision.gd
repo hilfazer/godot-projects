@@ -2,11 +2,7 @@ extends "res://engine/level/FogVisionBase.gd"
 
 @export var _side := 20: set = setSide
 var _excludedRID : RID: set = setExcludedRID
-var _visibilityMap := PackedByteArray(): set = deleted
-
-
-func deleted(_a):
-	assert(false)
+var _visibilityMap := PackedByteArray()
 
 
 func _ready():

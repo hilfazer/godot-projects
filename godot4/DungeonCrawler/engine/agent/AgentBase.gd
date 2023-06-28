@@ -3,15 +3,11 @@ class_name AgentBase
 
 const AgentMetaName = "agentRef"
 
-var _units := SetWrapper.new(): get = getUnits, set = deleted
+var _units := SetWrapper.new(): get = getUnits
 var _unitsInTree := []
 
 
 signal unitsChanged( units )
-
-
-func deleted(_a):
-	assert(false)
 
 
 func _init():

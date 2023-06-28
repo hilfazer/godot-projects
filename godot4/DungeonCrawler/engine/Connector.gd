@@ -12,10 +12,6 @@ var _game : GameSceneGd: set = _setGame
 signal newGameSceneConnected( node )
 
 
-func deleted(_a):
-	assert(false)
-
-
 func _init():
 	set_process_mode( PROCESS_MODE_ALWAYS )
 	name = get_script().resource_path.get_basename().get_file()

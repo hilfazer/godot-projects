@@ -14,10 +14,6 @@ signal readyForGame( module, playerUnitCreationData )
 signal finished()
 
 
-func deleted(_a):
-	assert(false)
-
-
 func _ready():
 	moduleSelected( $"ModuleSelection/FileName".text )
 # warning-ignore:return_value_discarded

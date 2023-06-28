@@ -1,14 +1,10 @@
 extends RefCounted
 class_name MapWrapper
 
-var _dict = {}: set = deleted
+var _dict = {}
 
 
 signal changed( dict )
-
-
-func deleted(_a):
-	assert(false)
 
 
 func _init( dict = {} ):

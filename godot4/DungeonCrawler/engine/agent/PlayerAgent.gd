@@ -7,14 +7,10 @@ const SelectionComponentScn  = preload("res://engine/SelectionComponent.tscn")
 @export var fogVisionGd # (String, FILE, "*FogVision.gd")
 
 var _currentLevel : LevelBase: set = setCurrentLevel
-var _selectedUnits := {}: set = deleted
+var _selectedUnits := {}
 var _pressedDirections :PackedByteArray = [0, 0, 0, 0]
 
 signal travelRequested(entrance)
-
-
-func deleted(_a):
-	assert(false)
 
 
 func _ready():

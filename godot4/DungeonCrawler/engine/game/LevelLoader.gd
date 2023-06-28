@@ -2,13 +2,9 @@ extends RefCounted
 
 enum State { Ready, Loading, Unloading }
 
-var _game : Node: set = deleted
-var _levelFilename : String: set = deleted
-var _state : int = State.Ready: set = deleted
-
-
-func deleted(_a):
-	assert(false)
+var _game : Node
+var _levelFilename : String
+var _state : int = State.Ready
 
 
 func _init( game : Node ):

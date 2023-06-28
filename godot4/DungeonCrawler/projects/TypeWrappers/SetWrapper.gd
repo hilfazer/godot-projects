@@ -1,14 +1,10 @@
 extends RefCounted
 class_name SetWrapper
 
-var _array = []: set = deleted
+var _array = []
 
 
 signal changed( array )
-
-
-func deleted(_a):
-	assert(false)
 
 
 func _init( array = [] ):

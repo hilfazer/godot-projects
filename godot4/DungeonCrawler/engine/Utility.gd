@@ -40,9 +40,9 @@ static func toPaths( nodes : Array ) -> PackedStringArray:
 	return paths
 
 
-static func isSuperset( super, sub ) -> bool:
+static func isSuperset( set, sub ) -> bool:
 	for elem in sub:
-		if not super.has(elem):
+		if not set.has(elem):
 			return false
 
 	return true

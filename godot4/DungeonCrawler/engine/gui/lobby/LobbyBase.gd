@@ -5,10 +5,6 @@ const PlayerString = "%s (%s) %s"
 var _maxUnits = 0: set = setMaxUnits
 
 
-func deleted(_a):
-	assert(false)
-
-
 func refreshLobby( clientList : Dictionary ):
 	$"Players/PlayerList".clear()
 	for pId in clientList:
@@ -19,4 +15,3 @@ func refreshLobby( clientList : Dictionary ):
 func setMaxUnits( maxUnits : int ):
 	_maxUnits = maxUnits
 	$"UnitLimit".setMaximum( maxUnits )
-

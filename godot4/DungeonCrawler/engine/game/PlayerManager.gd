@@ -7,10 +7,6 @@ const PlayerAgentGd          = preload("res://engine/agent/PlayerAgent.gd")
 @onready var playerAgent : PlayerAgentGd = $"PlayerAgent"
 
 
-func deleted(_a):
-	assert(false)
-
-
 func setPlayerUnits( playerUnits : Array ):
 	for unit in playerUnits:
 		assert( unit is UnitBase )

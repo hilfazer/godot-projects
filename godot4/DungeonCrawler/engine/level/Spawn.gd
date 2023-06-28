@@ -1,10 +1,6 @@
 extends Marker2D
 
-var _bodiesInArea = 0: set = deleted
-
-
-func deleted(_a):
-	assert(false)
+var _bodiesInArea = 0
 
 
 func _ready():

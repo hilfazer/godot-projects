@@ -2,13 +2,10 @@ extends HBoxContainer
 
 const UnitCreationDataGd    = preload("res://engine/units/UnitCreationData.gd")
 
-var _lineIdx : get = getIdx, set = deleted
+var _lineIdx : get = getIdx
+
 
 signal deletePressed( lineIdx )
-
-
-func deleted(_a):
-	assert(false)
 
 
 func initialize( idx ):

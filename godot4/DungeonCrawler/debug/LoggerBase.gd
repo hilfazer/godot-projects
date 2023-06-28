@@ -7,19 +7,16 @@ func setLogLevel( level : int ):
 	_logLevel = level
 
 
-# warning-ignore:unused_argument
-# warning-ignore:unused_argument
+@warning_ignore("unused_parameter")
 func info( caller : Object, message : String ):
 	pass
 
 
-# warning-ignore:unused_argument
-# warning-ignore:unused_argument
+@warning_ignore("unused_parameter")
 func warn( caller : Object, message : String ):
 	pass
 
 
-# warning-ignore:unused_argument
-# warning-ignore:unused_argument
+@warning_ignore("unused_parameter")
 func error( caller : Object, message : String ):
 	pass

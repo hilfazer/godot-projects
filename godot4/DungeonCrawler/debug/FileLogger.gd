@@ -1,18 +1,17 @@
 extends "./LoggerBase.gd"
 
 
-var _file : File
+var _file : FileAccess
 
 
 func _init( filename : String ):
-	var logFile = File.new()
-	var directory = DirAccess.new()
+	var directory = DirAccess.open( filename.get_base_dir() )
 	if not directory.dir_exists( filename.get_base_dir() ):
 		directory.make_dir_recursive( filename.get_base_dir() )
 
-	var openResult = logFile.open(filename, File.WRITE)
+	var logFile = FileAccess.open(filename, FileAccess.WRITE)
 
-	assert( openResult == OK )
+	assert( null != logFile )
 	_file = logFile
 
 

@@ -1,9 +1,6 @@
 extends ItemList
 
-var _variables : Dictionary: set = deleted
-
-func deleted(_a):
-	assert(false)
+var _variables : Dictionary
 
 
 func _ready():
