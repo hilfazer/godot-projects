@@ -19,6 +19,8 @@ config/version="0.1.0"
 [autoload]
 
 SceneSwitcher="*res://projects/SceneSwitcher/SceneSwitcher.tscn"
+Console="*res://debug/console_placeholder.gd"
+Debug="*res://debug/Debug.tscn"
 
 [debug]
 
