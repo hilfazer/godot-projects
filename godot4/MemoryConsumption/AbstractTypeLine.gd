@@ -22,6 +22,7 @@ func create( count : int ) -> void:
 	var staticStart  = Performance.get_monitor(Performance.MEMORY_STATIC)
 
 	var msec = Time.get_ticks_msec()
+	
 	err = _create(count)
 	msec = Time.get_ticks_msec() - msec
 
@@ -43,7 +44,7 @@ func destroy() -> void:
 	_setMemoryUsage(0, objectCount)
 
 
-# warning-ignore:unused_argument
+@warning_ignore("unused_parameter")
 func _create( count : int ) -> int:
 	assert(false)
 	return ERR_DOES_NOT_EXIST
@@ -53,16 +54,16 @@ func _destroy():
 	assert( false )
 
 
-func _setMemoryUsage( staticUsage : int, size : int ):
+func _setMemoryUsage( staticUsage : int, size_ : int ):
 	var total = max(staticUsage, 0)
 	$"MemoryTaken".text = String.humanize_size( total )
-	var bytesPerObject = total / float(size) if size != 0 else 0
+	var bytesPerObject = total / float(size_) if size_ != 0 else 0
 	$"LinePerObject".text = "%.1f B" % bytesPerObject
 
 
-func _setConstructionTime( timeMs : int, size : int ):
+func _setConstructionTime( timeMs : int, size_ : int ):
 	var message = "creating %s: %s ms"
-	$"TimeTaken".text = message % [size, timeMs]
+	$"TimeTaken".text = message % [size_, timeMs]
 
 
 func _setObjectCount( count : int ):
