@@ -15,9 +15,3 @@ func _create( count : int ) -> int:
 func _destroy():
 	dicts.clear()
 
-
-func _compute():
-	var _sum := 0
-	for i in dicts.size():
-		_sum += dicts[i].size()
-

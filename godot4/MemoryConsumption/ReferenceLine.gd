@@ -16,13 +16,6 @@ func _destroy():
 	objects.clear()
 
 
-func _compute():
-	var _sum := 0
-	for ob in objects:
-		_sum = ob.get_instance_id()
-
-
-
 class MyRef extends RefCounted:
 	pass
 

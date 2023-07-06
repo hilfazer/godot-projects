@@ -14,10 +14,3 @@ func _create( count : int ) -> int:
 
 func _destroy():
 	floats.clear()
-
-
-func _compute():
-	var _sum := 0
-	for fl in floats:
-		_sum += fl
-

@@ -37,21 +37,10 @@ func create( count : int ) -> void:
 	)
 
 
-func compute() -> void:
-	var msec = Time.get_ticks_msec()
-	_compute()
-	msec = Time.get_ticks_msec() - msec
-	_setComputationTime(msec, objectCount)
-
-
 func destroy() -> void:
 	_destroy()
 	_setObjectCount(0)
 	_setMemoryUsage(0, objectCount)
-
-
-func _compute():
-	assert( false )
 
 
 # warning-ignore:unused_argument
@@ -69,11 +58,6 @@ func _setMemoryUsage( staticUsage : int, size : int ):
 	$"MemoryTaken".text = String.humanize_size( total )
 	var bytesPerObject = total / float(size) if size != 0 else 0
 	$"LinePerObject".text = "%.1f B" % bytesPerObject
-
-
-func _setComputationTime( timeMs : int, size : int ):
-	var message = "computing %s: %s ms"
-	$"TimeTaken".text = message % [size, timeMs]
 
 
 func _setConstructionTime( timeMs : int, size : int ):

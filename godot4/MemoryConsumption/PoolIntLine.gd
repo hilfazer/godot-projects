@@ -15,9 +15,3 @@ func _create( count : int ) -> int:
 func _destroy():
 	poolInts.resize(0)
 
-
-func _compute():
-	var _sum := 0
-	for i in poolInts.size():
-		_sum += poolInts[i]
-
