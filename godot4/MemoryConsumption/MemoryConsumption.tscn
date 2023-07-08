@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://vjiefigc4slo"]
+[gd_scene load_steps=15 format=3 uid="uid://vjiefigc4slo"]
 
 [ext_resource type="Script" path="res://MemoryConsumption.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://b2x7dqcgn3enj" path="res://TypeLine.tscn" id="2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://PoolIntLine.gd" id="4"]
 [ext_resource type="Script" path="res://ObjectLine.gd" id="5"]
 [ext_resource type="Script" path="res://IntegerLine.gd" id="6"]
+[ext_resource type="Script" path="res://ObjectSubclassLine.gd" id="6_ub634"]
 [ext_resource type="Script" path="res://ReferenceLine.gd" id="7"]
 [ext_resource type="Script" path="res://ResourceLine.gd" id="8"]
 [ext_resource type="Script" path="res://NodeLine.gd" id="9"]
@@ -35,7 +36,7 @@ layout_mode = 2
 min_value = 1000.0
 max_value = 1e+08
 step = 1000.0
-value = 100000.0
+value = 10000.0
 rounded = true
 
 [node name="Lines" type="VBoxContainer" parent="."]
@@ -53,23 +54,27 @@ script = ExtResource("4")
 layout_mode = 2
 script = ExtResource("5")
 
-[node name="Rerefence" parent="Lines" instance=ExtResource("2")]
+[node name="Object sublass" parent="Lines" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("6_ub634")
+
+[node name="Rerefence subclass" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("7")
 
-[node name="Resource" parent="Lines" instance=ExtResource("2")]
+[node name="Resource subclass" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("8")
 
-[node name="Node" parent="Lines" instance=ExtResource("2")]
+[node name="Node subclass" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("9")
 
-[node name="Array" parent="Lines" instance=ExtResource("2")]
+[node name="Empty Array" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("10")
 
-[node name="Dictionary" parent="Lines" instance=ExtResource("2")]
+[node name="Empty Dict" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("11")
 
