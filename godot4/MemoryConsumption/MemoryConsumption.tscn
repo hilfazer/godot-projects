@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://vjiefigc4slo"]
+[gd_scene load_steps=18 format=3 uid="uid://vjiefigc4slo"]
 
 [ext_resource type="Script" path="res://MemoryConsumption.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://b2x7dqcgn3enj" path="res://TypeLine.tscn" id="2"]
@@ -7,30 +7,38 @@
 [ext_resource type="Script" path="res://ObjectLine.gd" id="5"]
 [ext_resource type="Script" path="res://IntegerLine.gd" id="6"]
 [ext_resource type="Script" path="res://ObjectSubclassLine.gd" id="6_ub634"]
-[ext_resource type="Script" path="res://ReferenceLine.gd" id="7"]
+[ext_resource type="Script" path="res://ref_line.gd" id="7_2gcwp"]
 [ext_resource type="Script" path="res://ResourceLine.gd" id="8"]
+[ext_resource type="Script" path="res://ref_subclass_line.gd" id="8_7lx87"]
 [ext_resource type="Script" path="res://NodeLine.gd" id="9"]
 [ext_resource type="Script" path="res://ArrayLine.gd" id="10"]
+[ext_resource type="Script" path="res://node.gd" id="10_wf324"]
 [ext_resource type="Script" path="res://DictionaryLine.gd" id="11"]
 [ext_resource type="Script" path="res://FloatsInDictLine.gd" id="12"]
 [ext_resource type="Script" path="res://FloatsInArrayLine.gd" id="13"]
+[ext_resource type="Script" path="res://packed_float_64_line.gd" id="16_gnx6x"]
 
 [node name="MemoryConsumption" type="VBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
 
-[node name="ObjectAmount" type="HBoxContainer" parent="."]
+[node name="TopHbox" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ObjectAmount"]
+[node name="ObjectAmount" type="HBoxContainer" parent="TopHbox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TopHbox/ObjectAmount"]
 layout_mode = 2
 text = "Amount of objets to create:"
 
-[node name="Amount" type="SpinBox" parent="ObjectAmount"]
+[node name="Amount" type="SpinBox" parent="TopHbox/ObjectAmount"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 min_value = 1000.0
@@ -39,14 +47,20 @@ step = 1000.0
 value = 10000.0
 rounded = true
 
+[node name="BytesPerVarLabel" type="Label" parent="TopHbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Last column is bytes/variable."
+horizontal_alignment = 2
+
 [node name="Lines" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Integer" parent="Lines" instance=ExtResource("2")]
+[node name="Int 64" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("6")
 
-[node name="Pool Int" parent="Lines" instance=ExtResource("2")]
+[node name="Packed Int 64" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("4")
 
@@ -54,17 +68,25 @@ script = ExtResource("4")
 layout_mode = 2
 script = ExtResource("5")
 
-[node name="Object sublass" parent="Lines" instance=ExtResource("2")]
+[node name="Object subclass" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("6_ub634")
 
+[node name="Reference" parent="Lines" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("7_2gcwp")
+
 [node name="Rerefence subclass" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
-script = ExtResource("7")
+script = ExtResource("8_7lx87")
 
-[node name="Resource subclass" parent="Lines" instance=ExtResource("2")]
+[node name="Resource" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("8")
+
+[node name="Node" parent="Lines" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("10_wf324")
 
 [node name="Node subclass" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
@@ -78,13 +100,17 @@ script = ExtResource("10")
 layout_mode = 2
 script = ExtResource("11")
 
-[node name="Floats In Array" parent="Lines" instance=ExtResource("2")]
+[node name="Array of float 64" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("13")
 
-[node name="Floats In Dict" parent="Lines" instance=ExtResource("2")]
+[node name="Dict of float 64" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("12")
+
+[node name="Packed float 64" parent="Lines" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("16_gnx6x")
 
 [node name="MemoryUsage" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -99,9 +125,3 @@ text = "Static Memory:"
 layout_mode = 2
 size_flags_horizontal = 3
 editable = false
-
-[node name="FooterLabel" type="Label" parent="."]
-layout_mode = 2
-text = "Last column is bytes/variable.
-
-All Object classes are derived from their respective classes with no variables or functions added."

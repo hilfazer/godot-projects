@@ -2,16 +2,15 @@
 extends "res://AbstractTypeLine.gd"
 
 
-var poolInts := PackedInt32Array()
+var packed_ints := PackedInt64Array()
 
 
 func _create( count : int ) -> int:
-	poolInts.resize(count)
-	for i in poolInts.size():
-		poolInts[i] = 3
+	packed_ints.resize(count)
+	for i in packed_ints.size():
+		packed_ints[i] = 3
 	return OK
 
 
 func _destroy():
-	poolInts.resize(0)
-
+	packed_ints.resize(0)
