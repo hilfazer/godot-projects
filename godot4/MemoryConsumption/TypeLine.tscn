@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b2x7dqcgn3enj"]
 
-[ext_resource type="Script" path="res://AbstractTypeLine.gd" id="1"]
+[ext_resource type="Script" path="res://abstract_type_line.gd" id="1_hbq23"]
 
 [node name="TypeLine" type="HBoxContainer"]
 anchors_preset = 15
@@ -10,7 +10,7 @@ offset_right = -2.0
 offset_bottom = -376.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1")
+script = ExtResource("1_hbq23")
 
 [node name="ButtonType" type="Button" parent="."]
 layout_mode = 2

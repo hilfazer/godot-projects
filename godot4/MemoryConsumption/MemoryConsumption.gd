@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-const TypeLineGd = preload("res://AbstractTypeLine.gd")
+const TypeLineGd = preload("res://abstract_type_line.gd")
 
 @onready var spinAmount: SpinBox       = %Amount
 @onready var typeLines: VBoxContainer  = $"Lines"

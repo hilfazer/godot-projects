@@ -1,5 +1,5 @@
 @tool
-extends "res://AbstractTypeLine.gd"
+extends "res://abstract_type_line.gd"
 
 
 var packed_ints := PackedInt64Array()

@@ -3,19 +3,19 @@
 [ext_resource type="Script" path="res://MemoryConsumption.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://b2x7dqcgn3enj" path="res://TypeLine.tscn" id="2"]
 [ext_resource type="Script" path="res://MemoryUsage.gd" id="3"]
-[ext_resource type="Script" path="res://PoolIntLine.gd" id="4"]
+[ext_resource type="Script" path="res://packed_int_line.gd" id="4_ychqv"]
 [ext_resource type="Script" path="res://ObjectLine.gd" id="5"]
 [ext_resource type="Script" path="res://IntegerLine.gd" id="6"]
 [ext_resource type="Script" path="res://ObjectSubclassLine.gd" id="6_ub634"]
 [ext_resource type="Script" path="res://ref_line.gd" id="7_2gcwp"]
 [ext_resource type="Script" path="res://ResourceLine.gd" id="8"]
 [ext_resource type="Script" path="res://ref_subclass_line.gd" id="8_7lx87"]
-[ext_resource type="Script" path="res://NodeLine.gd" id="9"]
-[ext_resource type="Script" path="res://ArrayLine.gd" id="10"]
-[ext_resource type="Script" path="res://node.gd" id="10_wf324"]
-[ext_resource type="Script" path="res://DictionaryLine.gd" id="11"]
+[ext_resource type="Script" path="res://node_line.gd" id="10_bribf"]
+[ext_resource type="Script" path="res://node_subclass_line.gd" id="11_n7kws"]
 [ext_resource type="Script" path="res://FloatsInDictLine.gd" id="12"]
+[ext_resource type="Script" path="res://array_line.gd" id="12_67kwx"]
 [ext_resource type="Script" path="res://FloatsInArrayLine.gd" id="13"]
+[ext_resource type="Script" path="res://dictionary_line.gd" id="13_5t23i"]
 [ext_resource type="Script" path="res://packed_float_64_line.gd" id="16_gnx6x"]
 
 [node name="MemoryConsumption" type="VBoxContainer"]
@@ -60,9 +60,9 @@ layout_mode = 2
 layout_mode = 2
 script = ExtResource("6")
 
-[node name="Packed Int 64" parent="Lines" instance=ExtResource("2")]
+[node name="Packed int 64" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
-script = ExtResource("4")
+script = ExtResource("4_ychqv")
 
 [node name="Object" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
@@ -76,7 +76,7 @@ script = ExtResource("6_ub634")
 layout_mode = 2
 script = ExtResource("7_2gcwp")
 
-[node name="Rerefence subclass" parent="Lines" instance=ExtResource("2")]
+[node name="Reference subclass" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("8_7lx87")
 
@@ -86,19 +86,19 @@ script = ExtResource("8")
 
 [node name="Node" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
-script = ExtResource("10_wf324")
+script = ExtResource("10_bribf")
 
 [node name="Node subclass" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
-script = ExtResource("9")
+script = ExtResource("11_n7kws")
 
-[node name="Empty Array" parent="Lines" instance=ExtResource("2")]
+[node name="Empty array" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
-script = ExtResource("10")
+script = ExtResource("12_67kwx")
 
-[node name="Empty Dict" parent="Lines" instance=ExtResource("2")]
+[node name="Empty dict" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
-script = ExtResource("11")
+script = ExtResource("13_5t23i")
 
 [node name="Array of float 64" parent="Lines" instance=ExtResource("2")]
 layout_mode = 2
