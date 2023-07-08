@@ -1,5 +1,5 @@
 @tool
-extends "res://AbstractTypeLine.gd"
+extends "res://abstract_type_line.gd"
 
 
 var ints := []
@@ -14,10 +14,3 @@ func _create( count : int ) -> int:
 
 func _destroy():
 	ints.clear()
-
-
-func _compute():
-	var _sum := 0
-	for i in ints.size():
-		_sum += ints[i]
-

@@ -2,15 +2,15 @@
 extends "res://abstract_type_line.gd"
 
 
-var objects := []
+var floats := PackedFloat64Array()
 
 
 func _create( count : int ) -> int:
-	objects.resize(count)
-	for i in objects.size():
-		objects[i] = Resource.new()
+	floats.resize(count)
+	for i in count:
+		floats[i] = 2.2
 	return OK
 
 
 func _destroy():
-	objects.clear()
+	floats.clear()

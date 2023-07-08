@@ -1,5 +1,5 @@
 @tool
-extends "res://AbstractTypeLine.gd"
+extends "res://abstract_type_line.gd"
 
 
 var floats := {}
@@ -13,9 +13,3 @@ func _create( count : int ) -> int:
 
 func _destroy():
 	floats.clear()
-
-
-func _compute():
-	var _sum := 0
-	for fl in floats.keys():
-		_sum += fl

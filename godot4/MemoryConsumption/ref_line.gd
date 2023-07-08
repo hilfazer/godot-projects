@@ -8,7 +8,7 @@ var objects := []
 func _create( count : int ) -> int:
 	objects.resize(count)
 	for i in objects.size():
-		objects[i] = Resource.new()
+		objects[i] = RefCounted.new()
 	return OK
 
 

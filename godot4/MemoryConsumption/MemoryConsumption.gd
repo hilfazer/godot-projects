@@ -1,13 +1,13 @@
 extends VBoxContainer
 
-const TypeLineGd = preload("res://AbstractTypeLine.gd")
+const TypeLineGd = preload("res://abstract_type_line.gd")
 
-@onready var spinAmount                 = $"ObjectAmount/Amount" as SpinBox
-@onready var typeLines                  = $"Lines" as VBoxContainer
+@onready var spinAmount: SpinBox       = %Amount
+@onready var typeLines: VBoxContainer  = $"Lines"
 
 
 func _enter_tree():
-	get_window().always_on_top = (true)
+	get_window().always_on_top = true
 
 
 func _ready():
@@ -17,7 +17,7 @@ func _ready():
 		assert(ret == OK)
 
 
-func _onTypeToggled( toggled : bool, line : TypeLineGd ):
+func _onTypeToggled( toggled: bool, line: TypeLineGd ):
 	if toggled:
 		line.create(int(spinAmount.value))
 	else:
