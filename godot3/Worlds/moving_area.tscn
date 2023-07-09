@@ -4,7 +4,7 @@
 [ext_resource path="res://area.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 47.0106
+radius = 73.4
 
 [node name="MovingArea" type="Node"]
 script = ExtResource( 1 )
