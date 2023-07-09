@@ -16,3 +16,9 @@ func _on_ButtonMoveArea1_pressed():
 		_subviewport.remove_child(_area1)
 		add_child(_area1)
 
+
+func _on_CheckButton_toggled(button_pressed):
+	if button_pressed and not _area1.is_inside_tree():
+		add_child(_area1)
+	elif not button_pressed and _area1.is_inside_tree():
+		_area1.get_parent().remove_child(_area1)
