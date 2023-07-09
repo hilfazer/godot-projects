@@ -13,10 +13,8 @@ func _ready():
 
 
 func _on_target_reached(_obj, _key):
-	if _obj.position == _target1.position:
-		_move_area(_target2)
-	else:
-		_move_area(_target1)
+	var target = _target2 if _obj.position == _target1.position else _target1
+	_move_area(target)
 
 
 func _calculate_transition_time() -> float:

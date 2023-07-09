@@ -19,9 +19,22 @@ speed = 200.0
 position = Vector2( 322, 253 )
 
 [node name="Position2D" parent="MovingArea" index="1"]
-position = Vector2( 153, 429 )
+position = Vector2( 210, 357 )
 
 [node name="Position2D2" parent="MovingArea" index="2"]
-position = Vector2( 607, 78 )
+position = Vector2( 494, 168 )
+
+[node name="MovingArea2" parent="." instance=ExtResource( 2 )]
+speed = 200.0
+
+[node name="Area2D" parent="MovingArea2" index="0"]
+position = Vector2( 364, 290 )
+
+[node name="Position2D" parent="MovingArea2" index="1"]
+position = Vector2( 165, 156 )
+
+[node name="Position2D2" parent="MovingArea2" index="2"]
+position = Vector2( 478, 390 )
 
 [editable path="MovingArea"]
+[editable path="MovingArea2"]
