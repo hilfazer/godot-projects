@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://viewport_with_world.tscn" type="PackedScene" id=1]
+[ext_resource path="res://moving_area.tscn" type="PackedScene" id=2]
+
+[node name="Node" type="Node"]
+
+[node name="ViewportContainer" parent="." instance=ExtResource( 1 )]
+modulate = Color( 0.980392, 0.92549, 0.92549, 1 )
+margin_left = 623.0
+margin_top = 199.0
+margin_right = 1023.0
+margin_bottom = 599.0
+
+[node name="MovingArea" parent="." instance=ExtResource( 2 )]
+speed = 200.0
+
+[node name="Area2D" parent="MovingArea" index="0"]
+position = Vector2( 322, 253 )
+
+[node name="Position2D" parent="MovingArea" index="1"]
+position = Vector2( 153, 429 )
+
+[node name="Position2D2" parent="MovingArea" index="2"]
+position = Vector2( 607, 78 )
+
+[editable path="MovingArea"]
