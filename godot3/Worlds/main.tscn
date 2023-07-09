@@ -24,6 +24,7 @@ speed = 200.0
 
 [node name="Area2D" parent="ViewportContainer/Viewport/MovingArea" index="0"]
 position = Vector2( 200, 400 )
+_circle_color = Color( 0, 0.12549, 0.803922, 0.247059 )
 
 [node name="Position2D" parent="ViewportContainer/Viewport/MovingArea" index="1"]
 position = Vector2( 42, 45 )
@@ -40,6 +41,7 @@ speed = 200.0
 
 [node name="Area2D" parent="MovingArea" index="0"]
 position = Vector2( 322, 253 )
+_circle_color = Color( 0.721569, 0.00392157, 0.00392157, 0.247059 )
 
 [node name="Position2D" parent="MovingArea" index="1"]
 position = Vector2( 498, 521 )
@@ -52,6 +54,7 @@ speed = 200.0
 
 [node name="Area2D" parent="MovingArea2" index="0"]
 position = Vector2( 364, 290 )
+_circle_color = Color( 0.160784, 0.6, 0, 0.247059 )
 
 [node name="Position2D" parent="MovingArea2" index="1"]
 position = Vector2( 302, 394 )
