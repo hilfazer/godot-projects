@@ -8,6 +8,7 @@ onready var _target2: Position2D = $'Position2D2'
 
 
 func _ready():
+# warning-ignore:return_value_discarded
 	$'Tween'.connect("tween_completed", self, '_on_target_reached')
 	_move_area(_target1)
 
