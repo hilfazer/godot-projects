@@ -7,10 +7,20 @@ onready var _target1: Position2D = $'Position2D'
 onready var _target2: Position2D = $'Position2D2'
 
 
+func _notification(what):
+	if what == NOTIFICATION_INSTANCED:
+		# warning-ignore:return_value_discarded
+		$'Tween'.connect("tween_completed", self, '_on_target_reached')
+		
+
 func _ready():
-# warning-ignore:return_value_discarded
-	$'Tween'.connect("tween_completed", self, '_on_target_reached')
 	_move_area(_target1)
+
+
+func _exit_tree():
+	$'Tween'.stop_all()
+	_area.position = _target2.position
+	request_ready()
 
 
 func _on_target_reached(_obj: Area2D, _key):
