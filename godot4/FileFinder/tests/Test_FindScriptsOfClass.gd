@@ -4,7 +4,7 @@ const FileFinderGd = preload("res://FileFinder.gd")
 
 
 func test_findNodeSubclasses():
-	var scripts := PoolStringArray()
+	var scripts := PackedStringArray()
 	scripts.append("res://tests/files/NodeSubclass.gd")
 	var nodeSubclasses = FileFinderGd.findScriptsOfClass(scripts, Node)
 	assert_eq(nodeSubclasses.size(), 1)

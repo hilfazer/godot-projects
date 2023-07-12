@@ -1,20 +1,20 @@
-extends Reference
+extends RefCounted
 
 func _init():
 	assert(false)
 
 
-static func findFilesInDirectory( directoryPath: String, extensionFilter := "" ) -> PoolStringArray:
+static func findFilesInDirectory( directoryPath: String, extensionFilter := "" ) -> PackedStringArray:
 	assert( directoryPath )
 	assert( extensionFilter == "" or extensionFilter.get_extension() != "" )
 
-	var filePaths := PoolStringArray()
-	var dir = Directory.new()
+	var filePaths := PackedStringArray()
+	var dir = DirAccess.new()
 	var error = dir.open( directoryPath )
 	if error != OK:
-		return PoolStringArray()
+		return PackedStringArray()
 
-	dir.list_dir_begin( true )
+	dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 
 	var file : String = dir.get_next()
 	while file != "":
@@ -36,8 +36,8 @@ static func findFilesInDirectory( directoryPath: String, extensionFilter := "" )
 
 
 #this includes subclasses
-static func findScriptsOfClass( scripts: PoolStringArray, klass ):
-	var scriptsToReturn := PoolStringArray()
+static func findScriptsOfClass( scripts: PackedStringArray, klass ):
+	var scriptsToReturn := PackedStringArray()
 
 	for script in scripts:
 		if script.get_extension() != "gd":
@@ -47,7 +47,7 @@ static func findScriptsOfClass( scripts: PoolStringArray, klass ):
 		if object is klass:
 			scriptsToReturn.append(script)
 
-		if not object is Reference:
+		if not object is RefCounted:
 			object.free()
 
 	return scriptsToReturn
