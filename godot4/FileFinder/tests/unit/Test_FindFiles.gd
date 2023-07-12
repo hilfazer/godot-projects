@@ -1,4 +1,4 @@
-extends "res://tests/GutTestBase.gd"
+extends "res://tests/gut_test_base.gd"
 
 const FileFinderGd = preload("res://FileFinder.gd")
 
