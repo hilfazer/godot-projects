@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://8kbn0g5pusd8"]
+
+[ext_resource type="Script" path="res://Node2D.gd" id="1_h5abd"]
+[ext_resource type="Script" path="res://ColorRect.gd" id="2_7ioj8"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("1_h5abd")
+
+[node name="ColorRect" type="ColorRect" parent="Node2D"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_7ioj8")
