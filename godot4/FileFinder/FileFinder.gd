@@ -8,25 +8,24 @@ static func findFilesInDirectory( directoryPath: String, extensionFilter := "" )
 	assert( directoryPath )
 	assert( extensionFilter == "" or extensionFilter.get_extension() != "" )
 
-	var filePaths := PackedStringArray()
-	var dir = DirAccess.new()
-	var error = dir.open( directoryPath )
-	if error != OK:
+	var dir: DirAccess = DirAccess.open(directoryPath)
+	if dir == null:
 		return PackedStringArray()
 
+	var filePaths := PackedStringArray()
 	dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 
 	var file : String = dir.get_next()
 	while file != "":
 		if dir.current_is_dir():
 			var subdirFilePaths := findFilesInDirectory( \
-					dir.get_current_dir().plus_file( file ), extensionFilter )
+					dir.get_current_dir().path_join( file ), extensionFilter )
 			filePaths.append_array( subdirFilePaths )
 
 		else:
 			assert( dir.file_exists( file ) )
 			if !extensionFilter or  "." + file.get_extension() == extensionFilter:
-				filePaths.append( dir.get_current_dir().plus_file( file ) )
+				filePaths.append( dir.get_current_dir().path_join( file ) )
 
 		file = dir.get_next()
 
@@ -44,7 +43,7 @@ static func findScriptsOfClass( scripts: PackedStringArray, klass ):
 			continue
 
 		var object = load(script).new()
-		if object is klass:
+		if is_instance_of(object, klass):
 			scriptsToReturn.append(script)
 
 		if not object is RefCounted:
