@@ -5,7 +5,7 @@ extends "res://abstract_type_line.gd"
 var objects := []
 
 
-func _create( count : int ) -> int:
+func _create( count: int ) -> int:
 	objects.resize(count)
 	for i in objects.size():
 		objects[i] = MyMyNode.new()

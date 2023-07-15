@@ -14,14 +14,14 @@
 [ext_resource type="Script" path="res://node_subsubclass_line.gd" id="10_o2d8a"]
 [ext_resource type="Script" path="res://node_subclass_line.gd" id="11_n7kws"]
 [ext_resource type="Script" path="res://FloatsInDictLine.gd" id="12"]
+[ext_resource type="Script" path="res://node_2_variants_line.gd" id="12_0yiqo"]
 [ext_resource type="Script" path="res://array_line.gd" id="12_67kwx"]
 [ext_resource type="Script" path="res://FloatsInArrayLine.gd" id="13"]
 [ext_resource type="Script" path="res://dictionary_line.gd" id="13_5t23i"]
+[ext_resource type="Script" path="res://node_2_bool_line.gd" id="14_q2mr7"]
 [ext_resource type="Script" path="res://packed_float_64_line.gd" id="16_gnx6x"]
 [ext_resource type="Script" path="res://node_1_variant_line.gd" id="17_po42m"]
-[ext_resource type="Script" path="res://node_3_variants_line.gd" id="18_ejs0w"]
 [ext_resource type="Script" path="res://node_1_bool_line.gd" id="19_fqc5c"]
-[ext_resource type="Script" path="res://node_3_bool_line.gd" id="20_f5r6i"]
 
 [node name="MemoryConsumption" type="VBoxContainer" node_paths=PackedStringArray("_line_containers")]
 anchors_preset = 15
@@ -105,17 +105,17 @@ script = ExtResource("10_o2d8a")
 layout_mode = 2
 script = ExtResource("17_po42m")
 
-[node name="Node + 3 variants" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
+[node name="Node + 2 variants" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
 layout_mode = 2
-script = ExtResource("18_ejs0w")
+script = ExtResource("12_0yiqo")
 
 [node name="Node + 1 bool" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("19_fqc5c")
 
-[node name="Node + 3 bools" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
+[node name="Node + 2 bools" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
 layout_mode = 2
-script = ExtResource("20_f5r6i")
+script = ExtResource("14_q2mr7")
 
 [node name="TypeLinesRight" type="VBoxContainer" parent="LineContainers"]
 layout_mode = 2

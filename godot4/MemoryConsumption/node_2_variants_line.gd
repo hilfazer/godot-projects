@@ -19,6 +19,5 @@ func _destroy():
 
 
 class MyNode extends Node:
-	var s : bool = false
-	var e : bool = false
-	var h : bool = false
+	var s = 3
+	var m = 3
