@@ -22,7 +22,7 @@
 [ext_resource type="Script" path="res://node_1_bool_line.gd" id="19_fqc5c"]
 [ext_resource type="Script" path="res://node_3_bool_line.gd" id="20_f5r6i"]
 
-[node name="MemoryConsumption2" type="VBoxContainer"]
+[node name="MemoryConsumption" type="VBoxContainer" node_paths=PackedStringArray("_line_containers")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -31,6 +31,7 @@ offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
+_line_containers = [NodePath("LineContainers/TypeLinesLeft"), NodePath("LineContainers/TypeLinesRight")]
 
 [node name="TopHbox" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -59,82 +60,89 @@ size_flags_horizontal = 3
 text = "Last column is bytes/variable."
 horizontal_alignment = 2
 
-[node name="TypeLines" type="GridContainer" parent="."]
+[node name="LineContainers" type="HBoxContainer" parent="."]
 layout_mode = 2
+
+[node name="TypeLinesLeft" type="VBoxContainer" parent="LineContainers"]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 2
 
-[node name="Int 64" parent="TypeLines" instance=ExtResource("2")]
-layout_mode = 2
-script = ExtResource("6")
-
-[node name="Packed int 64" parent="TypeLines" instance=ExtResource("2")]
-layout_mode = 2
-script = ExtResource("4_ychqv")
-
-[node name="Array of float 64" parent="TypeLines" instance=ExtResource("2")]
-layout_mode = 2
-script = ExtResource("13")
-
-[node name="Dict of float 64" parent="TypeLines" instance=ExtResource("2")]
-layout_mode = 2
-script = ExtResource("12")
-
-[node name="Packed float 64" parent="TypeLines" instance=ExtResource("2")]
-layout_mode = 2
-script = ExtResource("16_gnx6x")
-
-[node name="Reference" parent="TypeLines" instance=ExtResource("2")]
-layout_mode = 2
-script = ExtResource("7_2gcwp")
-
-[node name="Object" parent="TypeLines" instance=ExtResource("2")]
+[node name="Object" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("5")
 
-[node name="Object subclass" parent="TypeLines" instance=ExtResource("2")]
+[node name="Object subclass" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("6_ub634")
 
-[node name="Reference subclass" parent="TypeLines" instance=ExtResource("2")]
+[node name="Reference" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("7_2gcwp")
+
+[node name="Reference subclass" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("8_7lx87")
 
-[node name="Empty array" parent="TypeLines" instance=ExtResource("2")]
-layout_mode = 2
-script = ExtResource("12_67kwx")
-
-[node name="Empty dict" parent="TypeLines" instance=ExtResource("2")]
-layout_mode = 2
-script = ExtResource("13_5t23i")
-
-[node name="Resource" parent="TypeLines" instance=ExtResource("2")]
+[node name="Resource" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("8")
 
-[node name="Node" parent="TypeLines" instance=ExtResource("2")]
+[node name="Node" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("10_bribf")
 
-[node name="Node subclass" parent="TypeLines" instance=ExtResource("2")]
+[node name="Node subclass" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("11_n7kws")
 
-[node name="Node + 1 variant" parent="TypeLines" instance=ExtResource("2")]
+[node name="Node + 1 variant" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("17_po42m")
 
-[node name="Node + 3 variants" parent="TypeLines" instance=ExtResource("2")]
+[node name="Node + 3 variants" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("18_ejs0w")
 
-[node name="Node + 1 bool" parent="TypeLines" instance=ExtResource("2")]
+[node name="Node + 1 bool" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("19_fqc5c")
 
-[node name="Node + 3 bools" parent="TypeLines" instance=ExtResource("2")]
+[node name="Node + 3 bools" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("20_f5r6i")
+
+[node name="TypeLinesRight" type="VBoxContainer" parent="LineContainers"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Int 64" parent="LineContainers/TypeLinesRight" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("6")
+
+[node name="Packed int 64" parent="LineContainers/TypeLinesRight" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("4_ychqv")
+
+[node name="Array of float 64" parent="LineContainers/TypeLinesRight" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("13")
+
+[node name="Dict of float 64" parent="LineContainers/TypeLinesRight" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("12")
+
+[node name="Packed float 64" parent="LineContainers/TypeLinesRight" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("16_gnx6x")
+
+[node name="Empty array" parent="LineContainers/TypeLinesRight" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("12_67kwx")
+
+[node name="Empty dict" parent="LineContainers/TypeLinesRight" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("13_5t23i")
 
 [node name="MemoryUsage" type="HBoxContainer" parent="."]
 layout_mode = 2

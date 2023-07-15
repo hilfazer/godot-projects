@@ -29,7 +29,7 @@ func create( count : int ) -> void:
 		_destroy()
 		return
 
-	_setConstructionTime(msec, count)
+	_setConstructionTime(msec)
 	_setObjectCount(count)
 	_setMemoryUsage(
 		Performance.get_monitor(Performance.MEMORY_STATIC) - staticStart,
@@ -60,9 +60,9 @@ func _setMemoryUsage( staticUsage : int, size_ : int ):
 	$"MemoryPerObject".text = "%.1f B" % bytesPerObject
 
 
-func _setConstructionTime( timeMs : int, size_ : int ):
-	var message = "creating %s: %s ms"
-	$"TimeTaken".text = message % [size_, timeMs]
+func _setConstructionTime( timeMs : int ):
+	var message = "time taken: %s ms"
+	$"TimeTaken".text = message % [timeMs]
 
 
 func _setObjectCount( count : int ):
