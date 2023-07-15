@@ -9,7 +9,6 @@ signal typeToggled( toggled )
 
 
 func _ready():
-# warning-ignore:return_value_discarded
 	$"ButtonType".connect("toggled", Callable(self, "_emitTypeToggled"))
 
 
@@ -58,7 +57,7 @@ func _setMemoryUsage( staticUsage : int, size_ : int ):
 	var total = max(staticUsage, 0)
 	$"MemoryTaken".text = String.humanize_size( total )
 	var bytesPerObject = total / float(size_) if size_ != 0 else 0
-	$"LinePerObject".text = "%.1f B" % bytesPerObject
+	$"MemoryPerObject".text = "%.1f B" % bytesPerObject
 
 
 func _setConstructionTime( timeMs : int, size_ : int ):

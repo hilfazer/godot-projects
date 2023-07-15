@@ -3,7 +3,7 @@ extends VBoxContainer
 const TypeLineGd = preload("res://abstract_type_line.gd")
 
 @onready var spinAmount: SpinBox       = %Amount
-@onready var typeLines: VBoxContainer  = $"Lines"
+@onready var typeLines: Container  = $"TypeLines"
 
 
 func _enter_tree():

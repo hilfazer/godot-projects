@@ -10,6 +10,7 @@ offset_right = -2.0
 offset_bottom = -376.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
 script = ExtResource("1_hbq23")
 
 [node name="ButtonType" type="Button" parent="."]
@@ -48,9 +49,11 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.5
+tooltip_text = "Memory taken by all allocated objects combined"
 editable = false
 
-[node name="LinePerObject" type="LineEdit" parent="."]
+[node name="MemoryPerObject" type="LineEdit" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Memory taken by a single variable/object"
 editable = false

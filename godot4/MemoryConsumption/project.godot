@@ -22,7 +22,7 @@ gdscript/warnings/unused_class_variable=true
 
 [display]
 
-window/size/viewport_width=900
+window/size/viewport_width=1024
 window/size/viewport_height=555
 window/size/always_on_top=true
 
