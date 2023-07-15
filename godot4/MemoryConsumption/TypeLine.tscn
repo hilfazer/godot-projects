@@ -22,8 +22,8 @@ text = "TypeLine"
 [node name="Amount" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
 text = "0"
+metadata/_edit_group_ = true
 
 [node name="ReferenceRect" type="ReferenceRect" parent="Amount"]
 layout_mode = 0
@@ -33,7 +33,8 @@ anchor_bottom = 1.0
 [node name="TimeTaken" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 4.0
+size_flags_stretch_ratio = 2.0
+metadata/_edit_group_ = true
 
 [node name="ReferenceRect" type="ReferenceRect" parent="TimeTaken"]
 layout_mode = 1
