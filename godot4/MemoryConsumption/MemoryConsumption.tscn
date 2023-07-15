@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://vjiefigc4slo"]
+[gd_scene load_steps=23 format=3 uid="uid://vjiefigc4slo"]
 
 [ext_resource type="Script" path="res://MemoryConsumption.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://b2x7dqcgn3enj" path="res://TypeLine.tscn" id="2"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://ResourceLine.gd" id="8"]
 [ext_resource type="Script" path="res://ref_subclass_line.gd" id="8_7lx87"]
 [ext_resource type="Script" path="res://node_line.gd" id="10_bribf"]
+[ext_resource type="Script" path="res://node_subsubclass_line.gd" id="10_o2d8a"]
 [ext_resource type="Script" path="res://node_subclass_line.gd" id="11_n7kws"]
 [ext_resource type="Script" path="res://FloatsInDictLine.gd" id="12"]
 [ext_resource type="Script" path="res://array_line.gd" id="12_67kwx"]
@@ -95,6 +96,10 @@ script = ExtResource("10_bribf")
 [node name="Node subclass" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
 layout_mode = 2
 script = ExtResource("11_n7kws")
+
+[node name="Node subsubclass" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
+layout_mode = 2
+script = ExtResource("10_o2d8a")
 
 [node name="Node + 1 variant" parent="LineContainers/TypeLinesLeft" instance=ExtResource("2")]
 layout_mode = 2
