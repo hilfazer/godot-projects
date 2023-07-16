@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b2x7dqcgn3enj"]
 
-[ext_resource type="Script" path="res://abstract_type_line.gd" id="1_hbq23"]
+[ext_resource type="Script" path="res://source/abstract_type_line.gd" id="1_hbq23"]
 
 [node name="TypeLine" type="HBoxContainer"]
 anchors_preset = 15
