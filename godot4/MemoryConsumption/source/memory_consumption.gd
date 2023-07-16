@@ -2,7 +2,7 @@ extends VBoxContainer
 
 const TypeLineGd = preload("res://source/abstract_type_line.gd")
 
-@export var _line_containers : Array[Control] = []
+@export var _line_containers: Array[Control] = []
 
 @onready var _spin_amount: SpinBox       = %'Amount'
 
@@ -14,7 +14,7 @@ func _enter_tree():
 func _ready():
 	for line in get_type_lines():
 		assert( line is TypeLineGd )
-		var ret = line.connect("typeToggled", Callable(self, "_onTypeToggled").bind(line))
+		var ret = line.connect("type_toggled", Callable(self, "_onTypeToggled").bind(line))
 		assert(ret == OK)
 
 

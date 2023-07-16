@@ -2,26 +2,26 @@
 extends HBoxContainer
 
 
-var objectCount := 0
+var object_count := 0
 
 
-signal typeToggled( toggled )
+signal type_toggled( toggled )
 
 
 func _ready():
-	$"ButtonType".connect("toggled", Callable(self, "_emitTypeToggled"))
+	$"ButtonType".toggled.connect( func(toggled: bool): type_toggled.emit(toggled) )
 
 
 func _process(_delta):
 	$"ButtonType".text = name
 
 
-func create( count : int ) -> void:
+func create( count: int ) -> void:
 	var err          = OK
-	var staticStart  = Performance.get_monitor(Performance.MEMORY_STATIC)
+	var static_start  = Performance.get_monitor(Performance.MEMORY_STATIC)
 
 	var msec = Time.get_ticks_msec()
-	
+
 	err = _create(count)
 	msec = Time.get_ticks_msec() - msec
 
@@ -32,7 +32,7 @@ func create( count : int ) -> void:
 	_setConstructionTime(msec)
 	_setObjectCount(count)
 	_setMemoryUsage(
-		Performance.get_monitor(Performance.MEMORY_STATIC) - staticStart,
+		Performance.get_monitor(Performance.MEMORY_STATIC) - static_start,
 		count
 	)
 
@@ -40,11 +40,11 @@ func create( count : int ) -> void:
 func destroy() -> void:
 	_destroy()
 	_setObjectCount(0)
-	_setMemoryUsage(0, objectCount)
+	_setMemoryUsage(0, object_count)
 
 
 @warning_ignore("unused_parameter")
-func _create( count : int ) -> int:
+func _create( count: int ) -> int:
 	assert(false)
 	return ERR_DOES_NOT_EXIST
 
@@ -53,22 +53,18 @@ func _destroy():
 	assert( false )
 
 
-func _setMemoryUsage( staticUsage : int, size_ : int ):
-	var total = max(staticUsage, 0)
+func _setMemoryUsage( static_usage: int, size_: int ):
+	var total = max(static_usage, 0)
 	$"MemoryTaken".text = String.humanize_size( total )
-	var bytesPerObject = total / float(size_) if size_ != 0 else 0
-	$"MemoryPerObject".text = "%.1f B" % bytesPerObject
+	var bytes_per_object = total / float(size_) if size_ != 0 else 0
+	$"MemoryPerObject".text = "%.1f B" % bytes_per_object
 
 
-func _setConstructionTime( timeMs : int ):
+func _setConstructionTime( time_ms: int ):
 	var message = "time taken: %s ms"
-	$"TimeTaken".text = message % [timeMs]
+	$"TimeTaken".text = message % [time_ms]
 
 
-func _setObjectCount( count : int ):
-	objectCount = count
+func _setObjectCount( count: int ):
+	object_count = count
 	$"Amount".text = str( count )
-
-
-func _emitTypeToggled( toggled : bool ):
-	emit_signal("typeToggled", toggled)
