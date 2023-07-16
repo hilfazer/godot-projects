@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-const TypeLineGd = preload("res://abstract_type_line.gd")
+const TypeLineGd = preload("res://source/abstract_type_line.gd")
 
 @export var _line_containers : Array[Control] = []
 

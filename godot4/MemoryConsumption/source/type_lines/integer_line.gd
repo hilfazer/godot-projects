@@ -1,5 +1,5 @@
 @tool
-extends "res://abstract_type_line.gd"
+extends "res://source/abstract_type_line.gd"
 
 
 var ints := []
