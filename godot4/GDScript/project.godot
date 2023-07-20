@@ -17,3 +17,4 @@ config/icon="res://icon.svg"
 [autoload]
 
 ReloadAutoload="*res://reload_autoload.gd"
+a_singleton="*res://singleton.gd"

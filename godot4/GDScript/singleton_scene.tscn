@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d32nlxeitrkai"]
+
+[ext_resource type="Script" path="res://singleton_scene.gd" id="1_xdnmp"]
+
+[node name="SingletonScene" type="Node"]
+script = ExtResource("1_xdnmp")
