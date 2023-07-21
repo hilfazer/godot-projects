@@ -4,7 +4,7 @@ func _init():
 	assert(false)
 
 
-static func findFilesInDirectory( directoryPath: String, extensionFilter := "" ) -> PackedStringArray:
+static func find_files_in_directory( directoryPath: String, extensionFilter := "" ) -> PackedStringArray:
 	assert( directoryPath )
 	assert( extensionFilter == "" or extensionFilter.get_extension() != "" )
 
@@ -18,7 +18,7 @@ static func findFilesInDirectory( directoryPath: String, extensionFilter := "" )
 	var file : String = dir.get_next()
 	while file != "":
 		if dir.current_is_dir():
-			var subdirFilePaths := findFilesInDirectory( \
+			var subdirFilePaths := find_files_in_directory( \
 					dir.get_current_dir().path_join( file ), extensionFilter )
 			filePaths.append_array( subdirFilePaths )
 
@@ -35,7 +35,7 @@ static func findFilesInDirectory( directoryPath: String, extensionFilter := "" )
 
 
 #this includes subclasses
-static func findScriptsOfClass( scripts: PackedStringArray, klass ):
+static func find_scripts_of_class( scripts: PackedStringArray, klass ):
 	var scriptsToReturn := PackedStringArray()
 
 	for script in scripts:
