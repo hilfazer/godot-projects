@@ -22,6 +22,8 @@ signal variableUpdated( varName, value )
 func _init():
 	set_process_mode(PROCESS_MODE_ALWAYS)
 
+
+func _ready() -> void:
 	if OS.has_feature("debug"):
 		_repositionWindow()
 

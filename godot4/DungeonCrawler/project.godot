@@ -21,6 +21,7 @@ config/version="0.1.0"
 SceneSwitcher="*res://projects/SceneSwitcher/SceneSwitcher.tscn"
 Console="*res://debug/console_placeholder.gd"
 Debug="*res://debug/Debug.tscn"
+Connector="res://engine/Connector.gd"
 
 [debug]
 
