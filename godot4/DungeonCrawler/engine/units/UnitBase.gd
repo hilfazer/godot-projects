@@ -4,12 +4,11 @@ class_name UnitBase
 
 const _cellSize := Vector2(32, 32)
 
-@export (float) var _speed              = 5.0: set = _setSpeed
+@export var _speed: float              = 5.0: set = _setSpeed
 
 var requestedDirection                 := Vector2(): set = setRequestedDirection
 var _currentDirection                  := Vector2(): set = setCurrentDirection
 @onready var _nameLabel                 :Label = $"Name"
-@onready var _movementTween             :Tween = $"Pivot/Tween"
 @onready var _pivot                     :Marker2D
 
 
@@ -21,13 +20,6 @@ signal clicked()
 
 func _init():
 	Debug.updateVariable("Unit count", +1, true)
-
-
-func _ready():
-	_movementTween.playback_speed = _speed
-# warning-ignore:return_value_discarded
-	_movementTween.connect("tween_completed", Callable(self, "_onTweenFinished"))
-	setNameLabel(name)
 
 
 func _exit_tree():
@@ -52,20 +44,14 @@ func _physics_process(_delta):
 	position += movementVector
 	emit_signal("changedPosition")
 
-	_movementTween.interpolate_property(
-		_pivot,
-		"position",
-		- movementVector,
-		Vector2(0, 0),
-		movementVector.length() / _cellSize.x,
-		Tween.TRANS_LINEAR,
-		Tween.EASE_IN
-		)
-	_movementTween.start()
+	var tween = create_tween()
+	# TODO correct duration
+	tween.tween_property( _pivot, ^'position', Vector2(0, 0), movementVector.length() / _cellSize.x )
+	tween.set_trans( Tween.TRANS_LINEAR ).set_ease( Tween.EASE_IN )
 
 
 func _onTweenFinished(object : Object, key : NodePath):
-	if _currentDirection && object == _pivot && key == ":position":
+	if _currentDirection && object == _pivot && key == ^":position":
 		emit_signal("moved", _currentDirection)
 		setCurrentDirection(Vector2())
 
@@ -135,5 +121,3 @@ func _makeMovementVector( direction : Vector2 ) -> Vector2:
 
 func _setSpeed( speed : float ) -> void:
 	_speed = speed
-	if _movementTween != null:
-		_movementTween.playback_speed = speed
