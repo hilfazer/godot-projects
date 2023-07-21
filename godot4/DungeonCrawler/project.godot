@@ -35,6 +35,10 @@ window/size/viewport_width=800
 
 exclude_addons_quick_open=true
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")
+
 [global]
 
 ending=false
