@@ -2,7 +2,7 @@ extends Node
 
 
 const SavingModuleGd         = preload("res://engine/SavingModule.gd")
-const SerializerGd           = preload("res://projects/Serialization/HierarchicalSerializer.gd")
+const SerializerGd           = preload("res://projects/Serialization/hierarchical_serializer.gd")
 const LevelLoaderGd          = preload("./LevelLoader.gd")
 const PlayerAgentGd          = preload("res://engine/agent/PlayerAgent.gd")
 const UnitCreationDataGd     = preload("res://engine/units/UnitCreationData.gd")
@@ -26,7 +26,7 @@ func createFromModule( module : SavingModuleGd, unitsCreationData : Array ) -> i
 	assert( _game._module == null )
 	_game.setCurrentModule( module )
 
-	var result = await _create( unitsCreationData ).completed
+	var result = await _create( unitsCreationData )
 	emit_signal( "createFinished", result )
 	return result
 
@@ -44,7 +44,7 @@ func createFromFile( filePath : String ):
 		assert( module.moduleMatches( filePath ) )
 		module.loadFromFile( filePath )
 
-	var result = await _create( [] ).completed
+	var result = await _create( [] )
 	if result != OK:
 		return result
 
@@ -55,7 +55,7 @@ func createFromFile( filePath : String ):
 
 
 func unloadCurrentLevel():
-	await _levelLoader.unloadLevel().completed
+	await _levelLoader.unloadLevel()
 
 
 func loadLevel( levelName : String, withState := true ) -> int:
@@ -63,7 +63,7 @@ func loadLevel( levelName : String, withState := true ) -> int:
 		if withState \
 		else null
 
-	await _loadLevel( levelName, levelState ).completed
+	await _loadLevel( levelName, levelState )
 	return OK
 
 
@@ -76,7 +76,7 @@ func _create( unitsCreationData : Array ) -> int:
 	var module : SavingModuleGd = _game._module
 	var levelName = module.getCurrentLevelName()
 	var levelState = module.loadLevelState( levelName, true )
-	await _loadLevel( levelName, levelState ).completed
+	await _loadLevel( levelName, levelState )
 
 	var entranceName = module.getLevelEntrance( levelName )
 	if not entranceName.is_empty() and not unitsCreationData.is_empty():
@@ -92,8 +92,7 @@ func _loadLevel( levelName : String, levelState = null ):
 	if filePath.is_empty():
 		return ERR_CANT_CREATE
 
-	var result = yield( _levelLoader.loadLevel(
-		filePath, _currentLevelParent ), "completed" )
+	var result = await _levelLoader.loadLevel( filePath, _currentLevelParent )
 
 	if result != OK:
 		return result

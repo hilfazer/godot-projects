@@ -20,7 +20,7 @@ func loadLevel( levelFilename : String, levelParent : Node ) -> int:
 		return ERR_UNAVAILABLE
 
 	_changeState(State.Loading, levelFilename)
-	var retval = await _loadLevel(levelFilename, levelParent).completed
+	var retval = await _loadLevel(levelFilename, levelParent)
 	_changeState(State.Ready)
 	return retval
 
@@ -35,7 +35,7 @@ func _loadLevel( levelFilename : String, levelParent : Node ) -> int:
 	var level : LevelBase = levelResource.instantiate()
 
 	if _game.currentLevel != null:
-		var result = await _unloadLevel(_game.currentLevel).completed
+		var result = await _unloadLevel(_game.currentLevel)
 		assert( result == OK )
 
 	assert( not _game.has_node( level.name ) )
@@ -55,7 +55,7 @@ func unloadLevel() -> int:
 	var level : LevelBase = _game.currentLevel
 
 	_changeState( State.Unloading, level.name )
-	var retval : int = await _unloadLevel(level).completed
+	var retval : int = await _unloadLevel(level)
 	_changeState( State.Ready )
 	return retval
 

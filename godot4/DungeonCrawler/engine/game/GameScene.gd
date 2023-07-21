@@ -78,7 +78,7 @@ func createGame( module : SavingModuleGd, unitsCreationData : Array ):
 func createGameFromFile( filePath : String ):
 	assert(!_module)
 	_changeState( State.Creating )
-	var result = await _creator.createFromFile(filePath).completed
+	var result = await _creator.createFromFile(filePath)
 
 	if result != OK:
 		Debug.error(self, "GameScene: could not create game from file %s" % filePath)
@@ -112,7 +112,7 @@ func loadGame( filepath : String ):
 	var previousState = _state
 	_changeState( State.Creating )
 
-	var result = await _creator.createFromFile( filepath ).completed
+	var result = await _creator.createFromFile( filepath )
 
 # warning-ignore:standalone_ternary
 	start() if result == OK else _changeState( previousState )
@@ -136,14 +136,14 @@ func loadLevel( levelName : String ) -> int:
 		_module.saveLevel( currentLevel, false )
 
 	_changeState( State.Creating )
-	var result = await _creator.loadLevel( levelName, true ).completed
+	var result = await _creator.loadLevel( levelName, true )
 	_changeState( State.Running )
 	return result
 
 
 func unloadCurrentLevel() -> int:
 	_changeState( State.Creating )
-	var result = await _creator.unloadCurrentLevel().completed
+	var result = await _creator.unloadCurrentLevel()
 	_changeState( State.Running )
 	return result
 
@@ -187,7 +187,7 @@ func _travel( entrance : Area2D ):
 
 	var levelName : String = levelAndEntranceNames[0].get_file().get_basename()
 	var entranceName : String = levelAndEntranceNames[1]
-	var result : int = await loadLevel( levelName ).completed
+	var result : int = await loadLevel( levelName )
 
 	if result != OK:
 		return

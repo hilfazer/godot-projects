@@ -1,8 +1,8 @@
 extends "./Module.gd"
 
-const SerializerGd           = preload("res://projects/Serialization/HierarchicalSerializer.gd")
+const SerializerGd           = preload("res://projects/Serialization/hierarchical_serializer.gd")
 const ProbeGd                = preload("res://projects/Serialization/Probe.gd")
-const SavedGameRes           = preload("res://projects/Serialization/SaveGameFile.gd")
+const SavedGameRes           = preload("res://projects/Serialization/save_game_file.gd")
 const PlayerAgentGd          = preload("res://engine/agent/PlayerAgent.gd")
 const SelfFilename           = "res://engine/SavingModule.gd"
 

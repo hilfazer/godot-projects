@@ -83,7 +83,7 @@ func loadLevel( levelName : String ):
 		await get_tree().idle_frame
 		return
 
-	var result = await game.loadLevel( levelName ).completed
+	var result = await game.loadLevel( levelName )
 	if result != OK:
 		Console.Log.warn( "Failed to load level [b]%s[/b]." % levelName )
 
