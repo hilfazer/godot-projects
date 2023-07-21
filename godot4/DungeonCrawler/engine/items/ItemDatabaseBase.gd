@@ -1,7 +1,7 @@
 extends Resource
 class_name ItemDbBase
 
-const FilesFinderGd          = preload("res://projects/FileFinder/FileFinder.gd")
+const FilesFinderGd          = preload("res://projects/FileFinder/file_finder.gd")
 
 const ITEM_ID                = "_itemID"
 
@@ -23,7 +23,7 @@ func getAllItemsStats() -> Dictionary:
 func setupItemDatabase( errorMessages: Array ) -> void:
 	var idsToFilepaths := {}
 	var itemStats := getAllItemsStats()
-	var sceneFiles := FilesFinderGd.findFilesInDirectory(
+	var sceneFiles := FilesFinderGd.find_files_in_directory(
 			_getDirectory(), Globals.SCENE_EXTENSION )
 
 	for itemFile in sceneFiles:
