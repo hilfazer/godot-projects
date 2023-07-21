@@ -106,10 +106,9 @@ func _getFilename( name : String, subdirectory : String ):
 
 	var fileName = name + Globals.SCENE_EXTENSION
 	var fullName = _moduleFilename.get_base_dir() + "/" + subdirectory + "/" + fileName
-	var file = File.new()
-	if file.file_exists( fullName ):
+	if FileAccess.file_exists( fullName ):
 		return fullName
 	else:
 		fullName = CommonModuleDir + "/" + subdirectory + "/" + fileName
-		return fullName if file.file_exists( fullName ) else ""
+		return fullName if FileAccess.file_exists( fullName ) else ""
 
