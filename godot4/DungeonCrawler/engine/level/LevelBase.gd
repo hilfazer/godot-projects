@@ -1,7 +1,6 @@
 extends Node
 class_name LevelBase
 
-const NodeGuardGd            = preload("res://projects/TypeWrappers/NodeGuard.gd")
 
 @onready var _ground = $"Ground"
 @onready var _walls = $"Walls"

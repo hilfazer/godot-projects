@@ -2,6 +2,8 @@
 # and doesn't have a parent
 # call release() if you want to handle memory yourself
 extends RefCounted
+class_name NodeGuardGd
+
 
 var _node : Node
 var node : Node:
