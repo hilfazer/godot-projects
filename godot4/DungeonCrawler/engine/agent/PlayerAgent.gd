@@ -4,7 +4,7 @@ const LevelLoaderGd          = preload("res://engine/game/LevelLoader.gd")
 const FogVisionBaseGd        = preload("res://engine/level/FogVisionBase.gd")
 const SelectionComponentScn  = preload("res://engine/SelectionComponent.tscn")
 
-@export var fogVisionGd # (String, FILE, "*FogVision.gd")
+@export_file("*FogVision.gd") var fogVisionGd : String
 
 var _currentLevel : LevelBase: set = setCurrentLevel
 var _selectedUnits := {}

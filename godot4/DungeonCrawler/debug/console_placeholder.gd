@@ -1,4 +1,4 @@
-extends RefCounted
+extends Node
 
 
 func add_command(_name, _object, _method):

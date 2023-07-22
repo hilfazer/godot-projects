@@ -38,7 +38,7 @@ func _loadLevel( levelFilename : String, levelParent : Node ) -> int:
 		var result = await _unloadLevel(_game.currentLevel)
 		assert( result == OK )
 
-	assert( not _game.has_node( level.name ) )
+	assert( not _game.has_node( NodePath(level.name) ) )
 	levelParent.add_child( level )
 	_game.setCurrentLevel( level )
 

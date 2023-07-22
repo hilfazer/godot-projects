@@ -3,7 +3,7 @@ class_name AgentBase
 
 const AgentMetaName = "agentRef"
 
-var _units := SetWrapper.new(): get = getUnits
+var _units := SetWrapper.new()
 var _unitsInTree := []
 
 
@@ -25,7 +25,7 @@ func _notification(what):
 
 func addUnit( unit : UnitBase ) -> int:
 	assert( unit != null )
-	assert( not unit in getUnits() )
+	assert( not unit in _units.container() )
 
 	if unit.has_meta( AgentMetaName ):
 		var agent : AgentBase = unit.get_meta( AgentMetaName ).get_ref()
@@ -61,10 +61,6 @@ func removeUnit( unit : UnitBase ) -> bool:
 	return true
 
 
-func getUnits():
-	return _units.container()
-
-
 func setProcessing( process : bool ):
 	set_process_unhandled_input( process )
 	set_physics_process( process )
@@ -76,7 +72,7 @@ func _setActive( unit : UnitBase ):
 
 
 func _setInactive( unit : UnitBase ):
-	_unitsInTree.remove( _unitsInTree.find( unit ) )
+	_unitsInTree.erase( _unitsInTree.find( unit ) )
 
 
 func _updateActiveUnits( units : Array ):

@@ -72,7 +72,7 @@ func applyFogToLevel( fogTileType : int ):
 
 
 func addUnitToFogVision( unit : UnitBase ) -> int:
-	if not _units.has_node( unit.name ):
+	if not _units.has_node( 'unit.name' ):
 		Debug.warn( self, "Level %s has no unit %s" % [self.name, unit.name] )
 		return FAILED
 
@@ -85,7 +85,7 @@ func addUnitToFogVision( unit : UnitBase ) -> int:
 
 
 func removeUnitFromFogVision( unit : UnitBase ) -> int:
-	if not _units.has_node( unit.name ):
+	if not _units.has_node( NodePath(unit.name) ):
 		Debug.warn( self, "Level %s has no unit %s" % [self.name, unit.name] )
 		return FAILED
 
@@ -118,9 +118,9 @@ func addUnit( unit : UnitBase ) -> int:
 
 func removeUnit( unit : UnitBase ):
 	if not unit in _units.get_children():
-		return NodeGuardGd.new()
+		return NodeGuard.new()
 
-	var guard := NodeGuardGd.new( unit )
+	var guard := NodeGuard.new( unit )
 	_units.remove_child( unit )
 
 	assert( not unit in _fog.getFogVisions() )
