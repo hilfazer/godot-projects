@@ -10,4 +10,4 @@ func _on_PrintSceneTree_pressed():
 
 
 func _on_PrintStrayNodes_pressed():
-	$"/root".print_orphan_nodes()
+	Node.print_orphan_nodes()

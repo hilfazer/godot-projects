@@ -28,6 +28,7 @@ func _unhandled_input(event):
 
 	if isDragging:
 		endv = mouseposGlobal
+		@warning_ignore("static_called_on_instance")
 		_drawArea(_makeRect( startv, endv ))
 
 	if event.is_action_released('ui_LMB'):
@@ -35,6 +36,7 @@ func _unhandled_input(event):
 			endv = mouseposGlobal
 			isDragging = false
 			_drawArea(Rect2())
+			@warning_ignore("static_called_on_instance")
 			emit_signal("areaSelected", _makeRect( startv, endv ))
 		else:
 			isDragging = false

@@ -8,6 +8,7 @@ signal changed( array )
 
 
 func _init( array = [] ):
+	@warning_ignore("static_called_on_instance")
 	var uniqueArray = unique( array )
 	assert( array == uniqueArray )
 	_array = uniqueArray
@@ -17,6 +18,7 @@ func reset( array ):
 	if _array == array:
 		return
 
+	@warning_ignore("static_called_on_instance")
 	var uniqueArray = unique( array )
 	assert( array == uniqueArray )
 	_array.resize( uniqueArray.size() )

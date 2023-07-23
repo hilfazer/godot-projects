@@ -41,7 +41,7 @@ func moduleSelected( moduleDataPath : String ):
 		return
 
 	assert( moduleDataPath.get_extension() in ModuleExtensions )
-	if File.new().open( moduleDataPath, File.READ ) != OK:
+	if FileAccess.open( moduleDataPath, FileAccess.READ ) == null:
 		Debug.error( self, "Module file %s can't be opened for reading" % moduleDataPath )
 		return
 

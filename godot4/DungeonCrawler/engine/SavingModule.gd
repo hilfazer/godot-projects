@@ -82,6 +82,7 @@ func savePlayerData( playerAgent : PlayerAgentGd ):
 
 
 func moduleMatches( saveFilename : String ) -> bool:
+	@warning_ignore("static_called_on_instance")
 	return extractModuleFilename( saveFilename ) == _moduleFilename
 
 

@@ -23,18 +23,18 @@ func allowInstantiation():
 	assert(false)
 
 
-# warning-ignore:unused_argument
+@warning_ignore("unused_parameter")
 func calculateVisibleTiles( fogOfWar : TileMap ) -> PackedByteArray:
 	assert( false )
 	return PackedByteArray()
 
 
-# warning-ignore:unused_argument
+@warning_ignore("unused_parameter")
 func boundingRect( fogOfWar : TileMap ) -> Rect2:
 	assert( false )
 	return Rect2()
 
 
-# warning-ignore:unused_argument
+@warning_ignore("unused_parameter")
 func setExcludedRID( rid : RID ):
 	pass

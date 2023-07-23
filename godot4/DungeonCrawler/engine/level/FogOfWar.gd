@@ -7,15 +7,18 @@ enum TileType { Lit, Shaded, Fogged }
 # warning-ignore:unused_class_variable
 @export var fillTile: TileType
 
-@onready var litTileId    := tile_set.find_tile_by_name("transparent")
-@onready var shadedTileId := tile_set.find_tile_by_name("grey")
-@onready var foggedTileId := tile_set.find_tile_by_name("black")
+const lit_tile_id           := Vector2i(0, 2)
+const shaded_tile_id        := Vector2i(0, 1)
+const fogged_tile_id        := Vector2i(0, 0)
+const _source_id            = 1
+const layer                 = 0
+
+var _fogVisionsToUpdate     := []
+var _visionsToResults       := {}
+var _doFogUpdate            := false
+
 @onready var _updateTimer   = $"UpdateTimer"
 
-var _fogVisionsToUpdate := []
-var _visionsToResults := {}
-
-var doFogUpdate := false
 
 func _ready():
 	_updateTimer.connect("timeout", Callable(self, "requestFogUpdate"))
@@ -23,13 +26,13 @@ func _ready():
 
 
 func _physics_process( _delta ):
-	if doFogUpdate:
+	if _doFogUpdate:
 		_updateFog()
-		doFogUpdate = false
+		_doFogUpdate = false
 
 
 func requestFogUpdate():
-	doFogUpdate = true
+	_doFogUpdate = true
 
 
 func addFogVision( fogVision : FogVisionBaseGd ) -> int:
@@ -49,7 +52,8 @@ func removeFogVision( fogVision : FogVisionBaseGd ) -> int:
 	assert( fogVision )
 	assert( fogVision in _visionsToResults )
 
-	_setTileInRect( shadedTileId, _visionsToResults[fogVision]["tileRect"], self )
+	@warning_ignore("static_called_on_instance")
+	_setTileInRect( shaded_tile_id, _visionsToResults[fogVision]["tileRect"], self )
 	_eraseFogVision( fogVision )
 	fogVision.disconnect("changedPosition", Callable(self, "onVisionChangedPosition"))
 	_updateFog()
@@ -67,12 +71,13 @@ func onVisionChangedPosition( fogVision : FogVisionBaseGd ):
 
 func fillRectWithTile( rectangle : Rect2, type : int ):
 	var typeToId = {
-		  TileType.Lit : litTileId
-		, TileType.Shaded : shadedTileId
-		, TileType.Fogged : foggedTileId
+		  TileType.Lit : lit_tile_id
+		, TileType.Shaded : shaded_tile_id
+		, TileType.Fogged : fogged_tile_id
 		}
 	assert( type in typeToId )
 
+	@warning_ignore("static_called_on_instance")
 	_setTileInRect( typeToId[type], rectangle, self )
 
 
@@ -81,8 +86,8 @@ func getFogVisions() -> Array:
 
 
 func serialize():
-	var shadedTiles := get_used_cells_by_id( shadedTileId ) + \
-		get_used_cells_by_id( litTileId )
+	var shadedTiles :Array[Vector2i] = get_used_cells_by_id( 0, _source_id, shaded_tile_id ) + \
+		get_used_cells_by_id( 0, _source_id, lit_tile_id )
 	var uncoveredArray := []
 
 	for tileCoords in shadedTiles:
@@ -95,7 +100,8 @@ func serialize():
 func deserialize( data ):
 	var uncoveredArray : PackedInt32Array = str_to_var( data )
 	for i in uncoveredArray.size() / 2.0:
-		set_cell( uncoveredArray[i*2], uncoveredArray[i*2+1], shadedTileId )
+		var coords := Vector2i( uncoveredArray[i*2], uncoveredArray[i*2+1] )
+		set_cell( 0, coords, -1, shaded_tile_id )
 
 
 func _insertFogVision( fogVision : FogVisionBaseGd ):
@@ -117,7 +123,7 @@ func _updateFog():
 		_setTilesWithVisibilityMap(
 			_visionsToResults[vision]["tileRect"],
 			_visionsToResults[vision]["visibiltyMap"],
-			shadedTileId
+			shaded_tile_id
 			)
 
 	_fogVisionsToUpdate.clear()
@@ -127,7 +133,7 @@ func _updateFog():
 		assert( vision is FogVisionBaseGd )
 		var tileRect = vision.boundingRect( self )
 		var visibilityMap = vision.calculateVisibleTiles( self )
-		_setTilesWithVisibilityMap( tileRect, visibilityMap, litTileId )
+		_setTilesWithVisibilityMap( tileRect, visibilityMap, lit_tile_id )
 
 		_visionsToResults[ vision ] = _makeVisionResult( tileRect, visibilityMap )
 
@@ -137,21 +143,21 @@ func _makeVisionResult( tileRect : Rect2, visibiltyMap ):
 
 
 func _setTilesWithVisibilityMap(
-		tileRect : Rect2, visibiltyMap : PackedByteArray, tileId : int
+		tileRect : Rect2, visibiltyMap : PackedByteArray, tileId : Vector2i
 		):
 	var mapIdx = 0
 	for x in range( tileRect.position.x, tileRect.size.x + tileRect.position.x):
 		for y in range( tileRect.position.y, tileRect.size.y + tileRect.position.y):
 			if visibiltyMap[mapIdx] != 0:
-				set_cell(x, y, tileId)
+				set_cell(layer, Vector2i(x, y), _source_id, tileId)
 			mapIdx += 1
 	pass
 
 
-static func _setTileInRect( tileId : int, rect : Rect2, fog : TileMap ):
+static func _setTileInRect( tileId : Vector2i, rect : Rect2, fog : TileMap ):
 	for x in range( rect.position.x, rect.size.x + rect.position.x):
 		for y in range( rect.position.y, rect.size.y + rect.position.y):
-			fog.set_cell(x, y, tileId)
+			fog.set_cell(layer, Vector2i(x, y), _source_id, tileId)
 
 
 static func fogVisionFromNode( node : Node ) -> FogVisionBaseGd:

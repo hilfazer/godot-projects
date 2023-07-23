@@ -27,6 +27,7 @@ func setupItemDatabase( errorMessages: Array ) -> void:
 			_getDirectory(), Globals.SCENE_EXTENSION )
 
 	for itemFile in sceneFiles:
+		@warning_ignore("static_called_on_instance")
 		var itemId = findIdInItemFile( itemFile )
 		var noErrors := true
 		if itemId == ItemBase.INVALID_ID:

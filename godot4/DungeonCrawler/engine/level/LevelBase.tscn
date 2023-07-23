@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://clkwc86dk4q6j"]
+[gd_scene load_steps=10 format=3 uid="uid://clkwc86dk4q6j"]
 
 [ext_resource type="Script" path="res://engine/level/LevelBase.gd" id="1"]
 [ext_resource type="Script" path="res://engine/level/Tilemap.gd" id="2"]
@@ -8,57 +8,17 @@
 [ext_resource type="Script" path="res://engine/level/LevelItems.gd" id="6"]
 [ext_resource type="Texture2D" uid="uid://boxgb3o5qq2sh" path="res://data/white_square.png" id="7"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hymk6"]
-resource_name = "black"
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_serc8"]
 texture = ExtResource("7")
-texture_region_size = Vector2i(32, 32)
-0:0/next_alternative_id = 8
 0:0/0 = 0
 0:0/0/modulate = Color(0, 0, 0, 1)
-0:0/1 = 1
-0:0/1/flip_h = true
-0:0/1/modulate = Color(0, 0, 0, 1)
-0:0/2 = 2
-0:0/2/flip_v = true
-0:0/2/modulate = Color(0, 0, 0, 1)
-0:0/3 = 3
-0:0/3/flip_h = true
-0:0/3/flip_v = true
-0:0/3/modulate = Color(0, 0, 0, 1)
-0:0/4 = 4
-0:0/4/transpose = true
-0:0/4/modulate = Color(0, 0, 0, 1)
-0:0/5 = 5
-0:0/5/flip_h = true
-0:0/5/transpose = true
-0:0/5/modulate = Color(0, 0, 0, 1)
-0:0/6 = 6
-0:0/6/flip_v = true
-0:0/6/transpose = true
-0:0/6/modulate = Color(0, 0, 0, 1)
-0:0/7 = 7
-0:0/7/flip_h = true
-0:0/7/flip_v = true
-0:0/7/transpose = true
-0:0/7/modulate = Color(0, 0, 0, 1)
+1:0/0 = 0
+1:0/0/modulate = Color(0.384314, 0.384314, 0.384314, 0.737255)
+2:0/0 = 0
+2:0/0/modulate = Color(1, 1, 1, 0)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_akn80"]
-resource_name = "gray"
-texture = ExtResource("7")
-margins = Vector2i(48, 0)
-texture_region_size = Vector2i(32, 32)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iv82j"]
-resource_name = "transparent"
-texture = ExtResource("7")
-margins = Vector2i(0, 48)
-texture_region_size = Vector2i(32, 32)
-
-[sub_resource type="TileSet" id="3"]
-tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_hymk6")
-sources/1 = SubResource("TileSetAtlasSource_akn80")
-sources/2 = SubResource("TileSetAtlasSource_iv82j")
+[sub_resource type="TileSet" id="TileSet_4uajc"]
+sources/1 = SubResource("TileSetAtlasSource_serc8")
 
 [node name="LevelBase" type="Node"]
 script = ExtResource("1")
@@ -76,7 +36,7 @@ script = ExtResource("2")
 
 [node name="FogOfWar" type="TileMap" parent="."]
 z_index = 1
-tile_set = SubResource("3")
+tile_set = SubResource("TileSet_4uajc")
 cell_quadrant_size = 32
 format = 2
 script = ExtResource("3")

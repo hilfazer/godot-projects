@@ -125,7 +125,7 @@ func _createAndInsertUnits( playerUnitData : Array, entranceName : String ):
 
 	var unitNodes : Array = _game._playerManager.getPlayerUnits()
 
-	var notAdded = _levelLoader.insertPlayerUnits( unitNodes, _game.currentLevel, entranceName )
+	var notAdded = LevelLoaderGd.insertPlayerUnits( unitNodes, _game.currentLevel, entranceName )
 	for unit in notAdded:
 		Debug.info(self, "Unit '%s' not added to level" % unit.name)
 
