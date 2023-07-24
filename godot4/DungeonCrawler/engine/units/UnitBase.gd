@@ -6,8 +6,8 @@ const _cellSize := Vector2(32, 32)
 
 @export var _speed: float              = 5.0: set = _setSpeed
 
-var requestedDirection                 := Vector2(): set = setRequestedDirection
-var _currentDirection                  := Vector2(): set = setCurrentDirection
+var requestedDirection                 := Vector2i(): set = setRequestedDirection
+var _currentDirection                  := Vector2i(): set = setCurrentDirection
 @onready var _nameLabel                 :Label = $"Name"
 @onready var _pivot                     :Marker2D
 
@@ -31,7 +31,8 @@ func _physics_process(_delta):
 	if _currentDirection or !requestedDirection:
 		return
 
-	assert( abs(requestedDirection.x) in [0, 1] and abs(requestedDirection.y) in [0, 1] )
+	assert( abs(requestedDirection.x) in [0, 1] )
+	assert( abs(requestedDirection.y) in [0, 1] )
 
 	var movementVector : Vector2 = _makeMovementVector( requestedDirection )
 	assert( movementVector )
