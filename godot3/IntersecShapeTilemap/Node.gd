@@ -9,22 +9,15 @@ func _ready() -> void:
 
 
 func check_intersections():
-	var character_shape_params = _createShapeQueryParameters(kinematic)
 	var space_state := kinematic.get_world_2d().direct_space_state
-
-	var result1 = space_state.intersect_shape(character_shape_params)
-	print('transform: ', character_shape_params.transform.origin)
-	print(result1)
+	var character_shape_params = _createShapeQueryParameters(kinematic)
+	print_collision(character_shape_params, space_state)
 
 	character_shape_params.transform.origin = $'Static/StaticPosition'.global_position
-	var result2 = space_state.intersect_shape(character_shape_params)
-	print('transform: ', character_shape_params.transform.origin)
-	print(result2)
-	
+	print_collision(character_shape_params, space_state)
+
 	character_shape_params.transform.origin = $'TileMap/TilemapPosition'.global_position
-	var result3 = space_state.intersect_shape(character_shape_params)
-	print('transform: ', character_shape_params.transform.origin)
-	print(result3)
+	print_collision(character_shape_params, space_state)
 
 
 static func _createShapeQueryParameters(body) -> Physics2DShapeQueryParameters:
@@ -35,3 +28,12 @@ static func _createShapeQueryParameters(body) -> Physics2DShapeQueryParameters:
 	params.exclude = [body] + body.get_collision_exceptions()
 	params.shape_rid = body.get_node("CollisionShape2D").shape.get_rid()
 	return params
+
+
+func print_collision( state_params : Physics2DShapeQueryParameters, space_state ):
+	var intersect_shape_result = space_state.intersect_shape(state_params)
+	var collide_shape_result = space_state.collide_shape(state_params)
+	print('transform: ', state_params.transform.origin)
+	print(intersect_shape_result)
+	print(collide_shape_result)
+	print('')
