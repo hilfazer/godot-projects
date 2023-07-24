@@ -9,6 +9,8 @@ func _ready() -> void:
 
 
 func check_intersections():
+	await get_tree().create_timer(0.1).timeout
+
 	var space_state := kinematic.get_world_2d().direct_space_state
 	var character_shape_params = _createShapeQueryParameters(kinematic)
 	print_collision(character_shape_params, space_state)
