@@ -32,8 +32,9 @@ func calculateVisibleTiles(fogOfWar : TileMap ) -> PackedByteArray:
 			targetCorner.y += tileSize.y * float(targetCorner.y < center.y)
 
 			if center.distance_to( targetCorner ) < radius:
-				var occlusion = spaceState.intersect_ray( \
-					center, targetCorner, [_excludedRID], VisibilityLayer )
+				var ray_params = PhysicsRayQueryParameters2D.create( \
+						center, targetCorner, VisibilityLayer, [_excludedRID] )
+				var occlusion = spaceState.intersect_ray( ray_params )
 				_visibilityMap[mapIdx] = \
 					int(!occlusion || (occlusion.position - targetCorner).length() < 1)
 			else:

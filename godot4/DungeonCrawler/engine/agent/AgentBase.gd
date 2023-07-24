@@ -61,6 +61,10 @@ func removeUnit( unit : UnitBase ) -> bool:
 	return true
 
 
+func getUnits() -> Array:
+	return _units.container()
+
+
 func setProcessing( process : bool ):
 	set_process_unhandled_input( process )
 	set_physics_process( process )

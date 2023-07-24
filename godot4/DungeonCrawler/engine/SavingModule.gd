@@ -21,12 +21,12 @@ func _init( moduleData, moduleFilename : String, serializer = null ):
 	if serializer:
 		_serializer = serializer
 	else:
-		_serializer.userData[NameModule] = moduleFilename
-		_serializer.userData[NameCurrentLevel] = getStartingLevelName()
+		_serializer.user_data[NameModule] = moduleFilename
+		_serializer.user_data[NameCurrentLevel] = getStartingLevelName()
 
 
 func saveToFile( saveFilename : String ) -> int:
-	assert( _serializer.userData.get(NameModule) == _moduleFilename )
+	assert( _serializer.user_data.get(NameModule) == _moduleFilename )
 
 	var result = _serializer.saveToFile( saveFilename )
 	if result != OK:
@@ -58,7 +58,7 @@ func saveLevel( level : LevelBase, makeCurrent : bool ):
 	_serializer.addAndSerialize( level.name, level )
 
 	if makeCurrent:
-		_serializer.userData[NameCurrentLevel] = level.name
+		_serializer.user_data[NameCurrentLevel] = level.name
 
 
 func loadLevelState( levelName : String, makeCurrent = true ):
@@ -67,18 +67,18 @@ func loadLevelState( levelName : String, makeCurrent = true ):
 		return null
 
 	var state = null
-	if _serializer.hasKey( levelName ):
+	if _serializer.has_key( levelName ):
 		state = _serializer.getSerialized( levelName )
 
 	if makeCurrent:
-		_serializer.userData[NameCurrentLevel] = levelName
+		_serializer.user_data[NameCurrentLevel] = levelName
 
 	return state
 
 
 func savePlayerData( playerAgent : PlayerAgentGd ):
 	var playerData = _serializer.serialize( playerAgent )
-	_serializer.userData[NamePlayerData] = playerData
+	_serializer.user_data[NamePlayerData] = playerData
 
 
 func moduleMatches( saveFilename : String ) -> bool:
@@ -87,12 +87,12 @@ func moduleMatches( saveFilename : String ) -> bool:
 
 
 func getCurrentLevelName() -> String:
-	assert( _serializer.userData.get( NameCurrentLevel ) )
-	return _serializer.userData.get( NameCurrentLevel )
+	assert( _serializer.user_data.get( NameCurrentLevel ) )
+	return _serializer.user_data.get( NameCurrentLevel )
 
 
 func getPlayerData():
-	return _serializer.userData.get( NamePlayerData )
+	return _serializer.user_data.get( NamePlayerData )
 
 
 static func extractModuleFilename( saveFilename : String ) -> String:
@@ -115,7 +115,7 @@ static func createFromSaveFile( saveFilename : String ):
 		Debug.warn( null,"SavingModule: could not create module from file %s" % saveFilename)
 		return null
 
-	var moduleFilename = serializer.userData.get(NameModule)
+	var moduleFilename = serializer.user_data.get(NameModule)
 	var moduleNode = null
 
 	var dataResource = load(moduleFilename)

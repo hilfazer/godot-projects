@@ -199,7 +199,7 @@ func _travel( entrance : Area2D ):
 
 	# TODO: replace it with _changeState( State.Running ) that unpauses the game
 	# but first remove that from GameScene.loadLevel()
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	_playerAgent.set_physics_process(true)
 
 

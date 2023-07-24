@@ -206,7 +206,7 @@ func _unmakeAPlayerUnit( unit : UnitBase ):
 
 
 func _tryTravel():
-	await get_tree().idle_frame
+	await get_tree().process_frame
 
 	var entrance : Area2D = _currentLevel.findEntranceWithAllUnits( _unitsInTree )
 	if entrance != null:

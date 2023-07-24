@@ -32,7 +32,7 @@ func createFromModule( module : SavingModuleGd, unitsCreationData : Array ) -> i
 
 
 func createFromFile( filePath : String ):
-	await get_tree().idle_frame
+	await get_tree().process_frame
 
 	var module : SavingModuleGd = _game._module
 	if not module:
@@ -68,7 +68,7 @@ func loadLevel( levelName : String, withState := true ) -> int:
 
 
 func _create( unitsCreationData : Array ) -> int:
-	await get_tree().idle_frame
+	await get_tree().process_frame
 
 	assert( _game._module )
 	assert( get_tree().paused )
@@ -86,7 +86,7 @@ func _create( unitsCreationData : Array ) -> int:
 
 
 func _loadLevel( levelName : String, levelState = null ):
-	await get_tree().idle_frame
+	await get_tree().process_frame
 
 	var filePath = _game._module.getLevelFilename( levelName )
 	if filePath.is_empty():
