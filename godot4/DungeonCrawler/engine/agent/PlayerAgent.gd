@@ -95,7 +95,7 @@ func selectUnit( unit : UnitBase ):
 		return FAILED
 
 	for child in unit.get_children():
-		if child.filename != null and child.filename == SelectionComponentScn.resource_path:
+		if child.scene_file_path != null and child.scene_file_path == SelectionComponentScn.resource_path:
 			child.get_node("Perimeter").visible = true
 			_selectedUnits[ unit ] = child
 			return OK
@@ -121,7 +121,7 @@ func _selectUnitsInRect( selectionRect : Rect2 ):
 	for unit in _units.container():
 		var unitRectShape : RectangleShape2D
 		for child in unit.get_children():
-			if child.filename != null and child.filename == SelectionComponentScn.resource_path:
+			if child.scene_file_path != null and child.scene_file_path == SelectionComponentScn.resource_path:
 				unitRectShape = child.get_node("CollisionShape2D").shape
 
 		assert( unitRectShape != null )
@@ -195,8 +195,8 @@ func _unmakeAPlayerUnit( unit : UnitBase ):
 		if child is FogVisionBaseGd:
 			child.queue_free()
 			unit.remove_child( child )
-		elif child.filename != null \
-				and child.filename == SelectionComponentScn.resource_path:
+		elif child.scene_file_path != null \
+				and child.scene_file_path == SelectionComponentScn.resource_path:
 			child.queue_free()
 			unit.remove_child( child )
 
