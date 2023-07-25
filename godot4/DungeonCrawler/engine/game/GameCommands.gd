@@ -7,6 +7,7 @@ var _playerAgent : PlayerAgentGd
 
 
 func _ready():
+	super._ready()
 	assert( get_parent() is GameSceneGd )
 	await get_tree().process_frame
 	_playerAgent = $"../PlayerManager/PlayerAgent"

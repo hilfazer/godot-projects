@@ -14,7 +14,6 @@ signal travelRequested(entrance)
 
 
 func _ready():
-# warning-ignore:return_value_discarded
 	$"SelectionBox".connect("areaSelected", Callable(self, "_selectUnitsInRect"))
 	Console.connect("toggled", Callable(self, "_onConsoleVisibilityChanged"))
 

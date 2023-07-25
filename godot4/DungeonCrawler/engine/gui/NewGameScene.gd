@@ -1,4 +1,3 @@
-
 extends Control
 
 const SavingModuleGd         = preload("res://engine/SavingModule.gd")

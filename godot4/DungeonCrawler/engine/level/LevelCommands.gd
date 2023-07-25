@@ -4,6 +4,7 @@ extends "res://debug/CommandHolder.gd"
 
 
 func _ready():
+	super._ready()
 	assert( get_parent() is LevelBase )
 
 

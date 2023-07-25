@@ -1,3 +1,4 @@
+# TODO move to DebugWindow.gd
 extends ItemList
 
 var _variables : Dictionary
