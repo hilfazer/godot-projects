@@ -4,7 +4,7 @@ class_name UnitBase
 
 const _cellSize := Vector2(32, 32)
 
-@export var _speed: float              = 5.0: set = _setSpeed
+@export var _movement_speed            : float = 5.0
 
 var requestedDirection                 := Vector2i(): set = setRequestedDirection
 var _currentDirection                  := Vector2i(): set = setCurrentDirection
@@ -14,7 +14,7 @@ var _currentDirection                  := Vector2i(): set = setCurrentDirection
 
 signal predelete()
 signal changedPosition()
-signal moved( direction ) # Vector2
+signal moved( direction ) # Vector2i
 signal clicked()
 
 
@@ -47,7 +47,9 @@ func _physics_process(_delta):
 
 	var tween = create_tween()
 	# TODO correct duration
-	tween.tween_property( _pivot, ^'position', Vector2(0, 0), movementVector.length() / _cellSize.x )
+	var duration = movementVector.length() / _cellSize.x / _movement_speed
+	_pivot.position = -movementVector
+	tween.tween_property( _pivot, ^'position', Vector2(0, 0), duration )
 	tween.set_trans( Tween.TRANS_LINEAR ).set_ease( Tween.EASE_IN )
 	tween.finished.connect(Callable(self, '_on_movement_tween_finished'))
 
@@ -119,7 +121,3 @@ func _makeMovementVector( direction : Vector2 ) -> Vector2:
 	var y_diff = y_target - position.y
 
 	return Vector2(x_diff, y_diff)
-
-
-func _setSpeed( speed : float ) -> void:
-	_speed = speed
