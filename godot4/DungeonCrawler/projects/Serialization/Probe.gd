@@ -17,7 +17,7 @@ class Probe extends RefCounted:
 
 
 	func _init( node : Node ):
-		if node.owner == null and node.filename.is_empty():
+		if node.owner == null and node.scene_file_path.is_empty():
 			_add_not_instantiable( node )
 
 		if node.has_method(SerializerGd.SERIALIZE) \

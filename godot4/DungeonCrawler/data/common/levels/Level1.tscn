@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://clkwc86dk4q6j" path="res://engine/level/LevelBase.tscn" id="1"]
 [ext_resource type="TileSet" path="res://data/common/levels/ground.tres" id="2"]
-[ext_resource type="TileSet" path="res://data/common/levels/walls.tres" id="3"]
+[ext_resource type="TileSet" uid="uid://nml5ri21p64e" path="res://data/common/levels/walls.tres" id="3"]
 [ext_resource type="PackedScene" path="res://data/common/units/Ghoul.tscn" id="4"]
 [ext_resource type="Script" path="res://engine/agent/EnemyAgent.gd" id="5"]
-[ext_resource type="PackedScene" path="res://engine/level/Entrance.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://cqp4qgv44437w" path="res://engine/level/Entrance.tscn" id="6"]
 [ext_resource type="PackedScene" path="res://data/Module1/items/HelmetBarbute.tscn" id="7"]
 [ext_resource type="PackedScene" path="res://data/common/items/Helmet.tscn" id="8"]
 

@@ -19,7 +19,7 @@ config/version="0.1.0"
 [autoload]
 
 SceneSwitcher="*res://projects/SceneSwitcher/SceneSwitcher.tscn"
-Console="*res://debug/console_placeholder.gd"
+Console="*res://addons/quentincaffeino/console/src/Console.tscn"
 Debug="*res://debug/Debug.tscn"
 Connector="res://engine/Connector.gd"
 
@@ -37,7 +37,7 @@ exclude_addons_quick_open=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/quentincaffeino/console/plugin.cfg")
 
 [global]
 

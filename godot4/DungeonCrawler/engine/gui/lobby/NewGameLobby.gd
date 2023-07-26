@@ -32,11 +32,11 @@ func clearUnits():
 	emit_signal("unitNumberChanged", _unitsCreationData.size())
 
 
-func addUnit( creationDatum : UnitCreationDataGd ):
+func addUnit( creation_data : UnitCreationDataGd ):
 	if _unitsCreationData.size() >= _maxUnits:
 		return false
 	else:
-		_unitsCreationData.append( creationDatum )
+		_unitsCreationData.append( creation_data )
 		emit_signal("unitNumberChanged", _unitsCreationData.size())
 		return addUnitLine( _unitsCreationData.size() - 1 )
 
@@ -51,8 +51,8 @@ func addUnitLine( unitIdx ):
 	return true
 
 
-func createCharacter( creationDatum : UnitCreationDataGd ):
-	addUnit( creationDatum )
+func createCharacter( creation_data : UnitCreationDataGd ):
+	addUnit( creation_data )
 
 
 func removeUnit( unitIdx ):

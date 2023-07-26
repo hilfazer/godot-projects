@@ -19,7 +19,7 @@ func _init():
 
 func _ready():
 # warning-ignore:return_value_discarded
-	SceneSwitcher.connect("scene_set_as_current", Callable(self, "_connectNewCurrentScene"))
+	SceneSwitcher.scene_set_as_current.connect(Callable(self, "_connectNewCurrentScene"))
 
 
 func _connectNewCurrentScene():
@@ -40,7 +40,7 @@ func _connectNewCurrentScene():
 # warning-ignore:return_value_discarded
 		_game.connect("gameFinished", Callable(self, "onGameEnded").bind(), CONNECT_ONE_SHOT)
 # warning-ignore:return_value_discarded
-		_game.connect("nonmatchingSaveFileSelected", Callable(self, "_makeGameFromFile").bind(), CONNECT_ONE_SHOT)
+		_game.connect("nonmatching_save_file_selected", Callable(self, "_makeGameFromFile").bind(), CONNECT_ONE_SHOT)
 
 
 func _toMainMenu():

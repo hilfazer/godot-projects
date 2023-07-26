@@ -26,7 +26,7 @@ func loadLevel( levelFilename : String, levelParent : Node ) -> int:
 
 
 func _loadLevel( levelFilename : String, levelParent : Node ) -> int:
-	await _game.get_tree().idle_frame
+	await _game.get_tree().process_frame
 	var levelResource = load( levelFilename )
 	if not levelResource:
 		Debug.error( self, "Could not load level file: " + levelFilename )
@@ -61,7 +61,7 @@ func unloadLevel() -> int:
 
 
 func _unloadLevel( level : LevelBase ) -> int:
-	await _game.get_tree().idle_frame
+	await _game.get_tree().process_frame
 	var levelUnits = level.getAllUnits()
 	for playerUnit in _game.getPlayerUnits():
 		if playerUnit in levelUnits:
@@ -70,7 +70,7 @@ func _unloadLevel( level : LevelBase ) -> int:
 
 	level.queue_free()
 	await level.predelete
-	await _game.get_tree().idle_frame
+	await _game.get_tree().process_frame
 	assert( not is_instance_valid( level ) )
 	_game.setCurrentLevel( null )
 	return OK

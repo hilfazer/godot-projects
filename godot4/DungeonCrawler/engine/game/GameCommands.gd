@@ -7,8 +7,9 @@ var _playerAgent : PlayerAgentGd
 
 
 func _ready():
+	super._ready()
 	assert( get_parent() is GameSceneGd )
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	_playerAgent = $"../PlayerManager/PlayerAgent"
 	assert( _playerAgent )
 
@@ -80,7 +81,7 @@ func loadLevel( levelName : String ):
 
 	var game = get_parent()
 	if game._module == null:
-		await get_tree().idle_frame
+		await get_tree().process_frame
 		return
 
 	var result = await game.loadLevel( levelName )

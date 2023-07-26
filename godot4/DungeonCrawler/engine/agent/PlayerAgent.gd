@@ -10,11 +10,10 @@ var _currentLevel : LevelBase: set = setCurrentLevel
 var _selectedUnits := {}
 var _pressedDirections :PackedByteArray = [0, 0, 0, 0]
 
-signal travelRequested(entrance)
+signal travel_requested(entrance)
 
 
 func _ready():
-# warning-ignore:return_value_discarded
 	$"SelectionBox".connect("areaSelected", Callable(self, "_selectUnitsInRect"))
 	Console.connect("toggled", Callable(self, "_onConsoleVisibilityChanged"))
 
@@ -95,7 +94,7 @@ func selectUnit( unit : UnitBase ):
 		return FAILED
 
 	for child in unit.get_children():
-		if child.filename != null and child.filename == SelectionComponentScn.resource_path:
+		if child.scene_file_path != null and child.scene_file_path == SelectionComponentScn.resource_path:
 			child.get_node("Perimeter").visible = true
 			_selectedUnits[ unit ] = child
 			return OK
@@ -121,7 +120,7 @@ func _selectUnitsInRect( selectionRect : Rect2 ):
 	for unit in _units.container():
 		var unitRectShape : RectangleShape2D
 		for child in unit.get_children():
-			if child.filename != null and child.filename == SelectionComponentScn.resource_path:
+			if child.scene_file_path != null and child.scene_file_path == SelectionComponentScn.resource_path:
 				unitRectShape = child.get_node("CollisionShape2D").shape
 
 		assert( unitRectShape != null )
@@ -195,8 +194,8 @@ func _unmakeAPlayerUnit( unit : UnitBase ):
 		if child is FogVisionBaseGd:
 			child.queue_free()
 			unit.remove_child( child )
-		elif child.filename != null \
-				and child.filename == SelectionComponentScn.resource_path:
+		elif child.scene_file_path != null \
+				and child.scene_file_path == SelectionComponentScn.resource_path:
 			child.queue_free()
 			unit.remove_child( child )
 
@@ -206,11 +205,11 @@ func _unmakeAPlayerUnit( unit : UnitBase ):
 
 
 func _tryTravel():
-	await get_tree().idle_frame
+	await get_tree().process_frame
 
 	var entrance : Area2D = _currentLevel.findEntranceWithAllUnits( _unitsInTree )
 	if entrance != null:
-		emit_signal("travelRequested", entrance)
+		travel_requested.emit(entrance)
 
 
 func _onConsoleVisibilityChanged( visible :bool ):

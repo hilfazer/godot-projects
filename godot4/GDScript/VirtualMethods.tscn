@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://df4y5s0yuwshb"]
+
+[ext_resource type="Script" path="res://virtual_methods.gd" id="1_yqhkx"]
+
+[node name="VirtualMethods" type="Node2D"]
+script = ExtResource("1_yqhkx")

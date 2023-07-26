@@ -5,6 +5,7 @@ const DebugGd                = preload("res://debug/Debug.gd")
 var _debug : DebugGd
 
 func _ready():
+	super._ready()
 	_debug = get_parent()
 
 

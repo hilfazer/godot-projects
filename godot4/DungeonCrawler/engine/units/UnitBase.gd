@@ -4,17 +4,17 @@ class_name UnitBase
 
 const _cellSize := Vector2(32, 32)
 
-@export var _speed: float              = 5.0: set = _setSpeed
+@export var _movement_speed            : float = 5.0
 
-var requestedDirection                 := Vector2(): set = setRequestedDirection
-var _currentDirection                  := Vector2(): set = setCurrentDirection
+var requestedDirection                 := Vector2i(): set = setRequestedDirection
+var _currentDirection                  := Vector2i(): set = setCurrentDirection
 @onready var _nameLabel                 :Label = $"Name"
 @onready var _pivot                     :Marker2D
 
 
 signal predelete()
 signal changedPosition()
-signal moved( direction ) # Vector2
+signal moved( direction ) # Vector2i
 signal clicked()
 
 
@@ -31,7 +31,8 @@ func _physics_process(_delta):
 	if _currentDirection or !requestedDirection:
 		return
 
-	assert( abs(requestedDirection.x) in [0, 1] and abs(requestedDirection.y) in [0, 1] )
+	assert( abs(requestedDirection.x) in [0, 1] )
+	assert( abs(requestedDirection.y) in [0, 1] )
 
 	var movementVector : Vector2 = _makeMovementVector( requestedDirection )
 	assert( movementVector )
@@ -46,12 +47,15 @@ func _physics_process(_delta):
 
 	var tween = create_tween()
 	# TODO correct duration
-	tween.tween_property( _pivot, ^'position', Vector2(0, 0), movementVector.length() / _cellSize.x )
+	var duration = movementVector.length() / _cellSize.x / _movement_speed
+	_pivot.position = -movementVector
+	tween.tween_property( _pivot, ^'position', Vector2(0, 0), duration )
 	tween.set_trans( Tween.TRANS_LINEAR ).set_ease( Tween.EASE_IN )
+	tween.finished.connect(Callable(self, '_on_movement_tween_finished'))
 
 
-func _onTweenFinished(object : Object, key : NodePath):
-	if _currentDirection && object == _pivot && key == ^":position":
+func _on_movement_tween_finished():
+	if _currentDirection:
 		emit_signal("moved", _currentDirection)
 		setCurrentDirection(Vector2())
 
@@ -117,7 +121,3 @@ func _makeMovementVector( direction : Vector2 ) -> Vector2:
 	var y_diff = y_target - position.y
 
 	return Vector2(x_diff, y_diff)
-
-
-func _setSpeed( speed : float ) -> void:
-	_speed = speed
