@@ -111,7 +111,7 @@ static func extractModuleFilename( saveFilename : String ) -> String:
 
 static func createFromSaveFile( saveFilename : String ):
 	var serializer : SerializerGd = SerializerGd.new()
-	var loadResult = serializer.loadFromFile( saveFilename )
+	var loadResult = serializer.load_from_file( saveFilename )
 	if loadResult != OK:
 		Debug.warn( null,"SavingModule: could not create module from file %s" % saveFilename)
 		return null
