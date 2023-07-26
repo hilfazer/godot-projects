@@ -16,7 +16,7 @@ var _fileLogger : FileLoggerGd
 @export var performPrints := false
 
 
-signal variableUpdated( varName, value )
+signal variables_updated()
 
 
 func _init():
@@ -92,16 +92,16 @@ func updateVariable( varName : String, value, addValue := false ):
 		_variables[varName] += value
 	else:
 		_variables[varName] = value
-	emit_signal( "variableUpdated", varName, value )
+	variables_updated.emit()
 
 
 func _createDebugWindow():
 	assert( _debugWindow == null )
 	var debugWindow = DebugWindowScn.instantiate()
-# warning-ignore:return_value_discarded
-	connect("variableUpdated", Callable(debugWindow.get_node("Variables"), "updateVariable"))
-	debugWindow.get_node("Variables").setVariables( _variables )
+
+	variables_updated.connect( Callable(debugWindow, "refresh_variable_view") )
 	$"/root".add_child( debugWindow )
+	debugWindow.setVariables( _variables )
 	_debugWindow = debugWindow
 
 

@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cllrsko0ts4oj"]
+[gd_scene load_steps=3 format=3 uid="uid://cllrsko0ts4oj"]
 
 [ext_resource type="Script" path="res://debug/DebugWindow.gd" id="1"]
-[ext_resource type="Script" path="res://debug/Variables.gd" id="2"]
 [ext_resource type="Script" path="res://debug/FpsLabel.gd" id="3"]
 
 [node name="DebugWindow" type="CanvasLayer"]
@@ -20,7 +19,6 @@ offset_right = -8.0
 offset_bottom = -8.0
 max_columns = 2
 same_column_width = true
-script = ExtResource("2")
 
 [node name="Buttons" type="VBoxContainer" parent="."]
 anchors_preset = -1
