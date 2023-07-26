@@ -10,7 +10,7 @@ var _currentLevel : LevelBase: set = setCurrentLevel
 var _selectedUnits := {}
 var _pressedDirections :PackedByteArray = [0, 0, 0, 0]
 
-signal travelRequested(entrance)
+signal travel_requested(entrance)
 
 
 func _ready():
@@ -209,7 +209,7 @@ func _tryTravel():
 
 	var entrance : Area2D = _currentLevel.findEntranceWithAllUnits( _unitsInTree )
 	if entrance != null:
-		emit_signal("travelRequested", entrance)
+		travel_requested.emit(entrance)
 
 
 func _onConsoleVisibilityChanged( visible :bool ):

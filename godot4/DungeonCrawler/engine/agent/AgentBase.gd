@@ -7,12 +7,12 @@ var _units := SetWrapper.new()
 var _unitsInTree := []
 
 
-signal unitsChanged( units )
+signal units_changed( units )
 
 
 func _init():
 # warning-ignore:return_value_discarded
-	_units.connect("changed", Callable(self, "_updateActiveUnits"))
+	_units.changed.connect( Callable(self, "_update_active_units") )
 	add_to_group( Globals.Groups.Agents )
 
 
@@ -37,11 +37,11 @@ func addUnit( unit : UnitBase ) -> int:
 
 	_units.add( [unit] )
 # warning-ignore:return_value_discarded
-	unit.connect("tree_entered", Callable(self, "_setActive").bind(unit))
+	unit.tree_entered.connect(Callable(self, "_setActive").bind(unit))
 # warning-ignore:return_value_discarded
-	unit.connect("tree_exited", Callable(self, "_setInactive").bind(unit))
+	unit.tree_exited.connect(Callable(self, "_setInactive").bind(unit))
 # warning-ignore:return_value_discarded
-	unit.connect("predelete", Callable(self, "removeUnit").bind(unit), CONNECT_ONE_SHOT)
+	unit.predelete.connect(Callable(self, "removeUnit").bind(unit), CONNECT_ONE_SHOT)
 	if unit.is_inside_tree():
 		_setActive( unit )
 
@@ -55,8 +55,8 @@ func removeUnit( unit : UnitBase ) -> bool:
 		return false
 
 	_units.remove( [unit] )
-	unit.disconnect("tree_entered", Callable(self, "_setActive"))
-	unit.disconnect("tree_exited", Callable(self, "_setInactive"))
+	unit.tree_entered.disconnect(Callable(self, "_setActive"))
+	unit.tree_exited.disconnect(Callable(self, "_setInactive"))
 	unit.set_meta( AgentMetaName, null )
 	return true
 
@@ -79,12 +79,12 @@ func _setInactive( unit : UnitBase ):
 	_unitsInTree.erase( _unitsInTree.find( unit ) )
 
 
-func _updateActiveUnits( units : Array ):
+func _update_active_units( units : Array ):
 	var newUnitsInTree := []
 	for activeUnit in _unitsInTree:
 		if units.has( activeUnit ):
 			newUnitsInTree.append( activeUnit )
 
 	_unitsInTree = newUnitsInTree
-	emit_signal( "unitsChanged", _units.container() )
+	units_changed.emit( _units.container() )
 

@@ -21,14 +21,14 @@ var _pause := true: set = setPause
 signal gameStarted()
 signal gameFinished()
 signal currentLevelChanged( level )
-signal nonmatchingSaveFileSelected( saveFile )
+signal nonmatching_save_file_selected( saveFile )
 
 
 func _ready():
 	_creator.initialize( self, self )
 
 	_playerAgent.initialize( currentLevel )
-	_playerAgent.connect("travelRequested", Callable(self, "_travel"))
+	_playerAgent.travel_requested.connect(Callable(self, "_travel"))
 
 	var params = get_meta(PARAMS_META)
 	set_meta(PARAMS_META, null)
@@ -106,7 +106,7 @@ func loadGame( filepath : String ):
 
 	if not _module.moduleMatches(filepath):
 		_changeState(State.Finished)
-		emit_signal("nonmatchingSaveFileSelected", filepath)
+		nonmatching_save_file_selected.emit(filepath)
 		return
 
 	var previousState = _state
