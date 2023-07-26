@@ -3,7 +3,7 @@ extends Panel
 const UnitCreationDataGd    = preload("res://engine/units/UnitCreationData.gd")
 const ModuleGd               = preload("res://engine/Module.gd")
 
-signal madeCharacter( creationDatum )
+signal madeCharacter( creation_data )
 
 
 var _module : ModuleGd
@@ -31,10 +31,10 @@ func makeCharacter() -> UnitCreationDataGd:
 	var unitTexture = unitNode__.getIcon()
 	unitNode__.free()
 
-	var creationDatum := UnitCreationDataGd.new(
+	var creation_data := UnitCreationDataGd.new(
 		unitName,
 		unitTexture
 	)
 
-	emit_signal( "madeCharacter", creationDatum )
-	return creationDatum
+	emit_signal( "madeCharacter", creation_data )
+	return creation_data

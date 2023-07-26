@@ -1,4 +1,5 @@
 extends "./Module.gd"
+#TODO remove SavingModule, make a new class that doesn't inherit Module.gd
 
 const SerializerGd           = preload("res://projects/Serialization/hierarchical_serializer.gd")
 const ProbeGd                = preload("res://projects/Serialization/Probe.gd")
