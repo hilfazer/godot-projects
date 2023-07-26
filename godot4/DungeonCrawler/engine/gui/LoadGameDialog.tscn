@@ -1,17 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://dlqbsn1hmhe40"]
 
-[ext_resource path="res://engine/gui/SerializationDialog.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://engine/gui/SerializationDialog.gd" id="1"]
 
 [node name="LoadGameDialog" type="FileDialog"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -339.5
-offset_top = -246.0
-offset_right = 339.5
-offset_bottom = 246.0
-custom_minimum_size = Vector2( 150, 52.5 )
-window_title = "Open a File"
-mode = 0
-script = ExtResource( 1 )
+title = "Open a File"
+size = Vector2i(700, 500)
+ok_button_text = "Open"
+file_mode = 0
+filters = PackedStringArray("*.tres")
+script = ExtResource("1")
