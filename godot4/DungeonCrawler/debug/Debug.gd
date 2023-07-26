@@ -5,7 +5,7 @@ const LoggerBaseGd           = preload("res://debug/LoggerBase.gd")
 const ConsoleLoggerGd        = preload("res://debug/ConsoleLogger.gd")
 const FileLoggerGd           = preload("res://debug/FileLogger.gd")
 
-const LogFilename = "res://ignored/logfile.log"
+const LogFilename = "res://logfile.log"
 
 var _debugWindow : CanvasLayer
 var _variables := {}
