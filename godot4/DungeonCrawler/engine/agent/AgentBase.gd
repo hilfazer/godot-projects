@@ -11,7 +11,6 @@ signal units_changed( units )
 
 
 func _init():
-# warning-ignore:return_value_discarded
 	_units.changed.connect( Callable(self, "_update_active_units") )
 	add_to_group( Globals.Groups.Agents )
 

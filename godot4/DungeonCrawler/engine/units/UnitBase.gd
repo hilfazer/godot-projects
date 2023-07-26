@@ -49,10 +49,11 @@ func _physics_process(_delta):
 	# TODO correct duration
 	tween.tween_property( _pivot, ^'position', Vector2(0, 0), movementVector.length() / _cellSize.x )
 	tween.set_trans( Tween.TRANS_LINEAR ).set_ease( Tween.EASE_IN )
+	tween.finished.connect(Callable(self, '_on_movement_tween_finished'))
 
 
-func _onTweenFinished(object : Object, key : NodePath):
-	if _currentDirection && object == _pivot && key == ^":position":
+func _on_movement_tween_finished():
+	if _currentDirection:
 		emit_signal("moved", _currentDirection)
 		setCurrentDirection(Vector2())
 
