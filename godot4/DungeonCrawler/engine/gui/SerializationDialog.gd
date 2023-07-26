@@ -1,8 +1,7 @@
 extends FileDialog
 
-#TODO saves in usr:// directory
 const SaveGameDirectory = "res://save"
 
 
-func _draw():
+func _ready() -> void:
 	set_current_dir(SaveGameDirectory)

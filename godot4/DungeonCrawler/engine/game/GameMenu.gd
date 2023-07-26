@@ -1,13 +1,15 @@
 extends Control
 
-const LoadGameDialogScn      = preload("res://engine/gui/LoadGameDialog.tscn")
-const SaveGameDialogScn      = preload("res://engine/gui/SaveGameDialog.tscn")
+const SerializationDialogGd  = preload("res://engine/gui/SerializationDialog.gd")
+
+@onready var save_dialog : SerializationDialogGd = $'SaveGameDialog'
+@onready var load_dialog : SerializationDialogGd = $'LoadGameDialog'
 
 
-signal resumeSelected()
-signal saveSelected( filepath )
-signal loadSelected( filepath )
-signal quitSelected()
+signal resume_selected()
+signal save_selected( filepath )
+signal load_selected( filepath )
+signal quit_selected()
 
 
 func _notification(what):
@@ -16,35 +18,24 @@ func _notification(what):
 
 
 func onResumePressed():
-	emit_signal("resumeSelected")
+	resume_selected.emit()
 
 
 func onQuitPressed():
-	emit_signal("quitSelected")
+	quit_selected.emit()
 
 
 func onSavePressed():
-	var dialog = SaveGameDialogScn.instantiate()
-	assert( not has_node( NodePath( dialog.get_name() ) ) )
-	dialog.file_selected.connect(Callable(self, "_onSaveFileSelected"))
-	self.add_child(dialog)
-	dialog.popup()
-	dialog.visibility_changed.connect(Callable(dialog, "queue_free"))
+	save_dialog.popup()
 
 
 func onLoadPressed():
-	var dialog = LoadGameDialogScn.instantiate()
-	var dialog_name := NodePath( dialog.get_name() )
-	assert( not has_node( dialog_name ) )
-	dialog.file_selected.connect(Callable(self, "_onLoadFileSelected"))
-	self.add_child(dialog)
-	dialog.popup()
-	dialog.visibility_changed.connect(Callable(dialog, "queue_free") )
+	load_dialog.popup()
 
 
-func _onSaveFileSelected( filePath ):
-	emit_signal( "saveSelected", filePath )
+func _on_save_file_selected( filePath ):
+	save_selected.emit( filePath )
 
 
-func _onLoadFileSelected( filePath ):
-	emit_signal( "loadSelected", filePath )
+func _on_load_file_selected( filePath ):
+	load_selected.emit( filePath )

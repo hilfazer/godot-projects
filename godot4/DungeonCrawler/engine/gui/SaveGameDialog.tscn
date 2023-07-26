@@ -3,7 +3,9 @@
 [ext_resource type="Script" path="res://engine/gui/SerializationDialog.gd" id="1"]
 
 [node name="SaveGameDialog" type="FileDialog"]
+title = "Create save file"
 size = Vector2i(700, 500)
-dialog_text = "Create save file"
+visible = true
+mode_overrides_title = false
 filters = PackedStringArray("*.tres")
 script = ExtResource("1")

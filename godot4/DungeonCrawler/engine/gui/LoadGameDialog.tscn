@@ -3,9 +3,11 @@
 [ext_resource type="Script" path="res://engine/gui/SerializationDialog.gd" id="1"]
 
 [node name="LoadGameDialog" type="FileDialog"]
-title = "Open a File"
+title = "Load save file"
 size = Vector2i(700, 500)
+visible = true
 ok_button_text = "Open"
+mode_overrides_title = false
 file_mode = 0
 filters = PackedStringArray("*.tres")
 script = ExtResource("1")

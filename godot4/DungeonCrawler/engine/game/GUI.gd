@@ -26,10 +26,10 @@ func createGameMenu():
 	self.add_child( gameMenu )
 	gameMenu.connect("visibility_changed", Callable(_game, "setPause").bind(gameMenu.visible))
 	gameMenu.connect("tree_exiting", Callable(_game, "setPause").bind(false))
-	gameMenu.connect("resumeSelected", Callable(self, "_resume"))
-	gameMenu.connect("saveSelected", Callable(self, "_saveGame"))
-	gameMenu.connect("loadSelected", Callable(self, "_loadGame"))
-	gameMenu.connect("quitSelected", Callable(self, "_quit"))
+	gameMenu.connect("resume_selected", Callable(self, "_resume"))
+	gameMenu.connect("save_selected", Callable(self, "_saveGame"))
+	gameMenu.connect("load_selected", Callable(self, "_loadGame"))
+	gameMenu.connect("quit_selected", Callable(self, "_quit"))
 	_gameMenu = gameMenu
 
 
