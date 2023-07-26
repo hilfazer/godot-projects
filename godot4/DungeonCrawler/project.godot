@@ -37,7 +37,7 @@ exclude_addons_quick_open=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/quentincaffeino/console/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/quentincaffeino/console/plugin.cfg")
 
 [global]
 
