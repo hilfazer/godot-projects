@@ -34,7 +34,8 @@ func onSavePressed():
 
 func onLoadPressed():
 	var dialog = LoadGameDialogScn.instantiate()
-	assert( not has_node( NodePath( dialog.get_name() ) ) )
+	var dialog_name := NodePath( dialog.get_name() )
+	assert( not has_node( dialog_name ) )
 	dialog.connect("file_selected", Callable(self, "_onLoadFileSelected"))
 	self.add_child(dialog)
 	dialog.popup()

@@ -29,7 +29,7 @@ func _init( moduleData, moduleFilename : String, serializer = null ):
 func saveToFile( saveFilename : String ) -> int:
 	assert( _serializer.user_data.get(NameModule) == _moduleFilename )
 
-	var result = _serializer.saveToFile( saveFilename )
+	var result = _serializer.save_to_file( saveFilename )
 	if result != OK:
 		Debug.warn( self, "SavingModule: could not save to file %s" % saveFilename )
 
@@ -39,7 +39,7 @@ func saveToFile( saveFilename : String ) -> int:
 func loadFromFile( saveFilename : String ):
 	assert( moduleMatches( saveFilename ) )
 
-	_serializer.loadFromFile( saveFilename )
+	_serializer.load_from_file( saveFilename )
 
 
 func saveLevel( level : LevelBase, makeCurrent : bool ):
@@ -49,14 +49,14 @@ func saveLevel( level : LevelBase, makeCurrent : bool ):
 
 	if OS.has_feature("debug"):
 		var probe : ProbeGd.Probe = ProbeGd.scan( level )
-		for node in probe.nodesNotInstantiable:
+		for node in probe.nodes_not_instantiable:
 			Debug.warn( self, "noninstantiable node: %s" %
 				[ node.get_script().resource_path ] )
-		for node in probe.nodesNoMatchingDeserialize:
+		for node in probe.nodes_no_matching_deserialize:
 			Debug.warn( self, "node has no deserialize(): %s" %
 				[ node.get_script().resource_path ] )
 
-	_serializer.addAndSerialize( level.name, level )
+	_serializer.add_and_serialize( level.name, level )
 
 	if makeCurrent:
 		_serializer.user_data[NameCurrentLevel] = level.name
@@ -69,7 +69,7 @@ func loadLevelState( levelName : String, makeCurrent = true ):
 
 	var state = null
 	if _serializer.has_key( levelName ):
-		state = _serializer.getSerialized( levelName )
+		state = _serializer.get_serialized( levelName )
 
 	if makeCurrent:
 		_serializer.user_data[NameCurrentLevel] = levelName
