@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://dldf87q3h4j3y"]
+
+[ext_resource type="Script" path="res://scene_tree_order.gd" id="1_cs2ab"]
+
+[sub_resource type="GDScript" id="GDScript_55clb"]
+script/source = "extends Node
+
+
+func _enter_tree() -> void:
+	print(\"Red enter tree\")
+	
+	
+func _ready():
+	print(\"Red ready\")
+"
+
+[sub_resource type="GDScript" id="GDScript_102c1"]
+script/source = "extends Node
+
+
+func _enter_tree() -> void:
+	print(\"Blue enter tree\")
+
+
+func _ready():
+	print(\"Blue ready\")
+"
+
+[node name="scene_tree_order" type="Node2D"]
+script = ExtResource("1_cs2ab")
+
+[node name="Red" type="Node" parent="."]
+script = SubResource("GDScript_55clb")
+
+[node name="Blue" type="Node" parent="."]
+script = SubResource("GDScript_102c1")

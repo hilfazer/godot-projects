@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MyResource" load_steps=2 format=3 uid="uid://cv1cxtg1gp65u"]
+
+[ext_resource type="Script" path="res://my_resource.gd" id="1_sgcit"]
+
+[resource]
+script = ExtResource("1_sgcit")
+q = 8
+f = 3.0
+ar = [3, 4, 5, 6]
+s = "ds"
