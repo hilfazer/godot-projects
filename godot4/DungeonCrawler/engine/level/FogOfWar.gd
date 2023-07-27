@@ -1,4 +1,5 @@
 extends TileMap
+class_name FogOfWar
 
 const FogVisionBaseGd        = preload("./FogVisionBase.gd")
 
@@ -165,3 +166,16 @@ static func fogVisionFromNode( node : Node ) -> FogVisionBaseGd:
 		if child is FogVisionBaseGd:
 			return child
 	return null
+
+
+static func make_fog_map_rect_from_tilemap( tile_map :TileMap, fog_cell :Vector2i ) -> Rect2i:
+	var scaled_map_cell : Vector2i = tile_map.tile_set.tile_size * Vector2i(tile_map.scale)
+	
+	if scaled_map_cell % fog_cell != Vector2i(0, 0):
+		return Rect2i()
+		
+	var ratio = scaled_map_cell / fog_cell
+	var fog_rect = tile_map.get_used_rect()
+	fog_rect.position *= ratio
+	fog_rect.size *= ratio
+	return fog_rect

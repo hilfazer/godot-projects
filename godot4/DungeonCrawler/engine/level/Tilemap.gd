@@ -1,4 +1,5 @@
 extends TileMap
+class_name GenericTilemap
 
 
 # vector2 with coordinates : tile id

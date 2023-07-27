@@ -2,12 +2,12 @@ extends Node
 class_name LevelBase
 
 
-@onready var _ground = $"Ground"
-@onready var _walls = $"Walls"
-@onready var _units = $"Units"
-@onready var _items = $"Items"
-@onready var _fog = $"FogOfWar"
-@onready var _entrances = $"Entrances"
+@onready var _ground :GenericTilemap = $"Ground"
+@onready var _walls  :GenericTilemap = $"Walls"
+@onready var _units  :LevelUnits = $"Units"
+@onready var _items  :LevelItems = $"Items"
+@onready var _fog    :FogOfWar = $"FogOfWar"
+@onready var _entrances := $"Entrances"
 
 
 signal predelete()
@@ -156,9 +156,11 @@ func _calculateTilemapsRect( targetSize : Vector2i, tilemapList : Array[TileMap]
 	for tilemap in tilemapList:
 		if tilemap.tile_set == null:
 			continue
+			
+		#assert(tilemap.scale == Vector2(1.0, 1.0))
 		
 		var usedRect = tilemap.get_used_rect()
-		var tilemapTargetRatio = tilemap.tile_set.tile_size / Vector2i(Vector2(targetSize) * tilemap.scale)
+		var tilemapTargetRatio = tilemap.tile_set.tile_size / Vector2i(Vector2(targetSize) * tilemap.scale )
 		usedRect.position *= tilemapTargetRatio
 		usedRect.size *= tilemapTargetRatio
 

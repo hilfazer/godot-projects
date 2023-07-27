@@ -36,6 +36,7 @@ position = Vector2(128, 128)
 visible = false
 
 [node name="HelmetBarbute" parent="Items" index="0" instance=ExtResource("7")]
+visible = false
 position = Vector2(224, 160)
 
 [node name="Helmet" parent="Items" index="1" instance=ExtResource("8")]
