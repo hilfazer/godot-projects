@@ -18,7 +18,7 @@ func _init():
 
 
 func _ready():
-	applyFogToLevel( _fog.fillTile )
+	applyFogToLevel( _fog.fill_tile )
 	update()
 
 
@@ -67,8 +67,7 @@ func findEntranceWithAnyUnit( unitNodes ) -> Area2D:
 
 
 func applyFogToLevel( fogTileType : int ):
-	_fog.fillRectWithTile( _calculateTilemapsRect(
-			_fog.tile_set.tile_size, [_ground, _walls] ), fogTileType )
+	_fog.fill_tilemap_area_with_tile( _ground, fogTileType ) 
 
 
 func addUnitToFogVision( unit : UnitBase ) -> int:
@@ -148,25 +147,3 @@ func getAllUnits() -> Array:
 func getItem( itemName : String ) -> ItemBase:
 	assert( itemName )
 	return _items.get_node_or_null( itemName )
-
-
-func _calculateTilemapsRect( targetSize : Vector2i, tilemapList : Array[TileMap] ) -> Rect2:
-	var levelRect : Rect2
-
-	for tilemap in tilemapList:
-		if tilemap.tile_set == null:
-			continue
-			
-		#assert(tilemap.scale == Vector2(1.0, 1.0))
-		
-		var usedRect = tilemap.get_used_rect()
-		var tilemapTargetRatio = tilemap.tile_set.tile_size / Vector2i(Vector2(targetSize) * tilemap.scale )
-		usedRect.position *= tilemapTargetRatio
-		usedRect.size *= tilemapTargetRatio
-
-		if not levelRect:
-			levelRect = usedRect
-		else:
-			levelRect = levelRect.merge(usedRect)
-
-	return levelRect

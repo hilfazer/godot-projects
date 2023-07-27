@@ -6,7 +6,7 @@ const FogVisionBaseGd        = preload("./FogVisionBase.gd")
 enum TileType { Lit, Shaded, Fogged }
 
 # warning-ignore:unused_class_variable
-@export var fillTile: TileType
+@export var fill_tile: TileType
 
 const lit_tile_id           := Vector2i(0, 2)
 const shaded_tile_id        := Vector2i(0, 1)
@@ -70,16 +70,17 @@ func onVisionChangedPosition( fogVision : FogVisionBaseGd ):
 		_updateTimer.start( _updateTimer.wait_time )
 
 
-func fillRectWithTile( rectangle : Rect2, type : int ):
+func fill_tilemap_area_with_tile( tilemap : TileMap, type : TileType ):
 	var typeToId = {
 		  TileType.Lit : lit_tile_id
 		, TileType.Shaded : shaded_tile_id
 		, TileType.Fogged : fogged_tile_id
 		}
 	assert( type in typeToId )
-
+	
+	var fog_rect = make_fog_map_rect_from_tilemap( tilemap, tile_set.tile_size )
 	@warning_ignore("static_called_on_instance")
-	_setTileInRect( typeToId[type], rectangle, self )
+	_setTileInRect( typeToId[type], fog_rect, self )
 
 
 func getFogVisions() -> Array:
