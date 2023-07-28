@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhyjlj642hnra"]
+[gd_scene load_steps=8 format=3 uid="uid://bhyjlj642hnra"]
 
 [ext_resource type="Script" path="res://engine/game/GameScene.gd" id="1"]
 [ext_resource type="Script" path="res://engine/game/GameCreator.gd" id="2"]
-[ext_resource type="Script" path="res://engine/game/PlayerManager.gd" id="3"]
 [ext_resource type="PackedScene" path="res://engine/agent/PlayerAgent.tscn" id="4"]
 [ext_resource type="Script" path="res://engine/game/GameCommands.gd" id="5"]
 [ext_resource type="Script" path="res://engine/game/PlayerPause.gd" id="6"]
@@ -15,10 +14,7 @@ script = ExtResource("1")
 [node name="GameCreator" type="Node" parent="."]
 script = ExtResource("2")
 
-[node name="PlayerManager" type="Node" parent="."]
-script = ExtResource("3")
-
-[node name="PlayerAgent" parent="PlayerManager" instance=ExtResource("4")]
+[node name="PlayerAgent" parent="." instance=ExtResource("4")]
 
 [node name="Commands" type="Node" parent="."]
 script = ExtResource("5")
@@ -111,6 +107,7 @@ text = "
 ` - console
 F4 - debug window
 P - pause
+Space - travel
 
 You can select units with
  selection box or keys 1-4

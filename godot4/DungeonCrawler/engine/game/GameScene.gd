@@ -14,8 +14,7 @@ var _state : int = State.Initial
 var _pause := true: set = setPause
 
 @onready var _creator : GameCreatorGd  = $"GameCreator"
-@onready var _playerManager            = $"PlayerManager"
-@onready var _playerAgent              = $"PlayerManager/PlayerAgent"
+@onready var _player_agent             :PlayerAgent = $"PlayerAgent"
 
 
 signal gameStarted()
@@ -27,8 +26,8 @@ signal nonmatching_save_file_selected( saveFile )
 func _ready():
 	_creator.initialize( self, self )
 
-	_playerAgent.initialize( currentLevel )
-	_playerAgent.travel_requested.connect(Callable(self, "_travel"))
+	_player_agent.initialize( currentLevel )
+	_player_agent.travel_requested.connect(Callable(self, "_travel"))
 
 	var params = get_meta(PARAMS_META)
 	set_meta(PARAMS_META, null)
@@ -91,7 +90,7 @@ func saveGame( filepath : String ):
 	assert( _state == State.Running )
 	_changeState( State.Saving )
 	_module.saveLevel( currentLevel, true )
-	_module.savePlayerData( _playerAgent )
+	_module.savePlayerData( _player_agent )
 
 	var result = _module.saveToFile( filepath )
 
@@ -130,7 +129,9 @@ func finish():
 func loadLevel( levelName : String ) -> int:
 	if currentLevel:
 		_changeState( State.Saving )
-		_playerManager.unparentUnits()
+		for unit in _player_agent.getUnits():
+			assert( unit is UnitBase )
+			unit.get_parent().remove_child( unit )
 		_module.saveLevel( currentLevel, false )
 
 	_changeState( State.Creating )
@@ -156,7 +157,7 @@ func setCurrentLevel( level : LevelBase ):
 
 	assert( level == null or self.is_ancestor_of( level ) )
 	currentLevel = level
-	_playerAgent.setCurrentLevel(level)
+	_player_agent.setCurrentLevel(level)
 	emit_signal("currentLevelChanged", level)
 
 
@@ -170,8 +171,12 @@ func updatePaused():
 	Debug.updateVariable( "Pause", "Yes" if get_tree().paused else "No" )
 
 
-func getPlayerUnits():
-	return _playerAgent.getUnits()
+func get_player_units() -> Array[UnitBase]:
+	return _player_agent.getUnits()
+	
+	
+func set_player_units( units :Array[UnitBase] ) -> void:
+	_player_agent.set_player_units(units)
 
 
 func _travel( entrance : Area2D ):
@@ -190,15 +195,15 @@ func _travel( entrance : Area2D ):
 	if result != OK:
 		return
 
-	_playerAgent.set_physics_process(false)
+	_player_agent.set_physics_process(false)
 
 	var notAdded = LevelLoaderGd.insertPlayerUnits(
-			_playerAgent.getUnits(), currentLevel, entranceName )
+			_player_agent.getUnits(), currentLevel, entranceName )
 
 	# TODO: replace it with _changeState( State.Running ) that unpauses the game
 	# but first remove that from GameScene.loadLevel()
 	await get_tree().process_frame
-	_playerAgent.set_physics_process(true)
+	_player_agent.set_physics_process(true)
 
 
 	for unit in notAdded:

@@ -3,12 +3,13 @@ extends Node
 
 const SavingModuleGd         = preload("res://engine/SavingModule.gd")
 const SerializerGd           = preload("res://projects/Serialization/hierarchical_serializer.gd")
+const GameSceneGd            = preload("./GameScene.gd")
 const LevelLoaderGd          = preload("./LevelLoader.gd")
 const PlayerAgentGd          = preload("res://engine/agent/PlayerAgent.gd")
 const UnitCreationDataGd     = preload("res://engine/units/UnitCreationData.gd")
 const FogOfWarGd             = preload("res://engine/level/FogOfWar.gd")
 
-var _game : Node
+var _game : GameSceneGd
 var _levelLoader : LevelLoaderGd
 var _currentLevelParent : Node
 
@@ -16,7 +17,7 @@ var _currentLevelParent : Node
 signal createFinished( error )
 
 
-func initialize( gameScene : Node, currentLevelParent : Node ):
+func initialize( gameScene : GameSceneGd, currentLevelParent : Node ):
 	_game = gameScene
 	_currentLevelParent = currentLevelParent
 	_levelLoader = LevelLoaderGd.new( gameScene )
@@ -48,8 +49,8 @@ func createFromFile( filePath : String ):
 	if result != OK:
 		return result
 
-# warning-ignore:return_value_discarded
-	SerializerGd.new().deserialize( _game._module.getPlayerData(), _game._playerManager )
+	# deserialize player agent
+	SerializerGd.new().deserialize( _game._module.getPlayerData(), _game )
 
 	return result
 
@@ -121,17 +122,17 @@ func _createNewModule( filePath : String ) -> int:
 
 func _createAndInsertUnits( playerUnitData : Array, entranceName : String ):
 	var playerUnits__ = _createPlayerUnits__( playerUnitData )
-	_game._playerManager.setPlayerUnits( playerUnits__ )
+	_game.set_player_units( playerUnits__ )
 
-	var unitNodes : Array = _game._playerManager.getPlayerUnits()
+	var unitNodes : Array = _game.get_player_units()
 
 	var notAdded = LevelLoaderGd.insertPlayerUnits( unitNodes, _game.currentLevel, entranceName )
 	for unit in notAdded:
 		Debug.info(self, "Unit '%s' not added to level" % unit.name)
 
 
-func _createPlayerUnits__( unitsCreationData : Array ) -> Array:
-	var playerUnits__ := []
+func _createPlayerUnits__( unitsCreationData : Array ) -> Array[UnitBase]:
+	var playerUnits__ :Array[UnitBase]= []
 	for unitData in unitsCreationData:
 		assert( unitData is UnitCreationDataGd )
 		var fileName = _game._module.getUnitFilename( unitData.name )

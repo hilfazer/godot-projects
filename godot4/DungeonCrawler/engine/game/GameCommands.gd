@@ -10,7 +10,7 @@ func _ready():
 	super._ready()
 	assert( get_parent() is GameSceneGd )
 	await get_tree().process_frame
-	_playerAgent = $"../PlayerManager/PlayerAgent"
+	_playerAgent = $"../PlayerAgent"
 	assert( _playerAgent )
 
 
@@ -105,7 +105,7 @@ func addUnitToPlayer( unitName : String ):
 		return
 
 	if not unitNode in _playerAgent.getUnits():
-		game._playerManager.addPlayerUnits( [unitNode] )
+		_playerAgent.addUnit( unitNode )
 
 
 func removeUnitFromPlayer( unitName : String ):
@@ -123,7 +123,7 @@ func removeUnitFromPlayer( unitName : String ):
 	if unitNode == null:
 		return
 
-	game._playerManager.removePlayerUnits( [unitNode] )
+	_playerAgent.removeUnit(unitNode)
 
 
 func selectPlayerUnit( unitName : String ):

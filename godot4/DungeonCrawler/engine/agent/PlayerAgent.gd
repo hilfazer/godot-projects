@@ -1,4 +1,5 @@
 extends AgentBase
+class_name PlayerAgent
 
 const LevelLoaderGd          = preload("res://engine/game/LevelLoader.gd")
 const SelectionComponentScn  = preload("res://engine/SelectionComponent.tscn")
@@ -64,6 +65,15 @@ func initialize( currentLevel : LevelBase ):
 	setCurrentLevel(currentLevel)
 
 
+func set_player_units( new_units :Array[UnitBase] ):
+	for unit in getUnits():
+		if not unit in new_units:
+			Utility.freeIfNotInTree( [unit] )
+
+	for unit in new_units:
+		addUnit(unit)
+
+
 func addUnit( unit : UnitBase ):
 	var addResult = super.addUnit( unit )
 	_makeAPlayerUnit( unit )
@@ -86,7 +96,7 @@ func removeUnit( unit : UnitBase ) -> bool:
 	return removed
 
 
-func selectUnit( unit : UnitBase ):
+func selectUnit( unit : UnitBase ) -> Error:
 	assert( unit in _units.container() )
 
 	if unit in _selectedUnits:
@@ -99,6 +109,7 @@ func selectUnit( unit : UnitBase ):
 			return OK
 
 	assert( !"unit %s has no selection box" % [unit] )
+	return FAILED
 
 
 func deselectUnit( unit : UnitBase ):
@@ -141,7 +152,7 @@ func _selectUnitsInRect( selectionRect : Rect2 ):
 			deselectUnit(unit)
 
 
-func getSelected() -> Array:
+func getSelected() -> Array[UnitBase]:
 	return _selectedUnits.keys()
 
 

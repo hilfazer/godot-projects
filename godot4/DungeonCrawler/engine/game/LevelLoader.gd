@@ -63,7 +63,7 @@ func unloadLevel() -> int:
 func _unloadLevel( level : LevelBase ) -> int:
 	await _game.get_tree().process_frame
 	var levelUnits = level.getAllUnits()
-	for playerUnit in _game.getPlayerUnits():
+	for playerUnit in _game.get_player_units():
 		if playerUnit in levelUnits:
 			Debug.info( self, "Player unit '%s' will be destroyed with level '%s'" %
 				[ playerUnit.name, level.name ] )

@@ -56,12 +56,16 @@ func removeUnit( unit : UnitBase ) -> bool:
 	_units.remove( [unit] )
 	unit.tree_entered.disconnect(Callable(self, "_setActive"))
 	unit.tree_exited.disconnect(Callable(self, "_setInactive"))
+	unit.predelete.disconnect(Callable(self, "removeUnit"))
 	unit.set_meta( AgentMetaName, null )
 	return true
 
 
-func getUnits() -> Array:
-	return _units.container()
+func getUnits() -> Array[UnitBase]:
+	var units :Array[UnitBase] = []
+	for unit in _units.container():
+		units.append( unit )
+	return units
 
 
 func setProcessing( process : bool ):
