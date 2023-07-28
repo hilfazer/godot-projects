@@ -5,7 +5,6 @@ const SerializerGd           = preload("res://projects/Serialization/hierarchica
 const ProbeGd                = preload("res://projects/Serialization/Probe.gd")
 const SavedGameRes           = preload("res://projects/Serialization/save_game_file.gd")
 const PlayerAgentGd          = preload("res://engine/agent/PlayerAgent.gd")
-const SelfFilename           = "res://engine/SavingModule.gd"
 
 # JSON keys
 const NameModule             = "Module"
@@ -123,7 +122,7 @@ static func createFromSaveFile( saveFilename : String ):
 	if dataResource:
 		var moduleData: ModuleDataGd = load(moduleFilename).new()
 		if verify( moduleData ):
-			moduleNode = load(SelfFilename).new(moduleData, moduleFilename, serializer)
+			moduleNode = new(moduleData, moduleFilename, serializer)
 
 	return moduleNode
 

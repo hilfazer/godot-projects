@@ -3,7 +3,6 @@ class_name LevelBase
 
 
 @onready var _ground :GenericTilemap = $"Ground"
-@onready var _walls  :GenericTilemap = $"Walls"
 @onready var _units  :LevelUnits = $"Units"
 @onready var _items  :LevelItems = $"Items"
 @onready var _fog    :FogOfWar = $"FogOfWar"
@@ -71,12 +70,12 @@ func applyFogToLevel( fogTileType : int ):
 
 
 func addUnitToFogVision( unit : UnitBase ) -> int:
-	if not _units.has_node( 'unit.name' ):
+	if not _units.has_node( NodePath(unit.name) ):
 		Debug.warn( self, "Level %s has no unit %s" % [self.name, unit.name] )
 		return FAILED
 
-	var fogVision = _fog.fogVisionFromNode( unit )
-	if not _fog.fogVisionFromNode( unit ):
+	var fogVision = FogOfWar.fogVisionFromNode( unit )
+	if not FogOfWar.fogVisionFromNode( unit ):
 		Debug.warn( self, "Unit %s has no fog vision" % [unit.name] )
 		return FAILED
 
@@ -88,7 +87,7 @@ func removeUnitFromFogVision( unit : UnitBase ) -> int:
 		Debug.warn( self, "Level %s has no unit %s" % [self.name, unit.name] )
 		return FAILED
 
-	var fogVision = _fog.fogVisionFromNode( unit )
+	var fogVision = FogOfWar.fogVisionFromNode( unit )
 	if not fogVision:
 		Debug.warn( self, "Unit %s has no fog vision" % [unit.name] )
 		return FAILED
@@ -107,7 +106,7 @@ func addUnit( unit : UnitBase ) -> int:
 	_units.add_child( unit, true )
 	assert( unit in _units.get_children() )
 
-	var fogVision = _fog.fogVisionFromNode( unit )
+	var fogVision = FogOfWar.fogVisionFromNode( unit )
 	if not fogVision:
 		return OK
 
@@ -129,7 +128,7 @@ func removeUnit( unit : UnitBase ):
 
 func update():
 	for unit in _units.get_children():
-		var fogVision = _fog.fogVisionFromNode( unit )
+		var fogVision = FogOfWar.fogVisionFromNode( unit )
 		if fogVision != null and not fogVision in _fog.getFogVisions():
 # warning-ignore:return_value_discarded
 			addUnitToFogVision( unit )

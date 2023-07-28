@@ -78,6 +78,7 @@ func fill_tilemap_area_with_tile( tilemap : TileMap, type : TileType ):
 		}
 	assert( type in typeToId )
 	
+	@warning_ignore("static_called_on_instance")
 	var fog_rect = make_fog_map_rect_from_tilemap( tilemap, tile_set.tile_size )
 	@warning_ignore("static_called_on_instance")
 	_setTileInRect( typeToId[type], fog_rect, self )
