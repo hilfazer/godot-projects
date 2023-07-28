@@ -1,4 +1,5 @@
 extends Node2D
+class_name FogVisionBase
 
 const VisibilityLayer = 0x00000010
 

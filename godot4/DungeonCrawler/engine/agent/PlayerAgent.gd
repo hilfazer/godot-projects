@@ -1,7 +1,6 @@
 extends AgentBase
 
 const LevelLoaderGd          = preload("res://engine/game/LevelLoader.gd")
-const FogVisionBaseGd        = preload("res://engine/level/FogVisionBase.gd")
 const SelectionComponentScn  = preload("res://engine/SelectionComponent.tscn")
 
 @export_file("*FogVision.gd") var fogVisionGd : String
@@ -172,12 +171,12 @@ func postDeserialize():
 func _makeAPlayerUnit( unit : UnitBase ):
 	var hasFogVision := false
 	for child in unit.get_children():
-		if child is FogVisionBaseGd:
+		if child is FogVisionBase:
 			hasFogVision = true
 			break
 
 	if not hasFogVision:
-		var fogVision : FogVisionBaseGd = load(fogVisionGd).new()
+		var fogVision : FogVisionBase = load(fogVisionGd).new()
 		fogVision.setExcludedRID( unit.get_rid() )
 		unit.add_child( fogVision )
 
@@ -191,7 +190,7 @@ func _makeAPlayerUnit( unit : UnitBase ):
 
 func _unmakeAPlayerUnit( unit : UnitBase ):
 	for child in unit.get_children():
-		if child is FogVisionBaseGd:
+		if child is FogVisionBase:
 			child.queue_free()
 			unit.remove_child( child )
 		elif child.scene_file_path != null \

@@ -1,8 +1,6 @@
 extends TileMap
 class_name FogOfWar
 
-const FogVisionBaseGd        = preload("./FogVisionBase.gd")
-
 enum TileType { Lit, Shaded, Fogged }
 
 # warning-ignore:unused_class_variable
@@ -18,7 +16,7 @@ var _fogVisionsToUpdate     := []
 var _visionsToResults       := {}
 var _doFogUpdate            := false
 
-@onready var _updateTimer   = $"UpdateTimer"
+@onready var _updateTimer   :Timer = $"UpdateTimer"
 
 
 func _ready():
@@ -36,7 +34,7 @@ func requestFogUpdate():
 	_doFogUpdate = true
 
 
-func addFogVision( fogVision : FogVisionBaseGd ) -> int:
+func addFogVision( fogVision : FogVisionBase ) -> int:
 	assert( fogVision )
 	assert( not fogVision in _visionsToResults )
 
@@ -49,7 +47,7 @@ func addFogVision( fogVision : FogVisionBaseGd ) -> int:
 	return OK
 
 
-func removeFogVision( fogVision : FogVisionBaseGd ) -> int:
+func removeFogVision( fogVision : FogVisionBase ) -> int:
 	assert( fogVision )
 	assert( fogVision in _visionsToResults )
 
@@ -61,7 +59,7 @@ func removeFogVision( fogVision : FogVisionBaseGd ) -> int:
 	return OK
 
 
-func onVisionChangedPosition( fogVision : FogVisionBaseGd ):
+func onVisionChangedPosition( fogVision : FogVisionBase ):
 	if _fogVisionsToUpdate.has( fogVision ):
 		return
 
@@ -107,14 +105,14 @@ func deserialize( data ):
 		set_cell( 0, coords, -1, shaded_tile_id )
 
 
-func _insertFogVision( fogVision : FogVisionBaseGd ):
+func _insertFogVision( fogVision : FogVisionBase ):
 	_visionsToResults[ fogVision ] = _makeVisionResult(
 		fogVision.boundingRect( self ),
 		fogVision.calculateVisibleTiles( self )
 		)
 
 
-func _eraseFogVision( fogVision : FogVisionBaseGd ):
+func _eraseFogVision( fogVision : FogVisionBase ):
 	_visionsToResults.erase( fogVision )
 	_fogVisionsToUpdate.erase( fogVision )
 
@@ -122,7 +120,7 @@ func _eraseFogVision( fogVision : FogVisionBaseGd ):
 func _updateFog():
 	#cover fog for nodes that moved
 	for vision in _fogVisionsToUpdate:
-		assert( vision is FogVisionBaseGd )
+		assert( vision is FogVisionBase )
 		_setTilesWithVisibilityMap(
 			_visionsToResults[vision]["tileRect"],
 			_visionsToResults[vision]["visibiltyMap"],
@@ -133,7 +131,7 @@ func _updateFog():
 
 	#uncover fog for every node
 	for vision in _visionsToResults.keys():
-		assert( vision is FogVisionBaseGd )
+		assert( vision is FogVisionBase )
 		var tileRect = vision.boundingRect( self )
 		var visibilityMap = vision.calculateVisibleTiles( self )
 		_setTilesWithVisibilityMap( tileRect, visibilityMap, lit_tile_id )
@@ -163,9 +161,9 @@ static func _setTileInRect( tileId : Vector2i, rect : Rect2, fog : TileMap ):
 			fog.set_cell(layer, Vector2i(x, y), _source_id, tileId)
 
 
-static func fogVisionFromNode( node : Node ) -> FogVisionBaseGd:
+static func fogVisionFromNode( node : Node ) -> FogVisionBase:
 	for child in node.get_children():
-		if child is FogVisionBaseGd:
+		if child is FogVisionBase:
 			return child
 	return null
 
