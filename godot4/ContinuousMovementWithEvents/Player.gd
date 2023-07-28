@@ -1,8 +1,8 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
 
-export var speed : int = 300
-export var printEvents := true
+@export var speed : int = 300
+@export var printEvents := true
 
 var _movementVector := Vector2.ZERO
 var _up := 0
@@ -32,7 +32,7 @@ func _unhandled_input(event):
 		return
 
 	_updateMovementVector()
-	get_tree().set_input_as_handled()
+	get_viewport().set_input_as_handled()
 	if printEvents and event.is_action_type():
 		print_debug(event.as_text())
 
