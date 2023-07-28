@@ -31,7 +31,8 @@ func _unhandled_input(event):
 	else:
 		return
 
-	_updateMovementVector()
+	_movementVector.x = _right - _left
+	_movementVector.y = _down - _up
 	get_viewport().set_input_as_handled()
 	if printEvents and event.is_action_type():
 		print_debug(event.as_text())
@@ -41,7 +42,3 @@ func _physics_process(delta):
 # warning-ignore:return_value_discarded
 	move_and_collide(_movementVector.normalized() * delta * speed)
 
-
-func _updateMovementVector() -> void:
-	_movementVector.x = _right - _left
-	_movementVector.y = _down - _up
