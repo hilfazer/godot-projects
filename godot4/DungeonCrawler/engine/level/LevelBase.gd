@@ -66,7 +66,7 @@ func findEntranceWithAnyUnit( unitNodes ) -> Area2D:
 
 
 func applyFogToLevel( fogTileType : int ):
-	_fog.fill_tilemap_area_with_tile( _ground, fogTileType ) 
+	_fog.fill_tilemap_area_with_tile( _ground, fogTileType )
 
 
 func addUnitToFogVision( unit : UnitBase ) -> int:

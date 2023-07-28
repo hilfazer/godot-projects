@@ -6,8 +6,8 @@ enum TileType { Lit, Shaded, Fogged }
 # warning-ignore:unused_class_variable
 @export var fill_tile: TileType
 
-const lit_tile_id           := Vector2i(0, 2)
-const shaded_tile_id        := Vector2i(0, 1)
+const lit_tile_id           := Vector2i(2, 0)
+const shaded_tile_id        := Vector2i(1, 0)
 const fogged_tile_id        := Vector2i(0, 0)
 const _source_id            = 1
 const layer                 = 0
@@ -169,8 +169,11 @@ static func fogVisionFromNode( node : Node ) -> FogVisionBase:
 
 
 static func make_fog_map_rect_from_tilemap( tile_map :TileMap, fog_cell :Vector2i ) -> Rect2i:
+	if tile_map.tile_set == null:
+		return Rect2i()
+
 	var scaled_map_cell : Vector2i = tile_map.tile_set.tile_size * Vector2i(tile_map.scale)
-	
+
 	if scaled_map_cell % fog_cell != Vector2i(0, 0):
 		return Rect2i()
 		
