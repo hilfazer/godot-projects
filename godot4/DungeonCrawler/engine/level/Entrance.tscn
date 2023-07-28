@@ -9,23 +9,23 @@ size = Vector2(64, 64)
 input_pickable = false
 
 [node name="Spawn1" parent="." instance=ExtResource("1")]
-position = Vector2(-32, -32)
+position = Vector2(-16, -16)
 
 [node name="Spawn2" parent="." instance=ExtResource("1")]
-position = Vector2(32, -32)
+position = Vector2(16, -16)
 
 [node name="Spawn3" parent="." instance=ExtResource("1")]
-position = Vector2(-32, 32)
+position = Vector2(-16, 16)
 
 [node name="Spawn4" parent="." instance=ExtResource("1")]
-position = Vector2(32, 32)
+position = Vector2(16, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("1")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 modulate = Color(0.447059, 0.164706, 0.137255, 0.262745)
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
