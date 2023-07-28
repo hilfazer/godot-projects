@@ -1,15 +1,16 @@
+## used to selet multiple units with mouse cursor
 extends CanvasLayer
 
 const MinimumDiagonal = 20
 
 var startv := Vector2()
 var endv := Vector2()
-var isDragging := false
+var is_dragging := false
 
-@onready var rectd = $"ColorRect"
+@onready var rectd :ColorRect = $"ColorRect"
 
 
-signal areaSelected( rect2 )
+signal area_selected( rect2 )
 
 
 func _ready():
@@ -24,9 +25,9 @@ func _unhandled_input(event):
 
 	if event.is_action_pressed('ui_LMB'):
 		startv = mouseposGlobal
-		isDragging = true
+		is_dragging = true
 
-	if isDragging:
+	if is_dragging:
 		endv = mouseposGlobal
 		@warning_ignore("static_called_on_instance")
 		_drawArea(_makeRect( startv, endv ))
@@ -34,12 +35,12 @@ func _unhandled_input(event):
 	if event.is_action_released('ui_LMB'):
 		if startv.distance_to(mouseposGlobal) > MinimumDiagonal:
 			endv = mouseposGlobal
-			isDragging = false
+			is_dragging = false
 			_drawArea(Rect2())
 			@warning_ignore("static_called_on_instance")
-			emit_signal("areaSelected", _makeRect( startv, endv ))
+			area_selected.emit( _makeRect( startv, endv ) )
 		else:
-			isDragging = false
+			is_dragging = false
 			_drawArea(Rect2())
 
 

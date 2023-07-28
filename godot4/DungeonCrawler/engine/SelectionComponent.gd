@@ -2,7 +2,7 @@
 extends Area2D
 
 @onready var _rect_shape :RectangleShape2D = $"CollisionShape2D".shape
-@onready var _perimeter = $"Perimeter"
+@onready var _perimeter  :Line2D = $"Perimeter"
 
 
 func _process( _delta :float ):

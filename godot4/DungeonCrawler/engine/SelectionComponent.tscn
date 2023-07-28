@@ -13,6 +13,8 @@ shape = SubResource("1")
 
 [node name="Perimeter" type="Line2D" parent="."]
 position = Vector2(0, 0.440125)
+scale = Vector2(0.506527, 0.503845)
 points = PackedVector2Array(-32, -32, -32, 32, 32, 32, 32, -32, -32, -32)
-width = 1.0
+width = 1.5
+default_color = Color(0.498039, 0.372549, 0.721569, 1)
 texture_mode = 335681904

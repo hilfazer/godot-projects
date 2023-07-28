@@ -13,7 +13,7 @@ signal travel_requested(entrance)
 
 
 func _ready():
-	$"SelectionBox".connect("areaSelected", Callable(self, "_selectUnitsInRect"))
+	$"SelectionBox".area_selected.connect(Callable(self, "_selectUnitsInRect"))
 	Console.connect("toggled", Callable(self, "_onConsoleVisibilityChanged"))
 
 
@@ -112,7 +112,7 @@ func deselectUnit( unit : UnitBase ):
 	_selectedUnits.erase( unit )
 	return OK
 
-
+#TODO: fix unit selection
 func _selectUnitsInRect( selectionRect : Rect2 ):
 	var unitsInRect := []
 
