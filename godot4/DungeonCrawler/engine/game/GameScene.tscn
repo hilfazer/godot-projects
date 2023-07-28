@@ -33,6 +33,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("6")
 
 [node name="ColorRect" type="ColorRect" parent="Pause/PlayerPause"]
@@ -64,8 +66,13 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -75.0
-offset_right = -120.0
+offset_left = 4.0
+offset_top = -133.0
+offset_right = -259.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_group_ = true
 
 [node name="LogLabel" type="Label" parent="GUI/BottomPanel"]
 layout_mode = 0
@@ -74,7 +81,8 @@ anchor_bottom = 1.0
 script = ExtResource("8")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="GUI/BottomPanel/LogLabel"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -83,10 +91,15 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -120.0
+offset_left = -259.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="GUI/RightPanel"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_right = -1.0
@@ -95,10 +108,13 @@ text = "
 F4 - debug window
 P - pause
 
-You can select units with selection box or keys 1-4
+You can select units with
+ selection box or keys 1-4
 "
+metadata/_edit_group_ = true
 
 [node name="ReferenceRect" type="ReferenceRect" parent="GUI/RightPanel/Label"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

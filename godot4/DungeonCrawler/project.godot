@@ -29,7 +29,8 @@ gdscript/warnings/return_value_discarded=false
 
 [display]
 
-window/size/viewport_width=800
+window/size/viewport_width=940
+window/size/viewport_height=720
 
 [editor]
 

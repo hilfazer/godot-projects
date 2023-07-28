@@ -113,8 +113,6 @@ func loadGame( filepath : String ):
 	_changeState( State.Creating )
 
 	var result = await _creator.createFromFile( filepath )
-
-# warning-ignore:standalone_ternary
 	start() if result == OK else _changeState( previousState )
 
 

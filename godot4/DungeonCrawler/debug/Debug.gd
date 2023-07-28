@@ -108,4 +108,4 @@ func _createDebugWindow():
 func _repositionWindow():
 	var screen_size = DisplayServer.screen_get_size(0)
 	var window_size = get_window().get_size()
-	get_window().set_position( (screen_size*0.38 - window_size*0.4) )
+	get_window().set_position( (screen_size*0.32 - window_size*0.4) )
