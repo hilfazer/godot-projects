@@ -12,6 +12,8 @@ var _right := 0
 
 
 func _unhandled_input(event):
+	# handle released actions only if corresponding pressed actions were handled here
+
 	if event.is_action_pressed("ui_up"):
 		_up = 1
 	elif event.is_action_released("ui_up") and _up == 1:
@@ -39,6 +41,6 @@ func _unhandled_input(event):
 
 
 func _physics_process(delta):
-# warning-ignore:return_value_discarded
+	@warning_ignore("return_value_discarded")
 	move_and_collide(_movementVector.normalized() * delta * speed)
 

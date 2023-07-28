@@ -73,18 +73,18 @@ sources/0 = SubResource("TileSetAtlasSource_52j3j")
 script = ExtResource("5")
 
 [node name="ButtonUnfocus" type="Button" parent="."]
-offset_left = 496.0
-offset_top = 491.0
-offset_right = 609.0
-offset_bottom = 524.0
+offset_left = 617.0
+offset_top = 556.0
+offset_right = 730.0
+offset_bottom = 589.0
 text = "remove focus"
 script = ExtResource("6")
 
 [node name="WhatsThis" type="Label" parent="."]
 offset_left = 3.0
 offset_top = 4.0
-offset_right = 824.0
-offset_bottom = 173.0
+offset_right = 1020.0
+offset_bottom = 238.0
 text = "Player's movement is done with _input(event) as opposed to usual reading from Input singleton in _physics_process()/_process().
 This is done in order to make the movement a part of the whole event handling business.
 That means preventing movement from happening does not require dedicated code.
@@ -99,16 +99,16 @@ When game's main windows looses focus the game will release any pressed actions.
 position = Vector2(0, 125)
 tile_set = SubResource("2")
 format = 2
-layer_0/tile_data = PackedInt32Array(131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 131086, 0, 0, 131087, 0, 0, 131088, 0, 0, 131089, 0, 0, 131090, 0, 0, 196608, 0, 0, 196626, 0, 0, 262144, 0, 0, 262162, 0, 0, 327680, 0, 0, 327698, 0, 0, 393216, 0, 0, 393234, 0, 0, 458752, 0, 0, 458770, 0, 0, 524288, 0, 0, 524306, 0, 0, 589824, 0, 0, 589842, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0)
+layer_0/tile_data = PackedInt32Array(262144, 0, 0, 327680, 0, 0, 327698, 0, 0, 393216, 0, 0, 393234, 0, 0, 458752, 0, 0, 458770, 0, 0, 524288, 0, 0, 524306, 0, 0, 589824, 0, 0, 589842, 0, 0, 655360, 0, 0, 655378, 0, 0, 786450, 0, 0, 786449, 0, 0, 786448, 0, 0, 786447, 0, 0, 786446, 0, 0, 786445, 0, 0, 786444, 0, 0, 786443, 0, 0, 786442, 0, 0, 786441, 0, 0, 786440, 0, 0, 786439, 0, 0, 786438, 0, 0, 786437, 0, 0, 786436, 0, 0, 786435, 0, 0, 786433, 0, 0, 786432, 0, 0, 720896, 0, 0, 786434, 0, 0, 720914, 0, 0, 262162, 0, 0, 262146, 0, 0, 262145, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262155, 0, 0, 262156, 0, 0, 262157, 0, 0, 262158, 0, 0, 262159, 0, 0, 262160, 0, 0, 262161, 0, 0)
 
 [node name="Player" parent="." instance=ExtResource("1")]
-position = Vector2(313, 278)
+position = Vector2(416, 398)
 
 [node name="TextEdit" type="TextEdit" parent="."]
-offset_left = 615.0
-offset_top = 390.0
-offset_right = 881.0
-offset_bottom = 526.0
+offset_left = 654.0
+offset_top = 410.0
+offset_right = 920.0
+offset_bottom = 546.0
 text = "When typing in this window
 output will be captured before
 it can be process be either the 
@@ -116,10 +116,10 @@ panel or player movement code
 "
 
 [node name="ColorRects" type="Panel" parent="."]
-offset_left = 616.0
-offset_top = 188.0
-offset_right = 881.0
-offset_bottom = 385.0
+offset_left = 654.0
+offset_top = 259.0
+offset_right = 885.0
+offset_bottom = 398.0
 script = ExtResource("3")
 colorInactive = Color(0.458824, 0.180392, 0.180392, 1)
 colorActive = Color(0.211765, 0.478431, 0.25098, 1)
@@ -134,64 +134,70 @@ offset_bottom = 46.0
 
 [node name="ColorRectUp" type="ColorRect" parent="ColorRects"]
 layout_mode = 0
-offset_left = 112.0
-offset_top = 85.0
-offset_right = 137.0
-offset_bottom = 108.0
+offset_left = 84.0
+offset_top = 25.0
+offset_right = 109.0
+offset_bottom = 48.0
 color = Color(0.556863, 0.54902, 0.54902, 1)
 
 [node name="ColorRectDown" type="ColorRect" parent="ColorRects"]
 layout_mode = 0
-offset_left = 115.0
-offset_top = 155.0
-offset_right = 140.0
-offset_bottom = 178.0
+offset_left = 87.0
+offset_top = 95.0
+offset_right = 112.0
+offset_bottom = 118.0
 color = Color(0.556863, 0.54902, 0.54902, 1)
 
 [node name="ColorRectLeft" type="ColorRect" parent="ColorRects"]
 layout_mode = 0
-offset_left = 60.0
-offset_top = 125.0
-offset_right = 85.0
-offset_bottom = 148.0
+offset_left = 32.0
+offset_top = 65.0
+offset_right = 57.0
+offset_bottom = 88.0
 color = Color(0.556863, 0.54902, 0.54902, 1)
 
 [node name="ColorRectRight" type="ColorRect" parent="ColorRects"]
 layout_mode = 0
-offset_left = 160.0
-offset_top = 120.0
-offset_right = 185.0
-offset_bottom = 143.0
+offset_left = 132.0
+offset_top = 60.0
+offset_right = 157.0
+offset_bottom = 83.0
 color = Color(0.556863, 0.54902, 0.54902, 1)
 
-[node name="ActionStatusHeader" type="Label" parent="."]
-offset_left = 145.273
-offset_top = 486.0
-offset_right = 252.273
-offset_bottom = 500.0
+[node name="ActionStatus" type="Panel" parent="."]
+offset_left = 3.0
+offset_top = 556.0
+offset_right = 576.0
+offset_bottom = 639.0
+metadata/_edit_group_ = true
+
+[node name="ActionStatusHeader" type="Label" parent="ActionStatus"]
+offset_left = 216.0
+offset_right = 342.0
+offset_bottom = 26.0
 text = "pressed actions:"
 
-[node name="ActionStatus" type="HBoxContainer" parent="."]
-offset_left = 7.0
-offset_top = 503.546
-offset_right = 474.0
-offset_bottom = 543.546
+[node name="ActionStatusDisplay" type="HBoxContainer" parent="ActionStatus"]
+offset_left = 49.0
+offset_top = 26.0
+offset_right = 516.0
+offset_bottom = 66.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("2")
 
-[node name="StatusUp" type="Label" parent="ActionStatus"]
+[node name="StatusUp" type="Label" parent="ActionStatus/ActionStatusDisplay"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="StatusDown" type="Label" parent="ActionStatus"]
+[node name="StatusDown" type="Label" parent="ActionStatus/ActionStatusDisplay"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="StatusLeft" type="Label" parent="ActionStatus"]
+[node name="StatusLeft" type="Label" parent="ActionStatus/ActionStatusDisplay"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="StatusRight" type="Label" parent="ActionStatus"]
+[node name="StatusRight" type="Label" parent="ActionStatus/ActionStatusDisplay"]
 layout_mode = 2
 size_flags_horizontal = 3
