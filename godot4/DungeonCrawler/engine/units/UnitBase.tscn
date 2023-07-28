@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://du6jpvdoyfp2w"]
+[gd_scene load_steps=4 format=3 uid="uid://du6jpvdoyfp2w"]
 
 [ext_resource type="Script" path="res://engine/units/UnitBase.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://diy5jy8yyvner" path="res://data/todo.png" id="2_4nsre"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(30, 30)
@@ -9,6 +10,7 @@ size = Vector2(30, 30)
 z_index = 20
 input_pickable = true
 script = ExtResource("1")
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("1")
@@ -28,4 +30,4 @@ border_color = Color(0, 1, 0, 1)
 [node name="Pivot" type="Marker2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Pivot"]
-scale = Vector2(2, 2)
+texture = ExtResource("2_4nsre")
