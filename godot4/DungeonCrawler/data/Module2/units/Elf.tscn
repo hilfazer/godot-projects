@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhau3qsqlvcpn"]
-
-[ext_resource type="PackedScene" uid="uid://du6jpvdoyfp2w" path="res://engine/units/UnitBase.tscn" id="1"]
-[ext_resource type="Texture2D" uid="uid://b36e31uxwibwm" path="res://data/Module2/units/elf.png" id="2"]
-
-[node name="Gnome" instance=ExtResource("1")]
-
-[node name="Sprite2D" parent="Pivot" index="0"]
-texture = ExtResource("2")
