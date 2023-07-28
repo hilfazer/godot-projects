@@ -12,7 +12,7 @@ signal units_changed( units )
 
 func _init():
 	_units.changed.connect( Callable(self, "_update_active_units") )
-	add_to_group( Globals.Groups.Agents )
+	add_to_group( Constants.Groups.Agents )
 
 
 func _notification(what):

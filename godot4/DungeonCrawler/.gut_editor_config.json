@@ -18,7 +18,7 @@
  "inner_class": null,
  "junit_xml_file": "",
  "junit_xml_timestamp": false,
- "log_level": 1,
+ "log_level": 2,
  "opacity": 100,
  "paint_after": 0.1,
  "panel_options": {
@@ -34,12 +34,12 @@
  "post_run_script": "",
  "pre_run_script": "",
  "prefix": "test_",
- "selected": "test_fog_of_war.gd",
+ "selected": null,
  "should_exit": true,
  "should_exit_on_success": false,
  "should_maximize": false,
  "show_help": false,
  "suffix": ".gd",
  "tests": [],
- "unit_test_name": "test_make_fog_map_rect_from_tilemap"
+ "unit_test_name": null
 }

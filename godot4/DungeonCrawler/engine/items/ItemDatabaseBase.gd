@@ -24,7 +24,7 @@ func setupItemDatabase( errorMessages: Array ) -> void:
 	var idsToFilepaths := {}
 	var itemStats := getAllItemsStats()
 	var sceneFiles := FilesFinderGd.find_files_in_directory(
-			_getDirectory(), Globals.SCENE_EXTENSION )
+			_getDirectory(), ".tscn" )
 
 	for itemFile in sceneFiles:
 		@warning_ignore("static_called_on_instance")

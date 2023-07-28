@@ -1,4 +1,6 @@
-class_name Globals
+class_name Constants
+
+const GRID_STEP := Vector2i(16, 16)
 
 const Groups = {
 	SpawnPoints = "SpawnPoints",
@@ -6,5 +8,3 @@ const Groups = {
 	NPCs = "NPCs",
 	PCs = "PCs",
 }
-
-const SCENE_EXTENSION = ".tscn"

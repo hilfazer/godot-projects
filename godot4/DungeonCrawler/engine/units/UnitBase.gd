@@ -2,8 +2,6 @@ extends CharacterBody2D
 class_name UnitBase
 
 
-const _cellSize := Vector2(32, 32)
-
 @export var _movement_speed            : float = 5.0
 
 var requestedDirection                 := Vector2i(): set = setRequestedDirection
@@ -47,7 +45,7 @@ func _physics_process(_delta):
 
 	var tween = create_tween()
 	# TODO correct duration
-	var duration = movementVector.length() / _cellSize.x / _movement_speed
+	var duration = movementVector.length() / Constants.GRID_STEP.x / _movement_speed
 	_pivot.position = -movementVector
 	tween.tween_property( _pivot, ^'position', Vector2(0, 0), duration )
 	tween.set_trans( Tween.TRANS_LINEAR ).set_ease( Tween.EASE_IN )
@@ -112,12 +110,12 @@ func deserialize( saveDict : Dictionary ):
 
 
 func _makeMovementVector( direction : Vector2 ) -> Vector2:
-	var x_add = direction.x if direction.x <= 0 else _cellSize.x
-	var x_target = int( (position.x + x_add) / _cellSize.x ) * _cellSize.x
+	var x_add = direction.x if direction.x <= 0 else Constants.GRID_STEP.x
+	var x_target = int( (position.x + x_add) / Constants.GRID_STEP.x ) * Constants.GRID_STEP.x
 	var x_diff = x_target - position.x
 
-	var y_add = direction.y if direction.y <= 0 else _cellSize.y
-	var y_target = int( (position.y + y_add) / _cellSize.y ) * _cellSize.y
+	var y_add = direction.y if direction.y <= 0 else Constants.GRID_STEP.y
+	var y_target = int( (position.y + y_add) / Constants.GRID_STEP.y ) * Constants.GRID_STEP.y
 	var y_diff = y_target - position.y
 
 	return Vector2(x_diff, y_diff)

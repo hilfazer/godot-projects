@@ -67,7 +67,7 @@ func initialize( currentLevel : LevelBase ):
 func addUnit( unit : UnitBase ):
 	var addResult = super.addUnit( unit )
 	_makeAPlayerUnit( unit )
-	assert(addResult == OK and unit.is_in_group(Globals.Groups.PCs))
+	assert(addResult == OK and unit.is_in_group(Constants.Groups.PCs))
 # warning-ignore:return_value_discarded
 	unit.connect("clicked", Callable(self, "selectUnit").bind(unit))
 	selectUnit( unit )
@@ -82,7 +82,7 @@ func removeUnit( unit : UnitBase ) -> bool:
 		_unmakeAPlayerUnit( unit )
 
 	unit.disconnect("clicked", Callable(self, "selectUnit"))
-	assert(unit.is_in_group(Globals.Groups.NPCs))
+	assert(unit.is_in_group(Constants.Groups.NPCs))
 	return removed
 
 
@@ -183,9 +183,9 @@ func _makeAPlayerUnit( unit : UnitBase ):
 	var selection = SelectionComponentScn.instantiate()
 	unit.add_child( selection )
 
-	assert(unit.is_in_group(Globals.Groups.NPCs))
-	unit.remove_from_group(Globals.Groups.NPCs)
-	unit.add_to_group(Globals.Groups.PCs)
+	assert(unit.is_in_group(Constants.Groups.NPCs))
+	unit.remove_from_group(Constants.Groups.NPCs)
+	unit.add_to_group(Constants.Groups.PCs)
 
 
 func _unmakeAPlayerUnit( unit : UnitBase ):
@@ -198,9 +198,9 @@ func _unmakeAPlayerUnit( unit : UnitBase ):
 			child.queue_free()
 			unit.remove_child( child )
 
-	assert(unit.is_in_group(Globals.Groups.PCs))
-	unit.remove_from_group(Globals.Groups.PCs)
-	unit.add_to_group(Globals.Groups.NPCs)
+	assert(unit.is_in_group(Constants.Groups.PCs))
+	unit.remove_from_group(Constants.Groups.PCs)
+	unit.add_to_group(Constants.Groups.NPCs)
 
 
 func _tryTravel():

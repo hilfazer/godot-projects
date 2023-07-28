@@ -112,7 +112,7 @@ static func getSpawnsFromEntrance( level : LevelBase, entranceName : String ) ->
 
 	assert( entranceNode != null )
 	for child in entranceNode.get_children():
-		if child.is_in_group( Globals.Groups.SpawnPoints ):
+		if child.is_in_group( Constants.Groups.SpawnPoints ):
 			spawns.append( child )
 
 	return spawns

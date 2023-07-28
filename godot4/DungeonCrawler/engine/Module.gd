@@ -104,7 +104,7 @@ func getTargetLevelFilenameAndEntrance( sourceLevelName : String, entrance : Str
 func _getFilename( name : String, subdirectory : String ):
 	assert( not name.is_absolute_path() and name.get_extension().is_empty() )
 
-	var fileName = name + Globals.SCENE_EXTENSION
+	var fileName = name + ".tscn"
 	var fullName = _moduleFilename.get_base_dir() + "/" + subdirectory + "/" + fileName
 	if FileAccess.file_exists( fullName ):
 		return fullName

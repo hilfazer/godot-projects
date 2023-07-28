@@ -4,7 +4,7 @@ var _bodiesInArea = 0
 
 
 func _ready():
-	assert(  is_in_group(Globals.Groups.SpawnPoints) )
+	assert(  is_in_group(Constants.Groups.SpawnPoints) )
 	_bodiesInArea = get_node("Area2D").get_overlapping_bodies().size()
 
 
