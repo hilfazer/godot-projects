@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://clkwc86dk4q6j"]
+[gd_scene load_steps=12 format=3 uid="uid://clkwc86dk4q6j"]
 
 [ext_resource type="Script" path="res://engine/level/LevelBase.gd" id="1"]
 [ext_resource type="Script" path="res://engine/level/Tilemap.gd" id="2"]
@@ -8,12 +8,29 @@
 [ext_resource type="Script" path="res://engine/level/LevelItems.gd" id="6"]
 [ext_resource type="Texture2D" uid="uid://boxgb3o5qq2sh" path="res://data/white_square.png" id="7"]
 
+[sub_resource type="Shader" id="Shader_0p00m"]
+code = "shader_type canvas_item;
+
+uniform float brightness = 0.16;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+
+void fragment() {
+	vec3 c = textureLod(SCREEN_TEXTURE,SCREEN_UV, 0.0).rgb;
+	float v = dot( c, vec3(brightness, brightness, brightness) );
+	COLOR.rgb= vec4(1.0, 1.0, 1.0, 1.0).rgb*v;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_omhhx"]
+shader = SubResource("Shader_0p00m")
+shader_parameter/brightness = 0.16
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_serc8"]
 texture = ExtResource("7")
 0:0/0 = 0
 0:0/0/modulate = Color(0, 0, 0, 1)
 1:0/0 = 0
-1:0/0/modulate = Color(0.384314, 0.384314, 0.384314, 0.737255)
+1:0/0/modulate = Color(0.384314, 0.384314, 0.384314, 1)
+1:0/0/material = SubResource("ShaderMaterial_omhhx")
 2:0/0 = 0
 2:0/0/modulate = Color(1, 1, 1, 0)
 
