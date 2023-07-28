@@ -26,11 +26,11 @@ position = Vector2(288, 288)
 script = ExtResource("5")
 
 [node name="ToLevel2" parent="Entrances" index="0" instance=ExtResource("6")]
-position = Vector2(320, 128)
+position = Vector2(256, 96)
 
 [node name="Start" parent="Entrances" index="1" instance=ExtResource("6")]
 modulate = Color(0.691406, 0.613083, 0.613083, 1)
-position = Vector2(128, 128)
+position = Vector2(80, 80)
 
 [node name="ColorRect" parent="Entrances/Start" index="5"]
 visible = false

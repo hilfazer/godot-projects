@@ -1,13 +1,13 @@
 @tool
 extends Area2D
 
-@onready var _rectShape = $"CollisionShape2D".shape
+@onready var _rect_shape :RectangleShape2D = $"CollisionShape2D".shape
 @onready var _perimeter = $"Perimeter"
 
 
-func _process( _delta ):
-	var x = _rectShape.size.x
-	var y = _rectShape.size.y
+func _process( _delta :float ):
+	var x = _rect_shape.size.x
+	var y = _rect_shape.size.y
 	var points = _perimeter.points
 
 	assert(points.size() == 5)

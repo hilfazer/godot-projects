@@ -48,7 +48,6 @@ func findEntranceWithAllUnits( unitNodes ) -> Area2D:
 		return null
 
 
-
 func findEntranceWithAnyUnit( unitNodes ) -> Area2D:
 	var entrances : Array = _entrances.get_children()
 
