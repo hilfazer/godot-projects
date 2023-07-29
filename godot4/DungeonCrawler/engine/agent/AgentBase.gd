@@ -35,12 +35,9 @@ func addUnit( unit : UnitBase ) -> Error:
 			Debug.info( self, "Removed agent %s from unit %s" % [agent.name, unit.name] )
 
 	_units.add( [unit] )
-# warning-ignore:return_value_discarded
 	unit.tree_entered.connect(Callable(self, "_setActive").bind(unit))
-# warning-ignore:return_value_discarded
 	unit.tree_exited.connect(Callable(self, "_setInactive").bind(unit))
-# warning-ignore:return_value_discarded
-	unit.predelete.connect(Callable(self, "removeUnit").bind(unit), CONNECT_ONE_SHOT)
+	unit.predelete.connect(Callable(self, "remove_deleted_unit").bind(unit), CONNECT_ONE_SHOT)
 	if unit.is_inside_tree():
 		_setActive( unit )
 
@@ -56,9 +53,15 @@ func removeUnit( unit : UnitBase ) -> bool:
 	_units.remove( [unit] )
 	unit.tree_entered.disconnect(Callable(self, "_setActive"))
 	unit.tree_exited.disconnect(Callable(self, "_setInactive"))
-	unit.predelete.disconnect(Callable(self, "removeUnit"))
 	unit.set_meta( AgentMetaName, null )
 	return true
+
+
+func remove_deleted_unit( unit :UnitBase ):
+	if not _units.container().has( unit ):
+		Debug.info( self, "Agent %s has no unit named %s" % [self.name, unit.name] )
+	else:
+		_units.remove( [unit] )
 
 
 func getUnits() -> Array[UnitBase]:
