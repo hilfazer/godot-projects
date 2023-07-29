@@ -32,21 +32,21 @@ func _physics_process( _delta ):
 
 
 func _unhandled_input(event):
-	if event.is_action_pressed("gameplay_up"):
+	if event.is_action_pressed("move_up"):
 		_pressedDirections[0] = 1
-	elif event.is_action_pressed("gameplay_down"):
+	elif event.is_action_pressed("move_down"):
 		_pressedDirections[1] = 1
-	elif event.is_action_pressed("gameplay_left"):
+	elif event.is_action_pressed("move_left"):
 		_pressedDirections[2] = 1
-	elif event.is_action_pressed("gameplay_right"):
+	elif event.is_action_pressed("move_right"):
 		_pressedDirections[3] = 1
-	elif event.is_action_released("gameplay_up"):
+	elif event.is_action_released("move_up"):
 		_pressedDirections[0] = 0
-	elif event.is_action_released("gameplay_down"):
+	elif event.is_action_released("move_down"):
 		_pressedDirections[1] = 0
-	elif event.is_action_released("gameplay_left"):
+	elif event.is_action_released("move_left"):
 		_pressedDirections[2] = 0
-	elif event.is_action_released("gameplay_right"):
+	elif event.is_action_released("move_right"):
 		_pressedDirections[3] = 0
 	elif event.is_action_pressed("travel"):
 		_tryTravel()
