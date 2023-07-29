@@ -22,11 +22,11 @@ func initialize( gameScene : GameScene, currentLevelParent : Node ):
 	_levelLoader = LevelLoaderGd.new( gameScene )
 
 
-func createFromModule( module : SavingModuleGd, unitsCreationData : Array ) -> int:
+func createFromModule( module : SavingModuleGd, unitsCreationData : Array ) -> Error:
 	assert( _game._module == null )
 	_game.setCurrentModule( module )
 
-	var result = await _create( unitsCreationData )
+	var result :Error = await _create( unitsCreationData )
 	emit_signal( "createFinished", result )
 	return result
 
@@ -54,11 +54,11 @@ func createFromFile( filePath : String ):
 	return result
 
 
-func unloadCurrentLevel():
-	await _levelLoader.unloadLevel()
+func unloadCurrentLevel() -> Error:
+	return await _levelLoader.unloadLevel()
 
 
-func loadLevel( levelName : String, withState := true ) -> int:
+func loadLevel( levelName : String, withState := true ) -> Error:
 	var levelState = _game._module.loadLevelState( levelName, true ) \
 		if withState \
 		else null
@@ -67,7 +67,7 @@ func loadLevel( levelName : String, withState := true ) -> int:
 	return OK
 
 
-func _create( unitsCreationData : Array ) -> int:
+func _create( unitsCreationData : Array ) -> Error:
 	await get_tree().process_frame
 
 	assert( _game._module )
@@ -106,7 +106,7 @@ func _loadLevel( levelName : String, levelState = null ):
 	return OK
 
 
-func _createNewModule( filePath : String ) -> int:
+func _createNewModule( filePath : String ) -> Error:
 	assert( _game._module == null )
 	assert( _game.currentLevel == null )
 

@@ -25,10 +25,10 @@ func _init( moduleData, moduleFilename : String, serializer = null ):
 		_serializer.user_data[NameCurrentLevel] = getStartingLevelName()
 
 
-func saveToFile( saveFilename : String ) -> int:
+func saveToFile( saveFilename : String ) -> Error:
 	assert( _serializer.user_data.get(NameModule) == _moduleFilename )
 
-	var result = _serializer.save_to_file( saveFilename )
+	var result :Error = _serializer.save_to_file( saveFilename )
 	if result != OK:
 		Debug.warn( self, "SavingModule: could not save to file %s" % saveFilename )
 

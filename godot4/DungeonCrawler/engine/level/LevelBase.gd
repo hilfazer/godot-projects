@@ -68,7 +68,7 @@ func applyFogToLevel( fogTileType : int ):
 	_fog.fill_tilemap_area_with_tile( _ground, fogTileType )
 
 
-func addUnitToFogVision( unit : UnitBase ) -> int:
+func addUnitToFogVision( unit : UnitBase ) -> Error:
 	if not _units.has_node( NodePath(unit.name) ):
 		Debug.warn( self, "Level %s has no unit %s" % [self.name, unit.name] )
 		return FAILED
@@ -81,7 +81,7 @@ func addUnitToFogVision( unit : UnitBase ) -> int:
 	return _fog.addFogVision( fogVision )
 
 
-func removeUnitFromFogVision( unit : UnitBase ) -> int:
+func removeUnitFromFogVision( unit : UnitBase ) -> Error:
 	if not _units.has_node( NodePath(unit.name) ):
 		Debug.warn( self, "Level %s has no unit %s" % [self.name, unit.name] )
 		return FAILED
@@ -98,7 +98,7 @@ func getFogVisions() -> Array:
 	return _fog.getFogVisions()
 
 
-func addUnit( unit : UnitBase ) -> int:
+func addUnit( unit : UnitBase ) -> Error:
 	if unit in _units.get_children():
 		return FAILED
 
@@ -129,7 +129,6 @@ func update():
 	for unit in _units.get_children():
 		var fogVision = FogOfWar.fogVisionFromNode( unit )
 		if fogVision != null and not fogVision in _fog.getFogVisions():
-# warning-ignore:return_value_discarded
 			addUnitToFogVision( unit )
 
 

@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bli0w6c830k01"]
+[gd_scene load_steps=5 format=3 uid="uid://bli0w6c830k01"]
 
 [ext_resource type="Script" path="res://tests/sandbox/unit_movement.gd" id="1_ykpvt"]
 [ext_resource type="PackedScene" uid="uid://du6jpvdoyfp2w" path="res://engine/units/UnitBase.tscn" id="2_hbtav"]
-[ext_resource type="Texture2D" uid="uid://b36e31uxwibwm" path="res://data/Module2/units/elf.png" id="3_l7lve"]
 [ext_resource type="PackedScene" path="res://engine/agent/PlayerAgent.tscn" id="4_svawp"]
 [ext_resource type="Script" path="res://engine/agent/UnitGrabbingAgent.gd" id="5_ve0oc"]
 
@@ -12,10 +11,14 @@ script = ExtResource("1_ykpvt")
 [node name="Unit" parent="." instance=ExtResource("2_hbtav")]
 position = Vector2(339, 225)
 
-[node name="Sprite2D" parent="Unit/Pivot" index="0"]
-texture = ExtResource("3_l7lve")
+[node name="Name" parent="Unit" index="1"]
+text = "tester"
 
 [node name="PlayerAgent" parent="Unit" instance=ExtResource("4_svawp")]
 script = ExtResource("5_ve0oc")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(346, 243)
+zoom = Vector2(2, 2)
 
 [editable path="Unit"]

@@ -82,7 +82,7 @@ func set_custom_is_node_serializable( functor : RefCounted ):
 		_is_serializable_obj = functor
 
 
-func save_to_file( filepath : String ) -> int:
+func save_to_file( filepath : String ) -> Error:
 	var base_directory : String = filepath.get_base_dir()
 
 	if not filepath.is_valid_filename() and base_directory.is_empty():
@@ -118,7 +118,7 @@ func save_to_file( filepath : String ) -> int:
 	return OK
 
 
-func load_from_file( filepath : String ) -> int:
+func load_from_file( filepath : String ) -> Error:
 	var path_to_load = filepath
 	if "." + filepath.get_extension() != _resource_extension:
 		path_to_load += _resource_extension

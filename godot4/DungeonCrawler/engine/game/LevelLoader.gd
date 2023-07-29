@@ -15,7 +15,7 @@ func _init( game : GameScene ):
 	_game = game
 
 
-func loadLevel( levelFilename : String, levelParent : Node ) -> int:
+func loadLevel( levelFilename : String, levelParent : Node ) -> Error:
 	assert( _game._state == _game.State.Creating )
 	assert( _game.is_ancestor_of( levelParent ) or _game == levelParent )
 
@@ -29,7 +29,7 @@ func loadLevel( levelFilename : String, levelParent : Node ) -> int:
 	return retval
 
 
-func _loadLevel( levelFilename : String, levelParent : Node ) -> int:
+func _loadLevel( levelFilename : String, levelParent : Node ) -> Error:
 	await _game.get_tree().process_frame
 	var levelResource = load( levelFilename )
 	if not levelResource:
@@ -51,7 +51,7 @@ func _loadLevel( levelFilename : String, levelParent : Node ) -> int:
 	return OK
 
 
-func unloadLevel() -> int:
+func unloadLevel() -> Error:
 	if( not _state == State.Ready ):
 		return ERR_UNAVAILABLE
 
@@ -59,12 +59,12 @@ func unloadLevel() -> int:
 	var level : LevelBase = _game.currentLevel
 
 	_changeState( State.Unloading, level.name )
-	var retval : int = await _unloadLevel(level)
+	var retval :Error = await _unloadLevel(level)
 	_changeState( State.Ready )
 	return retval
 
 
-func _unloadLevel( level : LevelBase ) -> int:
+func _unloadLevel( level : LevelBase ) -> Error:
 	await _game.get_tree().process_frame
 	var levelUnits = level.getAllUnits()
 	for playerUnit in _game.get_player_units():

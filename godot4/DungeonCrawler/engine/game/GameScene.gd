@@ -127,7 +127,7 @@ func finish():
 	emit_signal( "gameFinished" )
 
 
-func loadLevel( levelName : String ) -> int:
+func loadLevel( levelName : String ) -> Error:
 	if currentLevel:
 		_changeState( State.Saving )
 		for unit in _player_agent.getUnits():
@@ -136,14 +136,14 @@ func loadLevel( levelName : String ) -> int:
 		_module.saveLevel( currentLevel, false )
 
 	_changeState( State.Creating )
-	var result = await _creator.loadLevel( levelName, true )
+	var result :Error = await _creator.loadLevel( levelName, true )
 	_changeState( State.Running )
 	return result
 
 
-func unloadCurrentLevel() -> int:
+func unloadCurrentLevel() -> Error:
 	_changeState( State.Creating )
-	var result = await _creator.unloadCurrentLevel()
+	var result :Error = await _creator.unloadCurrentLevel()
 	_changeState( State.Running )
 	return result
 

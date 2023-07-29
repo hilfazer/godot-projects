@@ -22,7 +22,7 @@ func _notification(what):
 				unit.set_meta( AgentMetaName, null )
 
 
-func addUnit( unit : UnitBase ) -> int:
+func addUnit( unit : UnitBase ) -> Error:
 	assert( unit != null )
 	assert( not unit in _units.container() )
 

@@ -12,9 +12,9 @@ const fogged_tile_id        := Vector2i(0, 0)
 const _source_id            = 1
 const layer                 = 0
 
-var _fogVisionsToUpdate     := []
+var _fog_visions_to_update  :Array[FogVisionBase] = []
 var _visionsToResults       := {}
-var _doFogUpdate            := false
+var _fog_update_requested   := false
 
 @onready var _updateTimer   :Timer = $"UpdateTimer"
 
@@ -25,16 +25,16 @@ func _ready():
 
 
 func _physics_process( _delta ):
-	if _doFogUpdate:
+	if _fog_update_requested:
 		_updateFog()
-		_doFogUpdate = false
+		_fog_update_requested = false
 
 
 func requestFogUpdate():
-	_doFogUpdate = true
+	_fog_update_requested = true
 
 
-func addFogVision( fogVision : FogVisionBase ) -> int:
+func addFogVision( fogVision : FogVisionBase ) -> Error:
 	assert( fogVision )
 	assert( not fogVision in _visionsToResults )
 
@@ -47,7 +47,7 @@ func addFogVision( fogVision : FogVisionBase ) -> int:
 	return OK
 
 
-func removeFogVision( fogVision : FogVisionBase ) -> int:
+func removeFogVision( fogVision : FogVisionBase ) -> Error:
 	assert( fogVision )
 	assert( fogVision in _visionsToResults )
 
@@ -60,11 +60,11 @@ func removeFogVision( fogVision : FogVisionBase ) -> int:
 
 
 func onVisionChangedPosition( fogVision : FogVisionBase ):
-	if _fogVisionsToUpdate.has( fogVision ):
+	if _fog_visions_to_update.has( fogVision ):
 		return
 
-	_fogVisionsToUpdate.append( fogVision )
-	if _fogVisionsToUpdate.size() == 1:
+	_fog_visions_to_update.append( fogVision )
+	if _fog_visions_to_update.size() == 1:
 		_updateTimer.start( _updateTimer.wait_time )
 
 
@@ -114,12 +114,12 @@ func _insertFogVision( fogVision : FogVisionBase ):
 
 func _eraseFogVision( fogVision : FogVisionBase ):
 	_visionsToResults.erase( fogVision )
-	_fogVisionsToUpdate.erase( fogVision )
+	_fog_visions_to_update.erase( fogVision )
 
 
 func _updateFog():
 	#cover fog for nodes that moved
-	for vision in _fogVisionsToUpdate:
+	for vision in _fog_visions_to_update:
 		assert( vision is FogVisionBase )
 		_setTilesWithVisibilityMap(
 			_visionsToResults[vision]["tileRect"],
@@ -127,7 +127,7 @@ func _updateFog():
 			shaded_tile_id
 			)
 
-	_fogVisionsToUpdate.clear()
+	_fog_visions_to_update.clear()
 
 	#uncover fog for every node
 	for vision in _visionsToResults.keys():
