@@ -96,6 +96,11 @@ func removeUnit( unit : UnitBase ) -> Error:
 	return removed
 
 
+func remove_deleted_unit( unit :UnitBase ):
+	deselectUnit(unit)
+	super.remove_deleted_unit(unit)
+
+
 func selectUnit( unit : UnitBase ) -> Error:
 	assert( unit in _controlled_units.container() )
 
@@ -112,7 +117,7 @@ func selectUnit( unit : UnitBase ) -> Error:
 	return FAILED
 
 
-func deselectUnit( unit : UnitBase ):
+func deselectUnit( unit : UnitBase ) -> Error:
 	assert( unit in _controlled_units.container() )
 	if not unit in _selectedUnits:
 		return FAILED

@@ -8,9 +8,6 @@ var units_in_tree := []:
 		return _controlled_units.container().filter( func(a): return a.is_inside_tree() )
 
 
-signal units_changed( units )
-
-
 func _init():
 	add_to_group( Constants.Groups.Agents )
 
