@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://dbgswgllm70wg"]
 
-[ext_resource path="res://engine/agent/PlayerAgent.gd" type="Script" id=1]
-[ext_resource path="res://engine/SelectionBox.tscn" type="PackedScene" id=2]
+[ext_resource type="Script" path="res://engine/agent/PlayerAgent.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://2sq31nr1jesq" path="res://engine/SelectionBox.tscn" id="2"]
 
 [node name="PlayerAgent" type="Node"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 fogVisionGd = "res://engine/level/RaycastFogVision.gd"
 
-[node name="SelectionBox" parent="." instance=ExtResource( 2 )]
+[node name="SelectionBox" parent="." instance=ExtResource("2")]

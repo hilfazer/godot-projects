@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://tests/sandbox/unit_movement.gd" id="1_ykpvt"]
 [ext_resource type="PackedScene" uid="uid://du6jpvdoyfp2w" path="res://engine/units/UnitBase.tscn" id="2_hbtav"]
-[ext_resource type="PackedScene" path="res://engine/agent/PlayerAgent.tscn" id="4_svawp"]
+[ext_resource type="PackedScene" uid="uid://dbgswgllm70wg" path="res://engine/agent/PlayerAgent.tscn" id="4_svawp"]
 [ext_resource type="Script" path="res://engine/agent/UnitGrabbingAgent.gd" id="5_ve0oc"]
 
 [node name="unit_movement" type="Node"]
