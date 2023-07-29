@@ -15,6 +15,8 @@ var _fileLogger : FileLoggerGd
 
 @export var performPrints := false
 
+@onready var _fps_label :Label = $'CanvasLayer/VBoxContainer/FpsLabel'
+@onready var _orphan_label :Label = $'CanvasLayer/VBoxContainer/OrphanLabel'
 
 signal variables_updated()
 
@@ -26,6 +28,12 @@ func _init():
 func _ready() -> void:
 	if OS.has_feature("debug"):
 		_repositionWindow()
+
+
+func _process( _delta ):
+	_fps_label.text = str(Engine.get_frames_per_second())
+	var orphan_count :int = Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)
+	_orphan_label.text = "" if not orphan_count else ("orphans: " + str(orphan_count))
 
 
 func _input( event : InputEvent ):
