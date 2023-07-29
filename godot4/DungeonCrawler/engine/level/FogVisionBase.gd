@@ -1,8 +1,6 @@
 extends Node2D
 class_name FogVisionBase
 
-const VisibilityLayer = 0x00000010
-
 @onready var _lastPosition := global_position
 
 signal changedPosition()
