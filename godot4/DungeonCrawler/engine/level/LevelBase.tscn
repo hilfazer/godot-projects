@@ -62,7 +62,7 @@ wait_time = 0.2
 [node name="Units" type="Node" parent="."]
 script = ExtResource("5")
 
-[node name="Entrances" type="Node" parent="."]
+[node name="TransitionZones" type="Node" parent="."]
 
 [node name="Commands" type="Node" parent="."]
 script = ExtResource("4")
@@ -72,4 +72,4 @@ script = ExtResource("6")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(271, 209)
-zoom = Vector2(1.6, 1.6)
+zoom = Vector2(1.8, 1.8)

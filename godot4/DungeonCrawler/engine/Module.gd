@@ -91,12 +91,14 @@ func getUnitFilename( unitName : String ) -> String:
 	return fileName
 
 
-func getTargetLevelFilenameAndEntrance( sourceLevelName : String, entrance : String ) -> PackedStringArray:
+func get_target_level_and_transition_zone( \
+		sourceLevelName : String, transition_zone : String ) -> PackedStringArray:
 	assert( _data.LevelNames.has(sourceLevelName) )
-	if not _data.LevelConnections.has( [sourceLevelName, entrance] ):
+	if not _data.LevelConnections.has( [sourceLevelName, transition_zone] ):
 		return PackedStringArray()
 
-	var name_entrance : PackedStringArray = _data.LevelConnections[[sourceLevelName, entrance]]
+	var name_entrance : PackedStringArray = \
+			_data.LevelConnections[[sourceLevelName, transition_zone]]
 
 	return PackedStringArray([ getLevelFilename( name_entrance[0] ), name_entrance[1] ])
 

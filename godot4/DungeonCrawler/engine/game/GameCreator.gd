@@ -3,13 +3,12 @@ extends Node
 
 const SavingModuleGd         = preload("res://engine/SavingModule.gd")
 const SerializerGd           = preload("res://projects/Serialization/hierarchical_serializer.gd")
-const GameSceneGd            = preload("./GameScene.gd")
 const LevelLoaderGd          = preload("./LevelLoader.gd")
 const PlayerAgentGd          = preload("res://engine/agent/PlayerAgent.gd")
 const UnitCreationDataGd     = preload("res://engine/units/UnitCreationData.gd")
 const FogOfWarGd             = preload("res://engine/level/FogOfWar.gd")
 
-var _game : GameSceneGd
+var _game : GameScene
 var _levelLoader : LevelLoaderGd
 var _currentLevelParent : Node
 
@@ -17,7 +16,7 @@ var _currentLevelParent : Node
 signal createFinished( error )
 
 
-func initialize( gameScene : GameSceneGd, currentLevelParent : Node ):
+func initialize( gameScene : GameScene, currentLevelParent : Node ):
 	_game = gameScene
 	_currentLevelParent = currentLevelParent
 	_levelLoader = LevelLoaderGd.new( gameScene )
@@ -79,9 +78,9 @@ func _create( unitsCreationData : Array ) -> int:
 	var levelState = module.loadLevelState( levelName, true )
 	await _loadLevel( levelName, levelState )
 
-	var entranceName = module.getLevelEntrance( levelName )
-	if not entranceName.is_empty() and not unitsCreationData.is_empty():
-		_createAndInsertUnits( unitsCreationData, entranceName )
+	var transition_zone_name = module.getLevelEntrance( levelName )
+	if not transition_zone_name.is_empty() and not unitsCreationData.is_empty():
+		_createAndInsertUnits( unitsCreationData, transition_zone_name )
 
 	return OK
 
@@ -120,13 +119,13 @@ func _createNewModule( filePath : String ) -> int:
 	return OK
 
 
-func _createAndInsertUnits( playerUnitData : Array, entranceName : String ):
+func _createAndInsertUnits( playerUnitData : Array, transition_zone_name : String ):
 	var playerUnits__ = _createPlayerUnits__( playerUnitData )
 	_game.set_player_units( playerUnits__ )
 
 	var unitNodes : Array = _game.get_player_units()
 
-	var notAdded = LevelLoaderGd.insertPlayerUnits( unitNodes, _game.currentLevel, entranceName )
+	var notAdded = LevelLoaderGd.insertPlayerUnits( unitNodes, _game.currentLevel, transition_zone_name )
 	for unit in notAdded:
 		Debug.info(self, "Unit '%s' not added to level" % unit.name)
 

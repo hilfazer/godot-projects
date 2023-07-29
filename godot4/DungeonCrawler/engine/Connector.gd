@@ -2,11 +2,10 @@ extends Node
 
 const GameScenePath          = "res://engine/game/GameScene.tscn"
 const MainMenuPath           = "res://engine/gui/MainMenuScene.tscn"
-const GameSceneGd            = preload("./game/GameScene.gd")
 const NewGameSceneGd         = preload("res://engine/gui/NewGameScene.gd")
 const MainMenuSceneGd        = preload("res://engine/gui/MainMenuScene.gd")
 
-var _game : GameSceneGd: set = _setGame
+var _game : GameScene: set = _setGame
 
 
 signal newGameSceneConnected( node )
@@ -34,7 +33,7 @@ func _connectNewCurrentScene():
 	elif newCurrent is MainMenuSceneGd:
 		newCurrent.connect("saveFileSelected", Callable(self, "_loadGame").bind(), CONNECT_ONE_SHOT)
 
-	elif newCurrent is GameSceneGd:
+	elif newCurrent is GameScene:
 		assert( _game == null )
 		_setGame( get_tree().current_scene )
 # warning-ignore:return_value_discarded
@@ -50,10 +49,10 @@ func _toMainMenu():
 func _createGame( module_, playerUnitsCreationData : Array ):
 	SceneSwitcher.switch_scene( GameScenePath,
 		{
-			GameSceneGd.Params.Module : module_,
-			GameSceneGd.Params.PlayerUnitsData : playerUnitsCreationData,
+			GameScene.Params.Module : module_,
+			GameScene.Params.PlayerUnitsData : playerUnitsCreationData,
 		},
-		GameSceneGd.PARAMS_META )
+		GameScene.PARAMS_META )
 
 
 func onGameEnded():
@@ -62,7 +61,7 @@ func onGameEnded():
 	_setGame( null )
 
 
-func _setGame( gameScene : GameSceneGd ):
+func _setGame( gameScene : GameScene ):
 	assert( gameScene == null or _game == null )
 	_game = gameScene
 
@@ -71,16 +70,16 @@ func _loadGame( filePath : String ):
 	assert(not _isGameInProgress())
 
 	SceneSwitcher.switch_scene( GameScenePath,
-		{ GameSceneGd.Params.SaveFileName : filePath }, GameSceneGd.PARAMS_META )
+		{ GameScene.Params.SaveFileName : filePath }, GameScene.PARAMS_META )
 
 
 func _isGameInProgress() -> bool:
 	return _game != null \
-		&& not get_tree().current_scene is GameSceneGd
+		&& not get_tree().current_scene is GameScene
 
 
 func _makeGameFromFile( filePath : String ):
 	_setGame( null )
 
 	SceneSwitcher.switch_scene( GameScenePath,
-		{ GameSceneGd.Params.SaveFileName : filePath }, GameSceneGd.PARAMS_META )
+		{ GameScene.Params.SaveFileName : filePath }, GameScene.PARAMS_META )

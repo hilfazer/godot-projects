@@ -2,12 +2,16 @@ extends RefCounted
 
 enum State { Ready, Loading, Unloading }
 
-var _game : Node
+const TRANSITION_ZONES = "TransitionZones"
+const TRANSITION_NAME_NOT_SPECIFIED = "Level transition zone name unspecified. Using first zone found."
+const TRANSITION_NAME_NOT_FOUND = "Level transition zone name not found. Using first zone found."
+
+var _game : GameScene
 var _levelFilename : String
-var _state : int = State.Ready
+var _state : State = State.Ready
 
 
-func _init( game : Node ):
+func _init( game : GameScene ):
 	_game = game
 
 
@@ -77,9 +81,9 @@ func _unloadLevel( level : LevelBase ) -> int:
 
 
 static func insertPlayerUnits( \
-		playerUnits : Array, level : LevelBase, entranceName : String ) -> Array:
+		playerUnits : Array, level : LevelBase, transition_zone_name : String ) -> Array:
 
-	var spawns = getSpawnsFromEntrance( level, entranceName )
+	var spawns = get_spawns_from_transition_zone( level, transition_zone_name )
 	var notAdded := []
 
 	for unit in playerUnits:
@@ -97,21 +101,21 @@ static func insertPlayerUnits( \
 	return notAdded
 
 
-static func getSpawnsFromEntrance( level : LevelBase, entranceName : String ) -> Array:
+static func get_spawns_from_transition_zone( level : LevelBase, transition_zone_name : String ) -> Array:
 	var spawns := []
-	var entranceNode : Node
+	var transitionZone :Area2D
 
-	if entranceName == null:
-		Debug.info(level, "Level entrance name unspecified. Using first entrance found.")
-		entranceNode = level.get_node("Entrances").get_child(0)
+	if transition_zone_name == null:
+		Debug.info(level, TRANSITION_NAME_NOT_SPECIFIED)
+		transitionZone = level.get_node(TRANSITION_ZONES).get_child(0)
 	else:
-		entranceNode = level.get_node("Entrances/" + entranceName)
-		if entranceNode == null:
-			Debug.warn(level, "Level entrance name not found. Using first entrance found.")
-			entranceNode = level.get_node("Entrances").get_child(0)
+		transitionZone = level.get_node(TRANSITION_ZONES).get_node(transition_zone_name)
+		if transitionZone == null:
+			Debug.warn(level, TRANSITION_NAME_NOT_FOUND)
+			transitionZone = level.get_node(TRANSITION_ZONES).get_child(0)
 
-	assert( entranceNode != null )
-	for child in entranceNode.get_children():
+	assert( transitionZone != null )
+	for child in transitionZone.get_children():
 		if child.is_in_group( Constants.Groups.SpawnPoints ):
 			spawns.append( child )
 

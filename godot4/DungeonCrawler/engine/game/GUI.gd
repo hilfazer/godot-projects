@@ -2,10 +2,9 @@ extends CanvasLayer
 
 const GameMenuScn            = preload("GameMenu.tscn")
 const GameMenuGd             = preload("res://engine/game/GameMenu.gd")
-const GameSceneGd            = preload("res://engine/game/GameScene.gd")
 
 var _gameMenu : GameMenuGd
-@onready var _game : GameSceneGd        = get_parent()
+@onready var _game : GameScene        = get_parent()
 
 
 func _unhandled_input(event):

@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(64, 64)
 
-[node name="Entrance" type="Area2D"]
+[node name="TransitionZone" type="Area2D"]
 input_pickable = false
 
 [node name="Spawn1" parent="." instance=ExtResource("1")]

@@ -10,7 +10,7 @@ var _currentLevel : LevelBase: set = setCurrentLevel
 var _selectedUnits := {}
 var _pressedDirections :PackedByteArray = [0, 0, 0, 0]
 
-signal travel_requested(entrance)
+signal travel_requested(transition_zone)
 
 
 func _ready():
@@ -217,9 +217,9 @@ func _unmakeAPlayerUnit( unit : UnitBase ):
 func _tryTravel():
 	await get_tree().process_frame
 
-	var entrance : Area2D = _currentLevel.findEntranceWithAllUnits( _unitsInTree )
-	if entrance != null:
-		travel_requested.emit(entrance)
+	var transition_zone : Area2D = _currentLevel.find_transition_zone_with_all_units( _unitsInTree )
+	if transition_zone != null:
+		travel_requested.emit(transition_zone)
 
 
 func _onConsoleVisibilityChanged( visible :bool ):

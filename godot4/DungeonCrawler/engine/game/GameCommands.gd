@@ -1,6 +1,5 @@
 extends "res://debug/CommandHolder.gd"
 
-const GameSceneGd            = preload("./GameScene.gd")
 const PlayerAgentGd          = preload("res://engine/agent/PlayerAgent.gd")
 
 var _playerAgent : PlayerAgentGd
@@ -8,7 +7,7 @@ var _playerAgent : PlayerAgentGd
 
 func _ready():
 	super._ready()
-	assert( get_parent() is GameSceneGd )
+	assert( get_parent() is GameScene )
 	await get_tree().process_frame
 	_playerAgent = $"../PlayerAgent"
 	assert( _playerAgent )
@@ -94,7 +93,7 @@ func addUnitToPlayer( unitName : String ):
 		Console.Log.warn( "Unit name can't be empty" )
 		return
 
-	var game : GameSceneGd = get_parent()
+	var game : GameScene = get_parent()
 
 	if not is_instance_valid( game.currentLevel ):
 		Console.Log.warn( "No current level" )
@@ -141,7 +140,7 @@ func selectPlayerUnit( unitName : String ):
 
 
 func selectPlayerUnitByNumber( unitOrder : int ):
-	var units : Array = _playerAgent.getUnits()
+	var units : Array[UnitBase] = _playerAgent.getUnits()
 
 	for i in range(0, units.size()):
 		if i == unitOrder - 1:
@@ -151,7 +150,7 @@ func selectPlayerUnitByNumber( unitOrder : int ):
 
 
 func selectAllPlayerUnits():
-	var units : Array = _playerAgent.getUnits()
+	var units : Array[UnitBase] = _playerAgent.getUnits()
 
 	for i in range(0, units.size()):
 			_playerAgent.selectUnit( units[i] )

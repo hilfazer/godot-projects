@@ -6,7 +6,7 @@ class_name LevelBase
 @onready var _units  :LevelUnits = $"Units"
 @onready var _items  :LevelItems = $"Items"
 @onready var _fog    :FogOfWar = $"FogOfWar"
-@onready var _entrances := $"Entrances"
+@onready var _transition_zones_parent :Node = $"TransitionZones"
 
 
 signal predelete()
@@ -36,8 +36,8 @@ func removeChildUnit( unitNode ):
 	_units.remove_child( unitNode )
 
 
-func findEntranceWithAllUnits( unitNodes ) -> Area2D:
-	var entranceWithUnits = findEntranceWithAnyUnit( unitNodes )
+func find_transition_zone_with_all_units( unitNodes ) -> Area2D:
+	var entranceWithUnits = find_transition_zone_with_any_units( unitNodes )
 
 	if !entranceWithUnits:
 		return null
@@ -48,17 +48,17 @@ func findEntranceWithAllUnits( unitNodes ) -> Area2D:
 		return null
 
 
-func findEntranceWithAnyUnit( unitNodes ) -> Area2D:
-	var entrances : Array = _entrances.get_children()
+func find_transition_zone_with_any_units( unitNodes ) -> Area2D:
+	var transition_zones : Array[Node] = _transition_zones_parent.get_children()
 
 	var entranceWithAnyUnits : Area2D = null
-	for entrance in entrances:
+	for zone in transition_zones:
 		if entranceWithAnyUnits != null:
 			break
 
-		for body in entrance.get_overlapping_bodies():
+		for body in zone.get_overlapping_bodies():
 			if unitNodes.has( body ):
-				entranceWithAnyUnits = entrance
+				entranceWithAnyUnits = zone
 				break
 
 	return entranceWithAnyUnits

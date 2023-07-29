@@ -1,4 +1,5 @@
 extends Node
+class_name GameScene
 
 const GameCreatorGd          = preload("./GameCreator.gd")
 const SavingModuleGd         = preload("res://engine/SavingModule.gd")
@@ -179,9 +180,9 @@ func set_player_units( units :Array[UnitBase] ) -> void:
 	_player_agent.set_player_units(units)
 
 
-func _travel( entrance : Area2D ):
-	var levelAndEntranceNames : PackedStringArray = _module.getTargetLevelFilenameAndEntrance(
-	currentLevel.name, entrance.name )
+func _travel( transition_zone : Area2D ):
+	var levelAndEntranceNames : PackedStringArray = _module.get_target_level_and_transition_zone(
+	currentLevel.name, transition_zone.name )
 
 	if levelAndEntranceNames.is_empty():
 		return
@@ -189,7 +190,7 @@ func _travel( entrance : Area2D ):
 	_changeState( State.Creating )
 
 	var levelName : String = levelAndEntranceNames[0].get_file().get_basename()
-	var entranceName : String = levelAndEntranceNames[1]
+	var transition_zone_name : String = levelAndEntranceNames[1]
 	var result : int = await loadLevel( levelName )
 
 	if result != OK:
@@ -198,7 +199,7 @@ func _travel( entrance : Area2D ):
 	_player_agent.set_physics_process(false)
 
 	var notAdded = LevelLoaderGd.insertPlayerUnits(
-			_player_agent.getUnits(), currentLevel, entranceName )
+			_player_agent.getUnits(), currentLevel, transition_zone_name )
 
 	# TODO: replace it with _changeState( State.Running ) that unpauses the game
 	# but first remove that from GameScene.loadLevel()

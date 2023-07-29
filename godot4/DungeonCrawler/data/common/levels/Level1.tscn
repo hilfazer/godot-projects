@@ -5,7 +5,7 @@
 [ext_resource type="TileSet" uid="uid://nml5ri21p64e" path="res://data/common/levels/walls.tres" id="3"]
 [ext_resource type="PackedScene" uid="uid://b0hm33qc02iyy" path="res://data/common/units/Ghoul.tscn" id="4"]
 [ext_resource type="Script" path="res://engine/agent/EnemyAgent.gd" id="5"]
-[ext_resource type="PackedScene" uid="uid://cqp4qgv44437w" path="res://engine/level/Entrance.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://cqp4qgv44437w" path="res://engine/level/TransitionZone.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://b6l8qpqtjtd3c" path="res://data/Module1/items/HelmetBarbute.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://l7p0s8ibc3up" path="res://data/common/items/Helmet.tscn" id="8"]
 
@@ -25,16 +25,16 @@ position = Vector2(112, 160)
 [node name="Agent" type="Node" parent="Units/Ghoul" index="3"]
 script = ExtResource("5")
 
-[node name="ToLevel2" parent="Entrances" index="0" instance=ExtResource("6")]
+[node name="ToLevel2" parent="TransitionZones" index="0" instance=ExtResource("6")]
 position = Vector2(160, 64)
 metadata/_edit_group_ = true
 
-[node name="Start" parent="Entrances" index="1" instance=ExtResource("6")]
+[node name="Start" parent="TransitionZones" index="1" instance=ExtResource("6")]
 modulate = Color(0.691406, 0.613083, 0.613083, 1)
 position = Vector2(64, 64)
 metadata/_edit_group_ = true
 
-[node name="ColorRect" parent="Entrances/Start" index="5"]
+[node name="ColorRect" parent="TransitionZones/Start" index="5"]
 visible = false
 
 [node name="HelmetBarbute" parent="Items" index="0" instance=ExtResource("7")]
@@ -44,4 +44,4 @@ position = Vector2(224, 160)
 [node name="Helmet" parent="Items" index="1" instance=ExtResource("8")]
 position = Vector2(240, 80)
 
-[editable path="Entrances/Start"]
+[editable path="TransitionZones/Start"]
