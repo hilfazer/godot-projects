@@ -110,11 +110,11 @@ func deserialize( saveDict : Dictionary ):
 
 
 func _makeMovementVector( direction : Vector2 ) -> Vector2:
-	var x_add = direction.x if direction.x <= 0 else Constants.GRID_STEP.x
+	var x_add :float = direction.x if direction.x <= 0 else float(Constants.GRID_STEP.x)
 	var x_target = int( (position.x + x_add) / Constants.GRID_STEP.x ) * Constants.GRID_STEP.x
 	var x_diff = x_target - position.x
 
-	var y_add = direction.y if direction.y <= 0 else Constants.GRID_STEP.y
+	var y_add :float = direction.y if direction.y <= 0 else float(Constants.GRID_STEP.y)
 	var y_target = int( (position.y + y_add) / Constants.GRID_STEP.y ) * Constants.GRID_STEP.y
 	var y_diff = y_target - position.y
 

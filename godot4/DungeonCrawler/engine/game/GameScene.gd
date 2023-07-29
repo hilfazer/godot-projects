@@ -11,10 +11,10 @@ enum State { Initial, Creating, Saving, Running, Finished }
 
 var currentLevel : LevelBase: set = setCurrentLevel
 var _module : SavingModuleGd: set = setCurrentModule
-var _state : int = State.Initial
+var _state : State = State.Initial
 var _pause := true: set = setPause
 
-@onready var _creator : GameCreatorGd  = $"GameCreator"
+@onready var _creator                  :GameCreatorGd  = $"GameCreator"
 @onready var _player_agent             :PlayerAgent = $"PlayerAgent"
 
 
@@ -211,7 +211,7 @@ func _travel( transition_zone : Area2D ):
 		Debug.info(self, "Unit '%s' not added to level" % unit.name)
 
 
-func _changeState( state : int ):
+func _changeState( state : State ):
 	assert( _state != State.Finished )
 
 	if state == _state:

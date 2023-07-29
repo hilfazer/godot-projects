@@ -130,7 +130,7 @@ static func findFreePlayerSpawn( spawns : Array ):
 	return null
 
 
-func _changeState( state : int, levelFilename : String = "" ):
+func _changeState( state : State, levelFilename : String = "" ):
 	match( state ):
 		_state:
 			Debug.warn(self, "changing to same state")
