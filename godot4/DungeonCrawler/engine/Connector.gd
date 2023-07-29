@@ -52,7 +52,7 @@ func _createGame( module_, playerUnitsCreationData : Array ):
 			GameScene.Params.Module : module_,
 			GameScene.Params.PlayerUnitsData : playerUnitsCreationData,
 		},
-		GameScene.PARAMS_META )
+		Constants.Meta.SwitchParams )
 
 
 func onGameEnded():
@@ -70,7 +70,7 @@ func _loadGame( filePath : String ):
 	assert(not _isGameInProgress())
 
 	SceneSwitcher.switch_scene( GameScenePath,
-		{ GameScene.Params.SaveFileName : filePath }, GameScene.PARAMS_META )
+		{ GameScene.Params.SaveFileName : filePath }, Constants.Meta.SwitchParams )
 
 
 func _isGameInProgress() -> bool:
@@ -82,4 +82,4 @@ func _makeGameFromFile( filePath : String ):
 	_setGame( null )
 
 	SceneSwitcher.switch_scene( GameScenePath,
-		{ GameScene.Params.SaveFileName : filePath }, GameScene.PARAMS_META )
+		{ GameScene.Params.SaveFileName : filePath }, Constants.Meta.SwitchParams )

@@ -1,7 +1,6 @@
 extends Node
 class_name AgentBase
 
-const AgentMetaName = "agentRef"
 
 var _units := SetWrapper.new()
 var _unitsInTree := []
@@ -19,15 +18,15 @@ func _notification(what):
 	if what == NOTIFICATION_PREDELETE:
 		for unit in _units.container():
 			if is_instance_valid( unit ):
-				unit.set_meta( AgentMetaName, null )
+				unit.set_meta( Constants.Meta.Agent, null )
 
 
 func addUnit( unit : UnitBase ) -> Error:
 	assert( unit != null )
 	assert( not unit in _units.container() )
 
-	if unit.has_meta( AgentMetaName ):
-		var agent : AgentBase = unit.get_meta( AgentMetaName ).get_ref()
+	if unit.has_meta( Constants.Meta.Agent ):
+		var agent : AgentBase = unit.get_meta( Constants.Meta.Agent ).get_ref()
 
 		if agent != null:
 			var removed = agent.removeUnit( unit )
@@ -41,7 +40,7 @@ func addUnit( unit : UnitBase ) -> Error:
 	if unit.is_inside_tree():
 		_setActive( unit )
 
-	unit.set_meta( AgentMetaName, weakref(self) )
+	unit.set_meta( Constants.Meta.Agent, weakref(self) )
 	return OK
 
 
@@ -53,7 +52,7 @@ func removeUnit( unit : UnitBase ) -> bool:
 	_units.remove( [unit] )
 	unit.tree_entered.disconnect(Callable(self, "_setActive"))
 	unit.tree_exited.disconnect(Callable(self, "_setInactive"))
-	unit.set_meta( AgentMetaName, null )
+	unit.set_meta( Constants.Meta.Agent, null )
 	return true
 
 

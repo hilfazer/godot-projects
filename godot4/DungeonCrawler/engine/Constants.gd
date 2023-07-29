@@ -8,3 +8,8 @@ const Groups = {
 	NPCs = "NPCs",
 	PCs = "PCs",
 }
+
+const Meta = {
+	Agent = "agentRef",
+	SwitchParams = "PARAMS",
+}

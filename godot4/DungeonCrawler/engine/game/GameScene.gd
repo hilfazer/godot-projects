@@ -5,7 +5,6 @@ const GameCreatorGd          = preload("./GameCreator.gd")
 const SavingModuleGd         = preload("res://engine/SavingModule.gd")
 const LevelLoaderGd          = preload("res://engine/game/LevelLoader.gd")
 
-const PARAMS_META = "PARAMS"
 enum Params { Module, PlayerUnitsData, SaveFileName }
 enum State { Initial, Creating, Saving, Running, Finished }
 
@@ -30,8 +29,8 @@ func _ready():
 	_player_agent.initialize( currentLevel )
 	_player_agent.travel_requested.connect(Callable(self, "_travel"))
 
-	var params = get_meta(PARAMS_META)
-	set_meta(PARAMS_META, null)
+	var params = get_meta(Constants.Meta.SwitchParams)
+	set_meta(Constants.Meta.SwitchParams, null)
 	if params == null:
 		return
 
