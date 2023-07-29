@@ -84,11 +84,11 @@ func addUnit( unit : UnitBase ):
 	_currentLevel.update()
 
 
-func removeUnit( unit : UnitBase ) -> bool:
+func removeUnit( unit : UnitBase ) -> Error:
 	if unit in _selectedUnits:
 		deselectUnit( unit )
-	var removed = super.removeUnit( unit )
-	if removed:
+	var removed :Error = super.removeUnit( unit )
+	if removed == OK:
 		_unmakeAPlayerUnit( unit )
 
 	unit.disconnect("clicked", Callable(self, "selectUnit"))
@@ -217,7 +217,7 @@ func _unmakeAPlayerUnit( unit : UnitBase ):
 func _tryTravel():
 	await get_tree().process_frame
 
-	var transition_zone : Area2D = _currentLevel.find_transition_zone_with_all_units( _unitsInTree )
+	var transition_zone : Area2D = _currentLevel.find_transition_zone_with_all_units( units_in_tree )
 	if transition_zone != null:
 		travel_requested.emit(transition_zone)
 

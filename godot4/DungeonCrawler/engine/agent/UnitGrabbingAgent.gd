@@ -11,7 +11,7 @@ func _ready():
 
 func _physics_process( _delta ):
 	if _direction != Vector2.ZERO:
-		for unit in _unitsInTree:
+		for unit in units_in_tree:
 			unit.requestedDirection = Vector2i(_direction)
 
 

@@ -13,7 +13,7 @@ func _ready():
 
 func _physics_process( _delta ):
 	if _nextDirection:
-		for unit in _unitsInTree:
+		for unit in units_in_tree:
 			assert( unit.is_inside_tree() )
 			unit.requestedDirection = _nextDirection
 	_nextDirection = Vector2( 0, 0 )
