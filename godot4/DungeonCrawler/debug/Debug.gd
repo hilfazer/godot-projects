@@ -9,7 +9,7 @@ const LogFilename = "res://logfile.log"
 
 var _debugWindow : CanvasLayer
 var _variables := {}
-var _loggers := []
+var _loggers :Array[LoggerBaseGd] = []
 var _consoleLogger : ConsoleLoggerGd
 var _fileLogger : FileLoggerGd
 
