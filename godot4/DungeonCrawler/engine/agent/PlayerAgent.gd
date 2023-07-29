@@ -97,7 +97,7 @@ func removeUnit( unit : UnitBase ) -> bool:
 
 
 func selectUnit( unit : UnitBase ) -> Error:
-	assert( unit in _units.container() )
+	assert( unit in _controlled_units.container() )
 
 	if unit in _selectedUnits:
 		return FAILED
@@ -113,7 +113,7 @@ func selectUnit( unit : UnitBase ) -> Error:
 
 
 func deselectUnit( unit : UnitBase ):
-	assert( unit in _units.container() )
+	assert( unit in _controlled_units.container() )
 	if not unit in _selectedUnits:
 		return FAILED
 
@@ -127,7 +127,7 @@ func deselectUnit( unit : UnitBase ):
 func _selectUnitsInRect( selectionRect : Rect2 ):
 	var unitsInRect := []
 
-	for unit in _units.container():
+	for unit in _controlled_units.container():
 		var unitRectShape : RectangleShape2D
 		for child in unit.get_children():
 			if child.scene_file_path != null and child.scene_file_path == SelectionComponentScn.resource_path:
@@ -145,7 +145,7 @@ func _selectUnitsInRect( selectionRect : Rect2 ):
 	if unitsInRect.size() == 0:
 		return
 
-	for unit in _units.container():
+	for unit in _controlled_units.container():
 		if unit in unitsInRect:
 			selectUnit(unit)
 		else:
@@ -162,7 +162,7 @@ func setCurrentLevel( level : LevelBase ):
 
 func serialize():
 	var unitNamesAndSelection := {}
-	for unit in _units.container():
+	for unit in _controlled_units.container():
 		assert( unit is UnitBase )
 		assert( unit.is_inside_tree() )
 		unitNamesAndSelection[unit.name] = unit in _selectedUnits

@@ -2,7 +2,7 @@ extends Node
 class_name AgentBase
 
 
-var _units := SetWrapper.new()
+var _controlled_units := SetWrapper.new()
 var _unitsInTree := []
 
 
@@ -10,20 +10,20 @@ signal units_changed( units )
 
 
 func _init():
-	_units.changed.connect( Callable(self, "_update_active_units") )
+	_controlled_units.changed.connect( Callable(self, "_update_active_units") )
 	add_to_group( Constants.Groups.Agents )
 
 
 func _notification(what):
 	if what == NOTIFICATION_PREDELETE:
-		for unit in _units.container():
+		for unit in _controlled_units.container():
 			if is_instance_valid( unit ):
 				unit.set_meta( Constants.Meta.Agent, null )
 
 
 func addUnit( unit : UnitBase ) -> Error:
 	assert( unit != null )
-	assert( not unit in _units.container() )
+	assert( not unit in _controlled_units.container() )
 
 	if unit.has_meta( Constants.Meta.Agent ):
 		var agent : AgentBase = unit.get_meta( Constants.Meta.Agent ).get_ref()
@@ -33,7 +33,7 @@ func addUnit( unit : UnitBase ) -> Error:
 			assert( removed == true )
 			Debug.info( self, "Removed agent %s from unit %s" % [agent.name, unit.name] )
 
-	_units.add( [unit] )
+	_controlled_units.add( [unit] )
 	unit.tree_entered.connect(Callable(self, "_setActive").bind(unit))
 	unit.tree_exited.connect(Callable(self, "_setInactive").bind(unit))
 	unit.predelete.connect(Callable(self, "remove_deleted_unit").bind(unit), CONNECT_ONE_SHOT)
@@ -45,11 +45,11 @@ func addUnit( unit : UnitBase ) -> Error:
 
 
 func removeUnit( unit : UnitBase ) -> bool:
-	if not _units.container().has( unit ):
+	if not _controlled_units.container().has( unit ):
 		Debug.info( self, "Agent %s has no unit named %s" % [self.name, unit.name] )
 		return false
 
-	_units.remove( [unit] )
+	_controlled_units.remove( [unit] )
 	unit.tree_entered.disconnect(Callable(self, "_setActive"))
 	unit.tree_exited.disconnect(Callable(self, "_setInactive"))
 	unit.set_meta( Constants.Meta.Agent, null )
@@ -57,15 +57,15 @@ func removeUnit( unit : UnitBase ) -> bool:
 
 
 func remove_deleted_unit( unit :UnitBase ):
-	if not _units.container().has( unit ):
+	if not _controlled_units.container().has( unit ):
 		Debug.info( self, "Agent %s has no unit named %s" % [self.name, unit.name] )
 	else:
-		_units.remove( [unit] )
+		_controlled_units.remove( [unit] )
 
 
 func getUnits() -> Array[UnitBase]:
 	var units :Array[UnitBase] = []
-	for unit in _units.container():
+	for unit in _controlled_units.container():
 		units.append( unit )
 	return units
 
@@ -91,5 +91,5 @@ func _update_active_units( units : Array ):
 			newUnitsInTree.append( activeUnit )
 
 	_unitsInTree = newUnitsInTree
-	units_changed.emit( _units.container() )
+	units_changed.emit( _controlled_units.container() )
 
