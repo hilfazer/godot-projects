@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ModuleData" load_steps=2 format=3 uid="uid://b8jsyrqlq580p"]
+
+[ext_resource type="Script" path="res://engine/ModuleData.gd" id="1_25x0a"]
+
+[resource]
+script = ExtResource("1_25x0a")
+unit_max = 4
+unit_names = Array[String](["unitName"])
+starting_level_name = "levelName"
+level_names = Array[String](["levelName"])
+default_transition_zones = {}
+level_connections = {}
