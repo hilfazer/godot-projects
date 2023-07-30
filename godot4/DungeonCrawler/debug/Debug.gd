@@ -1,7 +1,6 @@
 extends Node
 
 const DebugWindowScn         = preload("res://debug/DebugWindow.tscn")
-const LoggerBaseGd           = preload("res://debug/LoggerBase.gd")
 const ConsoleLoggerGd        = preload("res://debug/ConsoleLogger.gd")
 const FileLoggerGd           = preload("res://debug/FileLogger.gd")
 
@@ -9,11 +8,12 @@ const LogFilename = "res://logfile.log"
 
 var _debugWindow : CanvasLayer
 var _variables := {}
-var _loggers :Array[LoggerBaseGd] = []
-var _consoleLogger : ConsoleLoggerGd
-var _fileLogger : FileLoggerGd
+var _console_logger := ConsoleLoggerGd.new()
+var _log_to_console := true
+var _file_logger := FileLoggerGd.new(LogFilename)
+var _log_to_file := true
 
-@export var performPrints := false
+@export var perform_prints := false
 
 @onready var _fps_label :Label = $'CanvasLayer/VBoxContainer/FpsLabel'
 @onready var _orphan_label :Label = $'CanvasLayer/VBoxContainer/OrphanLabel'
@@ -43,54 +43,35 @@ func _input( event : InputEvent ):
 			_debugWindow = null
 		else:
 			_createDebugWindow()
+	#TODO set input as handled
 
 
 func info( caller : Object, message : String ):
-	for logger in _loggers:
-		logger.info( caller, message )
+	if _log_to_console: _console_logger.info(caller, message)
+	if _log_to_file: _file_logger.info(caller, message)
 
 
 func warn( caller : Object, message : String ):
-	for logger in _loggers:
-		logger.warn( caller, message )
+	if _log_to_console: _console_logger.warn(caller, message)
+	if _log_to_file: _file_logger.warn(caller, message)
 
 
 func error( caller : Object, message : String ):
-	for logger in _loggers:
-		logger.error( caller, message )
+	if _log_to_console: _console_logger.error(caller, message)
+	if _log_to_file: _file_logger.error(caller, message)
 
 
 func setLogLevel( level : int ):
-	for logger in _loggers:
-		logger.setLogLevel( level )
+	_console_logger.setLogLevel(level)
+	_file_logger.setLogLevel(level)
 
 
-func setLogToConsole( doLog : bool ):
-	if doLog and _consoleLogger == null:
-		_consoleLogger = ConsoleLoggerGd.new()
-		addLogger( _consoleLogger )
-	elif not doLog and _consoleLogger != null:
-		removeLogger( _consoleLogger )
-		_consoleLogger = null
+func setLogToConsole( enable : bool ):
+	_log_to_console = enable
 
 
-func setLogToFile( doLog : bool ):
-	if doLog and _fileLogger == null:
-		_fileLogger = FileLoggerGd.new( LogFilename )
-		addLogger( _fileLogger )
-	elif not doLog and _fileLogger != null:
-		removeLogger( _fileLogger )
-		_fileLogger = null
-
-
-func addLogger( logger : LoggerBaseGd ):
-	if not logger in _loggers:
-		_loggers.append( logger )
-
-
-func removeLogger( logger : LoggerBaseGd ):
-	assert( logger in _loggers )
-	_loggers.erase( _loggers.find( logger) )
+func setLogToFile( enable : bool ):
+	_log_to_file = enable
 
 
 func updateVariable( varName : String, value, addValue := false ):
