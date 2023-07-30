@@ -2,11 +2,7 @@ extends "res://debug/CommandHolder.gd"
 
 const DebugGd                = preload("res://debug/Debug.gd")
 
-var _debug : DebugGd
-
-func _ready():
-	super._ready()
-	_debug = get_parent()
+@onready var _debug : DebugGd = get_parent()
 
 
 func _registerCommands():

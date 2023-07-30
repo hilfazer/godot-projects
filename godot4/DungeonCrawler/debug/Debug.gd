@@ -32,7 +32,7 @@ func _ready() -> void:
 
 func _process( _delta ):
 	_fps_label.text = str(Engine.get_frames_per_second())
-	var orphan_count :int = Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)
+	var orphan_count = Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)
 	_orphan_label.text = "" if not orphan_count else ("orphans: " + str(orphan_count))
 
 

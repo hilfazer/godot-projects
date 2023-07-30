@@ -3,11 +3,6 @@ extends "res://debug/CommandHolder.gd"
 @onready var _level : LevelBase = get_parent()
 
 
-func _ready():
-	super._ready()
-	assert( get_parent() is LevelBase )
-
-
 func _registerCommands():
 	registerCommand(
 		"setGroundTile",

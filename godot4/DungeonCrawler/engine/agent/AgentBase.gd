@@ -29,7 +29,7 @@ func addUnit( unit : UnitBase ) -> Error:
 
 		if agent != null:
 			var removed = agent.removeUnit( unit )
-			assert( removed == true )
+			assert( removed == OK )
 			Debug.info( self, "Removed agent %s from unit %s" % [agent.name, unit.name] )
 
 	_controlled_units.add( [unit] )

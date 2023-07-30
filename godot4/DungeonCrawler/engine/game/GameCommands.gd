@@ -2,15 +2,8 @@ extends "res://debug/CommandHolder.gd"
 
 const PlayerAgentGd          = preload("res://engine/agent/PlayerAgent.gd")
 
-var _playerAgent : PlayerAgentGd
-
-
-func _ready():
-	super._ready()
-	assert( get_parent() is GameScene )
-	await get_tree().process_frame
-	_playerAgent = $"../PlayerAgent"
-	assert( _playerAgent )
+@onready var _game           :GameScene = get_parent()
+@onready var _playerAgent    :PlayerAgentGd = _game.get_node('PlayerAgent')
 
 
 func _unhandled_input(event):
