@@ -5,12 +5,8 @@ const IncorrectDictionaryTypesPath = "res://tests/files/module_data_incorrect_di
 
 
 func before_all():
-	Debug.setLogToConsole(true)
+	Debug.setLogLevel(3)
 
-
-func after_all():
-	Debug.setLogToConsole(false)
-	
 
 func test_load_correct_module_data():
 	var module_data = ModuleData.load_and_verify_module(CorrectModuleDataPath)
