@@ -6,6 +6,8 @@ var _controlled_units := SetWrapper.new()
 var units_in_tree := []:
 	get:
 		return _controlled_units.container().filter( func(a): return a.is_inside_tree() )
+	set(_a):
+		assert(false)
 
 
 func _init():
