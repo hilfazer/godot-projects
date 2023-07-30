@@ -1,7 +1,7 @@
 extends Resource
 class_name ModuleData
 
-const COULD_NOT_LOAD_MODULE := "Could not load %s as ModuleData"
+const COULD_NOT_LOAD_MODULE := "Could not load file '%s' as ModuleData"
 const INCORRECT_VALUE_TYPE := "%s has value(s) of type different than %s"
 
 @export var unit_max                   :int = 4
@@ -24,12 +24,22 @@ static func load_and_verify_module( module_path :String ) -> ModuleData:
 		if property["type"] in [TYPE_ARRAY, TYPE_DICTIONARY]:
 			module.get(property["name"]).make_read_only()
 
+	var any_errors := false
+	
 	var incorrect_keys = \
 			module.default_transition_zones.keys().filter(func(a): return typeof(a) != TYPE_STRING)
 	var incorrect_values = \
 			module.default_transition_zones.values().filter(func(a): return typeof(a) != TYPE_STRING)
 	if incorrect_keys.size() + incorrect_values.size() > 0:
 		Debug.info(null, INCORRECT_VALUE_TYPE % ['default_transition_zones', 'TYPE_STRING'])
-		return null
+		any_errors = true
 
-	return module
+	incorrect_keys = \
+			module.level_connections.keys().filter(func(a): return typeof(a) != TYPE_STRING)
+	incorrect_values = \
+			module.level_connections.values().filter(func(a): return typeof(a) != TYPE_STRING)
+	if incorrect_keys.size() + incorrect_values.size() > 0:
+		Debug.info(null, INCORRECT_VALUE_TYPE % ['level_connections', 'TYPE_STRING'])
+		any_errors = true
+
+	return null if any_errors else module
