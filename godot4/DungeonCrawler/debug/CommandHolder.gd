@@ -14,6 +14,11 @@ func _notification( what ):
 
 
 func registerCommand( commandName :String, description :String, argArray := [], method = null ):
+	if method:
+		assert(has_method(method))
+	else:
+		assert(has_method(commandName))
+
 	var command = Console.add_command(commandName, self, method)
 	command.set_description(description)
 
