@@ -2,14 +2,13 @@ extends Node
 class_name GameScene
 
 const GameCreatorGd          = preload("./GameCreator.gd")
-const SavingModuleGd         = preload("res://engine/SavingModule.gd")
 const LevelLoaderGd          = preload("res://engine/game/LevelLoader.gd")
 
 enum Params { Module, PlayerUnitsData, SaveFileName }
 enum State { Initial, Creating, Saving, Running, Finished }
 
 var currentLevel : LevelBase: set = setCurrentLevel
-var _module : SavingModuleGd: set = setCurrentModule
+var _module : ModuleState: set = setCurrentModule
 var _state : State = State.Initial
 var _pause := true: set = setPause
 
@@ -43,7 +42,7 @@ func _ready():
 
 	# creating new game from module
 	if params.has( Params.Module ):
-		var module : SavingModuleGd = params[Params.Module]
+		var module : ModuleState = params[Params.Module]
 		var unitsData = params[Params.PlayerUnitsData] \
 			if params.has( Params.PlayerUnitsData ) \
 			else []
@@ -61,7 +60,7 @@ func _exit_tree():
 	Debug.updateVariable( "Pause", "Yes" if get_tree().paused else "No" )
 
 
-func createGame( module : SavingModuleGd, unitsCreationData : Array ):
+func createGame( module : ModuleState, unitsCreationData : Array ):
 	assert(module)
 	_changeState( State.Creating )
 	_creator.call_deferred( "createFromModule", module, unitsCreationData )
@@ -147,7 +146,7 @@ func unloadCurrentLevel() -> Error:
 	return result
 
 
-func setCurrentModule( module : SavingModuleGd ):
+func setCurrentModule( module : ModuleState ):
 	_module = module
 
 

@@ -1,16 +1,15 @@
 extends Panel
 
 const UnitCreationDataGd    = preload("res://engine/units/UnitCreationData.gd")
-const ModuleGd               = preload("res://engine/ModuleState.gd")
 
 signal madeCharacter( creation_data )
 
 
-var _module : ModuleGd
+var _module : ModuleState
 @onready var _unitChoice = $"UnitChoice"
 
 
-func initialize( module : ModuleGd ):
+func initialize( module : ModuleState ):
 	assert( module )
 	_module = module
 

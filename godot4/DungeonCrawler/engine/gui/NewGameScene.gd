@@ -1,11 +1,9 @@
 extends Control
 
-const ModuleStateGd = preload("res://engine/ModuleState.gd")
-
 const ModuleExtensions       = ["tres"]
 const NoModuleString    = "..."
 
-var _module : ModuleStateGd: set = setModule
+var _module : ModuleState: set = setModule
 
 
 signal readyForGame( module, playerUnitCreationData )
@@ -43,8 +41,8 @@ func moduleSelected( moduleDataPath : String ):
 	var module = null
 	var moduleResource = load( moduleDataPath )
 	var moduleData: ModuleData = moduleResource.new()
-#	if SavingModuleGd.verify( moduleData ):
-#		module = SavingModuleGd.new( moduleData, moduleResource.resource_path )
+#	if ModuleState.verify( moduleData ):
+#		module = ModuleState.new( moduleData, moduleResource.resource_path )
 
 	if not module:
 		Debug.error( self, "Incorrect module data file %s" % moduleDataPath )
@@ -71,8 +69,6 @@ func onStartGamePressed():
 	emit_signal("readyForGame", _module , $"Lobby"._unitsCreationData)
 
 
-func setModule( module : ModuleStateGd ):
+func setModule( module : ModuleState ):
 	_module = module
 	$"Lobby".setModule( module )
-
-

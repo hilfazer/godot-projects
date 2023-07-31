@@ -1,7 +1,5 @@
 extends Node
 
-
-const SavingModuleGd         = preload("res://engine/SavingModule.gd")
 const SerializerGd           = preload("res://projects/Serialization/hierarchical_serializer.gd")
 const LevelLoaderGd          = preload("./LevelLoader.gd")
 const PlayerAgentGd          = preload("res://engine/agent/PlayerAgent.gd")
@@ -22,7 +20,7 @@ func initialize( gameScene : GameScene, currentLevelParent : Node ):
 	_levelLoader = LevelLoaderGd.new( gameScene )
 
 
-func createFromModule( module : SavingModuleGd, unitsCreationData : Array ) -> Error:
+func createFromModule( module : ModuleState, unitsCreationData : Array ) -> Error:
 	assert( _game._module == null )
 	_game.setCurrentModule( module )
 
@@ -34,7 +32,7 @@ func createFromModule( module : SavingModuleGd, unitsCreationData : Array ) -> E
 func createFromFile( filePath : String ):
 	await get_tree().process_frame
 
-	var module : SavingModuleGd = _game._module
+	var module : ModuleState = _game._module
 	if not module:
 		var result = _createNewModule( filePath )
 		if result != OK:
@@ -73,7 +71,7 @@ func _create( unitsCreationData : Array ) -> Error:
 	assert( _game._module )
 	assert( get_tree().paused )
 
-	var module : SavingModuleGd = _game._module
+	var module : ModuleState = _game._module
 	var levelName = module.getCurrentLevelName()
 	var levelState = module.loadLevelState( levelName, true )
 	await _loadLevel( levelName, levelState )
@@ -110,7 +108,7 @@ func _createNewModule( filePath : String ) -> Error:
 	assert( _game._module == null )
 	assert( _game.currentLevel == null )
 
-	var module = SavingModuleGd.createFromSaveFile( filePath )
+	var module = ModuleState.createFromSaveFile( filePath )
 	if not module:
 		Debug.error( null, "Could not load game from file %s" % filePath )
 		return ERR_CANT_CREATE
