@@ -12,8 +12,8 @@ func _init( module_data :ModuleData ) -> void:
 	_module_data = module_data
 
 
-func getUnitsForCreation() -> Array:
-	return _module_data.Units
+func data() -> ModuleData:
+	return _module_data
 
 
 func getLevelEntrance( levelName : String ) -> String:

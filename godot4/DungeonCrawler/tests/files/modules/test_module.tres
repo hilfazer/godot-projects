@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ModuleData" load_steps=2 format=3 uid="uid://cfmdj8bns3cak"]
+
+[ext_resource type="Script" path="res://engine/ModuleData.gd" id="1_vyklc"]
+
+[resource]
+script = ExtResource("1_vyklc")
+unit_max = 3
+creation_unit_names = Array[String](["berzerker", "artificer"])
+starting_level_name = "test_level1"
+level_names = Array[String](["test_level1", "test_level2"])
+default_transition_zones = {
+"test_level1": "Start",
+"test_level2": "ToLevel1"
+}
+level_connections = {
+"test_level1": "ToLevel2",
+"test_level2": "ToLevel1"
+}

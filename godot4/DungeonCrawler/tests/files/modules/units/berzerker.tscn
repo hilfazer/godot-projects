@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1wbiwlk6e61d"]
+
+[ext_resource type="PackedScene" uid="uid://du6jpvdoyfp2w" path="res://engine/units/UnitBase.tscn" id="1_ttalm"]
+[ext_resource type="Texture2D" uid="uid://dr6huesexx7bt" path="res://tests/files/modules/units/deepdwarf_berzerker.png" id="2_dqyil"]
+
+[node name="Berzerker" instance=ExtResource("1_ttalm")]
+
+[node name="Sprite2D" parent="Pivot" index="0"]
+texture = ExtResource("2_dqyil")

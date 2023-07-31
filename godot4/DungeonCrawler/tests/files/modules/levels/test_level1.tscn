@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5338gg7uwi4w"]
+
+[ext_resource type="PackedScene" uid="uid://clkwc86dk4q6j" path="res://engine/level/LevelBase.tscn" id="1_u81uu"]
+[ext_resource type="PackedScene" uid="uid://cqp4qgv44437w" path="res://engine/level/TransitionZone.tscn" id="2_4mukm"]
+
+[node name="LevelBase" instance=ExtResource("1_u81uu")]
+
+[node name="Start" parent="TransitionZones" index="0" instance=ExtResource("2_4mukm")]
+position = Vector2(96, 128)
+
+[node name="ToLevel2" parent="TransitionZones" index="1" instance=ExtResource("2_4mukm")]
+position = Vector2(208, 128)

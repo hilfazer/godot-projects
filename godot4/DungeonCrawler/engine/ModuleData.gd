@@ -12,23 +12,31 @@ const STARTING_LEVEL_NAME_EMPTY := "Starting level name is empty"
 
 
 @export var unit_max                   :int = 4
-@export var unit_names                 :Array[String] = []
+@export var creation_unit_names        :Array[String] = []
 @export var starting_level_name        :String = ''
 @export var level_names                :Array[String] = []
 @export var default_transition_zones   :Dictionary = {}
 @export var level_connections          :Dictionary = {}
 
 
-func get_unit_file_path( unit_name :String ) -> String:
-	if not unit_names.has(unit_name):
-		Debug.info( self, "Module: no unit named %s" % unit_name )
-		return ""
-
+func get_unit_scene_path( unit_name :String ) -> String:
 	var file_path = _get_file_path( unit_name, UnitsSubdir )
 	if file_path.is_empty():
 		Debug.error( self, "Module: no file for unit with name %s" % unit_name )
 
 	return file_path
+
+
+func get_level_scene_path( level_name :String ) -> String:
+	var file_path = _get_file_path( level_name, LevelsSubdir )
+	if file_path.is_empty():
+		Debug.error( self, "Module: no file for level with name %s" % level_name )
+
+	return file_path
+
+
+func get_unit_names_for_creation() -> Array[String]:
+	return creation_unit_names
 
 
 func _get_file_path( name : String, subdirectory : String ) -> String:
