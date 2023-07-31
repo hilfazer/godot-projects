@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ModuleData" load_steps=2 format=3 uid="uid://bdwk3y2eqymxm"]
+
+[ext_resource type="Script" path="res://engine/ModuleData.gd" id="1_6f8bk"]
+
+[resource]
+script = ExtResource("1_6f8bk")
+unit_max = 4
+unit_names = Array[String](["Dwarf", "Knight"])
+starting_level_name = ""
+level_names = Array[String](["Level1", "Level2"])
+default_transition_zones = {
+"Level1": "Start"
+}
+level_connections = {}

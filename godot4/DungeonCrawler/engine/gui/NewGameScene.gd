@@ -1,12 +1,11 @@
 extends Control
 
-const SavingModuleGd         = preload("res://engine/SavingModule.gd")
-const ModuleDataGd           = preload("res://engine/ModuleData.gd")
+const ModuleStateGd = preload("res://engine/Module.gd")
 
-const ModuleExtensions       = ["gd"]
+const ModuleExtensions       = ["tres"]
 const NoModuleString    = "..."
 
-var _module : SavingModuleGd: set = setModule
+var _module : ModuleStateGd: set = setModule
 
 
 signal readyForGame( module, playerUnitCreationData )
@@ -39,16 +38,18 @@ func moduleSelected( moduleDataPath : String ):
 	if moduleDataPath == NoModuleString:
 		return
 
-	assert( moduleDataPath.get_extension() in ModuleExtensions )
+	if not moduleDataPath.get_extension() in ModuleExtensions:
+		return
+
 	if FileAccess.open( moduleDataPath, FileAccess.READ ) == null:
 		Debug.error( self, "Module file %s can't be opened for reading" % moduleDataPath )
 		return
 
 	var module = null
 	var moduleResource = load( moduleDataPath )
-	var moduleData: ModuleDataGd = moduleResource.new()
-	if SavingModuleGd.verify( moduleData ):
-		module = SavingModuleGd.new( moduleData, moduleResource.resource_path )
+	var moduleData: ModuleData = moduleResource.new()
+#	if SavingModuleGd.verify( moduleData ):
+#		module = SavingModuleGd.new( moduleData, moduleResource.resource_path )
 
 	if not module:
 		Debug.error( self, "Incorrect module data file %s" % moduleDataPath )
@@ -75,7 +76,7 @@ func onStartGamePressed():
 	emit_signal("readyForGame", _module , $"Lobby"._unitsCreationData)
 
 
-func setModule( module : SavingModuleGd ):
+func setModule( module : ModuleStateGd ):
 	_module = module
 	$"Lobby".setModule( module )
 
