@@ -1,7 +1,7 @@
 extends Panel
 
 const UnitCreationDataGd    = preload("res://engine/units/UnitCreationData.gd")
-const ModuleGd               = preload("res://engine/Module.gd")
+const ModuleGd               = preload("res://engine/ModuleState.gd")
 
 signal madeCharacter( creation_data )
 

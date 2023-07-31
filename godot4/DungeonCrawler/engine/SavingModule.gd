@@ -1,4 +1,4 @@
-extends "./Module.gd"
+extends "./ModuleState.gd"
 #TODO remove SavingModule, make a new class that doesn't inherit Module.gd
 
 const SerializerGd           = preload("res://projects/Serialization/hierarchical_serializer.gd")
@@ -15,14 +15,14 @@ const NamePlayerData         = "PlayerData"
 var _serializer : SerializerGd = SerializerGd.new()
 
 
-func _init( moduleData, moduleFilename : String, serializer = null ):
-	super( moduleData, moduleFilename )
+func _init( module_data :ModuleData, moduleFilename : String, serializer = null ):
+	super( module_data )
 
 	if serializer:
 		_serializer = serializer
 	else:
 		_serializer.user_data[NameModule] = moduleFilename
-		_serializer.user_data[NameCurrentLevel] = getStartingLevelName()
+#		_serializer.user_data[NameCurrentLevel] = getStartingLevelName()
 
 
 func saveToFile( saveFilename : String ) -> Error:
@@ -42,7 +42,7 @@ func loadFromFile( saveFilename : String ):
 
 
 func saveLevel( level : LevelBase, makeCurrent : bool ):
-	if not _data.LevelNames.has( level.name ):
+	if not _module_data.LevelNames.has( level.name ):
 		Debug.warn( self,"SavingModule: module has no level named %s" % level.name)
 		return
 
@@ -62,7 +62,7 @@ func saveLevel( level : LevelBase, makeCurrent : bool ):
 
 
 func loadLevelState( levelName : String, makeCurrent = true ):
-	if not _data.LevelNames.has( levelName ):
+	if not _module_data.LevelNames.has( levelName ):
 		Debug.warn( self,"SavingModule: module has no level named %s" % levelName)
 		return null
 
@@ -120,9 +120,9 @@ static func createFromSaveFile( saveFilename : String ):
 
 	var dataResource = load(moduleFilename)
 	if dataResource:
-		var moduleData: ModuleDataGd = load(moduleFilename).new()
-		if verify( moduleData ):
-			moduleNode = new(moduleData, moduleFilename, serializer)
+		var moduleData: ModuleData = load(moduleFilename).new()
+#		if verify( moduleData ):
+#			moduleNode = new(moduleData, moduleFilename, serializer)
 
 	return moduleNode
 

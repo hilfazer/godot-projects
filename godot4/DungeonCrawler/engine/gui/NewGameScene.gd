@@ -1,6 +1,6 @@
 extends Control
 
-const ModuleStateGd = preload("res://engine/Module.gd")
+const ModuleStateGd = preload("res://engine/ModuleState.gd")
 
 const ModuleExtensions       = ["tres"]
 const NoModuleString    = "..."

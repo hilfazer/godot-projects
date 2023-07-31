@@ -8,6 +8,10 @@ var _module_data : ModuleData
 var _moduleFilename : String
 
 
+func _init( module_data :ModuleData ) -> void:
+	_module_data = module_data
+
+
 func getUnitsForCreation() -> Array:
 	return _module_data.Units
 

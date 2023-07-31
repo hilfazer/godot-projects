@@ -34,4 +34,4 @@ func test_load_incorrect_dictionary_types():
 func test_module_data_getters():
 	var module_data = ModuleData.load_and_verify_module(CorrectModuleDataPath)
 	var unit_path = module_data.get_unit_file_path("unitName")
-	assert_eq(unit_path, "res://tests/files/modules/units.unitName.tres")
+	assert_eq(unit_path, "res://tests/files/modules/units/unitName.tscn")
