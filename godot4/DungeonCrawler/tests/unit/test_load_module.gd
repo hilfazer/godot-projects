@@ -41,12 +41,24 @@ func test_module_data_level_getters():
 	
 	assert_has(module_data.level_names, "test_level1")
 	assert_has(module_data.level_names, "test_level2")
-	assert_has(module_data.level_connections, "test_level1")
-	assert_has(module_data.level_connections, "test_level2")
 	assert_eq(module_data.get_level_scene_path("test_level1"), \
 			"res://tests/files/modules/levels/test_level1.tscn")
 	assert_eq(module_data.get_level_scene_path("test_level2"), \
 			"res://tests/files/modules/levels/test_level2.tscn")
+	assert_eq(module_data.get_level_zone_transition("test_level1"), "Start")
+	assert_eq(module_data.get_level_zone_transition("test_level2"), "")
+
+
+func test_module_data_level_connections():
+	var module_data = ModuleData.load_and_verify_module(TestModulePath)
+	if not(module_data is ModuleData):
+		fail_test(COULD_NOT_LOAD)
+		return
+
+	assert_eq( module_data.get_target_level_and_transition_zone("test_level1", "ToLevel2"),
+			["res://tests/files/modules/levels/test_level2.tscn", "ToLevel1"] )
+	assert_eq( module_data.get_target_level_and_transition_zone("test_level1", "To nowhere"),
+			[] )
 
 
 const TEST_UNIT_PARAMS = [

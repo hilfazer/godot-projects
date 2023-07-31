@@ -18,11 +18,6 @@ func _ready():
 	$"Lobby".connect("unitNumberChanged", Callable(self, "onUnitNumberChanged"))
 
 
-func _notification( what ):
-	if what == NOTIFICATION_PREDELETE:
-		pass
-
-
 func _input( event ):
 	if event.is_action_pressed("ui_cancel"):
 		emit_signal("finished")

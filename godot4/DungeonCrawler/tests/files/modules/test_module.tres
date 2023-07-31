@@ -9,10 +9,8 @@ creation_unit_names = Array[String](["berzerker", "artificer"])
 starting_level_name = "test_level1"
 level_names = Array[String](["test_level1", "test_level2"])
 default_transition_zones = {
-"test_level1": "Start",
-"test_level2": "ToLevel1"
+"test_level1": "Start"
 }
 level_connections = {
-"test_level1": "ToLevel2",
-"test_level2": "ToLevel1"
+"test_level1:ToLevel2": "test_level2:ToLevel1"
 }
