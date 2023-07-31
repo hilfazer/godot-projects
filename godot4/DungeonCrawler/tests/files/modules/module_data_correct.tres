@@ -8,5 +8,7 @@ unit_max = 4
 unit_names = Array[String](["unitName"])
 starting_level_name = "levelName"
 level_names = Array[String](["levelName"])
-default_transition_zones = {}
+default_transition_zones = {
+"levelName": "zoneName"
+}
 level_connections = {}

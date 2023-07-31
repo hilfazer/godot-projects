@@ -1,7 +1,7 @@
 extends "res://tests/gut_test_base.gd"
 
-const CorrectModuleDataPath = "res://tests/files/module_data_correct.tres"
-const IncorrectDictionaryTypesPath = "res://tests/files/module_data_incorrect_dict_types.tres"
+const CorrectModuleDataPath = "res://tests/files/modules/module_data_correct.tres"
+const IncorrectDictionaryTypesPath = "res://tests/files/modules/module_data_incorrect_dict_types.tres"
 
 
 func before_all():
@@ -29,3 +29,9 @@ func test_resource_load_failure():
 func test_load_incorrect_dictionary_types():
 	var module_data = ModuleData.load_and_verify_module(IncorrectDictionaryTypesPath)
 	assert_null(module_data)
+
+
+func test_module_data_getters():
+	var module_data = ModuleData.load_and_verify_module(CorrectModuleDataPath)
+	var unit_path = module_data.get_unit_file_path("unitName")
+	assert_eq(unit_path, "res://tests/files/modules/units.unitName.tres")
