@@ -1,5 +1,7 @@
 extends VBoxContainer
 
+const NewGameSceneGd = preload("res://engine/gui/NewGameScene.gd")
+
 const UnitCreatorName = "UnitCreator"
 
 var _mainMenu
@@ -36,18 +38,19 @@ func _on_NewCreateButton_pressed():
 class UnitCreator extends Node:
 	var CharacterCreationScn   = preload("res://engine/gui/CharacterCreation.tscn")
 
-	func connectOnReady( newGameScene ):
-		newGameScene.connect("ready", Callable(self, "createUnit").bind(newGameScene))
+	func connectOnReady( new_game_scene :NewGameSceneGd ):
+		new_game_scene.connect("ready", Callable(self, "createUnit").bind(new_game_scene))
 
-	func createUnit( newGameScene ):
+	func createUnit( new_game_scene :NewGameSceneGd ):
 		if is_queued_for_deletion():
 			return
 
 		var characterCreation = CharacterCreationScn.instantiate()
 		add_child(characterCreation)
 		characterCreation.queue_free()
-		characterCreation.initialize( newGameScene._module )
-		var characterDatum = characterCreation.makeCharacter()
+		if new_game_scene.get_module() != null:
+			characterCreation.initialize( new_game_scene.get_module() )
+			var character_data = characterCreation.makeCharacter()
+			new_game_scene.get_node( "Lobby" ).createCharacter( character_data )
 
-		newGameScene.get_node( "Lobby" ).createCharacter( characterDatum )
 		self.queue_free()

@@ -3,7 +3,10 @@ extends Control
 const ModuleExtensions       = ["tres"]
 const NoModuleString    = "..."
 
-var _module : ModuleState: set = setModule
+var _module : ModuleState:
+	set(value):
+		_module = value
+		$"Lobby".setModule( value )
 
 
 signal readyForGame( module, playerUnitCreationData )
@@ -14,7 +17,6 @@ func _ready():
 	moduleSelected( $"ModuleSelection/FileName".text )
 # warning-ignore:return_value_discarded
 	$"Lobby".connect("unitNumberChanged", Callable(self, "onUnitNumberChanged"))
-
 
 func _input( event ):
 	if event.is_action_pressed("ui_cancel"):
@@ -43,13 +45,14 @@ func moduleSelected( module_data_path : String ):
 		Debug.error( self, "Incorrect module data file %s" % module_data_path )
 		return
 	
-	var module := ModuleState.new( module_data )
+	_module = ModuleState.new( module_data )
 	
-
-
-	setModule( module )
 	$"ModuleSelection/FileName".text = module_data_path
 	$"Lobby".setMaxUnits( _module.getPlayerUnitMax() )
+
+
+func get_module() -> ModuleState:
+	return _module
 
 
 func onUnitNumberChanged( number : int ):
@@ -59,14 +62,9 @@ func onUnitNumberChanged( number : int ):
 
 func clear():
 	$"ModuleSelection/FileName".text = NoModuleString
-	setModule( null )
+	_module = null
 	$"Lobby".clearUnits()
 
 
 func onStartGamePressed():
 	emit_signal("readyForGame", _module , $"Lobby"._unitsCreationData)
-
-
-func setModule( module : ModuleState ):
-	_module = module
-	$"Lobby".setModule( module )
