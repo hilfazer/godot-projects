@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InheritedResource" load_steps=2 format=3 uid="uid://bmixy1huriwjl"]
+
+[ext_resource type="Script" path="res://resources/inherited_resource.gd" id="1_5m2pi"]
+
+[resource]
+script = ExtResource("1_5m2pi")
+inherited_var = "bnbh"
+v = 7
+base_var = 4

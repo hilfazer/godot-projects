@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://blhdh70hlydwb"]
+
+[sub_resource type="GDScript" id="GDScript_2yot5"]
+script/source = "extends Node
+
+
+func _ready() -> void:
+	var inh_res = load(\"res://resources/inherited_resource.tres\")
+	
+	breakpoint
+"
+
+[node name="resources_scene" type="Node"]
+script = SubResource("GDScript_2yot5")
