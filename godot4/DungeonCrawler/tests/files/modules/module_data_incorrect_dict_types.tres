@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="ModuleData" load_steps=2 format=3 uid="uid://buaoybl68c7ij"]
 
-[ext_resource type="Script" path="res://engine/ModuleData.gd" id="1_q538s"]
+[ext_resource type="Script" path="res://engine/module/module_data.gd" id="1_q538s"]
+
 
 [resource]
 script = ExtResource("1_q538s")

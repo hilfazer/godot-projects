@@ -4,12 +4,6 @@ class_name ModuleData
 const UnitsSubdir            = "units"
 const LevelsSubdir           = "levels"
 
-const COULD_NOT_LOAD_MODULE := "Could not load file '%s' as ModuleData"
-const INCORRECT_VALUE_TYPE := "%s has value(s) of type different than %s"
-const MAX_UNITS_TOO_LOW := "Maximum number of units lower than 1"
-const STARTING_LEVEL_NAME_EMPTY := "Starting level name is empty"
-
-
 @export var unit_max                   :int = 4:
 	get:
 		return unit_max if unit_max > 0 else 1
@@ -69,42 +63,3 @@ func _get_file_path( name : String, subdirectory : String ) -> String:
 	var full_path :String = resource_path.get_base_dir() + "/" + subdirectory + "/" + name + ".tscn"
 	return full_path if FileAccess.file_exists( full_path ) else ""
 
-
-
-static func load_and_verify_module( module_path :String ) -> ModuleData:
-	var resource = ResourceLoader.load(module_path, "ModuleData")
-	if not resource is ModuleData:
-		Debug.info(null, COULD_NOT_LOAD_MODULE % module_path)
-		return null
-
-	var module := resource as ModuleData
-	for property in module.get_property_list():
-		if property["type"] in [TYPE_ARRAY, TYPE_DICTIONARY]:
-			module.get(property["name"]).make_read_only()
-
-	var any_errors := false
-
-	if module.unit_max < 1:
-		Debug.info(null, MAX_UNITS_TOO_LOW)
-
-	if module.starting_level_name == '':
-		Debug.info(null, STARTING_LEVEL_NAME_EMPTY)
-		any_errors = true
-
-	var incorrect_keys = \
-			module.default_transition_zones.keys().filter(func(a): return typeof(a) != TYPE_STRING)
-	var incorrect_values = \
-			module.default_transition_zones.values().filter(func(a): return typeof(a) != TYPE_STRING)
-	if incorrect_keys.size() + incorrect_values.size() > 0:
-		Debug.info(null, INCORRECT_VALUE_TYPE % ['default_transition_zones', 'TYPE_STRING'])
-		any_errors = true
-
-	incorrect_keys = \
-			module.level_connections.keys().filter(func(a): return typeof(a) != TYPE_STRING)
-	incorrect_values = \
-			module.level_connections.values().filter(func(a): return typeof(a) != TYPE_STRING)
-	if incorrect_keys.size() + incorrect_values.size() > 0:
-		Debug.info(null, INCORRECT_VALUE_TYPE % ['level_connections', 'TYPE_STRING'])
-		any_errors = true
-
-	return null if any_errors else module

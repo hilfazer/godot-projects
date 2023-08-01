@@ -26,31 +26,29 @@ func onLeaveGamePressed():
 	emit_signal("finished")
 
 
-func moduleSelected( moduleDataPath : String ):
+func moduleSelected( module_data_path : String ):
 	clear()
-	if moduleDataPath == NoModuleString:
+	if module_data_path == NoModuleString:
 		return
 
-	if not moduleDataPath.get_extension() in ModuleExtensions:
+	if not module_data_path.get_extension() in ModuleExtensions:
 		return
 
-	if FileAccess.open( moduleDataPath, FileAccess.READ ) == null:
-		Debug.error( self, "Module file %s can't be opened for reading" % moduleDataPath )
+	if FileAccess.open( module_data_path, FileAccess.READ ) == null:
+		Debug.error( self, "Module file %s can't be opened for reading" % module_data_path )
 		return
 
-	var module = null
-	var moduleResource = load( moduleDataPath )
-	var moduleData: ModuleData = moduleResource.new()
-#	if ModuleState.verify( moduleData ):
-#		module = ModuleState.new( moduleData, moduleResource.resource_path )
-
-	if not module:
-		Debug.error( self, "Incorrect module data file %s" % moduleDataPath )
+	var module_data := ModuleLoader.load_module(module_data_path)
+	if not module_data:
+		Debug.error( self, "Incorrect module data file %s" % module_data_path )
 		return
+	
+	var module := ModuleState.new( module_data )
+	
 
 
 	setModule( module )
-	$"ModuleSelection/FileName".text = moduleDataPath
+	$"ModuleSelection/FileName".text = module_data_path
 	$"Lobby".setMaxUnits( _module.getPlayerUnitMax() )
 
 
