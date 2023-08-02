@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c507owswh66ig"]
+
+[ext_resource type="PackedScene" uid="uid://du6jpvdoyfp2w" path="res://engine/units/UnitBase.tscn" id="1_ttalm"]
+[ext_resource type="Texture2D" uid="uid://b8vbds1deyice" path="res://tests/files/modules/units/deepdwarf_artificer.png" id="2_lrnpu"]
+
+[node name="Artificer" instance=ExtResource("1_ttalm")]
+
+[node name="Sprite2D" parent="Pivot" index="0"]
+texture = ExtResource("2_lrnpu")

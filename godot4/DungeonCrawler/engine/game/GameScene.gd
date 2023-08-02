@@ -179,8 +179,8 @@ func set_player_units( units :Array[UnitBase] ) -> void:
 
 
 func _travel( transition_zone : Area2D ):
-	var levelAndEntranceNames : PackedStringArray = _module.get_target_level_and_transition_zone(
-	currentLevel.name, transition_zone.name )
+	var levelAndEntranceNames : PackedStringArray = _module.data().\
+			get_target_level_and_transition_zone( currentLevel.name, transition_zone.name )
 
 	if levelAndEntranceNames.is_empty():
 		return

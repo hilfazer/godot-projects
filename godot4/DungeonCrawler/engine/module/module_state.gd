@@ -57,7 +57,7 @@ func getCurrentLevelName() -> String:
 
 
 func saveLevel( level : LevelBase, makeCurrent : bool ):
-	if not _module_data.LevelNames.has( level.name ):
+	if not _module_data.level_names.has( level.name ):
 		Debug.warn( self,"SavingModule: module has no level named %s" % level.name)
 		return
 
@@ -77,7 +77,7 @@ func saveLevel( level : LevelBase, makeCurrent : bool ):
 
 
 func loadLevelState( levelName : String, makeCurrent = true ):
-	if not _module_data.LevelNames.has( levelName ):
+	if not _module_data.level_names.has( levelName ):
 		Debug.warn( self,"SavingModule: module has no level named %s" % levelName)
 		return null
 

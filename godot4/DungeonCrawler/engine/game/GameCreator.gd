@@ -76,7 +76,7 @@ func _create( unitsCreationData : Array ) -> Error:
 	var levelState = module.loadLevelState( levelName, true )
 	await _loadLevel( levelName, levelState )
 
-	var transition_zone_name = module.getLevelEntrance( levelName )
+	var transition_zone_name = module.data().get_level_zone_transition( levelName )
 	if not transition_zone_name.is_empty() and not unitsCreationData.is_empty():
 		_createAndInsertUnits( unitsCreationData, transition_zone_name )
 
@@ -86,7 +86,7 @@ func _create( unitsCreationData : Array ) -> Error:
 func _loadLevel( levelName : String, levelState = null ):
 	await get_tree().process_frame
 
-	var filePath = _game._module.getLevelFilename( levelName )
+	var filePath = _game._module.data().get_level_scene_path( levelName )
 	if filePath.is_empty():
 		return ERR_CANT_CREATE
 
@@ -132,7 +132,7 @@ func _createPlayerUnits__( unitsCreationData : Array ) -> Array[UnitBase]:
 	var playerUnits__ :Array[UnitBase]= []
 	for unitData in unitsCreationData:
 		assert( unitData is UnitCreationDataGd )
-		var fileName = _game._module.getUnitFilename( unitData.name )
+		var fileName = _game._module.data().get_unit_scene_path( unitData.name )
 		if fileName.is_empty():
 			continue
 

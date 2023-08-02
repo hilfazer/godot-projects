@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfklw74wmg6js"]
+
+[ext_resource type="PackedScene" uid="uid://du6jpvdoyfp2w" path="res://engine/units/UnitBase.tscn" id="1_8vg21"]
+[ext_resource type="Texture2D" uid="uid://7p27gfkytxix" path="res://tests/files/modules/units/acid_blob.png" id="2_2s1py"]
+
+[node name="AcidBlob" instance=ExtResource("1_8vg21")]
+
+[node name="Sprite2D" parent="Pivot" index="0"]
+texture = ExtResource("2_2s1py")

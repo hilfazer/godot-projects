@@ -13,20 +13,20 @@ func initialize( module : ModuleState ):
 	assert( module )
 	_module = module
 
-	for unitPath in module.getUnitsForCreation():
-		_unitChoice.add_item( unitPath )
+	for unit_name in module.data().creation_unit_names:
+		_unitChoice.add_item( unit_name )
 
 
 func makeCharacter() -> UnitCreationDataGd:
 	self.queue_free()
 
 	var unitName : String = _unitChoice.get_item_text( _unitChoice.get_selected() )
-	var unitFilename = _module.getUnitFilename( unitName )
+	var unit_scene_path = _module.data().get_unit_scene_path( unitName )
 
-	if unitFilename.is_empty():
+	if unit_scene_path.is_empty():
 		return null
 
-	var unitNode__ = load( unitFilename ).instantiate()
+	var unitNode__ = load( unit_scene_path ).instantiate()
 	var unitTexture = unitNode__.getIcon()
 	unitNode__.free()
 

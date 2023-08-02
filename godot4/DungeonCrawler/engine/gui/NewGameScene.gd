@@ -48,7 +48,7 @@ func moduleSelected( module_data_path : String ):
 	_module = ModuleState.new( module_data )
 	
 	$"ModuleSelection/FileName".text = module_data_path
-	$"Lobby".setMaxUnits( _module.getPlayerUnitMax() )
+	$"Lobby".setMaxUnits( _module.data().unit_max )
 
 
 func get_module() -> ModuleState:

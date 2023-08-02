@@ -1,15 +1,16 @@
 [gd_resource type="Resource" script_class="ModuleData" load_steps=2 format=3 uid="uid://bdwk3y2eqymxm"]
 
-[ext_resource type="Script" path="res://engine/module/module_data.gd" id="1_6f8bk"]
-
+[ext_resource type="Script" path="res://engine/module/module_data.gd" id="1_vyklc"]
 
 [resource]
-script = ExtResource("1_6f8bk")
-unit_max = 4
-unit_names = Array[String](["Dwarf", "Knight"])
-starting_level_name = ""
-level_names = Array[String](["Level1", "Level2"])
+script = ExtResource("1_vyklc")
+unit_max = 3
+creation_unit_names = Array[String](["deepdwarf", "berzerker", "artificer"])
+starting_level_name = "level1"
+level_names = Array[String](["level1", "level2"])
 default_transition_zones = {
-"Level1": "Start"
+"level1": "Start"
 }
-level_connections = {}
+level_connections = {
+"level1:ToLevel2": "level2:ToLevel1"
+}

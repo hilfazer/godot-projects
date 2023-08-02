@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://biiu06yacyd3n"]
+[gd_scene load_steps=9 format=3 uid="uid://b007ayj5l6kku"]
 
 [ext_resource type="PackedScene" uid="uid://clkwc86dk4q6j" path="res://engine/level/LevelBase.tscn" id="1"]
 [ext_resource type="TileSet" path="res://data/common/levels/ground.tres" id="2"]
