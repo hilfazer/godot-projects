@@ -218,13 +218,10 @@ func _changeState( state : State ):
 
 	if state == State.Finished:
 		setPause(false)
-
 	elif state == State.Running:
 		setPause(false)
-
 	elif state == State.Creating:
 		setPause(true)
-
 	elif state == State.Saving:
 		setPause(true)
 

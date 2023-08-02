@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://projects/Serialization/save_game_file.gd" id="1_w8xh5"]
+
+[resource]
+script = ExtResource("1_w8xh5")
+version = "0.1.0"
+nodesDict = {}
+userDict = {
+"CurrentLevel": "level1",
+"Module": "res://data/Module1/Module1.tres",
+"PlayerData": [&"PlayerAgent", "res://engine/agent/PlayerAgent.tscn", {
+"player_berzerker": true,
+"player_deepdwarf": true
+}]
+}

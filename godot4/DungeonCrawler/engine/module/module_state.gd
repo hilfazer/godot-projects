@@ -37,9 +37,9 @@ func loadFromFile( save_path : String ):
 	_serializer.load_from_file( save_path )
 
 
-func moduleMatches( saveFilename : String ) -> bool:
+func moduleMatches( save_file_path : String ) -> bool:
 	@warning_ignore("static_called_on_instance")
-	return extractModuleFilename( saveFilename ) == _module_data.resource_path
+	return extract_module_path( save_file_path ) == _module_data.resource_path
 
 
 func getPlayerData():
@@ -95,32 +95,26 @@ func data() -> ModuleData:
 	return _module_data
 
 
-static func extractModuleFilename( saveFilename : String ) -> String:
-	if not FileAccess.open( saveFilename, FileAccess.READ ):
+static func extract_module_path( save_file_path : String ) -> String:
+	if not FileAccess.open( save_file_path, FileAccess.READ ):
 		return ""
 
 	var moduleFile := ""
-	var state : SavedGameRes = ResourceLoader.load( saveFilename )
+	var state : SavedGameRes = ResourceLoader.load( save_file_path )
 	if state.userDict.has(NameModule):
 		moduleFile = state.userDict[NameModule]
 
 	return moduleFile
 
 
-static func createFromSaveFile( saveFilename : String ):
+static func createFromSaveFile( save_file_path : String ) -> ModuleState:
 	var serializer : SerializerGd = SerializerGd.new()
-	var loadResult = serializer.load_from_file( saveFilename )
+	var loadResult = serializer.load_from_file( save_file_path )
 	if loadResult != OK:
-		Debug.warn( null,"SavingModule: could not create module from file %s" % saveFilename)
+		Debug.warn( null,"SavingModule: could not create module from file %s" % save_file_path)
 		return null
 
-	var moduleFilename = serializer.user_data.get(NameModule)
-	var moduleNode = null
+	var module_path = serializer.user_data.get(NameModule)
+	var module_data :ModuleData = ModuleLoader.load_module(module_path)
 
-	var dataResource = load(moduleFilename)
-	if dataResource:
-		var moduleData: ModuleData = load(moduleFilename).new()
-#		if verify( moduleData ):
-#			moduleNode = new(moduleData, moduleFilename, serializer)
-
-	return moduleNode
+	return null if not module_data else ModuleState.new(module_data)
