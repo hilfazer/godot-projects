@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dp4tvyy1rxetr"]
+
+[ext_resource type="Script" path="res://typing/typing_polymorphic.gd" id="1_rxrpe"]
+
+[node name="typing_polymorphic" type="Node"]
+script = ExtResource("1_rxrpe")
