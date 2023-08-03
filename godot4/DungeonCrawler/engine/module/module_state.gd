@@ -26,7 +26,7 @@ func saveToFile( save_path : String ) -> Error:
 
 	var result :Error = _serializer.save_to_file( save_path )
 	if result != OK:
-		Debug.warn( self, "SavingModule: could not save to file %s" % save_path )
+		Debug.warn( self, "ModuleState: could not save to file %s" % save_path )
 
 	return result
 
@@ -57,8 +57,8 @@ func getCurrentLevelName() -> String:
 
 
 func saveLevel( level : LevelBase, makeCurrent : bool ):
-	if not _module_data.level_names.has( level.name ):
-		Debug.warn( self,"SavingModule: module has no level named %s" % level.name)
+	if not _module_data.level_names.has( level.file_name() ):
+		Debug.warn( self,"ModuleState: module has no level named %s" % level.file_name())
 		return
 
 	if OS.has_feature("debug"):
@@ -78,7 +78,7 @@ func saveLevel( level : LevelBase, makeCurrent : bool ):
 
 func loadLevelState( levelName : String, makeCurrent = true ):
 	if not _module_data.level_names.has( levelName ):
-		Debug.warn( self,"SavingModule: module has no level named %s" % levelName)
+		Debug.warn( self,"ModuleState: module has no level named %s" % levelName)
 		return null
 
 	var state = null
@@ -111,7 +111,7 @@ static func createFromSaveFile( save_file_path : String ) -> ModuleState:
 	var serializer : SerializerGd = SerializerGd.new()
 	var loadResult = serializer.load_from_file( save_file_path )
 	if loadResult != OK:
-		Debug.warn( null,"SavingModule: could not create module from file %s" % save_file_path)
+		Debug.warn( null,"ModuleState: could not create module from file %s" % save_file_path)
 		return null
 
 	var module_path = serializer.user_data.get(NameModule)

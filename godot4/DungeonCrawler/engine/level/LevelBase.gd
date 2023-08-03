@@ -144,3 +144,7 @@ func getAllUnits() -> Array:
 func getItem( itemName : String ) -> ItemBase:
 	assert( itemName )
 	return _items.get_node_or_null( itemName )
+
+
+func file_name() -> String:
+	return scene_file_path.get_basename().get_file()

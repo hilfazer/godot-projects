@@ -30,8 +30,6 @@ func get_level_scene_path( level_name :String ) -> String:
 	return file_path
 
 
-
-
 func get_unit_names_for_creation() -> Array[String]:
 	return creation_unit_names
 
@@ -52,9 +50,8 @@ func get_target_level_and_transition_zone( \
 		return []
 
 	var name_transition_pair :PackedStringArray = level_connections[ key ].split(":")
-	if name_transition_pair.size() != 2:
-		return []
 
+	assert(name_transition_pair.size())
 	return [ get_level_scene_path( name_transition_pair[0] ), name_transition_pair[1] ]
 
 

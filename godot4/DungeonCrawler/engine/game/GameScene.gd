@@ -179,16 +179,16 @@ func set_player_units( units :Array[UnitBase] ) -> void:
 
 
 func _travel( transition_zone : Area2D ):
-	var levelAndEntranceNames : PackedStringArray = _module.data().\
-			get_target_level_and_transition_zone( currentLevel.name, transition_zone.name )
+	var level_transition_zone_pair : Array[String] = _module.data().get_target_level_and_transition_zone( 
+			currentLevel.file_name(), transition_zone.name )
 
-	if levelAndEntranceNames.is_empty():
+	if level_transition_zone_pair.is_empty():
 		return
 
 	_changeState( State.Creating )
 
-	var levelName : String = levelAndEntranceNames[0].get_file().get_basename()
-	var transition_zone_name : String = levelAndEntranceNames[1]
+	var levelName : String = level_transition_zone_pair[0].get_file().get_basename()
+	var transition_zone_name : String = level_transition_zone_pair[1]
 	var result : int = await loadLevel( levelName )
 
 	if result != OK:

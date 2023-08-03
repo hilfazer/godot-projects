@@ -12,5 +12,6 @@ default_transition_zones = {
 "level1": "Start"
 }
 level_connections = {
-"level1:ToLevel2": "level2:ToLevel1"
+"level1:ToLevel2": "level2:ToLevel1",
+"level2:ToLevel1": "level1:ToLevel2"
 }
