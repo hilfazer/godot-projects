@@ -45,6 +45,7 @@ func get_level_zone_transition( level_name :String ) -> String:
 
 func get_target_level_and_transition_zone( \
 		source_level_name : String, transition_zone : String ) -> Array[String]:
+
 	assert( level_names.has(source_level_name) )
 	var key :String = source_level_name + ":" + transition_zone
 	if not level_connections.has( key ):
