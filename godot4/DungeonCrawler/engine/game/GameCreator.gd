@@ -47,8 +47,7 @@ func createFromFile( filePath : String ):
 		return result
 
 	# deserialize player agent
-#	SerializerGd.new().deserialize( _game._module.getPlayerData(), _game )
-
+	_game._module.deserialize_player_data(_game)
 	return result
 
 

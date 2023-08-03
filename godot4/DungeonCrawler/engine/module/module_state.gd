@@ -12,7 +12,7 @@ const NameModule             = "Module"
 
 
 var _serializer : SerializerGd = SerializerGd.new()
-var _module_data : ModuleData
+var _module_data : ModuleData: get = data
 
 
 func _init( module_data :ModuleData, serializer :SerializerGd = null ) -> void:
@@ -46,8 +46,10 @@ func moduleMatches( save_file_path : String ) -> bool:
 	return extract_module_path( save_file_path ) == _module_data.resource_path
 
 
-func getPlayerData():
-	return _serializer.user_data.get( NamePlayerData )
+func deserialize_player_data( parent_node :Node ):
+	assert(parent_node)
+	var data = _serializer.user_data.get( NamePlayerData )
+	_serializer.deserialize(data, parent_node)
 
 
 func savePlayerData( player_agent : PlayerAgent ):
