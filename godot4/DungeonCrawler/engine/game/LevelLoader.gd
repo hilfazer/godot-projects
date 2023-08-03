@@ -7,7 +7,7 @@ const TRANSITION_NAME_NOT_SPECIFIED = "Level transition zone name unspecified. U
 const TRANSITION_NAME_NOT_FOUND = "Level transition zone name not found. Using first zone found."
 
 var _game : GameScene
-var _levelFilename : String
+var _level_file_path : String
 var _state : State = State.Ready
 
 
@@ -15,25 +15,26 @@ func _init( game : GameScene ):
 	_game = game
 
 
-func loadLevel( levelFilename : String, levelParent : Node ) -> Error:
+func loadLevel( level_file_path : String, levelParent : Node ) -> Error:
 	assert( _game._state == _game.State.Creating )
 	assert( _game.is_ancestor_of( levelParent ) or _game == levelParent )
+	assert( level_file_path.is_absolute_path() )
 
 	if _state != State.Ready:
-		Debug.warn(self, "LevelLoader not ready to load %s" % levelFilename)
+		Debug.warn(self, "LevelLoader not ready to load %s" % level_file_path)
 		return ERR_UNAVAILABLE
 
-	_changeState(State.Loading, levelFilename)
-	var retval = await _loadLevel(levelFilename, levelParent)
+	_changeState(State.Loading, level_file_path)
+	var retval = await _loadLevel(level_file_path, levelParent)
 	_changeState(State.Ready)
 	return retval
 
 
-func _loadLevel( levelFilename : String, levelParent : Node ) -> Error:
+func _loadLevel( level_file_path : String, levelParent : Node ) -> Error:
 	await _game.get_tree().process_frame
-	var levelResource = load( levelFilename )
+	var levelResource = load( level_file_path )
 	if not levelResource:
-		Debug.error( self, "Could not load level file: " + levelFilename )
+		Debug.error( self, "Could not load level file: " + level_file_path )
 		return ERR_CANT_CREATE
 
 	var level : LevelBase = levelResource.instantiate()
@@ -58,7 +59,7 @@ func unloadLevel() -> Error:
 	assert( _game.currentLevel )
 	var level : LevelBase = _game.currentLevel
 
-	_changeState( State.Unloading, level.name )
+	_changeState( State.Unloading, level.scene_file_path )
 	var retval :Error = await _unloadLevel(level)
 	_changeState( State.Ready )
 	return retval
@@ -130,17 +131,17 @@ static func findFreePlayerSpawn( spawns : Array ):
 	return null
 
 
-func _changeState( state : State, levelFilename : String = "" ):
+func _changeState( state : State, level_file_path : String = "" ):
 	match( state ):
 		_state:
 			Debug.warn(self, "changing to same state")
 			return
 		State.Ready:
-			assert( levelFilename.is_empty() )
+			assert( level_file_path.is_empty() )
 		State.Loading:
-			assert( not levelFilename.is_empty() )
+			assert( not level_file_path.is_empty() )
 		State.Unloading:
-			assert( not levelFilename.is_empty() )
+			assert( not level_file_path.is_empty() )
 
-	_levelFilename = levelFilename
+	_level_file_path = level_file_path
 	_state = state

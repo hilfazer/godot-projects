@@ -15,10 +15,14 @@ var _serializer : SerializerGd = SerializerGd.new()
 var _module_data : ModuleData
 
 
-func _init( module_data :ModuleData ) -> void:
+func _init( module_data :ModuleData, serializer :SerializerGd = null ) -> void:
 	_module_data = module_data
-	_serializer.user_data[NameModule] = _module_data.resource_path
-	_serializer.user_data[NameCurrentLevel] = _module_data.starting_level_name
+	
+	if not serializer:
+		_serializer.user_data[NameModule] = _module_data.resource_path
+		_serializer.user_data[NameCurrentLevel] = _module_data.starting_level_name
+	else:
+		_serializer = serializer
 
 
 func saveToFile( save_path : String ) -> Error:
@@ -70,10 +74,10 @@ func saveLevel( level : LevelBase, makeCurrent : bool ):
 			Debug.warn( self, "node has no deserialize(): %s" %
 				[ node.get_script().resource_path ] )
 
-	_serializer.add_and_serialize( level.name, level )
+	_serializer.add_and_serialize( level.file_name(), level )
 
 	if makeCurrent:
-		_serializer.user_data[NameCurrentLevel] = level.name
+		_serializer.user_data[NameCurrentLevel] = level.file_name()
 
 
 func loadLevelState( levelName : String, makeCurrent = true ):
@@ -117,4 +121,4 @@ static func createFromSaveFile( save_file_path : String ) -> ModuleState:
 	var module_path = serializer.user_data.get(NameModule)
 	var module_data :ModuleData = ModuleLoader.load_module(module_path)
 
-	return null if not module_data else ModuleState.new(module_data)
+	return null if not module_data else ModuleState.new(module_data, serializer)
