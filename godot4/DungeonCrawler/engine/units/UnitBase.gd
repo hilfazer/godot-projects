@@ -2,12 +2,12 @@ extends CharacterBody2D
 class_name UnitBase
 
 
-@export var _movement_speed            : float = 5.0
+@export var _movement_speed            :float = 5.0
 
-var requestedDirection                 := Vector2i(): set = setRequestedDirection
+var requestedDirection                 := Vector2i()
 var _currentDirection                  := Vector2i(): set = setCurrentDirection
-@onready var _nameLabel                 :Label = $"Name"
-@onready var _pivot                     :Marker2D
+@onready var _nameLabel                :Label = $"Name"
+@onready var _pivot                    :Marker2D
 
 
 signal predelete()
@@ -83,13 +83,9 @@ func getIcon() -> Texture2D:
 	return $"Pivot/Sprite2D".texture
 
 
-func setRequestedDirection( direction : Vector2 ):
-	requestedDirection = direction
-
-
 func setCurrentDirection( direction : Vector2 ):
 	_currentDirection = direction
-	setRequestedDirection(Vector2())
+	requestedDirection = Vector2()
 
 
 func serialize():
@@ -106,7 +102,7 @@ func deserialize( saveDict : Dictionary ):
 	if saveDict.has('moveDir'):
 		var direction : Vector2 = saveDict["moveDir"]
 		if direction:
-			setRequestedDirection(direction)
+			requestedDirection = direction
 
 
 func _makeMovementVector( direction : Vector2 ) -> Vector2:

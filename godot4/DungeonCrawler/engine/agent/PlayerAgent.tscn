@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://2sq31nr1jesq" path="res://engine/SelectionBox.tscn" id="2"]
 
 [node name="PlayerAgent" type="Node"]
+process_mode = 3
 script = ExtResource("1")
 fogVisionGd = "res://engine/level/RaycastFogVision.gd"
 
