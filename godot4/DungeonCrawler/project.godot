@@ -25,7 +25,7 @@ Connector="res://engine/Connector.gd"
 
 [debug]
 
-gdscript/warnings/return_value_discarded=false
+gdscript/warnings/return_value_discarded=1
 gdscript/size/viewport_width=900
 
 [display]

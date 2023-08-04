@@ -179,11 +179,10 @@ func deserialize( data : Array, parent : Node ) -> NodeGuardGd:
 		return NodeGuardGd.new()# node didn't exist and could not be created by serializer
 
 	if own_data != null and node.has_method( DESERIALIZE ):
-		# warning-ignore:return_value_discarded
 		node.deserialize( own_data )
 
 	for child_idx in range( _Index.FIRST_CHILD, data.size() ):
-		# warning-ignore:return_value_discarded
+		@warning_ignore("return_value_discarded")
 		deserialize( data[child_idx], node )
 
 	if node.has_method( POST_DESERIALIZE ):

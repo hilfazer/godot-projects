@@ -24,9 +24,13 @@ func setVariables( variables : Dictionary ):
 
 func refresh_variable_view():
 	_variable_list.clear()
+	@warning_ignore("return_value_discarded")
 	_variable_list.add_item("  VARIABLE")
+	@warning_ignore("return_value_discarded")
 	_variable_list.add_item("  VALUE")
 
 	for variable in _display_variables:
+		@warning_ignore("return_value_discarded")
 		_variable_list.add_item(str(variable))
+		@warning_ignore("return_value_discarded")
 		_variable_list.add_item(str(_display_variables[variable]))

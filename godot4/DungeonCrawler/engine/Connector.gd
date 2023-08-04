@@ -35,12 +35,15 @@ func _connectNewCurrentScene():
 		newGameSceneConnected.emit( newCurrent )
 
 	elif newCurrent is MainMenuSceneGd:
+		@warning_ignore("return_value_discarded")
 		newCurrent.connect("saveFileSelected", Callable(self, "_loadGame").bind(), CONNECT_ONE_SHOT)
 
 	elif newCurrent is GameScene:
 		assert( _game == null )
 		_setGame( get_tree().current_scene )
+		@warning_ignore("return_value_discarded")
 		_game.connect("gameFinished", Callable(self, "onGameEnded").bind(), CONNECT_ONE_SHOT)
+		@warning_ignore("return_value_discarded")
 		_game.connect("nonmatching_save_file_selected", Callable(self, "_makeGameFromFile").bind(), CONNECT_ONE_SHOT)
 
 

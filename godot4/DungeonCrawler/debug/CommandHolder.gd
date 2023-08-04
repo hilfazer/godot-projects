@@ -28,8 +28,8 @@ func registerCommand( commandName :String, description :String, argArray := [], 
 
 	command.register()
 
+	@warning_ignore("return_value_discarded")
 	_commands.append(commandName)
-	return OK
 
 
 func _registerCommands():
