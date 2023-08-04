@@ -3,7 +3,7 @@ class_name ModuleState
 
 const ItemDbFactoryGd        = preload("res://engine/items/ItemDbFactory.gd")
 const SerializerGd           = preload("res://projects/Serialization/hierarchical_serializer.gd")
-const ProbeGd                = preload("res://projects/Serialization/Probe.gd")
+const ProbeGd                = preload("res://projects/Serialization/probe.gd")
 const SavedGameRes           = preload("res://projects/Serialization/save_game_file.gd")
 
 const NameCurrentLevel       = "CurrentLevel"

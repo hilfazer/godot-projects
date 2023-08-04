@@ -3,6 +3,7 @@
 # call release() if you want to handle memory yourself
 extends RefCounted
 
+
 var _node : Node
 var node : Node:
 	set(n):
