@@ -3,6 +3,7 @@ extends "res://tests/gut_test_base.gd"
 const FileFinderGd = preload("res://file_finder.gd")
 const NodeSubclassGd = preload("res://tests/files/NodeSubclass.gd")
 
+
 func test_findNodeSubclasses():
 	var scripts := PackedStringArray()
 	scripts.append("res://tests/files/NodeSubclass.gd")
