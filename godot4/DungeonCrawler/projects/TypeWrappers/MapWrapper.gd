@@ -16,7 +16,7 @@ func reset( dict ):
 		return
 
 	_dict = dict
-	emit_signal("changed", _dict )
+	changed.emit( _dict )
 
 # doesn't alter values of existing keys
 func add( dict ):
@@ -26,7 +26,7 @@ func add( dict ):
 			_dict[x] = dict[x]
 
 	if _dict.size() > size:
-		emit_signal("changed", _dict )
+		changed.emit( _dict )
 
 # alters values of existing keys, doesn't add new keys
 func replace( dict ):
@@ -37,7 +37,7 @@ func replace( dict ):
 			changed = true
 
 	if changed:
-		emit_signal("changed", _dict )
+		changed.emit( _dict )
 
 # alters values of existing keys, can add new keys
 func addReplace( dict ):
@@ -48,7 +48,7 @@ func addReplace( dict ):
 			changed = true
 
 	if changed:
-		emit_signal("changed", _dict )
+		changed.emit( _dict )
 
 
 func remove( array ):
@@ -57,7 +57,7 @@ func remove( array ):
 		_dict.erase( x )
 
 	if _dict.size() < size:
-		emit_signal("changed", _dict )
+		changed.emit( _dict )
 
 
 func copy() -> MapWrapper:

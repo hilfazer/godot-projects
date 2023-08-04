@@ -24,7 +24,7 @@ func reset( array ):
 	_array.resize( uniqueArray.size() )
 	for i in range( array.size() ):
 		_array[i] = array[i]
-	emit_signal( "changed", _array )
+	changed.emit( _array )
 
 
 func add( array ):
@@ -34,7 +34,7 @@ func add( array ):
 			_array.append( x )
 
 	if _array.size() > size:
-		emit_signal( "changed", _array )
+		changed.emit( _array )
 
 
 func remove( array ):
@@ -43,7 +43,7 @@ func remove( array ):
 		_array.erase( x )
 
 	if _array.size() < size:
-		emit_signal( "changed", _array )
+		changed.emit( _array )
 
 
 func copy() -> SetWrapper:

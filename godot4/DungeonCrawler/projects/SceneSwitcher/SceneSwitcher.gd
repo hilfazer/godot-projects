@@ -201,7 +201,7 @@ func _deferred_switch_scene( scene_source, node_extraction_func: String, params,
 
 	if not scene_source is Node:
 		@warning_ignore("return_value_discarded")
-		emit_signal( "scene_instanced", new_scene )
+		scene_instanced.emit( new_scene )
 
 	if get_tree().current_scene:
 		get_tree().current_scene.free()
@@ -233,25 +233,25 @@ func _abort_switch( message: String ) -> void:
 
 func _on_progress_changed(progress) -> void:
 	@warning_ignore("return_value_discarded")
-	emit_signal("progress_changed", progress)
+	progress_changed.emit(progress)
 
 
 func _set_as_current( scene: Node ):
 	get_tree().set_current_scene( scene )
 	assert( get_tree().current_scene == scene )
 	@warning_ignore("return_value_discarded")
-	emit_signal("scene_set_as_current")
+	scene_set_as_current.emit()
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == FADE_IN:
 		@warning_ignore("return_value_discarded")
-		emit_signal("faded_in")
+		faded_in.emit()
 		if _state == State.PREPARING:
 			_try_switching()
 	elif anim_name == FADE_OUT:
 		@warning_ignore("return_value_discarded")
-		emit_signal("faded_out")
+		faded_out.emit()
 
 
 static func _node_from_packed_scene( packed_scene: PackedScene ) -> Node:
@@ -385,7 +385,7 @@ class SceneLoader extends RefCounted:
 			# Update progress bar, use call deferred, which routes to main thread.
 			var status = ResourceLoader.load_threaded_get_status(path, progress)
 			@warning_ignore("return_value_discarded")
-			emit_signal("progress_changed", progress[0])
+			progress_changed.emit(progress[0])
 
 
 			# If OK, then load another one. If EOF, it' s done. Otherwise there was an error.
@@ -393,7 +393,7 @@ class SceneLoader extends RefCounted:
 				# Loading done, fetch resource.
 				res = ResourceLoader.load_threaded_get(path)
 				@warning_ignore("return_value_discarded")
-				emit_signal("progress_changed", 100.0)
+				progress_changed.emit(100.0)
 				break
 			elif status == ResourceLoader.THREAD_LOAD_FAILED:
 				# Not OK, there was an error.
@@ -410,4 +410,4 @@ class SceneLoader extends RefCounted:
 		_loader_thread.wait_to_finish()
 		_packed_scene = packed_scene_
 		@warning_ignore("return_value_discarded")
-		emit_signal("loading_done")
+		loading_done.emit()
