@@ -20,12 +20,12 @@ func _ready():
 
 func _input( event ):
 	if event.is_action_pressed("ui_cancel"):
-		emit_signal("finished")
+		finished.emit()
 		accept_event()
 
 
 func onLeaveGamePressed():
-	emit_signal("finished")
+	finished.emit()
 
 
 func moduleSelected( module_data_path : String ):
@@ -67,4 +67,4 @@ func clear():
 
 
 func onStartGamePressed():
-	emit_signal("readyForGame", _module , $"Lobby"._unitsCreationData)
+	readyForGame.emit(_module , $"Lobby"._unitsCreationData)

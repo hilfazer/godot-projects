@@ -41,7 +41,7 @@ func _physics_process(_delta):
 	setCurrentDirection( requestedDirection )
 
 	position += movementVector
-	emit_signal("changedPosition")
+	changedPosition.emit()
 
 	var tween = create_tween()
 	# TODO correct duration
@@ -54,7 +54,7 @@ func _physics_process(_delta):
 
 func _on_movement_tween_finished():
 	if _currentDirection:
-		emit_signal("moved", _currentDirection)
+		moved.emit(_currentDirection)
 		setCurrentDirection(Vector2())
 
 
@@ -62,13 +62,13 @@ func _notification(what):
 	if what == NOTIFICATION_SCENE_INSTANTIATED:
 		_pivot = $"Pivot"
 	elif what == NOTIFICATION_PREDELETE:
-		emit_signal("predelete")
+		predelete.emit()
 		Debug.updateVariable("Unit count", -1, true)
 
 
 func _input_event(_viewport, event, _shape_idx):
 	if event.is_action_pressed("ui_LMB"):
-		emit_signal("clicked")
+		clicked.emit()
 
 
 func die():

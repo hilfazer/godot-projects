@@ -25,7 +25,7 @@ func createFromModule( module : ModuleState, unitsCreationData : Array ) -> Erro
 	_game.setCurrentModule( module )
 
 	var result :Error = await _create( unitsCreationData )
-	emit_signal( "createFinished", result )
+	createFinished.emit( result )
 	return result
 
 

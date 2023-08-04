@@ -29,7 +29,7 @@ func clearUnits():
 	for child in _unitList.get_children():
 		child.queue_free()
 
-	emit_signal("unitNumberChanged", _unitsCreationData.size())
+	unitNumberChanged.emit(_unitsCreationData.size())
 
 
 func addUnit( creation_data : UnitCreationDataGd ):
@@ -37,7 +37,7 @@ func addUnit( creation_data : UnitCreationDataGd ):
 		return false
 	else:
 		_unitsCreationData.append( creation_data )
-		emit_signal("unitNumberChanged", _unitsCreationData.size())
+		unitNumberChanged.emit(_unitsCreationData.size())
 		return addUnitLine( _unitsCreationData.size() - 1 )
 
 
@@ -58,7 +58,7 @@ func createCharacter( creation_data : UnitCreationDataGd ):
 func removeUnit( unitIdx ):
 	_unitsCreationData.remove( unitIdx )
 	_unitList.get_child( unitIdx ).queue_free()
-	emit_signal("unitNumberChanged", _unitsCreationData.size())
+	unitNumberChanged.emit(_unitsCreationData.size())
 
 
 func onDeleteUnit( unitIdx ):

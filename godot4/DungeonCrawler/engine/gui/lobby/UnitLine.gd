@@ -18,7 +18,7 @@ func setUnit( unitData : UnitCreationDataGd ):
 
 
 func onDeletePressed():
-	emit_signal( "deletePressed", get_index() )
+	deletePressed.emit( get_index() )
 
 
 func getIdx():

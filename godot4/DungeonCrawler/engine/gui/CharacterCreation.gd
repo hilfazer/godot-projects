@@ -35,5 +35,5 @@ func makeCharacter() -> UnitCreationDataGd:
 		unitTexture
 	)
 
-	emit_signal( "madeCharacter", creation_data )
+	madeCharacter.emit( creation_data )
 	return creation_data

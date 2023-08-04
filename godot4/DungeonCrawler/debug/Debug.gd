@@ -74,7 +74,7 @@ func setLogToFile( enable : bool ):
 	_log_to_file = enable
 
 
-func updateVariable( varName : String, value, addValue := false ):
+func updateVariable( varName : String, value, addValue := false ) -> void:
 	if value == null:
 		_variables.erase(varName)
 	elif addValue == true and _variables.has(varName):

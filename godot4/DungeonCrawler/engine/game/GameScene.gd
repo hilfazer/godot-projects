@@ -16,9 +16,9 @@ var _pause := true: set = setPause
 @onready var _player_agent             :PlayerAgent = $"PlayerAgent"
 
 
-signal gameStarted()
-signal gameFinished()
-signal currentLevelChanged( level )
+signal game_started()
+signal game_finished()
+signal current_level_changed( level )
 signal nonmatching_save_file_selected( saveFile )
 
 
@@ -46,11 +46,11 @@ func _ready():
 		var unitsData = params[Params.PlayerUnitsData] \
 			if params.has( Params.PlayerUnitsData ) \
 			else []
-		call_deferred( "createGame", module, unitsData )
+		createGame.call_deferred( module, unitsData )
 
 	# creating game from save file
 	elif params.has(Params.SaveFileName):
-		call_deferred( "createGameFromFile", params[Params.SaveFileName] )
+		createGameFromFile.call_deferred( params[Params.SaveFileName] )
 	else:
 		Debug.error( self, "Can't create the game." )
 
@@ -117,12 +117,12 @@ func loadGame( filepath : String ):
 func start():
 	_changeState( State.Running )
 	Debug.info( self, "-----\nGAME START\n-----" )
-	emit_signal("gameStarted")
+	game_started.emit()
 
 
 func finish():
 	_changeState( State.Finished )
-	emit_signal( "gameFinished" )
+	game_finished.emit()
 
 
 func loadLevel( levelName : String ) -> Error:
@@ -157,7 +157,7 @@ func setCurrentLevel( level : LevelBase ):
 	assert( level == null or self.is_ancestor_of( level ) )
 	currentLevel = level
 	_player_agent.setCurrentLevel(level)
-	emit_signal("currentLevelChanged", level)
+	current_level_changed.emit(level)
 
 
 func setPause( paused : bool ):

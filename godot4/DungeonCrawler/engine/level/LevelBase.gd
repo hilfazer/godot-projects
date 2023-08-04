@@ -23,7 +23,7 @@ func _ready():
 
 func _notification(what):
 	if what == NOTIFICATION_PREDELETE:
-		emit_signal( "predelete" )
+		predelete.emit()
 		Debug.updateVariable( "Level count", -1, true )
 
 

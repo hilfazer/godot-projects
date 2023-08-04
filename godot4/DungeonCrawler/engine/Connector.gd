@@ -42,7 +42,7 @@ func _connectNewCurrentScene():
 		assert( _game == null )
 		_setGame( get_tree().current_scene )
 		@warning_ignore("return_value_discarded")
-		_game.connect("gameFinished", Callable(self, "onGameEnded").bind(), CONNECT_ONE_SHOT)
+		_game.connect("game_finished", Callable(self, "onGameEnded").bind(), CONNECT_ONE_SHOT)
 		@warning_ignore("return_value_discarded")
 		_game.connect("nonmatching_save_file_selected", Callable(self, "_makeGameFromFile").bind(), CONNECT_ONE_SHOT)
 
