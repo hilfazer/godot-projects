@@ -23,12 +23,12 @@ func createGameMenu():
 	assert( _gameMenu == null )
 	var gameMenu = GameMenuScn.instantiate()
 	self.add_child( gameMenu )
-	gameMenu.connect("visibility_changed", Callable(_game, "setPause").bind(gameMenu.visible))
-	gameMenu.connect("tree_exiting", Callable(_game, "setPause").bind(false))
-	gameMenu.connect("resume_selected", Callable(self, "_resume"))
-	gameMenu.connect("save_selected", Callable(self, "_saveGame"))
-	gameMenu.connect("load_selected", Callable(self, "_loadGame"))
-	gameMenu.connect("quit_selected", Callable(self, "_quit"))
+	gameMenu.visibility_changed.connect(Callable(_game, "setPause").bind(gameMenu.visible))
+	gameMenu.tree_exiting.connect(Callable(_game, "setPause").bind(false))
+	gameMenu.resume_selected.connect(Callable(self, "_resume"))
+	gameMenu.save_selected.connect(Callable(self, "_saveGame"))
+	gameMenu.load_selected.connect(Callable(self, "_loadGame"))
+	gameMenu.quit_selected.connect(Callable(self, "_quit"))
 	_gameMenu = gameMenu
 
 
