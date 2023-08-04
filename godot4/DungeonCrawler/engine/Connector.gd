@@ -5,6 +5,8 @@ const MainMenuPath           = "res://engine/gui/MainMenuScene.tscn"
 const NewGameSceneGd         = preload("res://engine/gui/NewGameScene.gd")
 const MainMenuSceneGd        = preload("res://engine/gui/MainMenuScene.gd")
 
+const SCENE_CHANGE_FAILED    = "Failed to change scene to %s"
+
 var _game : GameScene: set = _setGame
 
 
@@ -17,7 +19,7 @@ func _init():
 
 
 func _ready():
-# warning-ignore:return_value_discarded
+	@warning_ignore("return_value_discarded")
 	SceneSwitcher.scene_set_as_current.connect(Callable(self, "_connectNewCurrentScene"))
 
 
@@ -25,10 +27,12 @@ func _connectNewCurrentScene():
 	var newCurrent = get_tree().current_scene
 
 	if newCurrent is NewGameSceneGd:
+		@warning_ignore("return_value_discarded")
 		newCurrent.connect("readyForGame", Callable(self, "_createGame").bind(), CONNECT_ONE_SHOT)
+		@warning_ignore("return_value_discarded")
 		newCurrent.connect("finished", Callable(self, "_toMainMenu").bind(), CONNECT_ONE_SHOT)
 
-		emit_signal( "newGameSceneConnected", newCurrent )
+		newGameSceneConnected.emit( newCurrent )
 
 	elif newCurrent is MainMenuSceneGd:
 		newCurrent.connect("saveFileSelected", Callable(self, "_loadGame").bind(), CONNECT_ONE_SHOT)
@@ -36,23 +40,27 @@ func _connectNewCurrentScene():
 	elif newCurrent is GameScene:
 		assert( _game == null )
 		_setGame( get_tree().current_scene )
-# warning-ignore:return_value_discarded
 		_game.connect("gameFinished", Callable(self, "onGameEnded").bind(), CONNECT_ONE_SHOT)
-# warning-ignore:return_value_discarded
 		_game.connect("nonmatching_save_file_selected", Callable(self, "_makeGameFromFile").bind(), CONNECT_ONE_SHOT)
 
 
 func _toMainMenu():
-	SceneSwitcher.switch_scene( MainMenuPath )
+	var error :Error = SceneSwitcher.switch_scene( MainMenuPath )
+
+	if error:
+		print(SCENE_CHANGE_FAILED % MainMenuPath)
 
 
 func _createGame( module_, playerUnitsCreationData : Array ):
-	SceneSwitcher.switch_scene( GameScenePath,
+	var error :Error = SceneSwitcher.switch_scene( GameScenePath,
 		{
 			GameScene.Params.Module : module_,
 			GameScene.Params.PlayerUnitsData : playerUnitsCreationData,
 		},
 		Constants.Meta.SwitchParams )
+		
+	if error:
+		print(SCENE_CHANGE_FAILED % GameScenePath)
 
 
 func onGameEnded():
@@ -69,8 +77,11 @@ func _setGame( gameScene : GameScene ):
 func _loadGame( filePath : String ):
 	assert(not _isGameInProgress())
 
-	SceneSwitcher.switch_scene( GameScenePath,
+	var error :Error = SceneSwitcher.switch_scene( GameScenePath,
 		{ GameScene.Params.SaveFileName : filePath }, Constants.Meta.SwitchParams )
+
+	if error:
+		print(SCENE_CHANGE_FAILED % GameScenePath)
 
 
 func _isGameInProgress() -> bool:
@@ -81,5 +92,8 @@ func _isGameInProgress() -> bool:
 func _makeGameFromFile( filePath : String ):
 	_setGame( null )
 
-	SceneSwitcher.switch_scene( GameScenePath,
+	var error :Error = SceneSwitcher.switch_scene( GameScenePath,
 		{ GameScene.Params.SaveFileName : filePath }, Constants.Meta.SwitchParams )
+
+	if error:
+		print(SCENE_CHANGE_FAILED % GameScenePath)
