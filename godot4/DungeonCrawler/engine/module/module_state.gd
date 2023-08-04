@@ -48,8 +48,8 @@ func moduleMatches( save_file_path : String ) -> bool:
 
 func deserialize_player_data( parent_node :Node ):
 	assert(parent_node)
-	var data = _serializer.user_data.get( NamePlayerData )
-	_serializer.deserialize(data, parent_node)
+	var user_data = _serializer.user_data.get( NamePlayerData )
+	_serializer.deserialize(user_data, parent_node)
 
 
 func savePlayerData( player_agent : PlayerAgent ):
