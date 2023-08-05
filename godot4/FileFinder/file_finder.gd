@@ -28,8 +28,8 @@ static func find_files_in_directory( directoryPath :String, extensionFilter := "
 
 
 #this includes subclasses
-static func find_scripts_of_class( scripts :PackedStringArray, klass ):
-	var scriptsToReturn := PackedStringArray()
+static func find_scripts_of_class( scripts :PackedStringArray, klass ) -> PackedStringArray:
+	var to_return := PackedStringArray()
 
 	for script in scripts:
 		if script.get_extension() != "gd":
@@ -37,18 +37,33 @@ static func find_scripts_of_class( scripts :PackedStringArray, klass ):
 
 		var object = load(script).new()
 		if is_instance_of(object, klass):
-			scriptsToReturn.append(script)
+			to_return.append(script)
 
 		if not object is RefCounted:
 			object.free()
 
-	return scriptsToReturn
+	return to_return
+	
+	
+#this includes subclasses
+static func find_resources_of_class( files :PackedStringArray, klass ) -> PackedStringArray:
+	var to_return := PackedStringArray()
+	
+	for file in files:
+		if file.get_extension() != "tres":
+			continue
+			
+		var resource = load(file)
+		if is_instance_of(resource, klass):
+			to_return.append(file)
+
+	return to_return
 
 
 static func find_resources_of_class_name(
 		files :PackedStringArray, klass_name :String ) -> PackedStringArray:
 
-	var resources_to_return := PackedStringArray()
+	var to_return := PackedStringArray()
 	const SCRIPT_CLASS_KEY := ' script_class="'
 
 	for file_path in files:
@@ -61,6 +76,6 @@ static func find_resources_of_class_name(
 			continue
 			
 		if split_first_line[1].begins_with(klass_name+'"'):
-			resources_to_return.append(file_path)
+			to_return.append(file_path)
 			
-	return resources_to_return
+	return to_return
