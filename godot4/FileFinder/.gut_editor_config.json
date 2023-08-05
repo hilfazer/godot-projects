@@ -31,12 +31,12 @@
  "post_run_script": "",
  "pre_run_script": "",
  "prefix": "test_",
- "selected": "test_find_resources.gd",
+ "selected": null,
  "should_exit": true,
  "should_exit_on_success": false,
  "should_maximize": false,
  "show_help": false,
  "suffix": ".gd",
  "tests": [],
- "unit_test_name": "test_find_my_test_res_instances"
+ "unit_test_name": null
 }

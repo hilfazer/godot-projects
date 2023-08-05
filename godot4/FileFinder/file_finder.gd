@@ -45,7 +45,7 @@ static func find_scripts_of_class( scripts :PackedStringArray, klass ):
 	return scriptsToReturn
 
 
-static func find_instances_of_resource(
+static func find_resources_of_class_name(
 		files :PackedStringArray, klass_name :String ) -> PackedStringArray:
 
 	var resources_to_return := PackedStringArray()
