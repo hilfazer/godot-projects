@@ -1,0 +1,2 @@
+extends MyTestRes
+class_name MyTestResSubclass
