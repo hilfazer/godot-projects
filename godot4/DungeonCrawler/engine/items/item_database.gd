@@ -1,5 +1,5 @@
-extends Resource
-class_name ItemDbBase
+extends RefCounted
+class_name ItemDatabase
 
 const FilesFinderGd          = preload("res://projects/FileFinder/file_finder.gd")
 
@@ -7,7 +7,7 @@ const ITEM_ID                = "_itemID"
 
 var _idsToFilepaths:         = {}
 
-# create instances of ItemDbBase with ItemDbFactory.gd
+# create instances of ItemDatabase with ItemDbFactory.gd
 
 
 func getItemStats(itemId : String) -> Dictionary:
@@ -65,17 +65,3 @@ static func findIdInItemFile( itemFile: String ) -> String:
 			return state.get_node_property_value(rootNodeId, propIdx)
 
 	return ItemBase.INVALID_ID
-
-
-static func checkForDuplictates( baseA, baseB ) -> PackedStringArray:
-	var duplicatedIds := PackedStringArray()
-	var baseAindices : Array = baseA.getAllItemsStats().keys()
-	var baseBindices : Array = baseB.getAllItemsStats().keys()
-	for index in baseBindices:
-		assert( index is String )
-		if baseAindices.has( index ):
-			duplicatedIds.append( index )
-
-	return duplicatedIds
-
-
