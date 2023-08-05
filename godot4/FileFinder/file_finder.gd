@@ -1,14 +1,17 @@
-extends RefCounted
+extends Object
+
 
 func _init():
 	assert(false)
 
 
-static func find_files_in_directory( directoryPath :String, extensionFilter := "" ) -> PackedStringArray:
-	assert( directoryPath )
-	assert( extensionFilter == "" or extensionFilter.get_extension() != "" )
+static func find_files_in_directory(
+		directory :String, extension_filter := "" ) -> PackedStringArray:
 
-	var dir :DirAccess = DirAccess.open(directoryPath)
+	assert( directory )
+	assert( extension_filter == "" or extension_filter.get_extension() != "" )
+
+	var dir :DirAccess = DirAccess.open(directory)
 	if dir == null:
 		return PackedStringArray()
 
@@ -16,12 +19,12 @@ static func find_files_in_directory( directoryPath :String, extensionFilter := "
 
 	for file in dir.get_files():
 		assert( dir.file_exists( file ) )
-		if !extensionFilter or  "." + file.get_extension() == extensionFilter:
+		if !extension_filter or  "." + file.get_extension() == extension_filter:
 			files_to_return.append( dir.get_current_dir().path_join( file ) )
 	
 	for subdir in dir.get_directories():
 		var subdirFilePaths := find_files_in_directory( \
-				dir.get_current_dir().path_join( subdir ), extensionFilter )
+				dir.get_current_dir().path_join( subdir ), extension_filter )
 		files_to_return.append_array( subdirFilePaths )
 
 	return files_to_return
