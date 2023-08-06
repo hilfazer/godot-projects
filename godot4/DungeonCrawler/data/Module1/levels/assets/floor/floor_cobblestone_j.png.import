@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cm6tfl3l1htgt"
-path="res://.godot/imported/wall_brick1_e.png-027ef36fb9c59aafc7f1485cc0ca6c7f.ctex"
+uid="uid://bn3n5icc84hqp"
+path="res://.godot/imported/floor_cobblestone_j.png-e41152655b07f7b2ecd79536ae1fad8a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/common/assets/wall/wall_brick1_e.png"
-dest_files=["res://.godot/imported/wall_brick1_e.png-027ef36fb9c59aafc7f1485cc0ca6c7f.ctex"]
+source_file="res://data/Module1/levels/assets/floor/floor_cobblestone_j.png"
+dest_files=["res://.godot/imported/floor_cobblestone_j.png-e41152655b07f7b2ecd79536ae1fad8a.ctex"]
 
 [params]
 

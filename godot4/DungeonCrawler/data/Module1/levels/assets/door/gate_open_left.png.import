@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjmh23pkpprol"
-path="res://.godot/imported/dngn_closed_door.png-39d8a52968f27b240de5aac34c73739f.ctex"
+uid="uid://bf8oyso52wokr"
+path="res://.godot/imported/gate_open_left.png-b4223a866d8fe7581f72e7ca25f157a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/common/assets/door/dngn_closed_door.png"
-dest_files=["res://.godot/imported/dngn_closed_door.png-39d8a52968f27b240de5aac34c73739f.ctex"]
+source_file="res://data/Module1/levels/assets/door/gate_open_left.png"
+dest_files=["res://.godot/imported/gate_open_left.png-b4223a866d8fe7581f72e7ca25f157a1.ctex"]
 
 [params]
 

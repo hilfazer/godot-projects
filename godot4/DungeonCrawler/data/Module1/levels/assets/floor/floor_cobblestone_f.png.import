@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwhbm425fk0gj"
-path="res://.godot/imported/dwarf.png-9c0f5181ef2a45b151b51f0aaf762ad5.ctex"
+uid="uid://47b5x7ixqdws"
+path="res://.godot/imported/floor_cobblestone_f.png-da6892c95f47ffba55fa2e1af6fc3b95.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/common/units/dwarf.png"
-dest_files=["res://.godot/imported/dwarf.png-9c0f5181ef2a45b151b51f0aaf762ad5.ctex"]
+source_file="res://data/Module1/levels/assets/floor/floor_cobblestone_f.png"
+dest_files=["res://.godot/imported/floor_cobblestone_f.png-da6892c95f47ffba55fa2e1af6fc3b95.ctex"]
 
 [params]
 

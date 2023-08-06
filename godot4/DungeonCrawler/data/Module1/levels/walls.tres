@@ -1,12 +1,12 @@
-[gd_resource type="TileSet" load_steps=15 format=3 uid="uid://nml5ri21p64e"]
+[gd_resource type="TileSet" load_steps=15 format=3 uid="uid://dvtac8v35hi6q"]
 
-[ext_resource type="Texture2D" uid="uid://y5elsojk3pbf" path="res://data/common/assets/wall/wall_brick1_a.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://bqduqfsk12phr" path="res://data/common/assets/wall/wall_brick1_b.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://cm6tfl3l1htgt" path="res://data/common/assets/wall/wall_brick1_e.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://34kh48f4amtn" path="res://data/common/assets/wall/wall_brick1_i.png" id="4"]
-[ext_resource type="Texture2D" uid="uid://bjmh23pkpprol" path="res://data/common/assets/door/dngn_closed_door.png" id="5"]
-[ext_resource type="Texture2D" uid="uid://c7q0e0bgpkdmp" path="res://data/common/assets/door/dngn_open_door.png" id="6"]
-[ext_resource type="Texture2D" uid="uid://boem1ahg2qorn" path="res://data/common/assets/stairs/stone_stairs_up.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://y5elsojk3pbf" path="res://data/Module1/levels/assets/wall/wall_brick1_a.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://bqduqfsk12phr" path="res://data/Module1/levels/assets/wall/wall_brick1_b.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cm6tfl3l1htgt" path="res://data/Module1/levels/assets/wall/wall_brick1_e.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://34kh48f4amtn" path="res://data/Module1/levels/assets/wall/wall_brick1_i.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://bjmh23pkpprol" path="res://data/Module1/levels/assets/door/dngn_closed_door.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://c7q0e0bgpkdmp" path="res://data/Module1/levels/assets/door/dngn_open_door.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://boem1ahg2qorn" path="res://data/Module1/levels/assets/stairs/stone_stairs_up.png" id="7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a0an8"]
 texture = ExtResource("1")

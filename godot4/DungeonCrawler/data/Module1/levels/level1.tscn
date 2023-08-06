@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://clkwc86dk4q6j" path="res://engine/level/LevelBase.tscn" id="1_u81uu"]
 [ext_resource type="PackedScene" uid="uid://cqp4qgv44437w" path="res://engine/level/TransitionZone.tscn" id="2_4mukm"]
-[ext_resource type="TileSet" path="res://data/common/levels/ground.tres" id="2_383ed"]
-[ext_resource type="TileSet" uid="uid://nml5ri21p64e" path="res://data/common/levels/walls.tres" id="3_khvnm"]
-[ext_resource type="PackedScene" path="res://data/Module1/units/acid_blob.tscn" id="4_kjjk5"]
+[ext_resource type="TileSet" path="res://data/Module1/levels/ground.tres" id="2_383ed"]
+[ext_resource type="TileSet" uid="uid://dvtac8v35hi6q" path="res://data/Module1/levels/walls.tres" id="3_khvnm"]
+[ext_resource type="PackedScene" uid="uid://cfklw74wmg6js" path="res://tests/files/modules/units/acid_blob.tscn" id="4_kjjk5"]
 
 [node name="Level1" instance=ExtResource("1_u81uu")]
 

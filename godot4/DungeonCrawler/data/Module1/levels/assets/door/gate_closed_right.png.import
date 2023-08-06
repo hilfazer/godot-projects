@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bn3n5icc84hqp"
-path="res://.godot/imported/floor_cobblestone_j.png-c36e35f01ae26259095a874ac7f2e570.ctex"
+uid="uid://cwsi6kvw3hl2d"
+path="res://.godot/imported/gate_closed_right.png-f39c67127e68b1624fa00cbd32b63612.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/common/assets/floor/floor_cobblestone_j.png"
-dest_files=["res://.godot/imported/floor_cobblestone_j.png-c36e35f01ae26259095a874ac7f2e570.ctex"]
+source_file="res://data/Module1/levels/assets/door/gate_closed_right.png"
+dest_files=["res://.godot/imported/gate_closed_right.png-f39c67127e68b1624fa00cbd32b63612.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf8oyso52wokr"
-path="res://.godot/imported/gate_open_left.png-165ece6956716b7eea4c0bae04a79344.ctex"
+uid="uid://bqduqfsk12phr"
+path="res://.godot/imported/wall_brick1_b.png-efa5f99e04bc60ad91658ff02bfc3930.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/common/assets/door/gate_open_left.png"
-dest_files=["res://.godot/imported/gate_open_left.png-165ece6956716b7eea4c0bae04a79344.ctex"]
+source_file="res://data/Module1/levels/assets/wall/wall_brick1_b.png"
+dest_files=["res://.godot/imported/wall_brick1_b.png-efa5f99e04bc60ad91658ff02bfc3930.ctex"]
 
 [params]
 

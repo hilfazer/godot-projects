@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdtxo110y6ims"
-path="res://.godot/imported/ghoul_a.png-bf13cebb74d6b0e1e09ccbbff8ff6cdb.ctex"
+uid="uid://cgq8dg5y031lr"
+path="res://.godot/imported/gate_open_middle.png-70645e90828a017e111b60267eb7c9fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/common/units/ghoul_a.png"
-dest_files=["res://.godot/imported/ghoul_a.png-bf13cebb74d6b0e1e09ccbbff8ff6cdb.ctex"]
+source_file="res://data/Module1/levels/assets/door/gate_open_middle.png"
+dest_files=["res://.godot/imported/gate_open_middle.png-70645e90828a017e111b60267eb7c9fc.ctex"]
 
 [params]
 

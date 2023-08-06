@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://47b5x7ixqdws"
-path="res://.godot/imported/floor_cobblestone_f.png-bbbb6d763332bc87939ccfc24ade3990.ctex"
+uid="uid://c7q0e0bgpkdmp"
+path="res://.godot/imported/dngn_open_door.png-8495381773a0741d5109b7eb54d128c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/common/assets/floor/floor_cobblestone_f.png"
-dest_files=["res://.godot/imported/floor_cobblestone_f.png-bbbb6d763332bc87939ccfc24ade3990.ctex"]
+source_file="res://data/Module1/levels/assets/door/dngn_open_door.png"
+dest_files=["res://.godot/imported/dngn_open_door.png-8495381773a0741d5109b7eb54d128c9.ctex"]
 
 [params]
 

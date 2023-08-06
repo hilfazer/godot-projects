@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://boem1ahg2qorn"
-path="res://.godot/imported/stone_stairs_up.png-b2a496ca18d1718c2e48a23621121171.ctex"
+uid="uid://c4c3yo0dsmerr"
+path="res://.godot/imported/gate_open_right.png-726a5ee1ea3a4b9a4aede02276c177d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/common/assets/stairs/stone_stairs_up.png"
-dest_files=["res://.godot/imported/stone_stairs_up.png-b2a496ca18d1718c2e48a23621121171.ctex"]
+source_file="res://data/Module1/levels/assets/door/gate_open_right.png"
+dest_files=["res://.godot/imported/gate_open_right.png-726a5ee1ea3a4b9a4aede02276c177d2.ctex"]
 
 [params]
 

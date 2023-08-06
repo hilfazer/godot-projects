@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv7ifb4yjdffw"
-path="res://.godot/imported/floor_cobblestone_b.png-014da0b521955d3bd865b874ad976505.ctex"
+uid="uid://bb3ba6owa8yfm"
+path="res://.godot/imported/stone_stairs_down.png-7ac61e19f5c8b8fe50f8710fac33475c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/common/assets/floor/floor_cobblestone_b.png"
-dest_files=["res://.godot/imported/floor_cobblestone_b.png-014da0b521955d3bd865b874ad976505.ctex"]
+source_file="res://data/Module1/levels/assets/stairs/stone_stairs_down.png"
+dest_files=["res://.godot/imported/stone_stairs_down.png-7ac61e19f5c8b8fe50f8710fac33475c.ctex"]
 
 [params]
 

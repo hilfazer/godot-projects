@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bb3ba6owa8yfm"
-path="res://.godot/imported/stone_stairs_down.png-90e240c7197d8b2fe391917669ba558e.ctex"
+uid="uid://boem1ahg2qorn"
+path="res://.godot/imported/stone_stairs_up.png-e6c0befd413ea5ec7bc0e17aecfcfb54.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/common/assets/stairs/stone_stairs_down.png"
-dest_files=["res://.godot/imported/stone_stairs_down.png-90e240c7197d8b2fe391917669ba558e.ctex"]
+source_file="res://data/Module1/levels/assets/stairs/stone_stairs_up.png"
+dest_files=["res://.godot/imported/stone_stairs_up.png-e6c0befd413ea5ec7bc0e17aecfcfb54.ctex"]
 
 [params]
 

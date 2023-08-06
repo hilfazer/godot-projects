@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://clkwc86dk4q6j"]
+[gd_scene load_steps=14 format=3 uid="uid://clkwc86dk4q6j"]
 
 [ext_resource type="Script" path="res://engine/level/LevelBase.gd" id="1"]
 [ext_resource type="Script" path="res://engine/level/Tilemap.gd" id="2"]
+[ext_resource type="TileSet" path="res://data/Module1/levels/ground.tres" id="2_hgf0d"]
 [ext_resource type="Script" path="res://engine/level/FogOfWar.gd" id="3"]
 [ext_resource type="Script" path="res://engine/level/LevelCommands.gd" id="4"]
+[ext_resource type="TileSet" uid="uid://dvtac8v35hi6q" path="res://data/Module1/levels/walls.tres" id="4_xpnw2"]
 [ext_resource type="Script" path="res://engine/level/LevelUnits.gd" id="5"]
 [ext_resource type="Script" path="res://engine/level/LevelItems.gd" id="6"]
 [ext_resource type="Texture2D" uid="uid://boxgb3o5qq2sh" path="res://data/white_square.png" id="7"]
@@ -42,10 +44,12 @@ script = ExtResource("1")
 
 [node name="Ground" type="TileMap" parent="."]
 z_index = -1
+tile_set = ExtResource("2_hgf0d")
 format = 2
 script = ExtResource("2")
 
 [node name="Walls" type="TileMap" parent="."]
+tile_set = ExtResource("4_xpnw2")
 format = 2
 script = ExtResource("2")
 
