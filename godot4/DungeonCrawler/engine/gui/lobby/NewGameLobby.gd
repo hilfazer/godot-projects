@@ -4,7 +4,7 @@ const UnitLineScn            = preload("./UnitLine.tscn")
 const CharacterCreationScn   = preload("res://engine/gui/CharacterCreation.tscn")
 const UnitCreationDataGd    = preload("res://engine/units/UnitCreationData.gd")
 
-var _module : set = setModule
+var module :ModuleState
 
 var _unitsCreationData = []
 var _characterCreationWindow 
@@ -17,7 +17,7 @@ signal unitNumberChanged(newNumber)
 
 
 func _ready():
-	connect("unitNumberChanged", Callable(self, "onUnitNumberChanged"))
+	unitNumberChanged.connect(onUnitNumberChanged)
 
 
 func refreshLobby( clientList ):
@@ -73,7 +73,7 @@ func onCreateCharacterPressed():
 	add_child( _characterCreationWindow )
 	_characterCreationWindow.connect("tree_exited", Callable(self, "removeCharacterCreationWindow"))
 	_characterCreationWindow.connect("madeCharacter", Callable(self, "createCharacter"))
-	_characterCreationWindow.initialize(_module)
+	_characterCreationWindow.initialize(module)
 
 
 func removeCharacterCreationWindow():
@@ -87,10 +87,6 @@ func onUnitNumberChanged( newNumber ):
 	assert(newNumber <= _maxUnits)
 	_unitLimit.setCurrent( newNumber )
 	_createCharacter.disabled = _unitsCreationData.size() == _maxUnits
-
-
-func setModule( module ):
-	_module = module
 
 
 func setMaxUnits( maxUnits ):

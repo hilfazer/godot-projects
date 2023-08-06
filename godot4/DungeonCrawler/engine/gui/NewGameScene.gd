@@ -6,7 +6,7 @@ const NoModuleString    = "..."
 var _module : ModuleState:
 	set(value):
 		_module = value
-		$"Lobby".setModule( value )
+		$"Lobby".module = value
 
 
 signal readyForGame( module, playerUnitCreationData )
@@ -15,8 +15,8 @@ signal finished()
 
 func _ready():
 	moduleSelected( $"ModuleSelection/FileName".text )
-# warning-ignore:return_value_discarded
-	$"Lobby".connect("unitNumberChanged", Callable(self, "onUnitNumberChanged"))
+	$"Lobby".unitNumberChanged.connect(onUnitNumberChanged)
+
 
 func _input( event ):
 	if event.is_action_pressed("ui_cancel"):
