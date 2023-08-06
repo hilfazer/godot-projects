@@ -1,12 +1,17 @@
 extends Control
 
+const UnitsManagerGd = preload("res://engine/gui/units_creation/units_manager.gd")
+
 const ModuleExtensions       = ["tres"]
-const NoModuleString    = "..."
+const NoModuleString         = "..."
 
 var _module :ModuleState:
 	set(value):
 		_module = value
-		$"Lobby".module = value
+		_units_manager.module = value
+
+@onready var _file_name      :LineEdit = $"ModuleSelection/FileName"
+@onready var _units_manager  :UnitsManagerGd = $"UnitsManager"
 
 
 signal readyForGame( module, playerUnitCreationData )
@@ -14,8 +19,8 @@ signal finished()
 
 
 func _ready():
-	moduleSelected( $"ModuleSelection/FileName".text )
-	$"Lobby".unitNumberChanged.connect(onUnitNumberChanged)
+	moduleSelected( _file_name.text )
+	_units_manager.unitNumberChanged.connect(onUnitNumberChanged)
 
 
 func _input( event ):
@@ -47,8 +52,8 @@ func moduleSelected( module_data_path : String ):
 	
 	_module = ModuleState.new( module_data )
 	
-	$"ModuleSelection/FileName".text = module_data_path
-	$"Lobby".max_units = _module.data().unit_max
+	_file_name.text = module_data_path
+	_units_manager.max_units = _module.data().unit_max
 
 
 func get_module() -> ModuleState:
@@ -61,10 +66,10 @@ func onUnitNumberChanged( number : int ):
 
 
 func clear():
-	$"ModuleSelection/FileName".text = NoModuleString
+	_file_name.text = NoModuleString
 	_module = null
-	$"Lobby".clearUnits()
+	_units_manager.clearUnits()
 
 
 func onStartGamePressed():
-	readyForGame.emit(_module , $"Lobby"._unitsCreationData)
+	readyForGame.emit(_module , _units_manager._unitsCreationData)

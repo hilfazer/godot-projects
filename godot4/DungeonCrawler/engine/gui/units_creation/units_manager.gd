@@ -2,22 +2,22 @@ extends Panel
 
 const UnitLineScn            = preload("./UnitLine.tscn")
 const CharacterCreationScn   = preload("res://engine/gui/CharacterCreation.tscn")
-const UnitCreationDataGd    = preload("res://engine/units/UnitCreationData.gd")
+const UnitCreationDataGd     = preload("res://engine/units/UnitCreationData.gd")
 
 var module :ModuleState
 
 var max_units := 0:
 	set(value):
 		max_units = value
-		$"UnitLimit".setMaximum( value )
+		_unitLimit.setMaximum( value )
 		_createCharacter.disabled = _unitsCreationData.size() == max_units
 
 
 var _unitsCreationData = []
 var _characterCreationWindow 
-@onready var _unitList = $"Players/Scroll/UnitList"
+@onready var _unitList = %"UnitList"
 @onready var _unitLimit = $"UnitLimit"
-@onready var _createCharacter = $"CreateCharacter"
+@onready var _createCharacter = $"CreateCharacterButton"
 
 
 signal unitNumberChanged(newNumber)
@@ -59,7 +59,7 @@ func createCharacter( creation_data : UnitCreationDataGd ):
 
 
 func removeUnit( unitIdx ):
-	_unitsCreationData.remove( unitIdx )
+	_unitsCreationData.remove_at( unitIdx )
 	_unitList.get_child( unitIdx ).queue_free()
 	unitNumberChanged.emit(_unitsCreationData.size())
 
@@ -71,11 +71,15 @@ func onDeleteUnit( unitIdx ):
 func onCreateCharacterPressed():
 	if _characterCreationWindow != null:
 		return
+		
+	if not module:
+		Debug.warn(self, "Mo module selected")
+		return
 
 	_characterCreationWindow = CharacterCreationScn.instantiate()
 	add_child( _characterCreationWindow )
-	_characterCreationWindow.connect("tree_exited", Callable(self, "removeCharacterCreationWindow"))
-	_characterCreationWindow.connect("madeCharacter", Callable(self, "createCharacter"))
+	_characterCreationWindow.tree_exited.connect(removeCharacterCreationWindow)
+	_characterCreationWindow.madeCharacter.connect(createCharacter)
 	_characterCreationWindow.initialize(module)
 
 

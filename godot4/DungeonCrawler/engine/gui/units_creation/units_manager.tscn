@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://deoiyb3a0cpux"]
+
+[ext_resource type="Script" path="res://engine/gui/units_creation/units_manager.gd" id="1_xgfov"]
+[ext_resource type="Script" path="res://engine/gui/units_creation/UnitLimit.gd" id="2_djiwd"]
+
+[node name="UnitsManager" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -237.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_xgfov")
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 2
+offset_left = 403.0
+offset_right = 940.0
+offset_bottom = 426.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="UnitList" type="VBoxContainer" parent="Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CreateCharacterButton" type="Button" parent="."]
+layout_mode = 0
+anchor_left = 0.2
+anchor_top = 0.92
+anchor_right = 0.4
+anchor_bottom = 0.98
+text = "Create character"
+
+[node name="UnitLimit" type="Label" parent="."]
+layout_mode = 0
+anchor_left = 0.6
+anchor_top = 0.92
+anchor_right = 0.95
+anchor_bottom = 0.98
+script = ExtResource("2_djiwd")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="UnitLimit"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[connection signal="pressed" from="CreateCharacterButton" to="." method="onCreateCharacterPressed" flags=18]

@@ -51,6 +51,6 @@ class UnitCreator extends Node:
 		if new_game_scene.get_module() != null:
 			characterCreation.initialize( new_game_scene.get_module() )
 			var character_data = characterCreation.makeCharacter()
-			new_game_scene.get_node( "Lobby" ).createCharacter( character_data )
+			new_game_scene.get_node( "UnitsManager" ).createCharacter( character_data )
 
 		self.queue_free()
