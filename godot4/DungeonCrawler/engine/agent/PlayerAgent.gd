@@ -2,7 +2,7 @@ extends AgentBase
 class_name PlayerAgent
 
 const LevelLoaderGd          = preload("res://engine/game/LevelLoader.gd")
-const SelectionComponentScn  = preload("res://engine/SelectionComponent.tscn")
+const SelectionComponentScn  = preload("res://engine/units/SelectionComponent.tscn")
 
 @export_file("*FogVision.gd") var fogVisionGd : String
 

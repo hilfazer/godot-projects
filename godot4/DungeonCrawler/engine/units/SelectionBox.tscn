@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://2sq31nr1jesq"]
 
-[ext_resource type="Script" path="res://engine/SelectionBox.gd" id="1"]
+[ext_resource type="Script" path="res://engine/units/SelectionBox.gd" id="1"]
 
 [node name="SelectionBox" type="CanvasLayer"]
 layer = 5

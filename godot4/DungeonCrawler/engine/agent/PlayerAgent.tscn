@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://dbgswgllm70wg"]
 
 [ext_resource type="Script" path="res://engine/agent/PlayerAgent.gd" id="1"]
-[ext_resource type="PackedScene" uid="uid://2sq31nr1jesq" path="res://engine/SelectionBox.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://2sq31nr1jesq" path="res://engine/units/SelectionBox.tscn" id="2"]
+
 
 [node name="PlayerAgent" type="Node"]
 process_mode = 3
