@@ -1,9 +1,8 @@
 extends Node
 class_name ItemBase
 
-const INVALID_ID := ""
 
-@export var _itemID : String = INVALID_ID
+@export var _item_id : StringName = ItemData.INVALID_ID
 
 
 func _init():
@@ -11,7 +10,7 @@ func _init():
 
 
 func _ready():
-	assert(_itemID != INVALID_ID)
+	assert(_item_id != ItemData.INVALID_ID)
 
 
 func _notification(what):
@@ -20,7 +19,7 @@ func _notification(what):
 
 
 func getID() -> String:
-	return _itemID
+	return _item_id
 
 
 func destroy():

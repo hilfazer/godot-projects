@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6l8qpqtjtd3c"]
+
+[ext_resource type="PackedScene" uid="uid://dudgy5v82ea55" path="res://engine/items/item_base.tscn" id="1_2k0ee"]
+[ext_resource type="Texture2D" uid="uid://didt5a8fkilme" path="res://data/Module1/items/helmet_other.png" id="2_rjgjy"]
+
+[node name="Helmet" instance=ExtResource("1_2k0ee")]
+_item_id = &"helmet_barbute"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_rjgjy")

@@ -30,7 +30,7 @@ func setupItemDatabase( errorMessages: Array ) -> void:
 		@warning_ignore("static_called_on_instance")
 		var itemId = findIdInItemFile( itemFile )
 		var noErrors := true
-		if itemId == ItemBase.INVALID_ID:
+		if itemId == ItemData.INVALID_ID:
 			errorMessages.append( "No valid item id in file: %s" % itemFile )
 			noErrors = false
 		if idsToFilepaths.has(itemId):
@@ -56,7 +56,7 @@ static func findIdInItemFile( itemFile: String ) -> String:
 	var packedItem : Resource = load(itemFile)
 	if not packedItem is PackedScene:
 		Debug.error(null, "Resource is not a PackedScene")
-		return ItemBase.INVALID_ID
+		return ItemData.INVALID_ID
 
 	var state = packedItem.get_state()
 	for propIdx in range(0, state.get_node_property_count(rootNodeId) ):
@@ -64,4 +64,4 @@ static func findIdInItemFile( itemFile: String ) -> String:
 		if pname == ITEM_ID:
 			return state.get_node_property_value(rootNodeId, propIdx)
 
-	return ItemBase.INVALID_ID
+	return ItemData.INVALID_ID

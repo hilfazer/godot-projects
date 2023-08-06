@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dudgy5v82ea55"]
 
-[ext_resource type="Script" path="res://engine/items/ItemBase.gd" id="1"]
+[ext_resource type="Script" path="res://engine/items/item_base.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://diy5jy8yyvner" path="res://data/todo.png" id="2_qo0om"]
 
 [node name="ItemBase" type="Node2D"]
