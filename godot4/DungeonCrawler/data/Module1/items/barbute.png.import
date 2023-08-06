@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://didt5a8fkilme"
-path="res://.godot/imported/helmet_other.png-b0f4ae26011d29e231ea26b2f9c9f81f.ctex"
+uid="uid://lfx4766k2jtb"
+path="res://.godot/imported/barbute.png-b09b3498543dc2b3caddce3c3b772283.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/Module1/items/helmet_other.png"
-dest_files=["res://.godot/imported/helmet_other.png-b0f4ae26011d29e231ea26b2f9c9f81f.ctex"]
+source_file="res://data/Module1/items/barbute.png"
+dest_files=["res://.godot/imported/barbute.png-b09b3498543dc2b3caddce3c3b772283.ctex"]
 
 [params]
 

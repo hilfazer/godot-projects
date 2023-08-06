@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://soepounbb603"]
+
+[ext_resource type="Script" path="res://engine/items/item_armor.gd" id="1_hkse0"]
+
+[resource]
+script = ExtResource("1_hkse0")
+armor = 2
+item_id = &"corinthian_helmet"
+value = 5
+weight = 3

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lfx4766k2jtb"
-path="res://.godot/imported/helmet.png-986b5062fc7517a56df4ebd4baa8bd6f.ctex"
+uid="uid://didt5a8fkilme"
+path="res://.godot/imported/corinthian_helmet.png-670068fff500fa836d59c8434c919ff0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/Module1/items/helmet.png"
-dest_files=["res://.godot/imported/helmet.png-986b5062fc7517a56df4ebd4baa8bd6f.ctex"]
+source_file="res://data/Module1/items/corinthian_helmet.png"
+dest_files=["res://.godot/imported/corinthian_helmet.png-670068fff500fa836d59c8434c919ff0.ctex"]
 
 [params]
 
