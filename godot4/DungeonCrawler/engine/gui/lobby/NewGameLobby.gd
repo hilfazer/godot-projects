@@ -1,10 +1,17 @@
-extends "LobbyBase.gd"
+extends Panel
 
 const UnitLineScn            = preload("./UnitLine.tscn")
 const CharacterCreationScn   = preload("res://engine/gui/CharacterCreation.tscn")
 const UnitCreationDataGd    = preload("res://engine/units/UnitCreationData.gd")
 
 var module :ModuleState
+
+var max_units := 0:
+	set(value):
+		max_units = value
+		$"UnitLimit".setMaximum( value )
+		_createCharacter.disabled = _unitsCreationData.size() == max_units
+
 
 var _unitsCreationData = []
 var _characterCreationWindow 
@@ -20,10 +27,6 @@ func _ready():
 	unitNumberChanged.connect(onUnitNumberChanged)
 
 
-func refreshLobby( clientList ):
-	super.refreshLobby( clientList )
-
-
 func clearUnits():
 	_unitsCreationData.clear()
 	for child in _unitList.get_children():
@@ -33,7 +36,7 @@ func clearUnits():
 
 
 func addUnit( creation_data : UnitCreationDataGd ):
-	if _unitsCreationData.size() >= _maxUnits:
+	if _unitsCreationData.size() >= max_units:
 		return false
 	else:
 		_unitsCreationData.append( creation_data )
@@ -84,12 +87,6 @@ func removeCharacterCreationWindow():
 
 
 func onUnitNumberChanged( newNumber ):
-	assert(newNumber <= _maxUnits)
+	assert(newNumber <= max_units)
 	_unitLimit.setCurrent( newNumber )
-	_createCharacter.disabled = _unitsCreationData.size() == _maxUnits
-
-
-func setMaxUnits( maxUnits ):
-	super.setMaxUnits( maxUnits )
-	_createCharacter.disabled = _unitsCreationData.size() == _maxUnits
-
+	_createCharacter.disabled = _unitsCreationData.size() == max_units

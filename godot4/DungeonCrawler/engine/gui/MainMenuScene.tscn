@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dam76dymdjcbr"]
+[gd_scene load_steps=4 format=3 uid="uid://dam76dymdjcbr"]
 
 [ext_resource type="Script" path="res://engine/gui/MainMenuScene.gd" id="1"]
-[ext_resource type="Script" path="res://engine/gui/PlayerData.gd" id="2"]
 [ext_resource type="Script" path="res://engine/gui/DevButtons.gd" id="3"]
 [ext_resource type="PackedScene" uid="uid://dlqbsn1hmhe40" path="res://engine/gui/LoadGameDialog.tscn" id="4_ebx18"]
 
@@ -36,29 +35,6 @@ text = "Load Game"
 [node name="QuitGame" type="Button" parent="Buttons"]
 layout_mode = 2
 text = "Quit Game"
-
-[node name="PlayerData" type="Panel" parent="."]
-layout_mode = 0
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -92.0
-offset_top = -163.0
-offset_right = 65.0
-offset_bottom = -73.0
-script = ExtResource("2")
-
-[node name="Name" type="LineEdit" parent="PlayerData"]
-layout_mode = 0
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -62.5
-offset_top = -8.0
-offset_right = 59.5
-offset_bottom = 16.0
 
 [node name="DevButtons" type="VBoxContainer" parent="."]
 layout_mode = 0
