@@ -1,7 +1,7 @@
 extends CanvasItem
 
-const GraphBuilderGd         = preload("./collision_graph_builder.gd")
-const UnitGd                 = preload("res://old_builder/Unit.gd")
+const GraphBuilderGd         = preload("res://new_builder/collision_graph_builder.gd")
+const UnitGd                 = preload("./Unit.gd")
 const SectorGd               = preload("res://old_builder/Sector.gd")
 
 @export var _drawEdges := false

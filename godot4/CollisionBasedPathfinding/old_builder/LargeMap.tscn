@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://old_builder/LargeMap.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://b4j3av5846ew8" path="res://icon.png" id="2"]
 [ext_resource type="Script" path="res://old_builder/AStarGraphBuilder.gd" id="3"]
-[ext_resource type="PackedScene" path="res://old_builder/Unit.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://dfe1hcq3yp335" path="res://tests/sandbox/Unit.tscn" id="4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2tce6"]
 texture = ExtResource("2")

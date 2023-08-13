@@ -31,7 +31,7 @@ static func calculateIdsForPoints(
 
 	return pointsToIds
 
-
+# TODO: consider AStarGrid2D instead
 static func createFullyConnectedAStar(
 		pointsData :PointsData, pointsToIds :Dictionary, isDiagonal :bool ) -> AStar2D:
 
