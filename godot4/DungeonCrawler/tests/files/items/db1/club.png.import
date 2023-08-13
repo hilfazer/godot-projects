@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lfx4766k2jtb"
-path="res://.godot/imported/barbute.png-b09b3498543dc2b3caddce3c3b772283.ctex"
+uid="uid://bomkgs08id3uc"
+path="res://.godot/imported/club.png-329208c9f221ac2de1dad5acc7902bf9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/Module1/items/barbute.png"
-dest_files=["res://.godot/imported/barbute.png-b09b3498543dc2b3caddce3c3b772283.ctex"]
+source_file="res://tests/files/items/db1/club.png"
+dest_files=["res://.godot/imported/club.png-329208c9f221ac2de1dad5acc7902bf9.ctex"]
 
 [params]
 

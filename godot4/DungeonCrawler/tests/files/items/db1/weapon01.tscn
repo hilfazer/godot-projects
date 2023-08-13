@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgwaxjmf7ydm"]
+
+[ext_resource type="PackedScene" uid="uid://dudgy5v82ea55" path="res://engine/items/item_base.tscn" id="1_l50c2"]
+
+[node name="ItemBase" instance=ExtResource("1_l50c2")]

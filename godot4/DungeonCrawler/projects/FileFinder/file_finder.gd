@@ -80,5 +80,5 @@ static func find_resources_of_class_name(
 			
 		if split_first_line[1].begins_with(klass_name+'"'):
 			to_return.append(file_path)
-			
+
 	return to_return

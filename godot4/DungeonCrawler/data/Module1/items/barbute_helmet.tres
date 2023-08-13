@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bueffsjaqt58d"]
+
+[ext_resource type="Script" path="res://engine/items/item_armor.gd" id="1_yiqss"]
+
+[resource]
+script = ExtResource("1_yiqss")
+armor = 3
+item_id = &"barbute"
+value = 10
+weight = 3

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bl73mvk44u3ve"]
+
+[ext_resource type="Script" path="res://engine/items/item_weapon.gd" id="1_aaiql"]
+
+[resource]
+script = ExtResource("1_aaiql")
+damage = 1
+item_id = &"club"
+value = 1
+weight = 1
