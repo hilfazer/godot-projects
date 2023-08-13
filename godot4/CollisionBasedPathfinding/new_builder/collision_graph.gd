@@ -37,8 +37,10 @@ func _notification(what):
 
 
 func initializeProbe(shape :RectangleShape2D, mask :int) -> void:
+	@warning_ignore("static_called_on_instance")
 	_probe = _createAndSetupProbe__(shape, mask)
 	add_child(_probe)
+	@warning_ignore("static_called_on_instance")
 	_shapeParams = _createShapeQueryParameters(_probe)
 
 
@@ -46,6 +48,7 @@ func updateGraph(points :Array) -> void:
 	if _probe == null:
 		return
 
+	@warning_ignore("static_called_on_instance")
 	var ED_points = findEnabledAndDisabledPoints(points, _probe, _shapeParams)
 	for pt in ED_points[0]:
 		astar2d.set_point_disabled(_points2ids[pt], false)
@@ -53,6 +56,7 @@ func updateGraph(points :Array) -> void:
 	for pt in ED_points[1]:
 		astar2d.set_point_disabled(_points2ids[pt], true)
 
+	@warning_ignore("static_called_on_instance")
 	var ED_connections = findEnabledAndDisabledConnections(
 			points, ED_points[1], _probe, _shapeParams
 			, _neighbourOffsets, _pointsData.boundingRect)

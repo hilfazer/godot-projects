@@ -5,9 +5,7 @@ const PointsDataGd =         preload("./points_data.gd")
 const GraphGd =              preload("./collision_graph.gd")
 
 const MINIMUM_CELL_SIZE := Vector2(2, 2)
-const ERR_UNINITIALIZED := -1
-const ERR_INCORRECT_MASK := -2
-const ERR_OUTSIDE_TREE := -3
+enum GraphErr { UNINITIALIZED, INCORRECT_MASK, OUTSIDE_TREE }
 
 var _pointsData : PointsDataGd.PointsData
 var _pointsToIds : Dictionary
@@ -29,7 +27,7 @@ func initialize(
 		, boundingRect :Rect2
 		, offset :Vector2 = Vector2()
 		, isDiagonal :bool = false
-		) -> int:
+		) -> Error:
 
 	if _pointsData:
 		_printMessage("%s already initialized", [get_path() if is_inside_tree() else ^""])
@@ -58,10 +56,10 @@ func initialize(
 	return OK
 
 
-func createGraph(unitShape :RectangleShape2D, collisionMask :int) -> int:
+func createGraph(unitShape :RectangleShape2D, collisionMask :int) -> GraphErr:
 	if not _pointsData:
 		_printMessage("can't create a graph - builder was not properly initialized")
-		return ERR_UNINITIALIZED
+		return GraphErr.UNINITIALIZED
 
 	assert(_pointsData)
 	assert(_pointsToIds)
@@ -69,11 +67,11 @@ func createGraph(unitShape :RectangleShape2D, collisionMask :int) -> int:
 
 	if not collisionMask in range(1, 2<<20):
 		_printMessage("can't create a graph - collision mask outside of (%s, %s) range", [1, 2<<20-1])
-		return ERR_INCORRECT_MASK
+		return GraphErr.INCORRECT_MASK
 
 	if not is_inside_tree():
 		_printMessage("can't create a graph - builder is outside of SceneTree")
-		return ERR_OUTSIDE_TREE
+		return GraphErr.OUTSIDE_TREE
 
 	var graph := GraphGd.new(_pointsData, _pointsToIds, _neighbourOffsets)
 	add_child(graph)
