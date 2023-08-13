@@ -9,64 +9,43 @@
 [ext_resource type="Script" path="res://TimeMeasurement/Branchless.gd" id="7"]
 [ext_resource type="Script" path="res://TimeMeasurement/BooleanChoice.gd" id="8"]
 
-[node name="AggregatedMeasurements" type="Node"]
-
-[node name="FunctionCalls" parent="." instance=ExtResource("1")]
-script = ExtResource("2")
-
-[node name="GetNode" parent="." instance=ExtResource("1")]
-offset_left = 609.0
-offset_top = 5.0
-offset_right = -9.0
-offset_bottom = -460.0
+[node name="AggregatedMeasurements" type="GridContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+columns = 3
+
+[node name="GetNode" parent="." instance=ExtResource("1")]
+layout_mode = 2
 script = ExtResource("3")
 
 [node name="Loops" parent="." instance=ExtResource("1")]
-offset_left = 13.6048
-offset_top = 145.524
-offset_right = -604.395
-offset_bottom = -319.476
+layout_mode = 2
 script = ExtResource("4")
 loopCount = 5000
 
 [node name="Arrays" parent="." instance=ExtResource("1")]
-offset_left = 8.0
-offset_top = 322.0
-offset_right = -610.0
-offset_bottom = -143.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 script = ExtResource("5")
 loopCount = 2000000
 
 [node name="Dictionaries" parent="." instance=ExtResource("1")]
-offset_left = 612.0
-offset_top = 416.0
-offset_right = -6.0
-offset_bottom = -49.0001
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 script = ExtResource("6")
 repeat = 5
 
 [node name="Branchless" parent="." instance=ExtResource("1")]
-offset_left = 613.0
-offset_top = 195.0
-offset_right = -5.0
-offset_bottom = -270.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 script = ExtResource("7")
 loopCount = 10000000
 
 [node name="BooleanChoice" parent="." instance=ExtResource("1")]
-offset_left = 7.0
-offset_top = 510.0
-offset_right = -611.0
-offset_bottom = 5.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 script = ExtResource("8")
 loopCount = 1000000
+
+[node name="FunctionCalls" parent="." instance=ExtResource("1")]
+layout_mode = 2
+script = ExtResource("2")
