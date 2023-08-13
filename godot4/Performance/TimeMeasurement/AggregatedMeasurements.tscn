@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://TimeMeasurement/FunctionCalls.gd" id="2"]
 [ext_resource type="Script" path="res://TimeMeasurement/GetNode.gd" id="3"]
 [ext_resource type="Script" path="res://TimeMeasurement/Loops.gd" id="4"]
-[ext_resource type="Script" path="res://TimeMeasurement/Arrays.gd" id="5"]
+[ext_resource type="Script" path="res://TimeMeasurement/Indexing.gd" id="4_jckim"]
 [ext_resource type="Script" path="res://TimeMeasurement/Dictionaries.gd" id="6"]
 [ext_resource type="Script" path="res://TimeMeasurement/Branchless.gd" id="7"]
 [ext_resource type="Script" path="res://TimeMeasurement/BooleanChoice.gd" id="8"]
@@ -26,10 +26,10 @@ layout_mode = 2
 script = ExtResource("4")
 loopCount = 5000
 
-[node name="Arrays" parent="." instance=ExtResource("1")]
+[node name="Indexing" parent="." instance=ExtResource("1")]
 layout_mode = 2
-script = ExtResource("5")
-loopCount = 2000000
+script = ExtResource("4_jckim")
+repeat = 5
 
 [node name="Dictionaries" parent="." instance=ExtResource("1")]
 layout_mode = 2

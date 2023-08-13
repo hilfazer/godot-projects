@@ -7,6 +7,7 @@ func _ready():
 	addMeasure(ArraySingleIndexing.new(), "ArraySingleIndexing")
 	addMeasure(ArrayWithEnumKeys.new(), "ArrayWithEnumKeys")
 	addMeasure(DictionaryWithStringKeys.new(), "DictionaryWithStringKeys")
+	addMeasure(DictionaryWithStringNameKeys.new(), "DictionaryWithStringNameKeys")
 
 
 class BaseWith2DArray extends MeasureBase:
@@ -27,7 +28,8 @@ class ArrayDoubleIndexing extends BaseWith2DArray:
 	func _execute():
 		for i in array.size():
 			for j in array[i].size():
-				var _bag = array[i][j]
+				@warning_ignore("standalone_expression")
+				array[i][j]
 
 
 class ArraySingleIndexing extends BaseWith2DArray:
@@ -35,11 +37,15 @@ class ArraySingleIndexing extends BaseWith2DArray:
 		for i in array.size():
 			var inner : Array = array[i]
 			for j in inner.size():
-				var _bag = inner[j]
+				@warning_ignore("standalone_expression")
+				inner[j]
 
 
 enum Keys { One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten }
-const StringKeys = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten']
+const StringKeys :Array[String] = [
+	'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten']
+const StringNameKeys :Array[StringName] = [
+	&'One', &'Two', &'Three', &'Four', &'Five', &'Six', &'Seven', &'Eight', &'Nine', &'Ten']
 
 
 class ArrayWithEnumKeys extends MeasureBase:
@@ -82,6 +88,30 @@ class DictionaryWithStringKeys extends MeasureBase:
 		keysToCheck.resize(count)
 		for i in count:
 			keysToCheck[i] = StringKeys[ randi() % StringKeys.size() ]
+
+
+	func _execute():
+		for key in keysToCheck:
+			@warning_ignore("standalone_expression")
+			dict[key]
+
+
+class DictionaryWithStringNameKeys extends MeasureBase:
+	var dict := {}
+	var keysToCheck := []
+
+
+	func _init():
+		for i in Keys.size():
+			dict[StringNameKeys[i]] = StringNameKeys[i]
+
+
+	func setLoopCount(count : int):
+		super.setLoopCount(count)
+
+		keysToCheck.resize(count)
+		for i in count:
+			keysToCheck[i] = StringNameKeys[ randi() % StringNameKeys.size() ]
 
 
 	func _execute():
