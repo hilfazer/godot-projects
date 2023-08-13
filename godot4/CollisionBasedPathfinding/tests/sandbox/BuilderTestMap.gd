@@ -2,7 +2,7 @@ extends CanvasItem
 
 const GraphBuilderGd         = preload("res://new_builder/collision_graph_builder.gd")
 const UnitGd                 = preload("./Unit.gd")
-const SectorGd               = preload("res://old_builder/Sector.gd")
+const SectorGd               = preload("./sector.gd")
 
 @export var _drawEdges := false
 @export var _drawPoints := false
@@ -13,10 +13,6 @@ var _graphId : int = -1
 
 
 func _ready():
-	assert(_sector.has_node("GraphBuilder"))
-	assert(_sector.has_node("Unit"))
-	assert(_sector.has_node("Marker2D"))
-
 	var unit : CharacterBody2D = _sector.get_node("Unit")
 	var graphBuilder : GraphBuilderGd = _sector.get_node("GraphBuilder")
 	var step : Vector2 = _sector.step
@@ -33,7 +29,7 @@ func _draw():
 		return
 
 	if _drawPoints:
-		for id in astar.get_points():
+		for id in astar.get_point_ids():
 			draw_circle(astar.get_point_position(id), 1, Color.CYAN)
 
 # TODO draw edges

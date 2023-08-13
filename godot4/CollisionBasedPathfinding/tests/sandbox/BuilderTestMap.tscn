@@ -1,72 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://b3qx0ev3n0huw"]
+[gd_scene load_steps=3 format=3 uid="uid://b3qx0ev3n0huw"]
 
 [ext_resource type="Script" path="res://tests/sandbox/BuilderTestMap.gd" id="1_isvg4"]
-[ext_resource type="Texture2D" uid="uid://b4j3av5846ew8" path="res://icon.png" id="2_jmv8n"]
-[ext_resource type="Script" path="res://old_builder/Sector.gd" id="3_nvl7w"]
-[ext_resource type="Script" path="res://new_builder/collision_graph_builder.gd" id="4_be4io"]
-[ext_resource type="PackedScene" uid="uid://dfe1hcq3yp335" path="res://tests/sandbox/Unit.tscn" id="5_c2a7v"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a0iks"]
-texture = ExtResource("2_jmv8n")
-margins = Vector2i(16, 24)
-texture_region_size = Vector2i(16, 24)
-0:0/next_alternative_id = 8
-0:0/0 = 0
-0:0/1 = 1
-0:0/1/flip_h = true
-0:0/2 = 2
-0:0/2/flip_v = true
-0:0/3 = 3
-0:0/3/flip_h = true
-0:0/3/flip_v = true
-0:0/4 = 4
-0:0/4/transpose = true
-0:0/5 = 5
-0:0/5/flip_h = true
-0:0/5/transpose = true
-0:0/6 = 6
-0:0/6/flip_v = true
-0:0/6/transpose = true
-0:0/7 = 7
-0:0/7/flip_h = true
-0:0/7/flip_v = true
-0:0/7/transpose = true
-
-[sub_resource type="TileSet" id="1"]
-tile_size = Vector2i(16, 24)
-sources/0 = SubResource("TileSetAtlasSource_a0iks")
-
-[sub_resource type="RectangleShape2D" id="2"]
-resource_local_to_scene = true
-size = Vector2(8, 12)
+[ext_resource type="PackedScene" uid="uid://d3dlsod23p5bt" path="res://tests/sandbox/sector.tscn" id="2_frfha"]
 
 [node name="BuilderTestMap" type="Node2D"]
 script = ExtResource("1_isvg4")
 _drawEdges = null
 _drawPoints = true
 
-[node name="Sector1" type="TileMap" parent="."]
-tile_set = SubResource("1")
-format = 2
-layer_0/tile_data = PackedInt32Array(196612, 0, 0, 196631, 0, 0, 262148, 0, 0, 262167, 0, 0, 327684, 0, 0, 327703, 0, 0, 393220, 0, 0, 393239, 0, 0, 458756, 0, 0, 458775, 0, 0, 524292, 0, 0, 524311, 0, 0, 589828, 0, 0, 589847, 0, 0, 655364, 0, 0, 655383, 0, 0, 720900, 0, 0, 720901, 0, 0, 720919, 0, 0, 786436, 0, 0, 786437, 0, 0, 851972, 0, 0)
-script = ExtResource("3_nvl7w")
-step = Vector2(16, 24)
-diagonal = true
+[node name="Sector1" parent="." instance=ExtResource("2_frfha")]
 
-[node name="GraphBuilder" type="Node" parent="Sector1"]
-script = ExtResource("4_be4io")
-
-[node name="Unit" parent="Sector1" instance=ExtResource("5_c2a7v")]
-position = Vector2(226.238, 29.7797)
-
-[node name="CollisionShape2D" parent="Sector1/Unit" index="0"]
-shape = SubResource("2")
-
-[node name="Sprite2D" parent="Sector1/Unit" index="1"]
-position = Vector2(1.46627e-05, 7.15256e-06)
-scale = Vector2(0.221594, 0.346877)
-
-[node name="Marker2D" type="Marker2D" parent="Sector1"]
-position = Vector2(151.395, 124.951)
-
-[editable path="Sector1/Unit"]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(316, 214)
+zoom = Vector2(2, 2)

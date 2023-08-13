@@ -10,15 +10,14 @@ extends TileMap
 @onready var boundingRect := _calculateSectorRect([self])
 
 
-static func _calculateSectorRect( tilemapList : Array ) -> Rect2:
+static func _calculateSectorRect( tilemapList : Array[TileMap] ) -> Rect2:
 	var levelRect : Rect2
 
 	for tilemap in tilemapList:
-		assert(tilemap is TileMap)
 		var usedRect = tilemap.get_used_rect()
-		var tilemapTargetRatio = tilemap.tile_set.tile_size * tilemap.scale
-		usedRect.position *= tilemapTargetRatio
-		usedRect.size *= tilemapTargetRatio
+		var tilemapTargetRatio = Vector2(tilemap.tile_set.tile_size) * tilemap.scale
+		usedRect.position *= Vector2i(tilemapTargetRatio)
+		usedRect.size *= Vector2i(tilemapTargetRatio)
 
 		if not levelRect:
 			levelRect = usedRect

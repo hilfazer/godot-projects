@@ -2,7 +2,7 @@ extends CanvasItem
 
 const GraphBuilderGd         = preload("./AStarGraphBuilder.gd")
 const UnitGd                 = preload("./Unit.gd")
-const SectorGd               = preload("./Sector.gd")
+const SectorGd               = preload("./sector.gd")
 const ObstacleScn            = preload("./Obstacle.tscn")
 const SelectionComponentScn  = preload("./SelectionComponent.tscn")
 
