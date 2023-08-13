@@ -24,5 +24,3 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 border_color = Color(0.580392, 0.580392, 0.580392, 1)
 editor_only = false
-
-[connection signal="pressed" from="Run" to="." method="run" flags=3]
