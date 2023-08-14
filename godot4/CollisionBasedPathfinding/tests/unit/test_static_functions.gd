@@ -2,6 +2,7 @@ extends "res://tests/gut_test_base.gd"
 
 const AStarBuilderGd =       preload("res://new_builder/collision_graph_builder.gd")
 const StaticFunctionsGd =    preload("res://new_builder/static_functions.gd")
+const RectCalcsGd =           preload("res://new_builder/rect_calculations.gd")
 const PointsDataGd =         preload("res://new_builder/points_data.gd")
 
 const PointsData =           PointsDataGd.PointsData
@@ -89,28 +90,3 @@ func test_createFullyConnectedAStar(prm = use_parameters(CreateFullyConnectedASt
 	for i in prm[Index.Points].size():
 		assert_eq(astar.get_point_connections( pts2ids[prm[Index.Points][i]] ).size(),
 				prm[Index.Connections][i])
-
-
-func test_pointsFromRect():
-	var pointsData := PointsData.create(
-			Vector2(20, 20), Rect2(0, 0, 212, 212), Vector2(10, 10))
-	var rect := Rect2(65, 65, 65, 65)
-	var points := StaticFunctionsGd.pointsFromRect( rect, pointsData )
-
-	assert_eq( points.size(), 9 )
-	assert_has( points, Vector2(90, 90) )
-	assert_has( points, Vector2(70, 110) )
-	assert_does_not_have( points, Vector2(130, 130) )
-	assert_does_not_have( points, Vector2(20, 20) )
-
-
-func test_pointsFromRectangles():
-	var pointsData := PointsData.create(
-			Vector2(20, 20), Rect2(0, 0, 212, 212), Vector2(10, 10))
-	var rect1 := Rect2(65, 65, 65, 65)
-	var rect2 := Rect2(-50, 0, 80, 66)
-	var arr = [rect1, rect2]
-	var points := StaticFunctionsGd.pointsFromRectangles( arr, pointsData )
-
-	assert_eq(points.size(), 9 + 3)
-

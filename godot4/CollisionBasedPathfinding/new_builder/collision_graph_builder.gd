@@ -1,6 +1,7 @@
 extends Node
 
 const FunctionsGd =          preload("./static_functions.gd")
+const RectCalcsGd =          preload("res://new_builder/rect_calculations.gd")
 const PointsDataGd =         preload("./points_data.gd")
 const GraphGd =              preload("./collision_graph.gd")
 
@@ -80,7 +81,7 @@ func createGraph(unitShape :RectangleShape2D, collisionMask :int) -> int:
 	graph.initializeProbe(unitShape, collisionMask)
 
 	graph.updateGraph( \
-			FunctionsGd.pointsFromRectangles([_pointsData.boundingRect], _pointsData).keys())
+			RectCalcsGd.pointsFromRectangles([_pointsData.boundingRect], _pointsData).keys())
 
 	var id = _last_used_graph_id + 1
 	_last_used_graph_id += 1

@@ -2,6 +2,7 @@ extends "res://tests/gut_test_base.gd"
 
 const GraphGd =              preload("res://new_builder/collision_graph.gd")
 const FunctionsGd =          preload("res://new_builder/static_functions.gd")
+const RectCalcsGd =           preload("res://new_builder/rect_calculations.gd")
 const PointsDataGd =         preload("res://new_builder/points_data.gd")
 const TestingFunctionsGd =   preload("../files/TestingFunctions.gd")
 
@@ -69,7 +70,7 @@ func test_updateGraph():
 	var mask = 1
 	graph.initializeProbe(shape, mask)
 
-	var points = FunctionsGd.pointsFromRect(pointsData.boundingRect, pointsData)
+	var points = RectCalcsGd.pointsFromRect(pointsData.boundingRect, pointsData)
 	graph.updateGraph(points)
 
 	var hasAnyDisabled = false
@@ -96,7 +97,7 @@ func test_findEnabledAndDisabledConnections():
 	var mask = 1
 	graph.initializeProbe(shape, mask)
 
-	var points = FunctionsGd.pointsFromRect(pointsData2.boundingRect, pointsData2)
+	var points = RectCalcsGd.pointsFromRect(pointsData2.boundingRect, pointsData2)
 	var fullConnectionCount = TestingFunctionsGd.calculateEdgeCountInRect(
 			pointsData2.xCount, pointsData2.yCount, true)
 
