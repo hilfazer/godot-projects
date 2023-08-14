@@ -4,16 +4,16 @@ const FunctionsGd =          preload("./static_functions.gd")
 const PointsDataGd =         preload("./points_data.gd")
 const GraphGd =              preload("./collision_graph.gd")
 
-const MINIMUM_CELL_SIZE := Vector2(2, 2)
-const ERR_UNINITIALIZED := -1
-const ERR_INCORRECT_MASK := -2
-const ERR_OUTSIDE_TREE := -3
+const MINIMUM_CELL_SIZE = Vector2(2, 2)
+const ERR_UNINITIALIZED = -1
+const ERR_INCORRECT_MASK = -2
+const ERR_OUTSIDE_TREE = -3
 
 var _pointsData : PointsDataGd.PointsData
 var _pointsToIds : Dictionary
 var _neighbourOffsets : Array
 
-var _previousGraphId := 0
+var _last_used_graph_id := 0
 var _graphs := {}   # int (id) to Graph
 
 
@@ -82,11 +82,10 @@ func createGraph(unitShape :RectangleShape2D, collisionMask :int) -> int:
 	graph.updateGraph( \
 			FunctionsGd.pointsFromRectangles([_pointsData.boundingRect], _pointsData).keys())
 
-	var id = _previousGraphId + 1
-	_previousGraphId += 1
+	var id = _last_used_graph_id + 1
+	_last_used_graph_id += 1
 	_graphs[id] = graph
-# warning-ignore:return_value_discarded
-	graph.connect("predelete", Callable(self, "_onGraphPredelete").bind(id), CONNECT_ONE_SHOT)
+	graph.predelete.connect(_onGraphPredelete.bind(id), CONNECT_ONE_SHOT)
 	return id
 
 

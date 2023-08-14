@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3 uid="uid://cjkw5w7x41fk5"]
+
+[ext_resource type="Texture2D" uid="uid://b4j3av5846ew8" path="res://icon.png" id="1_0cyhw"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8x5q6"]
+texture = ExtResource("1_0cyhw")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+1:1/0/modulate = Color(0.411765, 0.164706, 0.0705882, 1)
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_fwlp0"]
+sources/0 = SubResource("TileSetAtlasSource_8x5q6")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dp3tn"]
+texture = ExtResource("1_0cyhw")
+texture_region_size = Vector2i(32, 16)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+0:1/0/modulate = Color(0.0823529, 0.321569, 0.317647, 1)
+1:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_r65ne"]
+tile_size = Vector2i(32, 16)
+sources/0 = SubResource("TileSetAtlasSource_dp3tn")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_btfvx"]
+texture = ExtResource("1_0cyhw")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/modulate = Color(0.290196, 0.619608, 0.12549, 1)
+
+[sub_resource type="TileSet" id="TileSet_4ysdl"]
+tile_size = Vector2i(64, 64)
+sources/1 = SubResource("TileSetAtlasSource_btfvx")
+
+[node name="tilemaps_for_rect_calculation" type="Node"]
+
+[node name="16" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_fwlp0")
+format = 2
+layer_0/tile_data = PackedInt32Array(-131074, 65536, 1, -65538, 65536, 1, -2, 65536, 1, 65534, 65536, 1, 131070, 65536, 1, 196606, 65536, 1)
+
+[node name="32_16" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_r65ne")
+format = 2
+layer_0/tile_data = PackedInt32Array(-65535, 0, 1, 1, 0, 1, 65537, 0, 1, 131070, 0, 1)
+
+[node name="64" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_4ysdl")
+format = 2
+layer_0/tile_data = PackedInt32Array(65536, 1, 0)

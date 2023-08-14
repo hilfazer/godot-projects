@@ -94,7 +94,7 @@ func test_createGraph():
 	assert(result == OK)
 	var graphId :int = builder.createGraph(RectangleShape2D.new(), 1)
 	assert_gt(graphId, 0)
-	assert_eq(builder._previousGraphId, graphId)
+	assert_eq(builder._last_used_graph_id, graphId)
 	assert_has(builder._graphs, graphId)
 
 	var astar : AStar2D = builder.getAStar2D(graphId)

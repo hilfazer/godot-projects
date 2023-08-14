@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://ciqo0y1prtmxf"]
+
+[ext_resource type="PackedScene" uid="uid://d3dlsod23p5bt" path="res://tests/sandbox/sector.tscn" id="1_jwqkn"]
+[ext_resource type="Texture2D" uid="uid://b4j3av5846ew8" path="res://icon.png" id="2_cuecb"]
+
+[sub_resource type="GDScript" id="GDScript_hvibi"]
+script/source = "extends Node2D
+
+const GraphBuilderGd         = preload(\"res://new_builder/collision_graph_builder.gd\")
+
+
+@onready var _graphBuilder : GraphBuilderGd = $'Sector/GraphBuilder'
+
+
+"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uj3wy"]
+texture = ExtResource("2_cuecb")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_rp2hi"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_uj3wy")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qp60e"]
+resource_local_to_scene = true
+size = Vector2(8, 12)
+
+[node name="large_map" type="Node2D"]
+script = SubResource("GDScript_hvibi")
+
+[node name="Sector1" parent="." instance=ExtResource("1_jwqkn")]
+position = Vector2(-13, -12)
+tile_set = SubResource("TileSet_rp2hi")
+layer_0/tile_data = PackedInt32Array(1966126, 0, 0, -983056, 0, 0)
+step = Vector2(64, 64)
+
+[node name="CollisionShape2D" parent="Sector1/Unit" index="0"]
+shape = SubResource("RectangleShape2D_qp60e")
+
+[editable path="Sector1"]
+[editable path="Sector1/Unit"]
