@@ -1,15 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3qx0ev3n0huw"]
+[gd_scene load_steps=4 format=3 uid="uid://b3qx0ev3n0huw"]
 
 [ext_resource type="Script" path="res://tests/sandbox/BuilderTestMap.gd" id="1_isvg4"]
 [ext_resource type="PackedScene" uid="uid://d3dlsod23p5bt" path="res://tests/sandbox/sector.tscn" id="2_frfha"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4snm"]
+resource_local_to_scene = true
+size = Vector2(8, 12)
+
 [node name="BuilderTestMap" type="Node2D"]
 script = ExtResource("1_isvg4")
-_drawEdges = null
 _drawPoints = true
 
 [node name="Sector1" parent="." instance=ExtResource("2_frfha")]
 
+[node name="CollisionShape2D" parent="Sector1/Unit" index="0"]
+shape = SubResource("RectangleShape2D_p4snm")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(316, 214)
-zoom = Vector2(2, 2)
+
+[editable path="Sector1"]
+[editable path="Sector1/Unit"]

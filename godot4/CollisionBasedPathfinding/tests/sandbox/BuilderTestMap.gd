@@ -4,27 +4,42 @@ const GraphBuilderGd         = preload("res://new_builder/collision_graph_builde
 const UnitGd                 = preload("./Unit.gd")
 const SectorGd               = preload("./sector.gd")
 
-@export var _drawEdges := false
 @export var _drawPoints := false
 
 var _astarDataDict := {}
-@onready var _sector = $"Sector1"
 var _graphId : int = -1
+var _path : PackedVector2Array
+
+@onready var _sector :SectorGd = $"Sector1"
+@onready var _unit :UnitGd = $"Sector1/Unit"
+@onready var graph_builder :GraphBuilderGd = $"Sector1/GraphBuilder"
 
 
 func _ready():
-	var unit : CharacterBody2D = _sector.get_node("Unit")
-	var graphBuilder : GraphBuilderGd = _sector.get_node("GraphBuilder")
-	var step : Vector2 = _sector.step
+	var graphBuilder :GraphBuilderGd = _sector.get_node("GraphBuilder")
+	var step :Vector2 = _sector.step
 	var boundingRect = GraphBuilderGd.calculateRectFromTilemaps([_sector], step)
 
-	graphBuilder.initialize(step, boundingRect, _sector.pointsOffset, _sector.diagonal)
+	var err = graphBuilder.initialize(step, boundingRect, _sector.pointsOffset, _sector.diagonal)
+	assert(err == OK)
 	var mask = 2
-	_graphId = graphBuilder.createGraph(_sector.get_node("Unit/CollisionShape2D").shape, mask)
+	_graphId = graphBuilder.createGraph(_unit.get_node("CollisionShape2D").shape, mask)
+	
+
+
+func _unhandled_input(event :InputEvent) -> void:
+	if event is InputEventMouse:
+		var newPath := _findPath(_sector)
+		if newPath != _path:
+			_path = newPath
+			queue_redraw()
+
+	if event.is_action_pressed("moveUnit") and _path:
+		_unit.followPath(_path)
 
 
 func _draw():
-	var astar : AStar2D = _sector.get_node("GraphBuilder").getAStar2D(_graphId)
+	var astar :AStar2D = graph_builder.getAStar2D(_graphId)
 	if astar == null:
 		return
 
@@ -32,8 +47,14 @@ func _draw():
 		for id in astar.get_point_ids():
 			draw_circle(astar.get_point_position(id), 1, Color.CYAN)
 
-# TODO draw edges
-#	if _drawEdges:
-#		for id in astar.get_points():
-#			draw_circle(astar.get_point_position(id), 1, Color.cyan)
 
+func _findPath(sector : SectorGd) -> PackedVector2Array:
+	var path := PackedVector2Array()
+	path.resize(0)
+	var astar : AStar2D = graph_builder.getAStar2D(_graphId)
+	var startPoint = _unit.global_position
+	var endPoint = get_viewport().get_mouse_position()
+	var startId = astar.get_closest_point( Vector2(startPoint.x, startPoint.y) )
+	var endId = astar.get_closest_point( Vector2(endPoint.x, endPoint.y) )
+	path = astar.get_point_path(startId, endId)
+	return path
