@@ -4,7 +4,8 @@ const GraphBuilderGd         = preload("res://new_builder/collision_graph_builde
 const UnitGd                 = preload("./Unit.gd")
 const SectorGd               = preload("./sector.gd")
 
-@export var _drawPoints := false
+@export var _draw_points := true
+@export var _draw_path := true
 
 var _astarDataDict := {}
 var _graphId : int = -1
@@ -43,9 +44,12 @@ func _draw():
 	if astar == null:
 		return
 
-	if _drawPoints:
+	if _draw_points:
 		for id in astar.get_point_ids():
 			draw_circle(astar.get_point_position(id), 1, Color.CYAN)
+			
+	if _draw_path:
+		draw_polyline(_path, Color.YELLOW, 1.2)
 
 
 func _findPath(sector : SectorGd) -> PackedVector2Array:
