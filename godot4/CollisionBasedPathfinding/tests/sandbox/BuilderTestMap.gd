@@ -7,7 +7,6 @@ const SectorGd               = preload("./sector.gd")
 @export var _draw_points := true
 @export var _draw_path := true
 
-var _astarDataDict := {}
 var _graphId : int = -1
 var _path : PackedVector2Array
 
@@ -30,7 +29,7 @@ func _ready():
 
 func _unhandled_input(event :InputEvent) -> void:
 	if event is InputEventMouse:
-		var newPath := _findPath(_sector)
+		var newPath := _findPath()
 		if newPath != _path:
 			_path = newPath
 			queue_redraw()
@@ -40,6 +39,8 @@ func _unhandled_input(event :InputEvent) -> void:
 
 
 func _draw():
+	draw_circle(get_global_mouse_position(), 2, Color.CRIMSON)
+	
 	var astar :AStar2D = graph_builder.getAStar2D(_graphId)
 	if astar == null:
 		return
@@ -48,16 +49,16 @@ func _draw():
 		for id in astar.get_point_ids():
 			draw_circle(astar.get_point_position(id), 1, Color.CYAN)
 			
-	if _draw_path:
+	if _draw_path and _path.size() > 1:
 		draw_polyline(_path, Color.YELLOW, 1.2)
 
 
-func _findPath(sector : SectorGd) -> PackedVector2Array:
+func _findPath() -> PackedVector2Array:
 	var path := PackedVector2Array()
 	path.resize(0)
 	var astar : AStar2D = graph_builder.getAStar2D(_graphId)
 	var startPoint = _unit.global_position
-	var endPoint = get_viewport().get_mouse_position()
+	var endPoint = get_global_mouse_position()
 	var startId = astar.get_closest_point( Vector2(startPoint.x, startPoint.y) )
 	var endId = astar.get_closest_point( Vector2(endPoint.x, endPoint.y) )
 	path = astar.get_point_path(startId, endId)

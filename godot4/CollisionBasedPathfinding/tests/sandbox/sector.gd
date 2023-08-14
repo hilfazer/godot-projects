@@ -10,7 +10,7 @@ extends TileMap
 @onready var boundingRect := _calculateSectorRect([self])
 
 
-static func _calculateSectorRect( tilemapList : Array[TileMap] ) -> Rect2:
+func _calculateSectorRect( tilemapList : Array[TileMap] ) -> Rect2:
 	var levelRect : Rect2
 
 	for tilemap in tilemapList:
