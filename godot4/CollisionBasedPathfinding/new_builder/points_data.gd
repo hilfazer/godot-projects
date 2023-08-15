@@ -2,17 +2,11 @@ extends RefCounted
 
 
 class PointsData:
-# warning-ignore:unused_class_variable
 	var topLeftPoint : Vector2
-# warning-ignore:unused_class_variable
 	var xCount : int
-# warning-ignore:unused_class_variable
 	var yCount : int
-# warning-ignore:unused_class_variable
 	var step : Vector2
-# warning-ignore:unused_class_variable
 	var offset : Vector2
-# warning-ignore:unused_class_variable
 	var boundingRect : Rect2
 
 	static func create( step_ : Vector2, rect : Rect2, offset_ : Vector2 = Vector2() ) -> PointsData:
