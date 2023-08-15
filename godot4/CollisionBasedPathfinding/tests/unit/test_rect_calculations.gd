@@ -35,10 +35,10 @@ func test_pointsFromRectangles():
 
 class TestRectFromTilemaps extends "res://tests/gut_test_base.gd":
 	const Params := [
-		[ Vector2i(16, 16), ["16", "32_16", "64"], Rect2(-4, -3, 8, 11) ],
-		[ Vector2i(16, 16), ["16", "32_16"], Rect2(-4, -3, 8, 6) ],
-		[ Vector2i(32, 32), ["16", "32_16", "64"], Rect2(0, 2, 2, 2) ],
-		[ Vector2i(1, 1), [], Rect2(0, 0, 0, 0) ],
+		[ Vector2i(16, 16), ["16", "32_16", "64"], Rect2i(-64, -48, 128, 176) ],
+		[ Vector2i(16, 16), ["16", "32_16"], Rect2i(-64, -48, 128, 96) ],
+		[ Vector2i(32, 32), ["16", "32_16", "64"], Rect2i(0, 64, 64, 64) ],
+		[ Vector2i(1, 1), [], Rect2i(0, 0, 0, 0) ],
 	]
 
 	func test_calculate_rect_from_tilemaps( prm = use_parameters(Params) ):
@@ -49,6 +49,7 @@ class TestRectFromTilemaps extends "res://tests/gut_test_base.gd":
 			tilemaps.append(scene.get_node(map_name))
 
 		var rect = RectCalcsGd.calculate_rect_from_tilemaps(tilemaps, prm[0])
+		assert_typeof(rect, TYPE_RECT2I)
 		assert_eq(rect, prm[2])
 
 

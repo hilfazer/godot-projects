@@ -11,9 +11,9 @@ func _init():
 
 
 static func calculate_rect_from_tilemaps(
-	tilemap_list :Array[TileMap], target_cell_size :Vector2i ) -> Rect2:
+	tilemap_list :Array[TileMap], target_cell_size :Vector2i ) -> Rect2i:
 	
-	var tilemap_rect :Rect2
+	var rect := Rect2i()
 
 	for tilemap in tilemap_list:
 		assert(tilemap.scale == Vector2.ONE, "only supports scale of (1, 1)")
@@ -26,12 +26,14 @@ static func calculate_rect_from_tilemaps(
 		used_rect.position = used_rect.position * target_ratio
 		used_rect.size = used_rect.size * target_ratio
 
-		if tilemap_rect == Rect2():
-			tilemap_rect = used_rect
+		if rect == Rect2i():
+			rect = used_rect
 		else:
-			tilemap_rect = tilemap_rect.merge(used_rect)
+			rect = rect.merge(used_rect)
 
-	return tilemap_rect
+	rect.position *= target_cell_size
+	rect.size *= target_cell_size
+	return rect
 
 
 
