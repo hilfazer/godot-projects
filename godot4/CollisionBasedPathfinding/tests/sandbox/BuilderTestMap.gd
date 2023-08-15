@@ -18,7 +18,7 @@ var _path : PackedVector2Array
 func _ready():
 	var graphBuilder :GraphBuilderGd = _sector.get_node("GraphBuilder")
 	var step :Vector2 = _sector.step
-	var boundingRect = GraphBuilderGd.calculate_rect_from_tilemaps([_sector], step)
+	var boundingRect := GraphBuilderGd.calculate_rect_from_tilemaps([_sector], step)
 
 	var err = graphBuilder.initialize(step, boundingRect, _sector.pointsOffset, _sector.diagonal)
 	assert(err == OK)

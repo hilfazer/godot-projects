@@ -35,10 +35,10 @@ func test_pointsFromRectangles():
 
 class TestRectFromTilemaps extends "res://tests/gut_test_base.gd":
 	const Params := [
-		[ Vector2i(16, 16), ["16", "32_16", "64"], Rect2i(-64, -48, 128, 176) ],
-		[ Vector2i(16, 16), ["16", "32_16"], Rect2i(-64, -48, 128, 96) ],
-		[ Vector2i(32, 32), ["16", "32_16", "64"], Rect2i(0, 64, 64, 64) ],
-		[ Vector2i(1, 1), [], Rect2i(0, 0, 0, 0) ],
+		[ Vector2i(16, 16), ["16", "32_16", "64"], Rect2i(-64, -48, 129, 177) ],
+		[ Vector2i(16, 16), ["16", "32_16"], Rect2i(-64, -48, 129, 97) ],
+		[ Vector2i(32, 32), ["16", "32_16", "64"], Rect2i(0, 64, 65, 65) ],
+		[ Vector2i(1, 1), [], Rect2i(0, 0, 1, 1) ],
 	]
 
 	func test_calculate_rect_from_tilemaps( prm = use_parameters(Params) ):

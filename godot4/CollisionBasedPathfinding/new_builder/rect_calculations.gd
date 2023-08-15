@@ -33,8 +33,8 @@ static func calculate_rect_from_tilemaps(
 
 	bounding_rect.position *= target_cell_size
 	bounding_rect.size *= target_cell_size
+	bounding_rect.size += Vector2i.ONE
 	return bounding_rect
-
 
 
 static func pointsFromRect( rectangle :Rect2, pointsData :PointsData ) -> Array:
