@@ -1,7 +1,7 @@
 extends Node
 
 const FunctionsGd =          preload("./static_functions.gd")
-const RectCalcsGd =          preload("res://new_builder/rect_calculations.gd")
+const RectCalcsGd =          preload("./rect_calculations.gd")
 const PointsDataGd =         preload("./points_data.gd")
 const GraphGd =              preload("./collision_graph.gd")
 
@@ -102,44 +102,18 @@ func destroyGraph(graphId : int):
 	remove_child(graph)
 
 
+static func calculate_rect_from_tilemaps(
+		tilemap_list :Array[TileMap], target_cell_size :Vector2i ) -> Rect2i:
+
+	return RectCalcsGd.calculate_rect_from_tilemaps(tilemap_list, target_cell_size)
+
+
 func _onGraphPredelete(graphId):
 	emit_signal("graphDestroyed", graphId)
 
 
 func getAStar2D(graphId :int) -> AStar2D:
 	return _graphs[graphId].astar2d if _graphs.has(graphId) else null
-
-
-static func calculateRectFromTilemaps(tilemaps :Array, step :Vector2 = Vector2()) -> Rect2:
-	if tilemaps.size() == 0:
-		return Rect2()
-
-	if step == Vector2():
-		step = tilemaps[0].tile_set.tile_size
-
-	var tileRect : Rect2
-
-	for tilemap in tilemaps:
-		assert(tilemap is TileMap)
-		var usedRect = tilemap.get_used_rect()
-
-		var tilemapTargetRatio = Vector2(tilemap.tile_set.tile_size) / step * tilemap.scale
-		usedRect.position = Vector2i( Vector2(usedRect.position) * tilemapTargetRatio )
-		usedRect.size = Vector2i( Vector2(usedRect.size) * tilemapTargetRatio )
-
-		if tileRect == Rect2():
-			tileRect = usedRect
-		else:
-			tileRect = tileRect.merge(usedRect)
-
-	var boundingRect = Rect2(
-		tileRect.position.x * step.x,
-		tileRect.position.y * step.y,
-		tileRect.size.x * step.x +1,
-		tileRect.size.y * step.y +1
-		)
-
-	return boundingRect
 
 
 func _printMessage( message :String, arguments :Array = []):
