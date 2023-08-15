@@ -63,11 +63,10 @@ static func pointsFromRect( rectangle :Rect2, pointsData :PointsData ) -> Array:
 	return points
 
 
-static func pointsFromRectangles( rectangles :Array, pointsData :PointsData ) -> Dictionary:
+static func pointsFromRectangles( rectangles :Array[Rect2], pointsData :PointsData ) -> Dictionary:
 	var points := {}
 
 	for rect in rectangles:
-		assert( rect is Rect2 )
 		for pt in pointsFromRect(rect, pointsData):
 			points[pt] = true
 

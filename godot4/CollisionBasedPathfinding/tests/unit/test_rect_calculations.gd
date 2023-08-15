@@ -25,7 +25,7 @@ func test_pointsFromRectangles():
 			Vector2(20, 20), Rect2(0, 0, 212, 212), Vector2(10, 10))
 	var rect1 := Rect2(65, 65, 65, 65)
 	var rect2 := Rect2(-50, 0, 80, 66)
-	var arr = [rect1, rect2]
+	var arr :Array[Rect2] = [rect1, rect2]
 	var points := RectCalcsGd.pointsFromRectangles( arr, pointsData )
 
 	assert_eq(points.size(), 9 + 3)
