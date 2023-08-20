@@ -20,6 +20,7 @@ columns = 3
 [node name="GetNode" parent="." instance=ExtResource("1")]
 layout_mode = 2
 script = ExtResource("3")
+repeat = 5
 
 [node name="Loops" parent="." instance=ExtResource("1")]
 layout_mode = 2
