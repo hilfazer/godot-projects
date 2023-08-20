@@ -14,5 +14,8 @@ export_presets.cfg
 data_*/
 mono_crash.*.json
 
+*.exe
+*.pck
+
 
 __not_versioned__/
