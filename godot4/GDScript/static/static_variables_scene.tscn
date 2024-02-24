@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnsgssk7vrx1o"]
+
+[ext_resource type="Script" path="res://static/static_variables_scene.gd" id="1_sg6gg"]
+
+[node name="static_variables_scene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sg6gg")
+
+[node name="Write" type="Button" parent="."]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 94.0
+offset_right = 152.0
+offset_bottom = 160.0
+text = "Write"
+
+[node name="Read" type="Button" parent="."]
+layout_mode = 0
+offset_left = 244.0
+offset_top = 56.0
+offset_right = 320.0
+offset_bottom = 122.0
+text = "Read
+"
+
+[node name="ValueWrite" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 172.0
+offset_right = 146.063
+offset_bottom = 203.0
+
+[node name="ValueRead" type="Label" parent="."]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 137.0
+offset_right = 330.0
+offset_bottom = 160.0
+
+[connection signal="pressed" from="Write" to="." method="_on_write_pressed"]
+[connection signal="pressed" from="Read" to="." method="_on_read_pressed"]
