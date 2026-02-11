@@ -14,4 +14,3 @@ func _create( count : int ) -> int:
 
 func _destroy():
 	dicts.clear()
-
