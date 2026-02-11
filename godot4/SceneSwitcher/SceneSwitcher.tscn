@@ -1,7 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cvicn1371w1jc"]
 
-[ext_resource type="Script" path="res://projects/SceneSwitcher/SceneSwitcher.gd" id="1"]
-
+[ext_resource type="Script" path="res://SceneSwitcher.gd" id="1"]
 
 [sub_resource type="Animation" id="1"]
 resource_local_to_scene = true

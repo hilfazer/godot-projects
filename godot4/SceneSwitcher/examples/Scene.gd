@@ -89,5 +89,3 @@ func _retrieveMeta( meta : String ):
 
 func _retrieveMetaWithScene( _scene, meta : String ):
 	_retrieveMeta( meta )
-
-
