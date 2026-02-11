@@ -102,7 +102,7 @@ func _validateSequence( action : String ):
 	for seqId in m_possibleSequences:
 		if m_sequences[seqId][m_positionInSequence] == action:
 			if m_sequences[seqId].size() == m_positionInSequence + 1:
-				emit_signal( "sequenceDetected", seqId )
+				sequenceDetected.emit(seqId)
 			else:
 				newPossibleSequences.append(seqId)
 
