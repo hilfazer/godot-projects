@@ -109,7 +109,7 @@ static func calculate_rect_from_tilemaps(
 
 
 func _onGraphPredelete(graphId):
-	emit_signal("graphDestroyed", graphId)
+	graphDestroyed.emit(graphId)
 
 
 func getAStar2D(graphId :int) -> AStar2D:

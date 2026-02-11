@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3dlsod23p5bt"]
+[gd_scene load_steps=7 format=4 uid="uid://d3dlsod23p5bt"]
 
 [ext_resource type="Texture2D" uid="uid://b4j3av5846ew8" path="res://icon.png" id="1_hdfq4"]
-[ext_resource type="Script" path="res://tests/sandbox/sector.gd" id="2_8wsiq"]
 [ext_resource type="Script" path="res://new_builder/collision_graph_builder.gd" id="3_odjuj"]
 [ext_resource type="PackedScene" uid="uid://dfe1hcq3yp335" path="res://tests/sandbox/Unit.tscn" id="4_5vi8x"]
 
@@ -39,13 +38,10 @@ sources/0 = SubResource("TileSetAtlasSource_a0iks")
 resource_local_to_scene = true
 size = Vector2(8, 12)
 
-[node name="Sector1" type="TileMap"]
+[node name="Sector1" type="TileMapLayer"]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAEAAMAAAAAAAAAAAAXAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAAXAAQAAAAAAAAAAAAEAAUAAAAAAAAAAAAXAAUAAAAAAAAAAAAEAAYAAAAAAAAAAAAXAAYAAAAAAAAAAAAEAAcAAAAAAAAAAAAXAAcAAAAAAAAAAAAEAAgAAAAAAAAAAAAXAAgAAAAAAAAAAAAEAAkAAAAAAAAAAAAXAAkAAAAAAAAAAAAEAAoAAAAAAAAAAAAXAAoAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAsAAAAAAAAAAAAXAAsAAAAAAAAAAAAEAAwAAAAAAAAAAAAFAAwAAAAAAAAAAAAEAA0AAAAAAAAAAAA=")
 tile_set = SubResource("1")
-format = 2
-layer_0/tile_data = PackedInt32Array(196612, 0, 0, 196631, 0, 0, 262148, 0, 0, 262167, 0, 0, 327684, 0, 0, 327703, 0, 0, 393220, 0, 0, 393239, 0, 0, 458756, 0, 0, 458775, 0, 0, 524292, 0, 0, 524311, 0, 0, 589828, 0, 0, 589847, 0, 0, 655364, 0, 0, 655383, 0, 0, 720900, 0, 0, 720901, 0, 0, 720919, 0, 0, 786436, 0, 0, 786437, 0, 0, 851972, 0, 0)
-script = ExtResource("2_8wsiq")
-step = Vector2(16, 24)
-diagonal = true
 
 [node name="GraphBuilder" type="Node" parent="."]
 script = ExtResource("3_odjuj")

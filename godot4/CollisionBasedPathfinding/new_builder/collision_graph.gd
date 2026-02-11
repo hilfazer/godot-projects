@@ -33,7 +33,7 @@ func _init(
 
 func _notification(what):
 	if what == NOTIFICATION_PREDELETE:
-		emit_signal("predelete")
+		predelete.emit()
 
 
 func initializeProbe(shape :RectangleShape2D, mask :int) -> void:
