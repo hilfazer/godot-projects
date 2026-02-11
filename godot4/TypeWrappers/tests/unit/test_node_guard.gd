@@ -57,4 +57,3 @@ func test_dontFreeNodesInTree():
 static func _guardNode( node : Node ):
 	var guard = NodeGuardGd.new()
 	guard.set_node( node )
-
