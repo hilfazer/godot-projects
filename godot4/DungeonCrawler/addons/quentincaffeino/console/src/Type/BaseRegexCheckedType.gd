@@ -31,5 +31,5 @@ func _reextract(value):
 
 	if rematch and rematch is RegExMatch:
 		return rematch.get_string()
-
-	return null
+	else:
+		return null
