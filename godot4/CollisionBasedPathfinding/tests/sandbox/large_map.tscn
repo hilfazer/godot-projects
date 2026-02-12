@@ -28,8 +28,6 @@ script = SubResource("GDScript_hvibi")
 [node name="Sector1" parent="." instance=ExtResource("1_jwqkn")]
 position = Vector2(-13, -12)
 tile_set = SubResource("TileSet_rp2hi")
-layer_0/tile_data = PackedInt32Array(1966126, 0, 0, -983056, 0, 0)
-step = Vector2(64, 64)
 
 [node name="CollisionShape2D" parent="Sector1/Unit" index="0"]
 shape = SubResource("RectangleShape2D_qp60e")

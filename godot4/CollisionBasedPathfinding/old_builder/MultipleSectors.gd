@@ -115,7 +115,7 @@ static func calculateLevelRect( targetSize : Vector2, tilemapList : Array ) -> R
 	var levelRect : Rect2
 
 	for tilemap in tilemapList:
-		assert(tilemap is TileMap)
+		assert(tilemap is TileMapLayer)
 		var usedRect = tilemap.get_used_rect()
 		var tilemapTargetRatio = tilemap.tile_set.tile_size / targetSize * tilemap.scale
 		usedRect.position *= tilemapTargetRatio

@@ -1,4 +1,4 @@
-extends TileMap
+extends TileMapLayer
 
 # warning-ignore:unused_class_variable
 @export var step := Vector2(32, 32)
@@ -10,7 +10,7 @@ extends TileMap
 @onready var boundingRect := _calculateSectorRect([self])
 
 
-func _calculateSectorRect( tilemapList : Array[TileMap] ) -> Rect2:
+func _calculateSectorRect( tilemapList : Array[TileMapLayer] ) -> Rect2:
 	var levelRect : Rect2
 
 	for tilemap in tilemapList:

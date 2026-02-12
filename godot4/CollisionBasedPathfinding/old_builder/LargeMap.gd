@@ -9,7 +9,7 @@ const CellSize = Vector2(32, 32)
 
 
 func _ready():
-	var sector_map : TileMap = $'Sector'
+	var sector_map : TileMapLayer = $'Sector'
 	var tileRect = calculateLevelRect(CellSize, [sector_map])
 
 	var boundingRect = Rect2(
@@ -28,11 +28,11 @@ func _ready():
 	print('elapsed : %s msec' % (Time.get_ticks_msec() - startTime))
 
 
-static func calculateLevelRect( targetSize : Vector2, tilemapList : Array[TileMap] ) -> Rect2:
+static func calculateLevelRect( targetSize : Vector2, tilemapList : Array[TileMapLayer] ) -> Rect2:
 	var levelRect : Rect2
 
 	for tilemap in tilemapList:
-		assert(tilemap is TileMap)
+		assert(tilemap is TileMapLayer)
 		var usedRect = tilemap.get_used_rect()
 		var tilemapTargetRatio = Vector2(tilemap.tile_set.tile_size) / targetSize * tilemap.scale
 		usedRect.position = Vector2i( Vector2(usedRect.position) * tilemapTargetRatio )
