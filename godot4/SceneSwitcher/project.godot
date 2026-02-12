@@ -12,7 +12,7 @@ config_version=5
 
 config/name="SceneSwitcher"
 run/main_scene="res://examples/Scene1.tscn"
-config/features=PackedStringArray("4.3")
+config/features=PackedStringArray("4.5")
 config/icon="res://icon.png"
 
 [autoload]
