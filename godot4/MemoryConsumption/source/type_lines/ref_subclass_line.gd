@@ -18,5 +18,3 @@ func _destroy():
 
 class MyRef extends RefCounted:
 	pass
-
-

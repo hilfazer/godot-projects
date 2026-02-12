@@ -287,4 +287,3 @@ static func _createAStar(pointsData, pointsToIds):
 	var startTime := Time.get_ticks_msec()
 	var astar = FunctionsGd.createFullyConnectedAStar(pointsData, pointsToIds, true)
 	return Time.get_ticks_msec() - startTime
-

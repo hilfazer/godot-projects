@@ -7,11 +7,6 @@
 script/source = "extends Node2D
 
 const GraphBuilderGd         = preload(\"res://new_builder/collision_graph_builder.gd\")
-
-
-@onready var _graphBuilder : GraphBuilderGd = $'Sector/GraphBuilder'
-
-
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uj3wy"]

@@ -2,7 +2,7 @@ extends Node
 class_name LevelBase
 
 
-@onready var _ground :GenericTilemap = $"Ground"
+@onready var _ground :TileMapLayer = $"Ground"
 @onready var _units  :LevelUnits = $"Units"
 @onready var _items  :LevelItems = $"Items"
 @onready var _fog    :FogOfWar = $"FogOfWar"

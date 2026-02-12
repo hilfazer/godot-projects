@@ -43,4 +43,3 @@ func _unhandled_input(event):
 	get_viewport().set_input_as_handled()
 	if printEvents and event.is_action_type():
 		print_debug(event.as_text())
-

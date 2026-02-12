@@ -18,9 +18,9 @@ func _process(_delta):
 
 func create( count: int ) -> void:
 	var err          = OK
-	var static_start  = Performance.get_monitor(Performance.MEMORY_STATIC)
+	var static_start := Performance.get_monitor(Performance.MEMORY_STATIC)
 
-	var msec = Time.get_ticks_msec()
+	var msec := Time.get_ticks_msec()
 
 	err = _create(count)
 	msec = Time.get_ticks_msec() - msec
@@ -32,7 +32,7 @@ func create( count: int ) -> void:
 	_setConstructionTime(msec)
 	_setObjectCount(count)
 	_setMemoryUsage(
-		Performance.get_monitor(Performance.MEMORY_STATIC) - static_start,
+		int(Performance.get_monitor(Performance.MEMORY_STATIC) - static_start),
 		count
 	)
 
@@ -54,9 +54,9 @@ func _destroy():
 
 
 func _setMemoryUsage( static_usage: int, size_: int ):
-	var total = max(static_usage, 0)
+	var total :int = max(static_usage, 0)
 	$"MemoryTaken".text = String.humanize_size( total )
-	var bytes_per_object = total / float(size_) if size_ != 0 else 0
+	var bytes_per_object = total / float(size_) if size_ != 0 else 0.0
 	$"MemoryPerObject".text = "%.1f B" % bytes_per_object
 
 

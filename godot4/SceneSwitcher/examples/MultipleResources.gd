@@ -8,4 +8,5 @@ func _ready():
 
 
 func _on_Switch_pressed():
+	@warning_ignore("return_value_discarded")
 	SceneSwitcher.switch_scene(nextScene)

@@ -1325,4 +1325,3 @@ func get_post_run_script_instance():
 # ------------------------------------------------------------------------------
 func show_orphans(should):
 	_lgr.set_type_enabled(_lgr.types.orphan, should)
-

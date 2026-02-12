@@ -74,7 +74,7 @@ func _validateSequences( action : String ):
 
 
 	if newPossibleSequences.is_empty():
-		emit_signal("sequenceDetected", m_bestMatch)
+		sequenceDetected.emit(m_bestMatch)
 		reset()
 	else:
 		_timer.start( _timer.wait_time )

@@ -16,4 +16,3 @@ func _destroy():
 	for i in objects.size():
 		objects[i].free()
 	objects.clear()
-

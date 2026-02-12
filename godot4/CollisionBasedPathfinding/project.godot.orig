@@ -12,7 +12,11 @@ config_version=5
 
 config/name="CollisionBasedPathfinding"
 run/main_scene="res://tests/sandbox/BuilderTestMap.tscn"
+<<<<<<< HEAD
+config/features=PackedStringArray("4.2")
+=======
 config/features=PackedStringArray("4.3")
+>>>>>>> version_update
 config/icon="res://icon.png"
 
 [debug]

@@ -111,7 +111,10 @@ func loadGame( filepath : String ):
 	_changeState( State.Creating )
 
 	var result = await _creator.createFromFile( filepath )
-	start() if result == OK else _changeState( previousState )
+	if result == OK:
+		start()
+	else:
+		_changeState( previousState )
 
 
 func start():

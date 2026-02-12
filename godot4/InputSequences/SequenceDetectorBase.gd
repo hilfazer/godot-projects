@@ -3,7 +3,7 @@ extends Node
 var m_consumeInput := true
 var m_actions : = []
 
-#warning-ignore:unused_signal
+@warning_ignore("unused_signal")
 signal sequenceDetected( id )
 
 
@@ -61,5 +61,3 @@ func removeActions( actions : Array[String] ):
 @warning_ignore("unused_parameter")
 func _handleEvent( event ):
 	assert( false )
-
-

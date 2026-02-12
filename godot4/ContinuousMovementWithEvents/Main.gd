@@ -9,5 +9,5 @@ func _notification(what):
 		for action in _actionsToRelease:
 			var ev = InputEventAction.new()
 			ev.action = action
-			ev.button_pressed = false
+			ev.pressed = false
 			Input.parse_input_event(ev)

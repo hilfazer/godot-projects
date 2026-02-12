@@ -12,5 +12,5 @@ func _ready():
 	$"ButtonSubsequence".button_down.connect( \
 		Callable(self, "emit_signal").bind("detectorSelected", SubsequenceDetectorPath) )
 
-	emit_signal("detectorSelected", SubsequenceDetectorPath)
+	detectorSelected.emit(SubsequenceDetectorPath)
 	$"ButtonSubsequence".set_pressed_no_signal( true )

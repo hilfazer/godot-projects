@@ -51,5 +51,3 @@ class TestRectFromTilemaps extends "res://tests/gut_test_base.gd":
 		var rect = RectCalcsGd.calculate_rect_from_tilemaps(tilemaps, prm[0])
 		assert_typeof(rect, TYPE_RECT2I)
 		assert_eq(rect, prm[2])
-
-
