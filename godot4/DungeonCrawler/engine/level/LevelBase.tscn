@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://clkwc86dk4q6j"]
+[gd_scene load_steps=13 format=3 uid="uid://clkwc86dk4q6j"]
 
 [ext_resource type="Script" path="res://engine/level/LevelBase.gd" id="1"]
-[ext_resource type="Script" path="res://engine/level/Tilemap.gd" id="2"]
 [ext_resource type="TileSet" path="res://data/Module1/levels/ground.tres" id="2_hgf0d"]
 [ext_resource type="Script" path="res://engine/level/FogOfWar.gd" id="3"]
 [ext_resource type="Script" path="res://engine/level/LevelCommands.gd" id="4"]
@@ -42,23 +41,20 @@ sources/1 = SubResource("TileSetAtlasSource_serc8")
 [node name="LevelBase" type="Node"]
 script = ExtResource("1")
 
-[node name="Ground" type="TileMap" parent="."]
-z_index = -1
+[node name="Ground" type="TileMapLayer" parent="."]
+use_parent_material = true
 tile_set = ExtResource("2_hgf0d")
-format = 2
-script = ExtResource("2")
 
-[node name="Walls" type="TileMap" parent="."]
+[node name="Walls" type="TileMapLayer" parent="."]
+use_parent_material = true
 tile_set = ExtResource("4_xpnw2")
-format = 2
-script = ExtResource("2")
 
-[node name="FogOfWar" type="TileMap" parent="."]
-z_index = 1
+[node name="FogOfWar" type="TileMapLayer" parent="."]
+use_parent_material = true
 tile_set = SubResource("TileSet_4uajc")
-cell_quadrant_size = 32
-format = 2
+rendering_quadrant_size = 32
 script = ExtResource("3")
+fill_tile = null
 
 [node name="UpdateTimer" type="Timer" parent="FogOfWar"]
 wait_time = 0.2

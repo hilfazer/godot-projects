@@ -1,4 +1,4 @@
-extends TileMap
+extends TileMapLayer
 class_name FogOfWar
 
 enum TileType { Lit, Shaded, Fogged }
@@ -68,7 +68,7 @@ func onVisionChangedPosition( fogVision : FogVisionBase ):
 		_updateTimer.start( _updateTimer.wait_time )
 
 
-func fill_tilemap_area_with_tile( tilemap : TileMap, type : TileType ):
+func fill_tilemap_area_with_tile( tilemap : TileMapLayer, type : TileType ):
 	var typeToId = {
 		  TileType.Lit : lit_tile_id
 		, TileType.Shaded : shaded_tile_id
@@ -168,7 +168,7 @@ static func fogVisionFromNode( node : Node ) -> FogVisionBase:
 	return null
 
 
-static func make_fog_map_rect_from_tilemap( tile_map :TileMap, fog_cell :Vector2i ) -> Rect2i:
+static func make_fog_map_rect_from_tilemap( tile_map :TileMapLayer, fog_cell :Vector2i ) -> Rect2i:
 	if tile_map.tile_set == null:
 		return Rect2i()
 

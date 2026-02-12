@@ -34,10 +34,10 @@ func createFromFile( filePath : String ):
 
 	var module : ModuleState = _game._module
 	if not module:
-		var newModule = _createNewModule( filePath )
-		if newModule != OK:
+		var new_module = _createNewModule( filePath )
+		if new_module != OK:
 			Debug.error( self, "Could not create module from %s" % filePath )
-			return newModule
+			return new_module
 	else:
 		assert( module.moduleMatches( filePath ) )
 		module.loadFromFile( filePath )
