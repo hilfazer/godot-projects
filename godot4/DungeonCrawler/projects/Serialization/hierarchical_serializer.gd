@@ -91,10 +91,10 @@ func save_to_file( filepath : String ) -> Error:
 
 	var dir = DirAccess.open( base_directory )
 	if not dir:
-		var error = dir.make_dir_recursive( base_directory )
-		if error != OK:
+		var make_dir_error = dir.make_dir_recursive( base_directory )
+		if make_dir_error != OK:
 			print( "could not create a directory" )
-			return error
+			return make_dir_error
 
 	var state_to_save = SaveGameFileGd.new()
 
@@ -193,4 +193,3 @@ func deserialize( data : Array, parent : Node ) -> NodeGuardGd:
 
 static func _is_serializable( node : Node ) -> bool:
 	return node.has_method( SERIALIZE ) and node.has_method( DESERIALIZE )
-
