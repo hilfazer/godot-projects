@@ -43,4 +43,3 @@ func _unhandled_input(event):
 func _physics_process(delta):
 	@warning_ignore("return_value_discarded")
 	move_and_collide(_movementVector.normalized() * delta * speed)
-
