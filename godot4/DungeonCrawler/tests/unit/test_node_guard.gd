@@ -1,11 +1,9 @@
 extends "res://tests/gut_test_base.gd"
 
-const NodeGuardGd = preload("res://node_guard.gd")
-
 
 func test_create():
 	var node = Skeleton3D.new()
-	var guard = NodeGuardGd.new( node )
+	var guard = NodeGuard.new( node )
 
 	assert_is( guard, RefCounted )
 	assert_eq( guard.node, node )
@@ -13,14 +11,14 @@ func test_create():
 
 func test_setNode():
 	var node = Skeleton2D.new()
-	var guard = NodeGuardGd.new()
+	var guard = NodeGuard.new()
 	guard.set_node( node )
 	assert_eq( guard.node, node )
 
 
 func test_resetNode():
 	var node1 = SkeletonIK3D.new()
-	var guard = NodeGuardGd.new()
+	var guard = NodeGuard.new()
 	guard.set_node( node1 )
 	var node2 = AnimationPlayer.new()
 	guard.set_node( node2 )
@@ -31,7 +29,7 @@ func test_resetNode():
 
 func test_release():
 	var node1 = Bone2D.new()
-	var guard = NodeGuardGd.new()
+	var guard = NodeGuard.new()
 	guard.set_node( node1 )
 	guard.release()
 	assert_not_freed( node1, "node1" )
@@ -55,5 +53,5 @@ func test_dontFreeNodesInTree():
 
 
 static func _guardNode( node : Node ):
-	var guard = NodeGuardGd.new()
+	var guard = NodeGuard.new()
 	guard.set_node( node )
