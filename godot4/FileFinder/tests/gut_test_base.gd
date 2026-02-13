@@ -22,11 +22,11 @@ func _init():
 func before_each():
 	assert( _filesAtStart.size() == 0 )
 
-	_filesAtStart = _find_files_in_directory( FILES_DIR )
+	_filesAtStart = _findFilesInDirectory( FILES_DIR )
 
 
 func after_each():
-	var filesNow : PackedStringArray = _find_files_in_directory( FILES_DIR )
+	var filesNow : PackedStringArray = _findFilesInDirectory( FILES_DIR )
 	for filePath in filesNow:
 		if not filePath in _filesAtStart:
 			gut.file_delete( filePath )
@@ -38,7 +38,7 @@ func _createDefaultTestFilePath( extension : String ) -> String:
 		+ ("." + extension if extension else "")
 
 
-static func _find_files_in_directory( directoryPath : String ) -> PackedStringArray:
+static func _findFilesInDirectory( directoryPath : String ) -> PackedStringArray:
 	assert( directoryPath )
 
 	var filePaths := PackedStringArray()
@@ -49,7 +49,7 @@ static func _find_files_in_directory( directoryPath : String ) -> PackedStringAr
 	var file : String = dir.get_next()
 	while file != "":
 		if dir.current_is_dir():
-			var subdirFilePaths := _find_files_in_directory( \
+			var subdirFilePaths := _findFilesInDirectory( \
 					dir.get_current_dir().path_join( file) )
 			filePaths.append_array( subdirFilePaths )
 

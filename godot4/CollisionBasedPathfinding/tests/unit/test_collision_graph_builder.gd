@@ -125,5 +125,3 @@ func test_destroyGraph():
 	assert_has_signal(builder, "graphDestroyed")
 	assert_signal_emitted_with_parameters(builder, "graphDestroyed", [graphId])
 	assert_signal_emit_count(builder, "graphDestroyed", 1)
-
-

@@ -22,12 +22,10 @@ func _init():
 func before_each():
 	assert( _filesAtStart.size() == 0 )
 
-	@warning_ignore("static_called_on_instance")
 	_filesAtStart = _findFilesInDirectory( FILES_DIR )
 
 
 func after_each():
-	@warning_ignore("static_called_on_instance")
 	var filesNow : PackedStringArray = _findFilesInDirectory( FILES_DIR )
 	for filePath in filesNow:
 		if not filePath in _filesAtStart:
