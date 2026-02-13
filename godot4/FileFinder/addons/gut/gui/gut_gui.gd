@@ -24,17 +24,10 @@ var _ctrls = {
 	time_label = null,
 	title = null,
 	title_bar = null,
+	tgl_word_wrap = null,		# optional
 }
 
 var _title_mouse = {
-	down = false
-}
-
-var _resize_mouse = {
-	down = false
-}
-
-var _resize_left_mouse = {
 	down = false
 }
 
@@ -50,14 +43,16 @@ func _ready():
 	_ctrls.btn_continue.pressed.connect(_on_continue_pressed)
 	_ctrls.switch_modes.pressed.connect(_on_switch_modes_pressed)
 	_ctrls.title_bar.gui_input.connect(_on_title_bar_input)
-	
+	if(_ctrls.tgl_word_wrap != null):
+		_ctrls.tgl_word_wrap.toggled.connect(_on_word_wrap_toggled)
+
 	_ctrls.prog_script.value = 0
 	_ctrls.prog_test.value = 0
 	_ctrls.path_dir.text = ''
 	_ctrls.path_file.text = ''
 	_ctrls.time_label.text = ''
-	
-	_max_position = DisplayServer.window_get_size() - Vector2i(30, _ctrls.title_bar.size.y)
+
+	_max_position = get_display_size() - Vector2(30, _ctrls.title_bar.size.y)
 
 
 func _process(_delta):
@@ -68,6 +63,10 @@ func _process(_delta):
 # ------------------
 # Private
 # ------------------
+func get_display_size():
+	return get_viewport().get_visible_rect().size
+
+
 func _populate_ctrls():
 	# Brute force, but flexible.  This allows for all the controls to exist
 	# anywhere, and as long as they all have the right name, they will be
@@ -83,6 +82,7 @@ func _populate_ctrls():
 	_ctrls.time_label = _get_first_child_named('TimeLabel', self)
 	_ctrls.title = _get_first_child_named("Title", self)
 	_ctrls.title_bar = _get_first_child_named("TitleBar", self)
+	_ctrls.tgl_word_wrap = _get_first_child_named("WordWrap", self)
 
 
 func _get_first_child_named(obj_name, parent_obj):
@@ -100,7 +100,7 @@ func _get_first_child_named(obj_name, parent_obj):
 			to_return = _get_first_child_named(obj_name, kids[index])
 			if(to_return == null):
 				index += 1
-
+	
 	return to_return
 
 
@@ -161,6 +161,9 @@ func _on_gut_end_pause():
 func _on_switch_modes_pressed():
 	switch_modes.emit()
 
+
+func _on_word_wrap_toggled(toggled):
+	_ctrls.rtl.autowrap_mode = toggled
 # ------------------
 # Public
 # ------------------
@@ -178,7 +181,7 @@ func next_script(path, num_tests):
 	_ctrls.path_file.text = path.get_file()
 
 
-func next_test(test_name):
+func next_test(__test_name):
 	_ctrls.prog_test.value += 1
 
 
@@ -187,6 +190,8 @@ func pause_before_teardown():
 
 
 func set_gut(g):
+	if(_gut == g):
+		return
 	_gut = g
 	g.start_run.connect(_on_gut_start_run)
 	g.end_run.connect(_on_gut_end_run)
@@ -200,6 +205,8 @@ func set_gut(g):
 	g.start_pause_before_teardown.connect(_on_gut_start_pause)
 	g.end_pause_before_teardown.connect(_on_gut_end_pause)
 
+func get_gut():
+	return _gut
 
 func get_textbox():
 	return _ctrls.rtl
@@ -221,12 +228,12 @@ func to_top_left():
 
 
 func to_bottom_right():
-	var win_size = DisplayServer.window_get_size()
-	self.position = win_size - Vector2i(self.size) - Vector2i(5, 5)
+	var win_size = get_display_size()
+	self.position = win_size - Vector2(self.size) - Vector2(5, 5)
 
 
 func align_right():
-	var win_size = DisplayServer.window_get_size()
+	var win_size = get_display_size()
 	self.position.x = win_size.x - self.size.x -5
 	self.position.y = 5
 	self.size.y = win_size.y - 10

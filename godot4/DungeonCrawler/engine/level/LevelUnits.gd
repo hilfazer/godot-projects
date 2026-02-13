@@ -14,7 +14,7 @@ func serialize():
 	var deletedNames := []
 
 	for unitName in _initialUnits:
-		assert( unitName is String )
+		assert( unitName is StringName )
 		var unitOnLevel = get_node_or_null( unitName )
 		if unitOnLevel == null:
 			deletedNames.append( unitName )
@@ -32,4 +32,3 @@ func deserialize( deletedUnits : Array ):
 		if unitOnLevel != null:
 			unitOnLevel.queue_free()
 			remove_child( unitOnLevel )
-

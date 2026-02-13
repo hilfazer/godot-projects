@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=4 uid="uid://d3dlsod23p5bt"]
+[gd_scene load_steps=8 format=4 uid="uid://d3dlsod23p5bt"]
 
 [ext_resource type="Texture2D" uid="uid://b4j3av5846ew8" path="res://icon.png" id="1_hdfq4"]
+[ext_resource type="Script" path="res://tests/sandbox/sector.gd" id="2_iakcd"]
 [ext_resource type="Script" path="res://new_builder/collision_graph_builder.gd" id="3_odjuj"]
 [ext_resource type="PackedScene" uid="uid://dfe1hcq3yp335" path="res://tests/sandbox/Unit.tscn" id="4_5vi8x"]
 
@@ -42,6 +43,7 @@ size = Vector2(8, 12)
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAEAAMAAAAAAAAAAAAXAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAAXAAQAAAAAAAAAAAAEAAUAAAAAAAAAAAAXAAUAAAAAAAAAAAAEAAYAAAAAAAAAAAAXAAYAAAAAAAAAAAAEAAcAAAAAAAAAAAAXAAcAAAAAAAAAAAAEAAgAAAAAAAAAAAAXAAgAAAAAAAAAAAAEAAkAAAAAAAAAAAAXAAkAAAAAAAAAAAAEAAoAAAAAAAAAAAAXAAoAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAsAAAAAAAAAAAAXAAsAAAAAAAAAAAAEAAwAAAAAAAAAAAAFAAwAAAAAAAAAAAAEAA0AAAAAAAAAAAA=")
 tile_set = SubResource("1")
+script = ExtResource("2_iakcd")
 
 [node name="GraphBuilder" type="Node" parent="."]
 script = ExtResource("3_odjuj")

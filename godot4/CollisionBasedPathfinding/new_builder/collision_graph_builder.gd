@@ -103,7 +103,7 @@ func destroyGraph(graphId : int):
 
 
 static func calculate_rect_from_tilemaps(
-		tilemap_list :Array[TileMap], target_cell_size :Vector2i ) -> Rect2i:
+		tilemap_list :Array[TileMapLayer], target_cell_size :Vector2i ) -> Rect2i:
 
 	return RectCalcsGd.calculate_rect_from_tilemaps(tilemap_list, target_cell_size)
 

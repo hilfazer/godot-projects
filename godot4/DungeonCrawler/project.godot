@@ -18,18 +18,22 @@ resources_spreadsheet_view/clip_headers=false
 resources_spreadsheet_view/dupe_arrays=true
 resources_spreadsheet_view/context_menu_on_leftclick=false
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="DungeonCrawler"
 config/version="0.1.0"
 run/main_scene="res://engine/IntroScene.tscn"
-config/features=PackedStringArray("4.3")
+config/features=PackedStringArray("4.6")
 config/icon="res://icon.png"
 
 [autoload]
 
 SceneSwitcher="*res://projects/SceneSwitcher/SceneSwitcher.tscn"
-Console="*res://addons/quentincaffeino/console/src/Console.tscn"
+Console="*uid://wufx2ippa0vr"
 Debug="*res://debug/Debug.tscn"
 Connector="res://engine/Connector.gd"
 

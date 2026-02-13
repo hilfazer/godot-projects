@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bltk82ugk3kdu"]
+[gd_scene format=4 uid="uid://bltk82ugk3kdu"]
 
 [ext_resource type="Texture2D" uid="uid://drol21oxn4sfn" path="res://icon.png" id="1_43opd"]
 
@@ -30,22 +30,20 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_uv1h1")
 
-[node name="fog_of_war_testing_maps" type="Node"]
+[node name="fog_of_war_testing_maps" type="Node" unique_id=1566911654]
 
-[node name="TileMap16" type="TileMap" parent="."]
-visible = false
+[node name="TileMap16" type="TileMapLayer" parent="." unique_id=1532988197]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAACAAIAAQAAAAAAAAACAAMAAQAAAAAAAAACAAQAAQAAAAAAAAADAAIAAQAAAAAAAAAEAAIAAQAAAAAAAAAFAAIAAQAAAAAAAAAGAAIAAQAAAAAAAAADAAQAAQAAAAAAAAAEAAQAAQAAAAAAAAAFAAQAAQAAAAAAAAAGAAQAAQAAAAAAAAAGAAMAAQAAAAAAAAA=")
 tile_set = SubResource("TileSet_6uox2")
-format = 2
-layer_0/tile_data = PackedInt32Array(131074, 1, 0, 196610, 1, 0, 262146, 1, 0, 131075, 1, 0, 131076, 1, 0, 131077, 1, 0, 131078, 1, 0, 262147, 1, 0, 262148, 1, 0, 262149, 1, 0, 262150, 1, 0, 196614, 1, 0)
 
-[node name="TileMap32" type="TileMap" parent="."]
+[node name="TileMap32" type="TileMapLayer" parent="." unique_id=186182994]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAD+////AAAAAAAAAAD+/wAAAAAAAAAAAAD+/wEAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAAAAAAAAAAAAD/////AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_wbecp")
-format = 2
-layer_0/tile_data = PackedInt32Array(-2, 0, 0, 65534, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 0, 0, 0, 65535, 0, 0, -1, 0, 0)
 
-[node name="TileMap32_x2" type="TileMap" parent="."]
-visible = false
+[node name="TileMap32_x2" type="TileMapLayer" parent="." unique_id=1224196591]
+use_parent_material = true
 scale = Vector2(2, 2)
+tile_map_data = PackedByteArray("AAABAP//AAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAACAAEAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_gcflg")
-format = 2
-layer_0/tile_data = PackedInt32Array(-65535, 0, 0, 1, 0, 0, 65537, 0, 0, 131073, 0, 0, 65538, 0, 0)

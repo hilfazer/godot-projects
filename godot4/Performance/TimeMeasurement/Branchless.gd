@@ -41,4 +41,3 @@ class Branchful2 extends MeasureBase:
 				arr[0] += 1
 			else:
 				arr[1] += 1
-

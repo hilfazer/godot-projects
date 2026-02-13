@@ -60,4 +60,3 @@ func _get_file_path( name : String, subdirectory : String ) -> String:
 
 	var full_path :String = resource_path.get_base_dir() + "/" + subdirectory + "/" + name + ".tscn"
 	return full_path if FileAccess.file_exists( full_path ) else ""
-

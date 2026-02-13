@@ -44,7 +44,7 @@ class TestRectFromTilemaps extends "res://tests/gut_test_base.gd":
 	func test_calculate_rect_from_tilemaps( prm = use_parameters(Params) ):
 		var scene :Node = autofree(TilemapsForRectCalculationScn.instantiate())
 		
-		var tilemaps :Array[TileMap] = []
+		var tilemaps :Array[TileMapLayer] = []
 		for map_name in prm[1]:
 			tilemaps.append(scene.get_node(map_name))
 

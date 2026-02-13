@@ -87,8 +87,8 @@ func getFogVisions() -> Array:
 
 
 func serialize():
-	var shadedTiles :Array[Vector2i] = get_used_cells_by_id( 0, _source_id, shaded_tile_id ) + \
-		get_used_cells_by_id( 0, _source_id, lit_tile_id )
+	var shadedTiles :Array[Vector2i] = get_used_cells_by_id( _source_id, shaded_tile_id ) + \
+		get_used_cells_by_id( _source_id, lit_tile_id )
 	var uncoveredArray := []
 
 	for tileCoords in shadedTiles:
@@ -102,7 +102,7 @@ func deserialize( data ):
 	var uncoveredArray : PackedInt32Array = str_to_var( data )
 	for i in uncoveredArray.size() / 2.0:
 		var coords := Vector2i( uncoveredArray[i*2], uncoveredArray[i*2+1] )
-		set_cell( 0, coords, -1, shaded_tile_id )
+		set_cell( coords, -1, shaded_tile_id )
 
 
 func _insertFogVision( fogVision : FogVisionBase ):
@@ -150,15 +150,15 @@ func _setTilesWithVisibilityMap(
 	for x in range( tileRect.position.x, tileRect.size.x + tileRect.position.x):
 		for y in range( tileRect.position.y, tileRect.size.y + tileRect.position.y):
 			if visibiltyMap[mapIdx] != 0:
-				set_cell(layer, Vector2i(x, y), _source_id, tileId)
+				set_cell( Vector2i(x, y), _source_id, tileId )
 			mapIdx += 1
 	pass
 
 
-static func _setTileInRect( tileId : Vector2i, rect : Rect2, fog : TileMap ):
+static func _setTileInRect( tileId : Vector2i, rect : Rect2, fog : TileMapLayer ):
 	for x in range( rect.position.x, rect.size.x + rect.position.x):
 		for y in range( rect.position.y, rect.size.y + rect.position.y):
-			fog.set_cell(layer, Vector2i(x, y), _source_id, tileId)
+			fog.set_cell( Vector2i(x, y), _source_id, tileId )
 
 
 static func fogVisionFromNode( node : Node ) -> FogVisionBase:
