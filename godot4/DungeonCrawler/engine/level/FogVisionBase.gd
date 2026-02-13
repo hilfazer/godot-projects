@@ -19,17 +19,17 @@ func _process( _delta ):
 
 
 func allowInstantiation():
-	assert(false)
+	assert(false) 
 
 
 @warning_ignore("unused_parameter")
-func calculateVisibleTiles( fogOfWar : TileMap ) -> PackedByteArray:
+func calculateVisibleTiles( fogOfWar : TileMapLayer ) -> PackedByteArray:
 	assert( false )
 	return PackedByteArray()
 
 
 @warning_ignore("unused_parameter")
-func boundingRect( fogOfWar : TileMap ) -> Rect2:
+func boundingRect( fogOfWar : TileMapLayer ) -> Rect2:
 	assert( false )
 	return Rect2()
 

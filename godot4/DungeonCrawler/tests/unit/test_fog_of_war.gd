@@ -6,9 +6,9 @@ const FogTestingMaps = preload("res://tests/files/fog_of_war_testing_maps.tscn")
 func test_make_fog_map_rect_from_tilemap():
 	var maps = FogTestingMaps.instantiate()
 	add_child_autofree(maps)
-	var map16    :TileMap = maps.get_node("TileMap16")
-	var map32    :TileMap = maps.get_node("TileMap32")
-	var map32_x2 :TileMap = maps.get_node("TileMap32_x2")
+	var map16    :TileMapLayer = maps.get_node("TileMap16")
+	var map32    :TileMapLayer = maps.get_node("TileMap32")
+	var map32_x2 :TileMapLayer = maps.get_node("TileMap32_x2")
 
 	var rect_map16 :Rect2i = FogOfWar.make_fog_map_rect_from_tilemap( \
 			map16, Vector2i(16, 16) )

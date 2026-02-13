@@ -10,7 +10,7 @@ func allowInstantiation():
 	pass
 
 
-func calculateVisibleTiles(fogOfWar : TileMap ) -> PackedByteArray:
+func calculateVisibleTiles(fogOfWar : TileMapLayer ) -> PackedByteArray:
 	var rect = boundingRect( fogOfWar )
 
 	var uncoveredIndices := PackedByteArray()
@@ -21,7 +21,7 @@ func calculateVisibleTiles(fogOfWar : TileMap ) -> PackedByteArray:
 	return uncoveredIndices
 
 
-func boundingRect( fogOfWar : TileMap ) -> Rect2:
+func boundingRect( fogOfWar : TileMapLayer ) -> Rect2:
 	var rect = Rect2( 0, 0, _side, _side )
 	var pos : Vector2 = fogOfWar.local_to_map( global_position )
 	pos -= _rectOffset
@@ -31,4 +31,3 @@ func boundingRect( fogOfWar : TileMap ) -> Rect2:
 
 func setSide( side : int ):
 	_side = side if side % 2 == 0 else side + 1
-

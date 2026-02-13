@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dihkljfsohetp"]
+[gd_scene format=3 uid="uid://dihkljfsohetp"]
 
-[ext_resource type="Script" path="res://engine/level/FogVisionBase.gd" id="1"]
+[ext_resource type="Script" uid="uid://drg0v88muagt8" path="res://engine/level/FogVisionBase.gd" id="1"]
 
-[node name="FogVision" type="Node2D"]
+[node name="FogVision" type="Node2D" unique_id=1463552584]
 script = ExtResource("1")
