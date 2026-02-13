@@ -46,7 +46,7 @@ class GetNodeNodePath extends BaseWithChild:
 	func _execute():
 		var _a
 		for i in loopCount:
-			_a = get_node("child1/child2/child3/child4").text
+			_a = get_node(^"child1/child2/child3/child4").text
 
 
 class GetNodeDollar extends BaseWithChild:
